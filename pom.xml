@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.nikko.humanize</groupId>
+  <artifactId>humanize</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Humanize for Java</name>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <licenses>
+    <license>
+      <name>Apache License</name>
+      <url>http://www.apache.org/licenses/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <dependencies>
+	  <dependency>
+		  <groupId>org.testng</groupId>
+		  <artifactId>testng</artifactId>
+		  <version>6.5.2</version>
+		  <scope>test</scope>
+	  </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+        <!-- 
+        
+        Parallelization is declared in tests themselves
+        
+        <configuration>
+          <parallel>methods</parallel>
+          <threadCount>10</threadCount>
+        </configuration>
+        -->
+      </plugin>
+    </plugins>
+  </build>
+  
+  <profiles>
+	  <profile>
+	    <id>dist</id>
+	    <build>
+	        <plugins>
+	            <plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+						    <artifactId>maven-jar-plugin</artifactId>
+						    <configuration>
+						        <finalName>${project.artifactId}-${project.version}</finalName>
+						        <outputDirectory>dist</outputDirectory>
+						    </configuration>
+					    </plugin>
+	        </plugins>
+	    </build>
+	  </profile>
+  </profiles>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+</project>

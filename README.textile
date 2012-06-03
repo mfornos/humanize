@@ -1,0 +1,71 @@
+h1. Humanize for Java
+
+Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports (per-thread) internationalization.
+
+h2. Getting Started
+
+The project is not yet available in any Maven public repository, so you can "fork it on Github":https://help.github.com/articles/fork-a-repo or download the jar package from the "project downloads":https://github.com/mfornos/humanize/downloads section.
+
+h2. Runtime Dependencies
+
+Humanize has no runtime dependencies besides JRE 1.6.
+
+h2. Usage
+
+Using Humanize is dead simple. 
+
+# Import the static methods of Humanize class that you plan to call
+# Invoke the methods.
+
+E.g.
+<pre><code>
+ import static org.nikko.humanize.Humanize.binaryPrefix; 
+ 
+ class SomeClass {
+  
+   void doSomething() {
+     
+     String size = binaryPrefix(1325899906842624L);
+  
+  }
+}
+</code></pre>
+
+h2. Principal Methods
+
+All methods support internationalization. The table listings shows outputs for en_GB locale as reference.
+
+h3. Time&Date
+
+|_. Method |_. Description |_. Output |
+| naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted |
+| naturalTime | Computes both past and future relative dates. | 'one day ago', 'one day from now', '10 years ago', '3 minutes from now', 'right now', etc. |
+
+h3. Numbers
+
+|_. Method |_. Description |_. Output |
+| ordinal | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
+| spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. |
+| spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. |
+
+h3. Units
+
+|_. Method |_. Description |_. Output |
+| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5.00 MB', '1.18 PB', etc. |
+| formatCurrency | Smartly formats the given number as a monetary amount. | '£34', '£1,000', '£12.50', etc. |
+
+h3. Text
+
+|_. Method |_. Description |_. Output |
+| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. | - |
+| wordWrap | Truncate a string to the closest word boundary after a number of characters. | - |
+
+h2. Examples
+
+See @src/test/HumanizeTest@ for examples.
+
+
+h2. Epilog
+
+Have fun and stay fresh!
+
