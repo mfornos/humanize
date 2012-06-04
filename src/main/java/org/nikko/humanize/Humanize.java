@@ -474,6 +474,7 @@ public final class Humanize {
 	 * <pre>
 	 * <code>
 	 * Message msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
+	 * 
 	 * msg.render(0, "disk");    // == "There are no files on disk."
 	 * msg.render(1, "disk");    // == "There is one file on disk."
 	 * msg.render(1000, "disk"); // == "There are 1,000 files on disk."
