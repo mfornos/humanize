@@ -21,6 +21,7 @@ import java.util.concurrent.Callable;
 import org.nikko.humanize.spi.Message;
 import org.nikko.humanize.spi.context.Context;
 import org.nikko.humanize.spi.context.ContextFactory;
+import org.nikko.humanize.util.RelativeDate;
 
 /**
  * Facility for adding a "human touch" to data. It is thread-safe and supports
@@ -152,6 +153,29 @@ public final class Humanize {
 		return withinLocale(new Callable<String>() {
 			public String call() {
 				return formatDecimal(value);
+			}
+		}, locale);
+	}
+
+	/**
+	 * TODO doc
+	 * 
+	 * @return
+	 */
+	public static RelativeDate getRelativeDateInstance() {
+		return context.get().getRelativeDate();
+	}
+
+	/**
+	 * TODO doc
+	 * 
+	 * @param locale
+	 * @return
+	 */
+	public static RelativeDate getRelativeDateInstance(final Locale locale) {
+		return withinLocale(new Callable<RelativeDate>() {
+			public RelativeDate call() throws Exception {
+				return context.get().getRelativeDate();
 			}
 		}, locale);
 	}
@@ -456,9 +480,9 @@ public final class Humanize {
 	 *            The operation
 	 * @param Locale
 	 *            The locale
-	 * @return String with the results of the operation
+	 * @return Result of the operation
 	 */
-	private static String withinLocale(Callable<String> operation, Locale locale) {
+	private static <T> T withinLocale(Callable<T> operation, Locale locale) {
 		Context ctx = context.get();
 		Locale oldLocale = ctx.getLocale();
 		try {

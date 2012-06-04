@@ -16,7 +16,7 @@ import org.nikko.humanize.util.SoftHashMap;
  * 
  */
 public class SoftCacheProvider implements CacheProvider {
-	
+
 	private final static Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
 
 	private final static Map<String, Map<Locale, NumberFormat>> numberFormats = new SoftHashMap<String, Map<Locale, NumberFormat>>();

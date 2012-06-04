@@ -1,27 +1,34 @@
 package org.nikko.humanize.util;
 
+import static org.nikko.humanize.util.Constants.EMPTY_STRING;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
+import org.nikko.humanize.spi.Message;
 import org.nikko.humanize.spi.context.Context;
 
 public class RelativeDate {
 
-	public static RelativeDate getInstance(Context context, Locale locale) {
-		return new RelativeDate(context, locale);
+	public static RelativeDate getInstance(Context context) {
+		return new RelativeDate(context);
 	}
 
 	private final Locale locale;
 
-	private final Context context;
+	private final ResourceBundle messages;
+
+	private final Message format;
 
 	private static final String[] units = new String[] { "year", "month", "week", "day", "hour", "minute", "second" };
 
-	private RelativeDate(Context context, Locale locale) {
-		this.locale = locale;
-		this.context = context;
+	private RelativeDate(Context context) {
+		this.locale = context.getLocale();
+		this.messages = context.getBundle();
+		this.format = new Message(EMPTY_STRING, locale);
 	}
 
 	/**
@@ -57,7 +64,6 @@ public class RelativeDate {
 	 *            duration from now
 	 * @return String representing the relative date
 	 */
-
 	public String format(Date duration) {
 		return format(GregorianCalendar.getInstance(locale), getCalendar(duration));
 	}
@@ -82,7 +88,12 @@ public class RelativeDate {
 				return buffer.toString();
 		}
 
-		return context.getMessage("now");
+		return messages.getString("now");
+	}
+
+	private String formatMessage(String key, Object... args) {
+		format.applyPattern(messages.getString(key));
+		return format.render(args);
 	}
 
 	private Calendar getCalendar(Date date) {
@@ -93,15 +104,14 @@ public class RelativeDate {
 
 	private boolean matchUnit(String unit, int delta, StringBuilder buffer) {
 		if (delta == 1)
-			buffer.append(context.getMessage(unit + ".one.from"));
+			buffer.append(formatMessage(unit + ".one.from"));
 		else if (delta == -1)
-			buffer.append(context.getMessage(unit + ".one.ago"));
+			buffer.append(formatMessage(unit + ".one.ago"));
 		else if (delta > 0)
-			buffer.append(context.formatMessage(unit + ".many.from", delta));
+			buffer.append(formatMessage(unit + ".many.from", delta));
 		else if (delta < 0)
-			buffer.append(context.formatMessage(unit + ".many.ago", Math.abs(delta)));
+			buffer.append(formatMessage(unit + ".many.ago", Math.abs(delta)));
 
 		return buffer.length() > 0;
 	}
-
 }

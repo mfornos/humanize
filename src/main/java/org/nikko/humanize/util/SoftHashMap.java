@@ -204,5 +204,5 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V> {
 			hash.remove(sv.key);
 		}
 	}
-	
+
 }

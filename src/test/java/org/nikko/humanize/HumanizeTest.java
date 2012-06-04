@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import org.nikko.humanize.spi.Message;
+import org.nikko.humanize.util.RelativeDate;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -183,9 +184,27 @@ public class HumanizeTest {
 		assertEquals(naturalTime(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
 		assertEquals(naturalTime(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
 		assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
-		
+
 		// within locale
 		assertEquals(naturalTime(new Date(), ES), "justo ahora");
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void relativeDateTest() {
+		RelativeDate relativeDate = getRelativeDateInstance();
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "one day from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 3)), "3 days from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 7 * 3)), "3 weeks from now");
+		assertEquals(relativeDate.format(new Date(2629743830L * 3L), new Date(0)), "3 months ago");
+		assertEquals(relativeDate.format(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
+		assertEquals(relativeDate.format(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
+		assertEquals(relativeDate.format(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
+
+		// within locale
+		relativeDate = getRelativeDateInstance(ES);
+		assertEquals(relativeDate.format(new Date()), "justo ahora");
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)

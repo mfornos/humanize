@@ -65,7 +65,7 @@ public class DefaultContext implements Context {
 	}
 
 	// TODO impl. dateTime with styles...
-	
+
 	public String formatDateTime(Date date) {
 		return getDateTimeFormat().format(date);
 	}
@@ -83,12 +83,19 @@ public class DefaultContext implements Context {
 	public String formatRelativeDate(Date duration) {
 		return getRelativeDate().format(duration);
 	}
-	
+
 	@Override
-    public String formatRelativeDate(Date reference, Date duration) {
+	public String formatRelativeDate(Date reference, Date duration) {
 		return getRelativeDate().format(reference, duration);
-    }
-	
+	}
+
+	public ResourceBundle getBundle() {
+		if (!cache.containsBundle(locale))
+			cache.putBundle(locale, ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control()));
+
+		return cache.getBundle(locale);
+	}
+
 	public NumberFormat getCurrencyFormat() {
 		if (!cache.containsNumberFormat(CURRENCY, locale))
 			cache.putNumberFormat(CURRENCY, locale, NumberFormat.getCurrencyInstance(locale));
@@ -124,7 +131,7 @@ public class DefaultContext implements Context {
 	}
 
 	public RelativeDate getRelativeDate() {
-		return RelativeDate.getInstance(this, locale);
+		return RelativeDate.getInstance(this);
 	}
 
 	public String ordinalSuffix(int index) {
@@ -133,13 +140,6 @@ public class DefaultContext implements Context {
 
 	public void setLocale(Locale locale) {
 		this.locale = locale;
-	}
-
-	private ResourceBundle getBundle() {
-		if (!cache.containsBundle(locale))
-			cache.putBundle(locale, ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control()));
-
-		return cache.getBundle(locale);
 	}
 
 	private String resolveStringArray(String cacheName, int index) {
