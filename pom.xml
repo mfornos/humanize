@@ -18,12 +18,12 @@
   </licenses>
   
   <dependencies>
-	  <dependency>
-		  <groupId>org.testng</groupId>
-		  <artifactId>testng</artifactId>
-		  <version>6.5.2</version>
-		  <scope>test</scope>
-	  </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.5.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <build>
@@ -49,25 +49,25 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <profiles>
-	  <profile>
-	    <id>dist</id>
-	    <build>
-	        <plugins>
-	            <plugin>
-		            <groupId>org.apache.maven.plugins</groupId>
-						    <artifactId>maven-jar-plugin</artifactId>
-						    <configuration>
-						        <finalName>${project.artifactId}-${project.version}</finalName>
-						        <outputDirectory>dist</outputDirectory>
-						    </configuration>
-					    </plugin>
-	        </plugins>
-	    </build>
-	  </profile>
+    <profile>
+      <id>dist</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <finalName>${project.artifactId}-${project.version}</finalName>
+              <outputDirectory>dist</outputDirectory>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
-  
+
   <reporting>
     <plugins>
       <plugin>
@@ -77,5 +77,5 @@
       </plugin>
     </plugins>
   </reporting>
-  
+
 </project>
