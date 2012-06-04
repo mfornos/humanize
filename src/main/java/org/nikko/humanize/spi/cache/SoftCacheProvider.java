@@ -53,36 +53,44 @@ public class SoftCacheProvider implements CacheProvider {
 	}
 
 	@Override
-	public synchronized ResourceBundle putBundle(Locale locale, ResourceBundle bundle) {
-		return bundles.put(locale, bundle);
+	public ResourceBundle putBundle(Locale locale, ResourceBundle bundle) {
+		synchronized (bundles) {
+			return bundles.put(locale, bundle);
+		}
 	}
 
 	@Override
-	public synchronized NumberFormat putNumberFormat(String cache, Locale locale, NumberFormat format) {
-		return getNumberFormatCache(cache).put(locale, format);
+	public NumberFormat putNumberFormat(String cache, Locale locale, NumberFormat format) {
+		Map<Locale, NumberFormat> numberFormatCache = getNumberFormatCache(cache);
+		synchronized (numberFormatCache) {
+			return numberFormatCache.put(locale, format);
+		}
 	}
 
 	@Override
-	public synchronized String[] putStrings(String cache, Locale locale, String[] value) {
-		return stringCaches.get(cache).put(locale, value);
+	public String[] putStrings(String cache, Locale locale, String[] value) {
+		Map<Locale, String[]> stringCache = getStringCache(cache);
+		synchronized (stringCache) {
+			return stringCache.put(locale, value);
+		}
 	}
 
 	private Map<Locale, NumberFormat> getNumberFormatCache(String cache) {
-		if (!numberFormats.containsKey(cache))
-			synchronized (numberFormats) {
+		synchronized (numberFormats) {
+			if (!numberFormats.containsKey(cache))
 				numberFormats.put(cache, new SoftHashMap<Locale, NumberFormat>());
-			}
 
-		return numberFormats.get(cache);
+			return numberFormats.get(cache);
+		}
 	}
 
 	private Map<Locale, String[]> getStringCache(String cache) {
-		if (!stringCaches.containsKey(cache))
-			synchronized (stringCaches) {
+		synchronized (stringCaches) {
+			if (!stringCaches.containsKey(cache))
 				stringCaches.put(cache, new SoftHashMap<Locale, String[]>());
-			}
 
-		return stringCaches.get(cache);
+			return stringCaches.get(cache);
+		}
 	}
 
 }
