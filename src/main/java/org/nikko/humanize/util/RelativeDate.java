@@ -104,9 +104,9 @@ public class RelativeDate {
 
 	private boolean matchUnit(String unit, int delta, StringBuilder buffer) {
 		if (delta == 1)
-			buffer.append(formatMessage(unit + ".one.from"));
+			buffer.append(messages.getString(unit + ".one.from"));
 		else if (delta == -1)
-			buffer.append(formatMessage(unit + ".one.ago"));
+			buffer.append(messages.getString(unit + ".one.ago"));
 		else if (delta > 0)
 			buffer.append(formatMessage(unit + ".many.from", delta));
 		else if (delta < 0)
