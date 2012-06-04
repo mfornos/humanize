@@ -31,7 +31,7 @@ h2. Principal Methods
 
 All methods support internationalization. The table listings shows outputs for en_GB locale as reference.
 
-h3. Time&Date
+h3. Date&Time
 
 |_. Method |_. Description |_. Output |
 | naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted |
