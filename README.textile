@@ -18,18 +18,14 @@ Using Humanize is dead simple.
 # Invoke the methods.
 
 E.g.
-<pre><code>
- import static org.nikko.humanize.Humanize.binaryPrefix; 
+
+bc.. import static org.nikko.humanize.Humanize.binaryPrefix; 
  
  class SomeClass {
-  
    void doSomething() {
-     
      String size = binaryPrefix(1325899906842624L);
-  
   }
 }
-</code></pre>
 
 h2. Principal Methods
 
