@@ -24,8 +24,10 @@ import org.nikko.humanize.spi.context.ContextFactory;
 import org.nikko.humanize.util.RelativeDate;
 
 /**
+ * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
  * per-thread internationalization.
+ * </p>
  * 
  * @author mfornos
  * 
@@ -138,7 +140,7 @@ public final class Humanize {
 	 * 
 	 * @param value
 	 *            Number to be formatted
-	 * @param Locale
+	 * @param locale
 	 *            Target locale
 	 * @return String representing the monetary amount
 	 */
@@ -160,7 +162,7 @@ public final class Humanize {
 	 * style.
 	 * </p>
 	 * 
-	 * @param Date
+	 * @param value
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
@@ -177,7 +179,7 @@ public final class Humanize {
 	 * 
 	 * @param style
 	 *            DateFormat style
-	 * @param Date
+	 * @param value
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
@@ -209,9 +211,9 @@ public final class Humanize {
 	 * locale.
 	 * </p>
 	 * 
-	 * @param Number
+	 * @param value
 	 *            Number to be formatted
-	 * @param Locale
+	 * @param locale
 	 *            Target locale
 	 * @return Standard localized format representation
 	 */
@@ -269,7 +271,7 @@ public final class Humanize {
 	 * style.
 	 * </p>
 	 * 
-	 * @param Date
+	 * @param value
 	 *            Date to be converted
 	 * @return String with "today", "tomorrow" or "yesterday" compared to
 	 *         current day. Otherwise, returns a string formatted according to a
@@ -380,7 +382,7 @@ public final class Humanize {
 	/**
 	 * Same as {@link #naturalTime(Date) naturalTime} for the specified locale.
 	 * 
-	 * @param Date
+	 * @param duration
 	 *            Date to be used as duration from current date
 	 * @param locale
 	 *            Target locale
@@ -664,7 +666,7 @@ public final class Humanize {
 	 * characters.
 	 * </p>
 	 * 
-	 * @param String
+	 * @param value
 	 *            Text to be truncated
 	 * @param len
 	 *            Number of characters
