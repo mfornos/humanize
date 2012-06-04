@@ -482,7 +482,7 @@ public final class Humanize {
 	 * </pre>
 	 * 
 	 * @param template
-	 *            String of tokens delimited by '::'
+	 *            String of tokens delimited by "::"
 	 * 
 	 * @return Message instance prepared to generate pluralized strings
 	 */
