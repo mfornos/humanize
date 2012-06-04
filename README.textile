@@ -54,6 +54,7 @@ h3. Text
 
 |_. Method |_. Description |_. Output |
 | pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. | - |
+| uncamelize | Converts a camel case string into a human-readable name. | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - |
 
 h2. Examples

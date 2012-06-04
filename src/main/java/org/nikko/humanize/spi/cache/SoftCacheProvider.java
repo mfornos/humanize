@@ -27,41 +27,41 @@ public class SoftCacheProvider implements CacheProvider {
 	public boolean containsBundle(Locale locale) {
 
 		return bundles.containsKey(locale);
-		
+
 	}
 
 	@Override
 	public boolean containsNumberFormat(String cache, Locale locale) {
 
 		return getNumberFormatCache(cache).containsKey(locale);
-		
+
 	}
 
 	@Override
 	public boolean containsStrings(String cache, Locale locale) {
 
 		return getStringCache(cache).containsKey(locale);
-		
+
 	}
 
 	@Override
 	public ResourceBundle getBundle(Locale locale) {
 
 		return bundles.get(locale);
-		
+
 	}
 
 	@Override
 	public NumberFormat getNumberFormat(String cache, Locale locale) {
 
 		return getNumberFormatCache(cache).get(locale);
-		
+
 	}
 
 	public String[] getStrings(String cache, Locale locale) {
 
 		return getStringCache(cache).get(locale);
-		
+
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class SoftCacheProvider implements CacheProvider {
 		synchronized (bundles) {
 			return bundles.put(locale, bundle);
 		}
-		
+
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class SoftCacheProvider implements CacheProvider {
 		synchronized (numberFormatCache) {
 			return numberFormatCache.put(locale, format);
 		}
-		
+
 	}
 
 	@Override
@@ -90,29 +90,25 @@ public class SoftCacheProvider implements CacheProvider {
 		synchronized (stringCache) {
 			return stringCache.put(locale, value);
 		}
-		
+
 	}
 
 	private Map<Locale, NumberFormat> getNumberFormatCache(String cache) {
 
-		synchronized (numberFormats) {
-			if (!numberFormats.containsKey(cache))
-				numberFormats.put(cache, new SoftHashMap<Locale, NumberFormat>());
+		if (!numberFormats.containsKey(cache))
+			numberFormats.put(cache, new SoftHashMap<Locale, NumberFormat>());
 
-			return numberFormats.get(cache);
-		}
-		
+		return numberFormats.get(cache);
+
 	}
 
 	private Map<Locale, String[]> getStringCache(String cache) {
 
-		synchronized (stringCaches) {
-			if (!stringCaches.containsKey(cache))
-				stringCaches.put(cache, new SoftHashMap<Locale, String[]>());
+		if (!stringCaches.containsKey(cache))
+			stringCaches.put(cache, new SoftHashMap<Locale, String[]>());
 
-			return stringCaches.get(cache);
-		}
-		
+		return stringCaches.get(cache);
+
 	}
 
 }

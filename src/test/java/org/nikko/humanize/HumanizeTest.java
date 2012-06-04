@@ -66,6 +66,21 @@ public class HumanizeTest {
 
 		assertEquals(spellDigit(1, ES), "uno");
 		assertEquals(spellDigit(9, ES), "nueve");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void uncamelizeTest() {
+
+		assertEquals(uncamelize("lowercase"), "lowercase");
+		assertEquals(uncamelize("Class"), "Class");
+		assertEquals(uncamelize("MyClass"), "My Class");
+		assertEquals(uncamelize("HTML"), "HTML");
+		assertEquals(uncamelize("PDFLoader"), "PDF Loader");
+		assertEquals(uncamelize("AString"), "A String");
+		assertEquals(uncamelize("SimpleXMLParser"), "Simple XML Parser");
+		assertEquals(uncamelize("GL11Version"), "GL 11 Version");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
@@ -238,7 +253,7 @@ public class HumanizeTest {
 
 		assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
 		assertEquals(titleize("first annual report (CD) 2001"), "First Annual Report (CD) 2001");
-		
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)

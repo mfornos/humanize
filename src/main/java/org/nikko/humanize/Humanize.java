@@ -1,12 +1,7 @@
 package org.nikko.humanize;
 
 import static java.lang.String.format;
-import static org.nikko.humanize.util.Constants.EMPTY_STRING;
-import static org.nikko.humanize.util.Constants.ND_FACTOR;
-import static org.nikko.humanize.util.Constants.ORDINAL_FMT;
-import static org.nikko.humanize.util.Constants.THOUSAND;
-import static org.nikko.humanize.util.Constants.bigDecExponents;
-import static org.nikko.humanize.util.Constants.binPrexies;
+import static org.nikko.humanize.util.Constants.*;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -657,6 +652,44 @@ public final class Humanize {
 			}
 		}
 		return sb.toString();
+
+	}
+
+	/**
+	 * <p>
+	 * Converts a camel case string into a human-readable name.
+	 * </p>
+	 * 
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>"MyClass"</td>
+	 * <td>"My Class"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"GL11Version"</td>
+	 * <td>"GL 11 Version"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"AString"</td>
+	 * <td>"A String"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"SimpleXMLParser"</td>
+	 * <td>"Simple XML Parser"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param words
+	 *            String to be converted
+	 * @return words converted to human-readable name
+	 */
+	public static String uncamelize(String words) {
+
+		return SPLIT_CAMEL_REGEXP.matcher(words).replaceAll(SPACE_STRING);
 
 	}
 
