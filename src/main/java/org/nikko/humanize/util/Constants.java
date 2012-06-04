@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class Constants {
 
-	public static final Pattern SPLIT_CAMEL_REGEXP = Pattern
+	public static final Pattern SPLIT_CAMEL_REGEX = Pattern
 	        .compile("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])");
 
 	public static final String ORDINAL_FMT = "%d%s";

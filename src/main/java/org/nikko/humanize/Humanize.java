@@ -8,6 +8,7 @@ import java.text.BreakIterator;
 import java.text.ChoiceFormat;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ServiceLoader;
@@ -443,7 +444,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #ordinalize(Number) ordinal} for the specified locale.
+	 * Same as {@link #ordinalize(Number) ordinalize} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -461,6 +462,38 @@ public final class Humanize {
 
 			}
 		}, locale);
+	}
+
+	/**
+	 * <p>
+	 * Constructs a message with pluralization logic from the given template.
+	 * </p>
+	 * 
+	 * Example:
+	 * 
+	 * <pre>
+	 * <code>
+	 * Message msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
+	 * msg.render(0, "disk");    // == "There are no files on disk."
+	 * msg.render(1, "disk");    // == "There is one file on disk."
+	 * msg.render(1000, "disk"); // == "There are 1,000 files on disk."
+	 * </code>
+	 * </pre>
+	 * 
+	 * @param template
+	 *            String of tokens delimited by '::'
+	 * 
+	 * @return Message instance prepared to generate pluralized strings
+	 */
+	public static Message pluralize(String template) {
+
+		String[] tokens = template.split("\\s*\\:{2}\\s*");
+
+		if (tokens.length < 3)
+			throw new RuntimeException(format("Template '%s' must declare at least 3 tokens", template));
+
+		return pluralize(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
+
 	}
 
 	/**
@@ -689,7 +722,7 @@ public final class Humanize {
 	 */
 	public static String uncamelize(String words) {
 
-		return SPLIT_CAMEL_REGEXP.matcher(words).replaceAll(SPACE_STRING);
+		return SPLIT_CAMEL_REGEX.matcher(words).replaceAll(SPACE_STRING);
 
 	}
 

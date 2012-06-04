@@ -163,7 +163,19 @@ public class HumanizeTest {
 		assertEquals(f.render(-1, "disk"), "There are no files on disk.");
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
-
+		
+		
+		// template
+		
+		df = rand.nextInt(9);
+		
+		f = pluralize("There {0} on {1}. :: are no files::is one file::  are {2} files");
+		
+		assertEquals(f.render(1000 + df, "disk", 1000 + df), "There are 1,00" + df + " files on disk.");
+		assertEquals(f.render(0, "disk"), "There are no files on disk.");
+		assertEquals(f.render(-1, "disk"), "There are no files on disk.");
+		assertEquals(f.render(1, "disk"), "There is one file on disk.");
+		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
