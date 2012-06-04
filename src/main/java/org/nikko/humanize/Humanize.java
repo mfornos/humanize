@@ -25,7 +25,7 @@ import org.nikko.humanize.util.RelativeDate;
 
 /**
  * Facility for adding a "human touch" to data. It is thread-safe and supports
- * internationalization.
+ * per-thread internationalization.
  * 
  * @author mfornos
  * 
@@ -36,24 +36,47 @@ public final class Humanize {
 
 	private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {
 		protected Context initialValue() {
+
 			return contextFactory.createContext();
+
 		};
 	};
 
 	/**
+	 * <p>
 	 * Converts a given number to a string preceded by the corresponding binary
 	 * International System of Units (SI) prefix.
+	 * </p>
 	 * 
-	 * <p>
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>2</td>
+	 * <td>"2 bytes"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1536</td>
+	 * <td>"1.5 kB"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>5242880</td>
+	 * <td>"5.00 MB"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1325899906842624L</td>
+	 * <td>"1.18 PB"</td>
+	 * </tr>
+	 * </table>
 	 * 
-	 * E.g. 2 becomes '2 bytes', 1536 becomes '1.5 kB', 5242880 becomes '5.00
-	 * MB', 1325899906842624 becomes '1.18 PB'
-	 * 
-	 * @param Number
-	 *            The number to convert
+	 * @param value
+	 *            Number to be converted
 	 * @return The number preceded by the corresponding binary SI prefix
 	 */
 	public static String binaryPrefix(Number value) {
+
 		long v = value.longValue();
 
 		if (v < 0)
@@ -64,149 +87,217 @@ public final class Humanize {
 				return format(binPrexies.get(num), (v >= 1024) ? v / (float) num : v);
 
 		return value.toString(); // unreachable
+
 	}
 
 	/**
+	 * <p>
 	 * Smartly formats the given number as a monetary amount.
+	 * </p>
 	 * 
 	 * <p>
+	 * For en_GB:
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>34</td>
+	 * <td>"£34"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1000</td>
+	 * <td>"£1,000"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>12.5</td>
+	 * <td>"£12.50"</td>
+	 * </tr>
+	 * </table>
+	 * </p>
 	 * 
-	 * E.g. for en_GB 34 becomes '£34', 1000 becomes '£1,000', 12.5 becomes
-	 * '£12.50'
-	 * 
-	 * @param Number
-	 *            The number to format
+	 * @param value
+	 *            Number to be formatted
 	 * @return String representing the monetary amount
 	 */
 	public static String formatCurrency(Number value) {
+
 		DecimalFormat decf = (DecimalFormat) context.get().getCurrencyFormat();
 		char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
 		String fmtd = decf.format(value);
 		return fmtd.replaceAll("\\" + decsep + "00", EMPTY_STRING);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #formatCurrency(Number) formatCurrency} for the specified
 	 * locale.
+	 * </p>
 	 * 
-	 * @param Number
-	 *            The number to format
+	 * @param value
+	 *            Number to be formatted
 	 * @param Locale
-	 *            The locale
+	 *            Target locale
 	 * @return String representing the monetary amount
 	 */
 	public static String formatCurrency(final Number value, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
+
 				return formatCurrency(value);
+
 			}
 		}, locale);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #formatDate(int, Date) formatDate} with DateFormat.SHORT
 	 * style.
+	 * </p>
 	 * 
 	 * @param Date
-	 *            The date
+	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
 	public static String formatDate(Date value) {
+
 		return formatDate(DateFormat.SHORT, value);
+
 	}
 
 	/**
-	 * Formats the given date with the specified DateFormat style.
+	 * <p>
+	 * Formats the given date with the specified style.
+	 * </p>
 	 * 
-	 * @param int style DateFormat style
+	 * @param style
+	 *            DateFormat style
 	 * @param Date
-	 *            The date
+	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
 	public static String formatDate(int style, Date value) {
+
 		return context.get().formatDate(style, value);
+
 	}
 
 	/**
+	 * <p>
 	 * Formats the given number to the standard decimal format for the default
 	 * locale.
+	 * </p>
 	 * 
-	 * @param Number
-	 *            The number to format
+	 * @param value
+	 *            Number to be formatted
 	 * @return Standard localized format representation
 	 */
 	public static String formatDecimal(Number value) {
+
 		return context.get().formatDecimal(value);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #formatDecimal(Number) formatDecimal} for the specified
 	 * locale.
+	 * </p>
 	 * 
 	 * @param Number
-	 *            The number to format
+	 *            Number to be formatted
 	 * @param Locale
-	 *            The locale
+	 *            Target locale
 	 * @return Standard localized format representation
 	 */
 	public static String formatDecimal(final Number value, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
+
 				return formatDecimal(value);
+
 			}
 		}, locale);
+
 	}
 
 	/**
-	 * TODO doc
+	 * <p>
+	 * Creates a RelativeDate instance. It is useful to compute multiple
+	 * relative dates with the same instance.
+	 * </p>
 	 * 
-	 * @return
+	 * @return RelativeDate instance
 	 */
 	public static RelativeDate getRelativeDateInstance() {
+
 		return context.get().getRelativeDate();
+
 	}
 
 	/**
-	 * TODO doc
+	 * <p>
+	 * Same as {@link #getRelativeDateInstance() getRelativeDateInstance} for
+	 * the specified locale.
+	 * </p>
 	 * 
 	 * @param locale
-	 * @return
+	 *            Target locale
+	 * @return RelativeDate instance
 	 */
 	public static RelativeDate getRelativeDateInstance(final Locale locale) {
+
 		return withinLocale(new Callable<RelativeDate>() {
 			public RelativeDate call() throws Exception {
+
 				return context.get().getRelativeDate();
+
 			}
 		}, locale);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #naturalDay(int, Date) naturalDay} with DateFormat.SHORT
 	 * style.
+	 * </p>
 	 * 
 	 * @param Date
-	 *            The date
-	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 *            Date to be converted
+	 * @return String with "today", "tomorrow" or "yesterday" compared to
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
 	public static String naturalDay(Date value) {
+
 		return naturalDay(DateFormat.SHORT, value);
+
 	}
 
 	/**
-	 * For dates that are the current day or within one day, return 'today',
-	 * 'tomorrow' or 'yesterday', as appropriate. Otherwise, returns a string
+	 * <p>
+	 * For dates that are the current day or within one day, return "today",
+	 * "tomorrow" or "yesterday", as appropriate. Otherwise, returns a string
 	 * formatted according to a locale sensitive DateFormat.
+	 * </p>
 	 * 
-	 * @param int The style of the Date
-	 * @param Date
-	 *            The date (GMT)
-	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 * @param style
+	 *            DateFormat style
+	 * @param value
+	 *            Date to be converted
+	 * @return String with "today", "tomorrow" or "yesterday" compared to
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
 	public static String naturalDay(int style, Date value) {
+
 		Date today = new Date();
 		long delta = value.getTime() - today.getTime();
 		long days = delta / ND_FACTOR;
@@ -219,83 +310,130 @@ public final class Humanize {
 			return context.get().getMessage("yesterday");
 
 		return formatDate(style, value);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #naturalTime(Date, Date) naturalTime} with current date as
 	 * reference.
+	 * </p>
 	 * 
-	 * @param Date
-	 *            The duration
+	 * @param duration
+	 *            Date to be used as duration from current date
 	 * @return String representing the relative date
 	 */
 	public static String naturalTime(Date duration) {
+
 		return context.get().formatRelativeDate(duration);
+
 	}
 
 	/**
+	 * <p>
 	 * Computes both past and future relative dates.
+	 * </p>
 	 * 
 	 * <p>
+	 * E.g. "one day ago", "one day from now", "10 years ago", "3 minutes from
+	 * now", "right now" and so on.
+	 * </p>
 	 * 
-	 * E.g. 'one day ago', 'one day from now', '10 years ago', '3 minutes from
-	 * now', 'right now' and so on.
-	 * 
-	 * @param Date
-	 *            The reference
-	 * @param Date
-	 *            The duration
+	 * @param reference
+	 *            Date to be used as reference
+	 * @param duration
+	 *            Date to be used as duration from reference
 	 * @return String representing the relative date
 	 */
 	public static String naturalTime(Date reference, Date duration) {
+
 		return context.get().formatRelativeDate(reference, duration);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #naturalTime(Date, Date) naturalTime} for the specified
 	 * locale.
+	 * </p>
 	 * 
-	 * @param Date
-	 *            The reference
-	 * @param Date
-	 *            The duration
-	 * @param Locale
-	 *            The locale
+	 * @param reference
+	 *            Date to be used as reference
+	 * @param duration
+	 *            Date to be used as duration from reference
+	 * @param locale
+	 *            Target locale
 	 * @return String representing the relative date
 	 */
 	public static String naturalTime(final Date reference, final Date duration, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
+
 				return naturalTime(reference, duration);
+
 			}
 		}, locale);
+
 	}
 
 	/**
 	 * Same as {@link #naturalTime(Date) naturalTime} for the specified locale.
 	 * 
 	 * @param Date
-	 *            The duration
-	 * @param Locale
-	 *            The locale
+	 *            Date to be used as duration from current date
+	 * @param locale
+	 *            Target locale
 	 * @return String representing the relative date
 	 */
 	public static String naturalTime(final Date duration, final Locale locale) {
+
 		return naturalTime(new Date(), duration, locale);
+
 	}
 
 	/**
-	 * Converts a number to its ordinal as a string.
-	 * 
 	 * <p>
+	 * Converts a number to its ordinal as a string.
+	 * </p>
 	 * 
-	 * E.g. 1 becomes '1st', 2 becomes '2nd', 3 becomes '3rd', etc.
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>1</td>
+	 * <td>"1st"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>2</td>
+	 * <td>"2nd"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>3</td>
+	 * <td>"3rd"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>4</td>
+	 * <td>"4th"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1002</td>
+	 * <td>"1002nd"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>2012</td>
+	 * <td>"2012th"</td>
+	 * </tr>
+	 * </table>
 	 * 
-	 * @param Number
-	 *            The number to convert
+	 * @param value
+	 *            Number to be converted
 	 * @return String representing the number as ordinal
 	 */
-	public static String ordinal(Number value) {
+	public static String ordinalize(Number value) {
+
 		int v = value.intValue();
 		int vc = v % 100;
 
@@ -303,35 +441,45 @@ public final class Humanize {
 			return format(ORDINAL_FMT, v, context.get().ordinalSuffix(0));
 
 		return format(ORDINAL_FMT, v, context.get().ordinalSuffix(v % 10));
+
 	}
 
 	/**
-	 * Same as {@link #ordinal(Number) ordinal} for the specified locale.
+	 * <p>
+	 * Same as {@link #ordinalize(Number) ordinal} for the specified locale.
+	 * </p>
 	 * 
-	 * @param Number
-	 *            The number to convert
-	 * @param Locale
-	 *            The locale
+	 * @param value
+	 *            Number to be converted
+	 * @param locale
+	 *            Target locale
 	 * @return String representing the number as ordinal
 	 */
-	public static String ordinal(final Number value, final Locale locale) {
+	public static String ordinalize(final Number value, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
-				return ordinal(value);
+
+				return ordinalize(value);
+
 			}
 		}, locale);
 	}
 
 	/**
+	 * <p>
 	 * Constructs a message with pluralization logic by the means of
 	 * ChoiceFormat.
+	 * </p>
 	 * 
-	 * @param String
-	 *            The base pattern
-	 * @param []String The possible choices as strings
-	 * @return Message prepared to generate pluralized strings
+	 * @param pattern
+	 *            Base pattern
+	 * @param choices
+	 *            Values that match the pattern
+	 * @return Message instance prepared to generate pluralized strings
 	 */
 	public static Message pluralize(String pattern, String... choices) {
+
 		double[] indexes = new double[choices.length];
 		for (int i = 0; i < choices.length; i++)
 			indexes[i] = i;
@@ -342,17 +490,21 @@ public final class Humanize {
 		format.setFormat(0, choiceForm);
 
 		return format;
+
 	}
 
 	/**
+	 * <p>
 	 * Converts a big number to a friendly text representation. Accepts values
 	 * ranging from thousands to googols. Uses BigDecimal.
+	 * </p>
 	 * 
-	 * @param Number
-	 *            The number to convert
+	 * @param value
+	 *            Number to be converted
 	 * @return Friendly text representation of the given value
 	 */
 	public static String spellBigNumber(Number value) {
+
 		BigDecimal v = new BigDecimal(value.toString());
 
 		if (THOUSAND.compareTo(v.abs()) > 0)
@@ -367,99 +519,192 @@ public final class Humanize {
 				        v.divide(bigNum));
 
 		return value.toString();
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #spellBigNumber(Number) spellBigNumber} for the specified
 	 * locale.
+	 * </p>
 	 * 
-	 * @param Number
-	 *            The number to convert
-	 * @param Locale
-	 *            The locale
+	 * @param value
+	 *            Number to be converted
+	 * @param locale
+	 *            Target locale
 	 * @return Friendly text representation of the given value
 	 */
 	public static String spellBigNumber(final Number value, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
+
 				return spellBigNumber(value);
+
 			}
 		}, locale);
+
 	}
 
 	/**
-	 * For decimal digits, returns the number spelled out. Otherwise, returns
-	 * the number as string.
-	 * 
 	 * <p>
+	 * For decimal digits [0-9], returns the number spelled out. Otherwise,
+	 * returns the number as string.
+	 * </p>
 	 * 
-	 * E.g. 1 becomes 'one', 2 becomes 'two', 10 becomes '10'
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>1</td>
+	 * <td>"one"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>2</td>
+	 * <td>"two"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>10</td>
+	 * <td>"10"</td>
+	 * </tr>
+	 * </table>
 	 * 
-	 * @param Number
+	 * @param value
 	 *            Decimal digit
-	 * @return The number spelled out
+	 * @return String representing the number spelled out
 	 */
 	public static String spellDigit(Number value) {
+
 		int v = value.intValue();
 		if (v < 0 || v > 9)
 			return value.toString();
 
 		return context.get().digitStrings(v);
+
 	}
 
 	/**
+	 * <p>
 	 * Same as {@link #spellDigit(Number) spellDigit} for the specified locale.
+	 * </p>
 	 * 
-	 * @param Number
+	 * @param value
 	 *            Decimal digit
-	 * @param Locale
-	 *            The locale
-	 * @return The number spelled out
+	 * @param locale
+	 *            Target locale
+	 * @return String representing the number spelled out
 	 */
 	public static String spellDigit(final Number value, final Locale locale) {
+
 		return withinLocale(new Callable<String>() {
 			public String call() {
+
 				return spellDigit(value);
+
 			}
 		}, locale);
+
 	}
 
 	/**
+	 * <p>
+	 * Capitalize all the words, and replace some characters in the string to
+	 * create a nice looking title.
+	 * </p>
+	 * 
+	 * <table border="1" width="100%">
+	 * <tr>
+	 * <th>Input</th>
+	 * <th>Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>"the_jackie_gleason show"</td>
+	 * <td>"The Jackie Gleason Show"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"first annual report (CD) 2001"</td>
+	 * <td>"First Annual Report (CD) 2001"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param text
+	 *            Text to be converted
+	 * 
+	 * @return Nice looking title
+	 */
+	// TODO add non capitalizable words by locale
+	public static String titleize(String text) {
+
+		StringBuilder sb = new StringBuilder(text.length());
+		boolean capitalize = true; // To get the first character right
+		for (int i = 0; i < text.length(); i++) {
+			char ch = text.charAt(i);
+			if (Character.isWhitespace(ch)) {
+				sb.append(' ');
+				capitalize = true;
+			} else if (ch == '_') {
+				sb.append(' ');
+				capitalize = true;
+			} else if (capitalize) {
+				sb.append(Character.toUpperCase(ch));
+				capitalize = false;
+			} else {
+				sb.append(ch);
+			}
+		}
+		return sb.toString();
+
+	}
+
+	/**
+	 * <p>
 	 * Truncate a string to the closest word boundary after a number of
 	 * characters.
+	 * </p>
 	 * 
 	 * @param String
-	 *            The text
-	 * @param int Number of characters
+	 *            Text to be truncated
+	 * @param len
+	 *            Number of characters
 	 * @return String truncated to the closes word boundary
 	 */
 	public static String wordWrap(String value, int len) {
+
 		if (len < 0 || value.length() <= len)
 			return value;
 
 		BreakIterator bi = BreakIterator.getWordInstance(context.get().getLocale());
 		bi.setText(value);
 		return value.substring(0, bi.following(len));
+
 	}
 
 	// ( private methods )------------------------------------------------------
 
 	private static ContextFactory loadContextFactory() {
+
 		ServiceLoader<ContextFactory> ldr = ServiceLoader.load(ContextFactory.class);
 		for (ContextFactory factory : ldr) {
 			return factory;
 		}
 		throw new RuntimeException("No ContextFactory was found");
+
 	}
 
 	/**
+	 * <p>
 	 * Checks if the given integer contains any digit greater than 1.
+	 * </p>
 	 * 
-	 * @param int The number
-	 * @return true if the integer contains a digit greater than 1, false
+	 * @param n
+	 *            Number to be evaluated
+	 * @return true if the number contains a digit greater than 1, false
 	 *         otherwise
 	 */
 	private static boolean needPlural(int n) {
+
 		int tmp = 0;
 		n = Math.abs(n);
 
@@ -471,20 +716,25 @@ public final class Humanize {
 		}
 
 		return false;
+
 	}
 
 	/**
+	 * <p>
 	 * Wraps the given operation on a context with the specified locale.
+	 * </p>
 	 * 
-	 * @param Callable
-	 *            The operation
-	 * @param Locale
-	 *            The locale
+	 * @param operation
+	 *            Operation to be performed
+	 * @param locale
+	 *            Target locale
 	 * @return Result of the operation
 	 */
 	private static <T> T withinLocale(Callable<T> operation, Locale locale) {
+
 		Context ctx = context.get();
 		Locale oldLocale = ctx.getLocale();
+
 		try {
 			ctx.setLocale(locale);
 			return operation.call();
@@ -494,9 +744,11 @@ public final class Humanize {
 			ctx.setLocale(oldLocale);
 			context.set(ctx);
 		}
+
 	}
 
 	private Humanize() {
+
 	}
 
 }

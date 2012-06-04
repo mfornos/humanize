@@ -11,6 +11,7 @@ public class DefaultContextFactory implements ContextFactory {
 
 	@Override
 	public Context createContext() {
+
 		return new DefaultContext();
 	}
 

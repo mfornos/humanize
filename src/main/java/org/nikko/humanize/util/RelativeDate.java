@@ -14,6 +14,7 @@ import org.nikko.humanize.spi.context.Context;
 public class RelativeDate {
 
 	public static RelativeDate getInstance(Context context) {
+
 		return new RelativeDate(context);
 	}
 
@@ -26,22 +27,27 @@ public class RelativeDate {
 	private static final String[] units = new String[] { "year", "month", "week", "day", "hour", "minute", "second" };
 
 	private RelativeDate(Context context) {
+
 		this.locale = context.getLocale();
 		this.messages = context.getBundle();
 		this.format = new Message(EMPTY_STRING, locale);
+
 	}
 
 	/**
+	 * <p>
 	 * This method returns a String representing the relative date by comparing
 	 * duration date to reference date.
+	 * </p>
 	 * 
-	 * @param Date
-	 *            reference date
-	 * @param Date
-	 *            duration from reference date
+	 * @param reference
+	 *            Date to be used as reference
+	 * @param duration
+	 *            Date to be used as duration from reference
 	 * @return String representing the relative date
 	 */
 	public String format(Calendar reference, Calendar duration) {
+
 		int[] deltas = new int[units.length];
 		int i = 0;
 
@@ -54,29 +60,39 @@ public class RelativeDate {
 		deltas[i++] = duration.get(Calendar.SECOND) - reference.get(Calendar.SECOND);
 
 		return computeRelativeDate(deltas);
+		
 	}
 
 	/**
+	 * <p>
 	 * This method returns a String representing the relative date by comparing
 	 * the given Date to the current date.
+	 * </p>
 	 * 
-	 * @param Date
-	 *            duration from now
+	 * @param duration
+	 *            Date to be used as duration from current date
 	 * @return String representing the relative date
 	 */
 	public String format(Date duration) {
+
 		return format(GregorianCalendar.getInstance(locale), getCalendar(duration));
+		
 	}
 
 	public String format(Date reference, Date duration) {
+
 		return format(getCalendar(reference), getCalendar(duration));
+		
 	}
 
 	/**
+	 * <p>
 	 * Computes both past and future relative dates. E.g. "one day ago" and
 	 * "one day from now".
+	 * </p>
 	 * 
-	 * @param []int ordered array of deltas
+	 * @param deltas
+	 *            Ordered array of deltas
 	 * @return String representing the relative date
 	 */
 	private String computeRelativeDate(int[] deltas) {
@@ -89,20 +105,26 @@ public class RelativeDate {
 		}
 
 		return messages.getString("now");
+		
 	}
 
 	private String formatMessage(String key, Object... args) {
+
 		format.applyPattern(messages.getString(key));
 		return format.render(args);
+		
 	}
 
 	private Calendar getCalendar(Date date) {
+
 		Calendar cal = GregorianCalendar.getInstance(locale);
 		cal.setTime(date);
 		return cal;
+		
 	}
 
 	private boolean matchUnit(String unit, int delta, StringBuilder buffer) {
+
 		if (delta == 1)
 			buffer.append(messages.getString(unit + ".one.from"));
 		else if (delta == -1)
@@ -113,5 +135,6 @@ public class RelativeDate {
 			buffer.append(formatMessage(unit + ".many.ago", Math.abs(delta)));
 
 		return buffer.length() > 0;
+		
 	}
 }

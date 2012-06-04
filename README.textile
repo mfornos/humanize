@@ -40,7 +40,7 @@ h3. Date&Time
 h3. Numbers
 
 |_. Method |_. Description |_. Output |
-| ordinal | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
+| ordinalize | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
 | spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. |
 | spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. |
 

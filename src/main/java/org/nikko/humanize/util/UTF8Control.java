@@ -26,6 +26,7 @@ public class UTF8Control extends Control {
 
 	public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
 	        throws IllegalAccessException, InstantiationException, IOException {
+
 		// The below is a copy of the default implementation.
 		String bundleName = toBundleName(baseName, locale);
 		String resourceName = toResourceName(bundleName, "properties");
@@ -43,9 +44,11 @@ public class UTF8Control extends Control {
 			}
 		}
 		return bundle;
+		
 	}
 
 	private InputStream reload(URL url) throws IOException {
+
 		if (url != null) {
 			URLConnection connection = url.openConnection();
 			if (connection != null) {
@@ -54,6 +57,7 @@ public class UTF8Control extends Control {
 			}
 		}
 		return null;
+		
 	}
 
 }

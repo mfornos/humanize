@@ -23,53 +23,64 @@ public class HumanizeTest {
 
 	@BeforeClass
 	public void setUp() {
+
 		Locale.setDefault(Locale.UK);
 		rand = new Random();
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
-	public void ordinalTest() {
-		assertEquals(ordinal(0), "0th");
-		assertEquals(ordinal(1), "1st");
-		assertEquals(ordinal(2), "2nd");
-		assertEquals(ordinal(3), "3rd");
-		assertEquals(ordinal(4), "4th");
-		assertEquals(ordinal(5), "5th");
-		assertEquals(ordinal(33), "33rd");
-		assertEquals(ordinal(11), "11th");
-		assertEquals(ordinal(12), "12th");
-		assertEquals(ordinal(13), "13th");
-		assertEquals(ordinal(10), "10th");
-		assertEquals(ordinal(22), "22nd");
-		assertEquals(ordinal(101), "101st");
-		assertEquals(ordinal(-10), "-10th");
-		assertEquals(ordinal(1.25), "1st");
-		assertEquals(ordinal(new Float(1.33)), "1st");
-		assertEquals(ordinal(new Long(10000000)), "10000000th");
+	public void ordinalizeTest() {
 
-		assertEquals(ordinal(1, ES), "1º");
+		assertEquals(ordinalize(0), "0th");
+		assertEquals(ordinalize(1), "1st");
+		assertEquals(ordinalize(2), "2nd");
+		assertEquals(ordinalize(3), "3rd");
+		assertEquals(ordinalize(4), "4th");
+		assertEquals(ordinalize(5), "5th");
+		assertEquals(ordinalize(33), "33rd");
+		assertEquals(ordinalize(11), "11th");
+		assertEquals(ordinalize(12), "12th");
+		assertEquals(ordinalize(13), "13th");
+		assertEquals(ordinalize(10), "10th");
+		assertEquals(ordinalize(22), "22nd");
+		assertEquals(ordinalize(101), "101st");
+		assertEquals(ordinalize(-10), "-10th");
+		assertEquals(ordinalize(1.25), "1st");
+		assertEquals(ordinalize(new Float(1.33)), "1st");
+		assertEquals(ordinalize(new Long(10000000)), "10000000th");
+
+		assertEquals(ordinalize(1, ES), "1º");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void spellDigitTest() {
+
 		assertEquals(spellDigit(1), "one");
 		assertEquals(spellDigit(3), "three");
 		assertEquals(spellDigit(0), "zero");
 		assertEquals(spellDigit(10), "10");
 		assertEquals(spellDigit(-1), "-1");
 		assertEquals(spellDigit(9), "nine");
+
+		assertEquals(spellDigit(1, ES), "uno");
+		assertEquals(spellDigit(9, ES), "nueve");
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void formatDecimalTest() {
+
 		int df = rand.nextInt(9);
 		assertEquals(formatDecimal(1000 + df), "1,00" + df);
 		assertEquals(formatDecimal(10000.55 + df), "10,00" + df + ".55");
 		assertEquals(formatDecimal(1000 + df, ES), "1.00" + df);
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void formatCurrencyTest() {
+
 		int df = rand.nextInt(9);
 		assertEquals(formatCurrency(34), "£34");
 		assertEquals(formatCurrency(1000 + df), "£1,00" + df);
@@ -77,10 +88,12 @@ public class HumanizeTest {
 
 		assertEquals(formatCurrency(100, ES), "100 €");
 		assertEquals(formatCurrency(1000.55, ES), "1.000,55 €");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void formatDateTest() {
+
 		Calendar cal = Calendar.getInstance();
 		int day = rand.nextInt(20) + 1;
 		cal.set(Calendar.DATE, day);
@@ -89,10 +102,12 @@ public class HumanizeTest {
 
 		assertEquals(formatDate(DateFormat.MEDIUM, cal.getTime()), String.format("%02d-Dec-2015", day));
 		assertEquals(formatDate(cal.getTime()), String.format("%02d/12/15", day));
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void spellBigNumberTest() {
+
 		assertEquals(spellBigNumber(100), "100");
 		assertEquals(spellBigNumber(2300), "2.3 thousand");
 		assertEquals(spellBigNumber(1000000), "1 million");
@@ -113,10 +128,12 @@ public class HumanizeTest {
 		assertEquals(spellBigNumber(1000000000, ES), "1 millardo");
 		assertEquals(spellBigNumber(1550000001, ES), "1.55 millardos");
 		assertEquals(spellBigNumber(-1550000001, ES), "-1.55 millardos");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void pluralizeTest() {
+
 		int df = rand.nextInt(9);
 
 		String pattern = "There {0} on {1}.";
@@ -131,10 +148,12 @@ public class HumanizeTest {
 		assertEquals(f.render(-1, "disk"), "There are no files on disk.");
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void binPrefixTest() {
+
 		assertEquals(binaryPrefix(-1), "-1");
 		assertEquals(binaryPrefix(0), "0 bytes");
 		assertEquals(binaryPrefix(1), "1 bytes");
@@ -146,10 +165,12 @@ public class HumanizeTest {
 		assertEquals(binaryPrefix(1073741824L * 2), "2.00 GB");
 		assertEquals(binaryPrefix(1099511627776L * 3), "3.00 TB");
 		assertEquals(binaryPrefix(1325899906842624L), "1.18 PB");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void naturalDayTest() {
+
 		Calendar cal = Calendar.getInstance();
 		assertEquals(naturalDay(cal.getTime()), "today");
 		cal.add(Calendar.DATE, 1);
@@ -158,10 +179,12 @@ public class HumanizeTest {
 		assertEquals(naturalDay(cal.getTime()), "yesterday");
 		cal.add(Calendar.DAY_OF_WEEK, -1);
 		assertEquals(naturalDay(cal.getTime()), formatDate(cal.getTime()));
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void naturalTimeTest() {
+
 		assertEquals(naturalTime(new Date()), "right now");
 
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
@@ -187,10 +210,12 @@ public class HumanizeTest {
 
 		// within locale
 		assertEquals(naturalTime(new Date(), ES), "justo ahora");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void relativeDateTest() {
+
 		RelativeDate relativeDate = getRelativeDateInstance();
 		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
 		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
@@ -205,10 +230,20 @@ public class HumanizeTest {
 		// within locale
 		relativeDate = getRelativeDateInstance(ES);
 		assertEquals(relativeDate.format(new Date()), "justo ahora");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void titleizeTest() {
+
+		assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
+		assertEquals(titleize("first annual report (CD) 2001"), "First Annual Report (CD) 2001");
+		
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void wordWrapTest() {
+
 		int df = rand.nextInt(9);
 
 		String phrase = "Lorem ipsum dolorem si amet, lorem ipsum. Dolorem sic et nunc." + df;
@@ -218,5 +253,7 @@ public class HumanizeTest {
 		assertEquals(wordWrap(phrase, phrase.length() * 2), phrase);
 		assertEquals(wordWrap(phrase, 0), "Lorem");
 		assertEquals(wordWrap(phrase, -2), phrase);
+
 	}
+
 }
