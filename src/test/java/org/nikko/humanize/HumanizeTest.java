@@ -159,8 +159,8 @@ public class HumanizeTest {
 		assertEquals(naturalDay(cal.getTime()), formatDate(cal.getTime()));
 	}
 
-	@Test
-	public void naturalDayTimeTest() {
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void naturalTimeTest() {
 		assertEquals(naturalTime(new Date()), "right now");
 
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");

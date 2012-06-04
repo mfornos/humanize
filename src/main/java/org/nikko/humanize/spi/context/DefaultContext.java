@@ -124,10 +124,7 @@ public class DefaultContext implements Context {
 	}
 
 	public RelativeDate getRelativeDate() {
-		if (!cache.containsRelativeDate(locale))
-			cache.putRelativeDate(locale, RelativeDate.getInstance(this, locale));
-
-		return cache.getRelativeDate(locale);
+		return RelativeDate.getInstance(this, locale);
 	}
 
 	public String ordinalSuffix(int index) {

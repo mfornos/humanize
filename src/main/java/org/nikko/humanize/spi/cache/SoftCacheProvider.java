@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.nikko.humanize.util.RelativeDate;
 import org.nikko.humanize.util.SoftHashMap;
 
 /**
@@ -18,8 +17,6 @@ import org.nikko.humanize.util.SoftHashMap;
  */
 public class SoftCacheProvider implements CacheProvider {
 	private final static Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
-
-	private final static Map<Locale, RelativeDate> relativeDates = new SoftHashMap<Locale, RelativeDate>();
 
 	private final static Map<String, Map<Locale, NumberFormat>> numberFormats = new SoftHashMap<String, Map<Locale, NumberFormat>>();
 
@@ -33,11 +30,6 @@ public class SoftCacheProvider implements CacheProvider {
 	@Override
 	public boolean containsNumberFormat(String cache, Locale locale) {
 		return getNumberFormatCache(cache).containsKey(locale);
-	}
-
-	@Override
-	public boolean containsRelativeDate(Locale locale) {
-		return relativeDates.containsKey(locale);
 	}
 
 	@Override
@@ -55,11 +47,6 @@ public class SoftCacheProvider implements CacheProvider {
 		return getNumberFormatCache(cache).get(locale);
 	}
 
-	@Override
-	public RelativeDate getRelativeDate(Locale locale) {
-		return relativeDates.get(locale);
-	}
-
 	public String[] getStrings(String cache, Locale locale) {
 		return getStringCache(cache).get(locale);
 	}
@@ -72,11 +59,6 @@ public class SoftCacheProvider implements CacheProvider {
 	@Override
 	public synchronized NumberFormat putNumberFormat(String cache, Locale locale, NumberFormat format) {
 		return getNumberFormatCache(cache).put(locale, format);
-	}
-
-	@Override
-	public synchronized RelativeDate putRelativeDate(Locale locale, RelativeDate instance) {
-		return relativeDates.put(locale, instance);
 	}
 
 	@Override
