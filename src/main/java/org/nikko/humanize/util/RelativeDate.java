@@ -19,7 +19,7 @@ public class RelativeDate {
 
 	private static final String[] units = new String[] { "year", "month", "week", "day", "hour", "minute", "second" };
 
-	public RelativeDate(Context context, Locale locale) {
+	private RelativeDate(Context context, Locale locale) {
 		this.locale = locale;
 		this.context = context;
 	}
