@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Constants {
+	
 	public static final String ORDINAL_FMT = "%d%s";
 
 	public static final int ND_FACTOR = 1000 * 60 * 60 * 23;
@@ -44,4 +45,5 @@ public class Constants {
 		binPrexies.put(1024L, "%.1f kB");
 		binPrexies.put(0L, "%.0f bytes");
 	}
+	
 }

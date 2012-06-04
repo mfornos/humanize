@@ -9,6 +9,7 @@ import org.nikko.humanize.spi.Message;
 import org.nikko.humanize.util.RelativeDate;
 
 public interface Context {
+	
 	String digitStrings(int index);
 
 	String formatDate(int style, Date value);
