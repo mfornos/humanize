@@ -190,7 +190,6 @@ public final class Humanize {
 	public static String formatDate(final Date value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
-
 			public String call() throws Exception {
 
 				return formatDate(value);
@@ -234,7 +233,6 @@ public final class Humanize {
 	public static String formatDate(final int style, final Date value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
-
 			public String call() throws Exception {
 
 				return formatDate(style, value);
@@ -274,7 +272,6 @@ public final class Humanize {
 	public static String formatDateTime(final Date value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
-
 			public String call() throws Exception {
 
 				return formatDateTime(value);
@@ -320,7 +317,6 @@ public final class Humanize {
 	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
-
 			public String call() throws Exception {
 
 				return formatDateTime(dateStyle, timeStyle, value);
