@@ -12,12 +12,10 @@ Humanize has no runtime dependencies besides JRE 1.6.
 
 h2. Usage
 
-Using Humanize is dead simple. 
+Using Humanize is dead simple. See the "documentation":http://mfornos.github.com/humanize/apidocs/index.html?org/nikko/humanize/Humanize.html (javadoc).
 
 # Import the static methods of Humanize class that you plan to call
 # Invoke the methods.
-
-E.g.
 
 bc.. import static org.nikko.humanize.Humanize.binaryPrefix; 
  
