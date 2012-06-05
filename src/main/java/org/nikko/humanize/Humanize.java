@@ -1,7 +1,14 @@
 package org.nikko.humanize;
 
 import static java.lang.String.format;
-import static org.nikko.humanize.util.Constants.*;
+import static org.nikko.humanize.util.Constants.EMPTY_STRING;
+import static org.nikko.humanize.util.Constants.ND_FACTOR;
+import static org.nikko.humanize.util.Constants.ORDINAL_FMT;
+import static org.nikko.humanize.util.Constants.SPACE_STRING;
+import static org.nikko.humanize.util.Constants.SPLIT_CAMEL_REGEX;
+import static org.nikko.humanize.util.Constants.THOUSAND;
+import static org.nikko.humanize.util.Constants.bigDecExponents;
+import static org.nikko.humanize.util.Constants.binPrexies;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -22,7 +29,8 @@ import org.nikko.humanize.util.RelativeDate;
 /**
  * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
- * per-thread internationalization.
+ * per-thread internationalization. Additionally provides a concise facade to
+ * access i18n text formatters.
  * </p>
  * 
  * @author mfornos
@@ -170,6 +178,30 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Same as {@link #formatDate(Date) formatDate} for the specified locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Date to be formatted
+	 * @param locale
+	 *            Target locale
+	 * @return String representation of the date
+	 */
+	public static String formatDate(final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+
+			public String call() throws Exception {
+
+				return formatDate(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Formats the given date with the specified style.
 	 * </p>
 	 * 
@@ -182,6 +214,119 @@ public final class Humanize {
 	public static String formatDate(int style, Date value) {
 
 		return context.get().formatDate(style, value);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #formatDate(int, Date) formatDate} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param style
+	 *            DateFormat style
+	 * @param value
+	 *            Date to be formatted
+	 * @param locale
+	 *            Target locale
+	 * @return String representation of the date
+	 */
+	public static String formatDate(final int style, final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+
+			public String call() throws Exception {
+
+				return formatDate(style, value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Formats the given date/time with SHORT style.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Date to be formatted
+	 * @return String representation of the date
+	 */
+	public static String formatDateTime(Date value) {
+
+		return context.get().formatDateTime(value);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #formatDateTime(Date) formatDateTime} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Date to be formatted
+	 * @param locale
+	 *            Target locale
+	 * @return String representation of the date
+	 */
+	public static String formatDateTime(final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+
+			public String call() throws Exception {
+
+				return formatDateTime(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Formats the given date/time with the specified styles.
+	 * </p>
+	 * 
+	 * @param dateStyle
+	 *            DateFormat date style
+	 * @param timeStyle
+	 *            DateFormat time style
+	 * @param value
+	 *            Date to be formatted
+	 * @return String representation of the date
+	 */
+	public static String formatDateTime(int dateStyle, int timeStyle, Date value) {
+
+		return context.get().formatDateTime(dateStyle, timeStyle, value);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #formatDateTime(int, int, Date) formatDateTime} for the
+	 * specified locale.
+	 * </p>
+	 * 
+	 * @param dateStyle
+	 * @param timeStyle
+	 * @param value
+	 *            Date to be formatted
+	 * @param locale
+	 *            Target locale
+	 * @return String representation of the date
+	 */
+	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+
+			public String call() throws Exception {
+
+				return formatDateTime(dateStyle, timeStyle, value);
+
+			}
+		}, locale);
 
 	}
 
@@ -491,7 +636,7 @@ public final class Humanize {
 		String[] tokens = template.split("\\s*\\:{2}\\s*");
 
 		if (tokens.length < 3)
-			throw new RuntimeException(format("Template '%s' must declare at least 3 tokens", template));
+			throw new IllegalArgumentException(format("Template '%s' must declare at least 3 tokens", template));
 
 		return pluralize(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
 
@@ -539,7 +684,7 @@ public final class Humanize {
 			indexes[i] = i;
 
 		ChoiceFormat choiceForm = new ChoiceFormat(indexes, choices);
-		Message format = context.get().getFormat();
+		Message format = context.get().getMessageFormat();
 		format.applyPattern(pattern);
 		format.setFormat(0, choiceForm);
 

@@ -1,20 +1,7 @@
 package org.nikko.humanize;
 
-import static org.nikko.humanize.Humanize.binaryPrefix;
-import static org.nikko.humanize.Humanize.formatCurrency;
-import static org.nikko.humanize.Humanize.formatDate;
-import static org.nikko.humanize.Humanize.formatDecimal;
-import static org.nikko.humanize.Humanize.getRelativeDateInstance;
-import static org.nikko.humanize.Humanize.naturalDay;
-import static org.nikko.humanize.Humanize.naturalTime;
-import static org.nikko.humanize.Humanize.ordinalize;
-import static org.nikko.humanize.Humanize.pluralize;
-import static org.nikko.humanize.Humanize.spellBigNumber;
-import static org.nikko.humanize.Humanize.spellDigit;
-import static org.nikko.humanize.Humanize.titleize;
-import static org.nikko.humanize.Humanize.uncamelize;
-import static org.nikko.humanize.Humanize.wordWrap;
-import static org.testng.Assert.assertEquals;
+import static org.nikko.humanize.Humanize.*;
+import static org.testng.Assert.*;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -131,6 +118,31 @@ public class HumanizeTest {
 		assertEquals(formatDate(DateFormat.MEDIUM, cal.getTime()), String.format("%02d-Dec-2015", day));
 		assertEquals(formatDate(cal.getTime()), String.format("%02d/12/15", day));
 
+		assertEquals(formatDate(DateFormat.MEDIUM, cal.getTime(), ES), String.format("%02d-dic-2015", day));
+		assertEquals(formatDate(cal.getTime(), ES), String.format("%d/12/15", day));
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void formatDateTimeTest() {
+
+		Calendar cal = Calendar.getInstance();
+		int day = rand.nextInt(20) + 1;
+		cal.set(Calendar.DATE, day);
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.YEAR, 2015);
+		cal.set(Calendar.HOUR, 10);
+		cal.set(Calendar.MINUTE, 10);
+		cal.set(Calendar.SECOND, 0);
+
+		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, cal.getTime()),
+		        String.format("%02d-Dec-2015 22:10:00", day));
+		assertEquals(formatDateTime(cal.getTime()), String.format("%02d/12/15 22:10", day));
+
+		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, cal.getTime(), ES),
+		        String.format("%02d-dic-2015 22:10:00", day));
+		assertEquals(formatDateTime(cal.getTime(), ES), String.format("%d/12/15 22:10", day));
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
@@ -193,6 +205,13 @@ public class HumanizeTest {
 		assertEquals(f.render(0), "No hay ficheros.");
 		assertEquals(f.render(1), "Hay un fichero.");
 		assertEquals(f.render(2000), "Hay 2.000 ficheros.");
+
+		try {
+			pluralize("---::---");
+			fail("incorrect number of tokens");
+		} catch (IllegalArgumentException ex) {
+
+		}
 
 	}
 

@@ -1,7 +1,7 @@
 package org.nikko.humanize.spi.context;
 
-import static org.nikko.humanize.util.Constants.SPACE_STRING;
 import static org.nikko.humanize.util.Constants.EMPTY_STRING;
+import static org.nikko.humanize.util.Constants.SPACE_STRING;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -21,7 +21,6 @@ import org.nikko.humanize.util.UTF8Control;
  * @author mfornos
  * 
  */
-// TODO impl. dateTime with styles...
 public class DefaultContext implements Context {
 
 	private static final String BUNDLE_LOCATION = "i18n.Humanize";
@@ -48,6 +47,8 @@ public class DefaultContext implements Context {
 
 	private Locale locale;
 
+	private final Message messageFormat;
+
 	public DefaultContext() {
 
 		this(Locale.getDefault());
@@ -57,6 +58,7 @@ public class DefaultContext implements Context {
 	public DefaultContext(Locale locale) {
 
 		this.locale = locale;
+		this.messageFormat = new Message(EMPTY_STRING, locale);
 
 	}
 
@@ -82,6 +84,12 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
+	public String formatDateTime(int dateStyle, int timeStyle, Date date) {
+
+		return getDateTimeFormat(dateStyle, timeStyle).format(date);
+	}
+
+	@Override
 	public String formatDecimal(Number value) {
 
 		return getNumberFormat().format(value);
@@ -91,7 +99,9 @@ public class DefaultContext implements Context {
 	@Override
 	public String formatMessage(String key, Object... args) {
 
-		return new Message(getBundle().getString(key), locale).render(args);
+		Message fmt = getMessageFormat();
+		fmt.applyPattern(getBundle().getString(key));
+		return fmt.render(args);
 
 	}
 
@@ -139,14 +149,14 @@ public class DefaultContext implements Context {
 	@Override
 	public DateFormat getDateTimeFormat() {
 
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
+		return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
 
 	}
 
 	@Override
-	public Message getFormat() {
+	public DateFormat getDateTimeFormat(int dateStyle, int timeStyle) {
 
-		return new Message(EMPTY_STRING, locale);
+		return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
 
 	}
 
@@ -161,6 +171,14 @@ public class DefaultContext implements Context {
 	public String getMessage(String key) {
 
 		return getBundle().getString(key);
+
+	}
+
+	@Override
+	public Message getMessageFormat() {
+
+		messageFormat.setLocale(locale);
+		return messageFormat;
 
 	}
 

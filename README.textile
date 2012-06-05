@@ -1,6 +1,6 @@
 h1. Humanize for Java
 
-Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports (per-thread) internationalization.
+Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. Additionally provides a concise facade to access i18n text formatters.
 
 h2. Getting Started
 
@@ -53,14 +53,14 @@ h3. Units
 h3. Text
 
 |_. Method |_. Description |_. Output |
-| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. | - |
+| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. Supports templates. | - |
 | uncamelize | Converts a camel case string into a human-readable name. | - |
 | titleize | Capitalize all the words, and replace some characters in the string to create a nice looking title. | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - |
 
 h2. Examples
 
-See @src/test/HumanizeTest@ for examples.
+See @src/test/.../HumanizeTest@ for examples.
 
 
 h2. Epilog

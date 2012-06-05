@@ -17,6 +17,8 @@ public interface Context {
 
 	String formatDateTime(Date date);
 
+	String formatDateTime(int dateStyle, int timeStyle, Date date);
+
 	String formatDecimal(Number value);
 
 	String formatMessage(String key, Object... args);
@@ -33,11 +35,13 @@ public interface Context {
 
 	DateFormat getDateTimeFormat();
 
-	Message getFormat();
+	DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
 
 	Locale getLocale();
 
 	String getMessage(String key);
+
+	Message getMessageFormat();
 
 	NumberFormat getNumberFormat();
 
