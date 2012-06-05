@@ -62,6 +62,9 @@ h2. Examples
 
 See @src/test/.../HumanizeTest@ for examples.
 
+h2. Build Status
+
+!https://secure.travis-ci.org/mfornos/humanize.png?branch=master(Build Status)!:http://travis-ci.org/mfornos/humanize
 
 h2. Epilog
 
