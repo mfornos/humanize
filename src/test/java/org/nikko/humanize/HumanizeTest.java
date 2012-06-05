@@ -131,7 +131,7 @@ public class HumanizeTest {
 		cal.set(Calendar.DATE, day);
 		cal.set(Calendar.MONTH, 11);
 		cal.set(Calendar.YEAR, 2015);
-		cal.set(Calendar.HOUR, 10);
+		cal.set(Calendar.HOUR_OF_DAY, 22);
 		cal.set(Calendar.MINUTE, 10);
 		cal.set(Calendar.SECOND, 0);
 
