@@ -1,6 +1,19 @@
 package org.nikko.humanize;
 
-import static org.nikko.humanize.Humanize.*;
+import static org.nikko.humanize.Humanize.binaryPrefix;
+import static org.nikko.humanize.Humanize.formatCurrency;
+import static org.nikko.humanize.Humanize.formatDate;
+import static org.nikko.humanize.Humanize.formatDecimal;
+import static org.nikko.humanize.Humanize.getRelativeDateInstance;
+import static org.nikko.humanize.Humanize.naturalDay;
+import static org.nikko.humanize.Humanize.naturalTime;
+import static org.nikko.humanize.Humanize.ordinalize;
+import static org.nikko.humanize.Humanize.pluralize;
+import static org.nikko.humanize.Humanize.spellBigNumber;
+import static org.nikko.humanize.Humanize.spellDigit;
+import static org.nikko.humanize.Humanize.titleize;
+import static org.nikko.humanize.Humanize.uncamelize;
+import static org.nikko.humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
 
 import java.math.BigInteger;
@@ -137,12 +150,12 @@ public class HumanizeTest {
 
 		// within locale
 		assertEquals(spellBigNumber(100, ES), "100");
-		assertEquals(spellBigNumber(2300, ES), "2.3 miles");
+		assertEquals(spellBigNumber(2300, ES), "2,3 miles");
 		assertEquals(spellBigNumber(1000000, ES), "1 millón");
-		assertEquals(spellBigNumber(1300000, ES), "1.3 millones");
+		assertEquals(spellBigNumber(1300000, ES), "1,3 millones");
 		assertEquals(spellBigNumber(1000000000, ES), "1 millardo");
-		assertEquals(spellBigNumber(1550000001, ES), "1.55 millardos");
-		assertEquals(spellBigNumber(-1550000001, ES), "-1.55 millardos");
+		assertEquals(spellBigNumber(1550000001, ES), "1,55 millardos");
+		assertEquals(spellBigNumber(-1550000001, ES), "-1,55 millardos");
 
 	}
 
@@ -163,19 +176,24 @@ public class HumanizeTest {
 		assertEquals(f.render(-1, "disk"), "There are no files on disk.");
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
-		
-		
+
 		// template
-		
+
 		df = rand.nextInt(9);
-		
+
 		f = pluralize("There {0} on {1}. :: are no files::is one file::  are {2} files");
-		
+
 		assertEquals(f.render(1000 + df, "disk", 1000 + df), "There are 1,00" + df + " files on disk.");
 		assertEquals(f.render(0, "disk"), "There are no files on disk.");
 		assertEquals(f.render(-1, "disk"), "There are no files on disk.");
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
+
+		f = pluralize("{0}.::No hay ficheros::Hay un fichero::Hay {0,number} ficheros", ES);
+		assertEquals(f.render(0), "No hay ficheros.");
+		assertEquals(f.render(1), "Hay un fichero.");
+		assertEquals(f.render(2000), "Hay 2.000 ficheros.");
+
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)

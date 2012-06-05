@@ -482,7 +482,7 @@ public final class Humanize {
 	 * </pre>
 	 * 
 	 * @param template
-	 *            String of tokens delimited by "::"
+	 *            String of tokens delimited by '::'
 	 * 
 	 * @return Message instance prepared to generate pluralized strings
 	 */
@@ -494,6 +494,29 @@ public final class Humanize {
 			throw new RuntimeException(format("Template '%s' must declare at least 3 tokens", template));
 
 		return pluralize(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #pluralize(String) pluralize} for the specified locale.
+	 * </p>
+	 * 
+	 * @param template
+	 *            String of tokens delimited by '::'
+	 * @param locale
+	 *            Target locale
+	 * @return Message instance prepared to generate pluralized strings
+	 */
+	public static Message pluralize(final String template, Locale locale) {
+
+		return withinLocale(new Callable<Message>() {
+			public Message call() throws Exception {
+
+				return pluralize(template);
+
+			};
+		}, locale);
 
 	}
 
