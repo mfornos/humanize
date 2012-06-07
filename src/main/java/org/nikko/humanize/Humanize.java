@@ -31,8 +31,8 @@ import org.nikko.humanize.util.RelativeDate;
 /**
  * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
- * per-thread internationalization. Additionally provides a concise facade to
- * access i18n text formatters.
+ * per-thread internationalization. Additionally provides a concise facade for
+ * access to the standard internationalization Java APIs.
  * </p>
  * 
  * @author mfornos
