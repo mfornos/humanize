@@ -46,7 +46,7 @@ h3. Numbers
 h3. Units
 
 |_. Method |_. Description |_. Output |
-| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5.00 MB', '1.18 PB', etc. |
+| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5 MB', '1.18 PB', etc. |
 | metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  | '100k', '1M', '3.5M', etc.  |
 | formatCurrency | Smartly formats the given number as a monetary amount. | '£34', '£1,000', '£12.50', etc. |
 | formatPercent | Formats the given ratio as a percentage. | '500%', '56%', etc.  |
@@ -67,7 +67,7 @@ h3. NumberText
 
 Language-dependent providers for number to text conversion.
 
-You can plug your own NumberText provider implementations dropping a jar in the classpath with the proper @META-INF/services/nikko.humanize.spi.number.NumberText@ file.  
+You can plug your own NumberText provider implementations just dropping a jar in the classpath with the proper @META-INF/services/nikko.humanize.spi.number.NumberText@ file.  
 
 h2. Supported languages
 
