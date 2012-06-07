@@ -39,15 +39,26 @@ public class Constants {
 		bigDecExponents.put(BigDecimal.TEN.pow(100), "googol");
 	}
 
-	public static final Map<Long, String> binPrexies = new LinkedHashMap<Long, String>();
+	public static final Map<Long, String> binPrefixes = new LinkedHashMap<Long, String>();
 
 	static {
-		binPrexies.put(1125899906842624L, "%.2f PB");
-		binPrexies.put(1099511627776L, "%.2f TB");
-		binPrexies.put(1073741824L, "%.2f GB");
-		binPrexies.put(1048576L, "%.2f MB");
-		binPrexies.put(1024L, "%.1f kB");
-		binPrexies.put(0L, "%.0f bytes");
+		binPrefixes.put(1125899906842624L, "#.## PB");
+		binPrefixes.put(1099511627776L, "#.## TB");
+		binPrefixes.put(1073741824L, "#.## GB");
+		binPrefixes.put(1048576L, "#.## MB");
+		binPrefixes.put(1024L, "#.# kB");
+		binPrefixes.put(0L, "# bytes");
+	}
+
+	public static final Map<Long, String> metricPrefixes = new LinkedHashMap<Long, String>();
+
+	static {
+		metricPrefixes.put(1000000000000000L, "#.##P");
+		metricPrefixes.put(1000000000000L, "#.##T");
+		metricPrefixes.put(1000000000L, "#.##G");
+		metricPrefixes.put(1000000L, "#.##M");
+		metricPrefixes.put(1000L, "#.#k");
+		metricPrefixes.put(0L, "#.#");
 	}
 
 }

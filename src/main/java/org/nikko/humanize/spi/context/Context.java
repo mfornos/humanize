@@ -1,12 +1,14 @@
 package org.nikko.humanize.spi.context;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.nikko.humanize.spi.Message;
+import org.nikko.humanize.spi.number.NumberText;
 import org.nikko.humanize.util.RelativeDate;
 
 public interface Context {
@@ -29,13 +31,15 @@ public interface Context {
 
 	ResourceBundle getBundle();
 
-	NumberFormat getCurrencyFormat();
+	DecimalFormat getCurrencyFormat();
 
 	DateFormat getDateFormat(int style);
 
 	DateFormat getDateTimeFormat();
 
 	DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
+
+	DecimalFormat getDecimalFormat();
 
 	Locale getLocale();
 
@@ -45,10 +49,16 @@ public interface Context {
 
 	NumberFormat getNumberFormat();
 
+	NumberText getNumberText();
+
+	DecimalFormat getPercentFormat();
+
 	RelativeDate getRelativeDate();
 
 	String ordinalSuffix(int index);
 
 	void setLocale(Locale locale);
+
+	String toText(Number value);
 
 }

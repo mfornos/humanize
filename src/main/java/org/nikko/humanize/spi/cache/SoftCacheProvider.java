@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.nikko.humanize.spi.number.NumberText;
 import org.nikko.humanize.util.SoftHashMap;
 
 /**
@@ -18,6 +19,8 @@ import org.nikko.humanize.util.SoftHashMap;
 public class SoftCacheProvider implements CacheProvider {
 
 	private final static Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
+
+	private final static Map<Locale, NumberText> numberTexts = new SoftHashMap<Locale, NumberText>();
 
 	private final static Map<String, Map<Locale, NumberFormat>> numberFormats = new SoftHashMap<String, Map<Locale, NumberFormat>>();
 
@@ -34,6 +37,13 @@ public class SoftCacheProvider implements CacheProvider {
 	public boolean containsNumberFormat(String cache, Locale locale) {
 
 		return getNumberFormatCache(cache).containsKey(locale);
+
+	}
+
+	@Override
+	public boolean containsNumberText(Locale locale) {
+
+		return numberTexts.containsKey(locale);
 
 	}
 
@@ -58,6 +68,13 @@ public class SoftCacheProvider implements CacheProvider {
 
 	}
 
+	@Override
+	public NumberText getNumberText(Locale locale) {
+
+		return numberTexts.get(locale);
+
+	}
+
 	public String[] getStrings(String cache, Locale locale) {
 
 		return getStringCache(cache).get(locale);
@@ -79,6 +96,15 @@ public class SoftCacheProvider implements CacheProvider {
 		Map<Locale, NumberFormat> numberFormatCache = getNumberFormatCache(cache);
 		synchronized (numberFormatCache) {
 			return numberFormatCache.put(locale, format);
+		}
+
+	}
+
+	@Override
+	public NumberText putNumberText(Locale locale, NumberText numberText) {
+
+		synchronized (numberTexts) {
+			return numberTexts.put(locale, numberText);
 		}
 
 	}

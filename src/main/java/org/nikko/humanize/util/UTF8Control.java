@@ -44,7 +44,7 @@ public class UTF8Control extends Control {
 			}
 		}
 		return bundle;
-		
+
 	}
 
 	private InputStream reload(URL url) throws IOException {
@@ -57,7 +57,7 @@ public class UTF8Control extends Control {
 			}
 		}
 		return null;
-		
+
 	}
 
 }

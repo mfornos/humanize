@@ -4,14 +4,18 @@ import static org.nikko.humanize.util.Constants.EMPTY_STRING;
 import static org.nikko.humanize.util.Constants.SPACE_STRING;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 
+import org.nikko.humanize.spi.ForLocale;
 import org.nikko.humanize.spi.Message;
 import org.nikko.humanize.spi.cache.CacheProvider;
+import org.nikko.humanize.spi.number.NumberText;
+import org.nikko.humanize.spi.number.NumberTextGB;
 import org.nikko.humanize.util.RelativeDate;
 import org.nikko.humanize.util.UTF8Control;
 
@@ -32,6 +36,8 @@ public class DefaultContext implements Context {
 	private static final String DECIMAL = "decimal";
 
 	private static final String DIGITS = "digits";
+
+	private static final String PERCENT = "percent";
 
 	private final static CacheProvider cache = loadCacheProvider();
 
@@ -130,12 +136,12 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
-	public NumberFormat getCurrencyFormat() {
+	public DecimalFormat getCurrencyFormat() {
 
 		if (!cache.containsNumberFormat(CURRENCY, locale))
 			cache.putNumberFormat(CURRENCY, locale, NumberFormat.getCurrencyInstance(locale));
 
-		return cache.getNumberFormat(CURRENCY, locale);
+		return (DecimalFormat) cache.getNumberFormat(CURRENCY, locale);
 
 	}
 
@@ -157,6 +163,13 @@ public class DefaultContext implements Context {
 	public DateFormat getDateTimeFormat(int dateStyle, int timeStyle) {
 
 		return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+
+	}
+
+	@Override
+	public DecimalFormat getDecimalFormat() {
+
+		return (DecimalFormat) DecimalFormat.getInstance(locale);
 
 	}
 
@@ -193,6 +206,26 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
+	public NumberText getNumberText() {
+
+		if (!cache.containsNumberText(locale))
+			cache.putNumberText(locale, loadNumberTextProvider());
+
+		return cache.getNumberText(locale);
+		
+	}
+
+	@Override
+	public DecimalFormat getPercentFormat() {
+
+		if (!cache.containsNumberFormat(PERCENT, locale))
+			cache.putNumberFormat(PERCENT, locale, NumberFormat.getPercentInstance(locale));
+
+		return (DecimalFormat) cache.getNumberFormat(PERCENT, locale);
+		
+	}
+
+	@Override
 	public RelativeDate getRelativeDate() {
 
 		return RelativeDate.getInstance(this);
@@ -210,6 +243,33 @@ public class DefaultContext implements Context {
 	public void setLocale(Locale locale) {
 
 		this.locale = locale;
+
+	}
+
+	@Override
+	public String toText(Number value) {
+
+		return getNumberText().toText(value);
+
+	}
+
+	private boolean acceptsLocale(NumberText provider) {
+
+		ForLocale forLocale = provider.getClass().getAnnotation(ForLocale.class);
+		return forLocale != null && locale.toString().equals(forLocale.value());
+
+	}
+
+	private NumberText loadNumberTextProvider() {
+
+		ServiceLoader<NumberText> ldr = ServiceLoader.load(NumberText.class);
+		for (NumberText provider : ldr) {
+			if (acceptsLocale(provider))
+				return provider;
+		}
+
+		// Fallback instance
+		return NumberTextGB.getInstance();
 
 	}
 

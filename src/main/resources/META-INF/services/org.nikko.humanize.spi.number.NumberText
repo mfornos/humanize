@@ -1,0 +1,5 @@
+org.nikko.humanize.spi.number.NumberTextCN # Simplified chinese
+org.nikko.humanize.spi.number.NumberTextTW # Traditional chinese
+org.nikko.humanize.spi.number.NumberTextES # Spanish
+org.nikko.humanize.spi.number.NumberTextGB # English UK
+org.nikko.humanize.spi.number.NumberTextUS # English US

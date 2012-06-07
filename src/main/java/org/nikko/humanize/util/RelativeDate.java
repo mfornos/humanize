@@ -60,7 +60,7 @@ public class RelativeDate {
 		deltas[i++] = duration.get(Calendar.SECOND) - reference.get(Calendar.SECOND);
 
 		return computeRelativeDate(deltas);
-		
+
 	}
 
 	/**
@@ -76,13 +76,13 @@ public class RelativeDate {
 	public String format(Date duration) {
 
 		return format(GregorianCalendar.getInstance(locale), getCalendar(duration));
-		
+
 	}
 
 	public String format(Date reference, Date duration) {
 
 		return format(getCalendar(reference), getCalendar(duration));
-		
+
 	}
 
 	/**
@@ -105,14 +105,14 @@ public class RelativeDate {
 		}
 
 		return messages.getString("now");
-		
+
 	}
 
 	private String formatMessage(String key, Object... args) {
 
 		format.applyPattern(messages.getString(key));
 		return format.render(args);
-		
+
 	}
 
 	private Calendar getCalendar(Date date) {
@@ -120,7 +120,7 @@ public class RelativeDate {
 		Calendar cal = GregorianCalendar.getInstance(locale);
 		cal.setTime(date);
 		return cal;
-		
+
 	}
 
 	private boolean matchUnit(String unit, int delta, StringBuilder buffer) {
@@ -135,6 +135,6 @@ public class RelativeDate {
 			buffer.append(formatMessage(unit + ".many.ago", Math.abs(delta)));
 
 		return buffer.length() > 0;
-		
+
 	}
 }

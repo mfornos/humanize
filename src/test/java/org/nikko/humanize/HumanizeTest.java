@@ -70,16 +70,45 @@ public class HumanizeTest {
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
-	public void uncamelizeTest() {
+	public void decamelizeTest() {
 
-		assertEquals(uncamelize("lowercase"), "lowercase");
-		assertEquals(uncamelize("Class"), "Class");
-		assertEquals(uncamelize("MyClass"), "My Class");
-		assertEquals(uncamelize("HTML"), "HTML");
-		assertEquals(uncamelize("PDFLoader"), "PDF Loader");
-		assertEquals(uncamelize("AString"), "A String");
-		assertEquals(uncamelize("SimpleXMLParser"), "Simple XML Parser");
-		assertEquals(uncamelize("GL11Version"), "GL 11 Version");
+		assertEquals(decamelize("lowercase"), "lowercase");
+		assertEquals(decamelize("Class"), "Class");
+		assertEquals(decamelize("MyClass"), "My Class");
+		assertEquals(decamelize("HTML"), "HTML");
+		assertEquals(decamelize("PDFLoader"), "PDF Loader");
+		assertEquals(decamelize("AString"), "A String");
+		assertEquals(decamelize("SimpleXMLParser"), "Simple XML Parser");
+		assertEquals(decamelize("GL11Version"), "GL 11 Version");
+
+	}
+
+	@Test
+	public void camelizeTest() {
+
+		assertEquals(camelize("bla bla_bla "), "blaBlaBla");
+		assertEquals(camelize("  blA_blA  Bla", true), "BlaBlaBla");
+		assertEquals(camelize("bla_bla!"), "blaBla!");
+		assertEquals(camelize("xxx"), "xxx");
+		assertEquals(camelize("___"), "___");
+		assertEquals(camelize(" "), " ");
+		assertEquals(camelize(" _ _ _"), " _ _ _");
+		assertEquals(camelize(""), "");
+		assertEquals(camelize("xxx", true), "Xxx");
+
+		try {
+			camelize(null);
+			fail("handles null?");
+		} catch (NullPointerException ex) {
+
+		}
+
+	}
+
+	@Test
+	public void undescoreTest() {
+
+		assertEquals(underscore("a bunch of  macarios"), "a_bunch_of_macarios");
 
 	}
 
@@ -222,13 +251,49 @@ public class HumanizeTest {
 		assertEquals(binaryPrefix(0), "0 bytes");
 		assertEquals(binaryPrefix(1), "1 bytes");
 		assertEquals(binaryPrefix(101), "101 bytes");
-		assertEquals(binaryPrefix(1025), "1.0 kB");
-		assertEquals(binaryPrefix(1024), "1.0 kB");
+		assertEquals(binaryPrefix(1025), "1 kB");
+		assertEquals(binaryPrefix(1024), "1 kB");
 		assertEquals(binaryPrefix(1536), "1.5 kB");
-		assertEquals(binaryPrefix(1048576 * 5), "5.00 MB");
-		assertEquals(binaryPrefix(1073741824L * 2), "2.00 GB");
-		assertEquals(binaryPrefix(1099511627776L * 3), "3.00 TB");
+		assertEquals(binaryPrefix(1048576 * 5), "5 MB");
+		assertEquals(binaryPrefix(1073741824L * 2), "2 GB");
+		assertEquals(binaryPrefix(1099511627776L * 3), "3 TB");
 		assertEquals(binaryPrefix(1325899906842624L), "1.18 PB");
+
+		assertEquals(binaryPrefix(1325899906842624L, ES), "1,18 PB");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void metricPrefixTest() {
+
+		assertEquals(metricPrefix(-1), "-1");
+		assertEquals(metricPrefix(0), "0");
+		assertEquals(metricPrefix(1), "1");
+		assertEquals(metricPrefix(101), "101");
+		assertEquals(metricPrefix(1000), "1k");
+		assertEquals(metricPrefix(1000000), "1M");
+		assertEquals(metricPrefix(3500000), "3.5M");
+
+		assertEquals(metricPrefix(3500000, ES), "3,5M");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void formatPercentTest() {
+
+		assertEquals(formatPercent(0), "0%");
+		assertEquals(formatPercent(-1), "-100%");
+		assertEquals(formatPercent(0.5), "50%");
+		assertEquals(formatPercent(1.5), "150%");
+		assertEquals(formatPercent(0.564), "56%");
+		assertEquals(formatPercent(1000.564), "100,056%");
+
+		assertEquals(formatPercent(0, ES), "0%");
+		assertEquals(formatPercent(-1, ES), "-100%");
+		assertEquals(formatPercent(0.5, ES), "50%");
+		assertEquals(formatPercent(1.5, ES), "150%");
+		assertEquals(formatPercent(0.564, ES), "56%");
+		assertEquals(formatPercent(1000.564, ES), "100.056%");
 
 	}
 
@@ -243,6 +308,13 @@ public class HumanizeTest {
 		assertEquals(naturalDay(cal.getTime()), "yesterday");
 		cal.add(Calendar.DAY_OF_WEEK, -1);
 		assertEquals(naturalDay(cal.getTime()), formatDate(cal.getTime()));
+
+		cal.setTime(new Date());
+		assertEquals(naturalDay(cal.getTime(), ES), "hoy");
+		cal.add(Calendar.DATE, 1);
+		assertEquals(naturalDay(cal.getTime(), ES), "mañana");
+		cal.add(Calendar.DATE, -2);
+		assertEquals(naturalDay(cal.getTime(), ES), "ayer");
 
 	}
 
@@ -294,6 +366,22 @@ public class HumanizeTest {
 		// within locale
 		relativeDate = getRelativeDateInstance(ES);
 		assertEquals(relativeDate.format(new Date()), "justo ahora");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void toTextTest() {
+
+		assertEquals(Humanize.toText(123), "one hundred and twenty-three");
+		assertEquals(Humanize.toText(2840), "two thousand eight hundred and forty");
+		assertEquals(Humanize.toText(1803), "one thousand eight hundred and three");
+		assertEquals(Humanize.toText(1412605), "one million four hundred and twelve thousand six hundred and five");
+		assertEquals(Humanize.toText(2760300), "two million seven hundred and sixty thousand three hundred");
+		assertEquals(Humanize.toText(999000), "nine hundred and ninety-nine thousand");
+		assertEquals(Humanize.toText(23380000000L), "twenty-three billion three hundred and eighty million");
+
+		assertEquals(Humanize.toText(23, ES), "veintitrés");
+		assertEquals(Humanize.toText(201256, ES), "doscientos un mil doscientos cincuenta y seis");
 
 	}
 

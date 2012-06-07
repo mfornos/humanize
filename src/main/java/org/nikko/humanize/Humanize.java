@@ -8,7 +8,8 @@ import static org.nikko.humanize.util.Constants.SPACE_STRING;
 import static org.nikko.humanize.util.Constants.SPLIT_CAMEL_REGEX;
 import static org.nikko.humanize.util.Constants.THOUSAND;
 import static org.nikko.humanize.util.Constants.bigDecExponents;
-import static org.nikko.humanize.util.Constants.binPrexies;
+import static org.nikko.humanize.util.Constants.binPrefixes;
+import static org.nikko.humanize.util.Constants.metricPrefixes;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -18,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
@@ -54,10 +56,10 @@ public final class Humanize {
 	 * International System of Units (SI) prefix.
 	 * </p>
 	 * 
-	 * <table border="1" width="100%">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
 	 * <td>2</td>
@@ -83,16 +85,128 @@ public final class Humanize {
 	 */
 	public static String binaryPrefix(Number value) {
 
-		long v = value.longValue();
+		return prefix(value, 1024, binPrefixes);
 
-		if (v < 0)
-			return value.toString();
+	}
 
-		for (Long num : binPrexies.keySet())
-			if (num <= v)
-				return format(binPrexies.get(num), (v >= 1024) ? v / (float) num : v);
+	/**
+	 * <p>
+	 * Same as {@link #binaryPrefix(Number) binaryPrefix} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Number to be converted
+	 * @param locale
+	 *            Target locale
+	 * @return The number preceded by the corresponding binary SI prefix
+	 */
+	public static String binaryPrefix(final Number value, final Locale locale) {
 
-		return value.toString(); // unreachable
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return binaryPrefix(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #camelize(String, boolean) camelize} with capitalize to
+	 * false.
+	 * </p>
+	 * 
+	 * @param text
+	 *            String to be camelized
+	 * @return Camelized string
+	 */
+	public static String camelize(String text) {
+
+		return camelize(text, false);
+
+	}
+
+	/**
+	 * <p>
+	 * Makes a phrase camel case. Spaces and underscores will be removed.
+	 * </p>
+	 * 
+	 * @param capitalizeFirstChar
+	 *            true makes the first letter uppercase
+	 * @param text
+	 *            String to be camelized
+	 * @return Camelized string
+	 */
+	public static String camelize(String text, boolean capitalizeFirstChar) {
+
+		StringBuilder sb = new StringBuilder();
+		String[] tokens = text.split("[\\s_]+");
+
+		if (tokens.length < 2)
+			return capitalizeFirstChar ? capitalize(text) : text.toLowerCase();
+
+		for (String token : tokens)
+			sb.append(capitalize(token));
+
+		return capitalizeFirstChar ? sb.toString() : sb.substring(0, 1).toLowerCase() + sb.substring(1);
+
+	}
+
+	/**
+	 * <p>
+	 * Makes the first letter uppercase and the rest lowercase.
+	 * </p>
+	 * 
+	 * @param word
+	 *            String to be capitalized
+	 * @return capitalized string
+	 */
+	public static String capitalize(String word) {
+
+		if (word.length() == 0)
+			return word;
+		return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+
+	}
+
+	/**
+	 * <p>
+	 * Converts a camel case string into a human-readable name.
+	 * </p>
+	 * 
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+	 * <tr>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>"MyClass"</td>
+	 * <td>"My Class"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"GL11Version"</td>
+	 * <td>"GL 11 Version"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"AString"</td>
+	 * <td>"A String"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"SimpleXMLParser"</td>
+	 * <td>"Simple XML Parser"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param words
+	 *            String to be converted
+	 * @return words converted to human-readable name
+	 */
+	public static String decamelize(String words) {
+
+		return SPLIT_CAMEL_REGEX.matcher(words).replaceAll(SPACE_STRING);
 
 	}
 
@@ -103,10 +217,10 @@ public final class Humanize {
 	 * 
 	 * <p>
 	 * For en_GB:
-	 * <table border="1" width="100%">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
 	 * <td>34</td>
@@ -129,10 +243,8 @@ public final class Humanize {
 	 */
 	public static String formatCurrency(Number value) {
 
-		DecimalFormat decf = (DecimalFormat) context.get().getCurrencyFormat();
-		char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
-		String fmtd = decf.format(value);
-		return fmtd.replaceAll("\\" + decsep + "00", EMPTY_STRING);
+		DecimalFormat decf = context.get().getCurrencyFormat();
+		return stripZeros(decf, decf.format(value));
 
 	}
 
@@ -368,6 +480,64 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Formats the given ratio as a percentage.
+	 * </p>
+	 * 
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+	 * <tr>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>0.5</td>
+	 * <td>"50%"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1</td>
+	 * <td>"100%"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>0.564</td>
+	 * <td>"56%"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param value
+	 *            Ratio to be converted
+	 * @return String representing the percentage
+	 */
+	public static String formatPercent(Number value) {
+
+		return context.get().getPercentFormat().format(value);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #formatPercent(Number) formatPercent} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Ratio to be converted
+	 * @param locale
+	 *            Target locale
+	 * @return String representing the percentage
+	 */
+	public static String formatPercent(final Number value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return formatPercent(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Creates a RelativeDate instance. It is useful to compute multiple
 	 * relative dates with the same instance.
 	 * </p>
@@ -404,6 +574,65 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Converts a given number to a string preceded by the corresponding decimal
+	 * multiplicative prefix.
+	 * </p>
+	 * 
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+	 * <tr>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>200</td>
+	 * <td>"200"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>1000</td>
+	 * <td>"1k"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>3500000</td>
+	 * <td>"3.5M"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param value
+	 *            Number to be converted
+	 * @return The number preceded by the corresponding SI prefix
+	 */
+	public static String metricPrefix(Number value) {
+
+		return prefix(value, 1000, metricPrefixes);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #metricPrefix(Number) metricPrefix} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Number to be converted
+	 * @param locale
+	 *            Target locale
+	 * @return The number preceded by the corresponding SI prefix
+	 */
+	public static String metricPrefix(final Number value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return metricPrefix(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Same as {@link #naturalDay(int, Date) naturalDay} with DateFormat.SHORT
 	 * style.
 	 * </p>
@@ -417,6 +646,31 @@ public final class Humanize {
 	public static String naturalDay(Date value) {
 
 		return naturalDay(DateFormat.SHORT, value);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #naturalDay(Date) naturalDay} for the specified locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Date to be converted
+	 * @param locale
+	 *            Target locale
+	 * @return String with "today", "tomorrow" or "yesterday" compared to
+	 *         current day. Otherwise, returns a string formatted according to a
+	 *         locale sensitive DateFormat.
+	 */
+	public static String naturalDay(final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return naturalDay(value);
+
+			}
+		}, locale);
 
 	}
 
@@ -536,10 +790,10 @@ public final class Humanize {
 	 * Converts a number to its ordinal as a string.
 	 * </p>
 	 * 
-	 * <table border="1" width="100%">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
 	 * <td>1</td>
@@ -613,13 +867,14 @@ public final class Humanize {
 	 * Example:
 	 * 
 	 * <pre>
-	 * <code>
-	 * Message msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
+	 * {
+	 * 	&#064;code
+	 * 	Message msg = pluralize(&quot;There {0} on {1}.::are no files::is one file::are {2} files&quot;);
 	 * 
-	 * msg.render(0, "disk");    // == "There are no files on disk."
-	 * msg.render(1, "disk");    // == "There is one file on disk."
-	 * msg.render(1000, "disk"); // == "There are 1,000 files on disk."
-	 * </code>
+	 * 	msg.render(0, &quot;disk&quot;); // == &quot;There are no files on disk.&quot;
+	 * 	msg.render(1, &quot;disk&quot;); // == &quot;There is one file on disk.&quot;
+	 * 	msg.render(1000, &quot;disk&quot;); // == &quot;There are 1,000 files on disk.&quot;
+	 * }
 	 * </pre>
 	 * 
 	 * @param template
@@ -747,10 +1002,10 @@ public final class Humanize {
 	 * returns the number as string.
 	 * </p>
 	 * 
-	 * <table border="1" width="100%">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
 	 * <td>1</td>
@@ -809,10 +1064,10 @@ public final class Humanize {
 	 * create a nice looking title.
 	 * </p>
 	 * 
-	 * <table border="1" width="100%">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
 	 * <td>"the_jackie_gleason show"</td>
@@ -829,7 +1084,6 @@ public final class Humanize {
 	 * 
 	 * @return Nice looking title
 	 */
-	// TODO add non capitalizable words by locale
 	public static String titleize(String text) {
 
 		StringBuilder sb = new StringBuilder(text.length());
@@ -855,39 +1109,79 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Converts a camel case string into a human-readable name.
+	 * Converts the given number to words.
 	 * </p>
 	 * 
-	 * <table border="1" width="100%">
+	 * <table border="0" cellpadding="3" cellspacing="0" width="100%">
 	 * <tr>
-	 * <th>Input</th>
-	 * <th>Output</th>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
 	 * </tr>
 	 * <tr>
-	 * <td>"MyClass"</td>
-	 * <td>"My Class"</td>
+	 * <td>2840</td>
+	 * <td>"two thousand eight hundred and forty"</td>
 	 * </tr>
 	 * <tr>
-	 * <td>"GL11Version"</td>
-	 * <td>"GL 11 Version"</td>
+	 * <td>1412605</td>
+	 * <td>"one million four hundred and twelve thousand six hundred and five"</td>
 	 * </tr>
 	 * <tr>
-	 * <td>"AString"</td>
-	 * <td>"A String"</td>
+	 * <td>23380000000L</td>
+	 * <td>"twenty-three billion three hundred and eighty million"</td>
 	 * </tr>
 	 * <tr>
-	 * <td>"SimpleXMLParser"</td>
-	 * <td>"Simple XML Parser"</td>
+	 * <td>90489348043803948043 BigInt</td>
+	 * <td>
+	 * "ninety quintillion four hundred and eighty-nine quadrillion three
+	 * hundred and forty-eight trillion and forty-three billion eight hundred
+	 * and three million nine hundred and forty-eight thousand and forty-three"</td>
 	 * </tr>
 	 * </table>
 	 * 
-	 * @param words
-	 *            String to be converted
-	 * @return words converted to human-readable name
+	 * @param value
+	 *            Number to be converted
+	 * @return the number converted to words
 	 */
-	public static String uncamelize(String words) {
+	public static String toText(Number value) {
 
-		return SPLIT_CAMEL_REGEX.matcher(words).replaceAll(SPACE_STRING);
+		return context.get().toText(value);
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #toText(Number) toText} for the specified locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Number to be converted
+	 * @param locale
+	 *            Target locale
+	 * @return the number converted to words
+	 */
+	public static String toText(final Number value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return toText(value);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Makes a phrase underscored instead of spaced.
+	 * </p>
+	 * 
+	 * @param text
+	 *            Phrase to underscore
+	 * @return converted String
+	 */
+	public static String underscore(String text) {
+
+		return text.replaceAll("\\s+", "_");
 
 	}
 
@@ -949,6 +1243,31 @@ public final class Humanize {
 		}
 
 		return false;
+
+	}
+
+	private static String prefix(final Number value, final int min, final Map<Long, String> prefixes) {
+
+		DecimalFormat df = context.get().getDecimalFormat();
+
+		long v = value.longValue();
+
+		if (v < 0)
+			return value.toString();
+
+		for (Long num : prefixes.keySet())
+			if (num <= v) {
+				df.applyPattern(prefixes.get(num));
+				return stripZeros(df, df.format((v >= min) ? v / (float) num : v));
+			}
+
+		return stripZeros(df, df.format(value.toString()));
+	}
+
+	private static String stripZeros(DecimalFormat decf, String fmtd) {
+
+		char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
+		return fmtd.replaceAll("\\" + decsep + "00", EMPTY_STRING);
 
 	}
 
