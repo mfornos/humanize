@@ -6,7 +6,7 @@ h2. Getting Started
 
 The project is not yet available in any public Maven repository, so you can "fork it on Github":https://github.com/mfornos/humanize/fork or download the jar package from the "project downloads":https://github.com/mfornos/humanize/downloads section.
 
-h2. Runtime Dependencies
+h2. Dependencies
 
 * icu4j 49.1
 
@@ -14,18 +14,22 @@ If you want to customize the data included in ICU by default (all features and l
 
 h2. Usage
 
-Using Humanize is dead simple. See the javadoc "documentation":http://mfornos.github.com/humanize/apidocs/index.html?org/nikko/humanize/Humanize.html
+Using Humanize is dead simple. See the javadoc "documentation":http://mfornos.github.com/humanize/apidocs/index.html
 
 # Import the static methods of the Humanize class that you want to call.
 # Invoke these methods.
 
 bc.. import static org.nikko.humanize.Humanize.binaryPrefix; 
  
- class SomeClass {
-   void doSomething() {
-     String size = binaryPrefix(1325899906842624L); // 1.18 PB
-   }
- }
+class SomeClass {
+
+  void doSomething() {
+  
+    String size = binaryPrefix(1325899906842624L); // 1.18 PB
+    
+  }
+  
+}
 
 h2. Principal Methods
 
@@ -41,7 +45,7 @@ h3. Numbers
 |_. Method |_. Description |_. Output |
 | ordinalize | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
 | parseNumber | Converts the given text to number. | - |
-| smartFormatDate | Guesses the best locale-dependent pattern to format the information that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' |
+| smartFormatDate | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' |
 | spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. |
 | spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. |
 | spellNumber | Converts the given number to words. | 'twenty-three', 'two thousand eight hundred and forty', 'one million four hundred and twelve thousand six hundred and five', etc.  |
@@ -69,13 +73,9 @@ h3. Text
 
 h2. Supported languages
 
-Languages supported by the ICU APIs. More information at "Unicode CLDR":http://cldr.unicode.org/
+All languages supported by the ICU APIs.
 
-For capabilities not backed by ICU there are support for:
-
-* English (United Kingdom) [en_GB]
-* English (United States) [en_US]
-* Spanish (Spain) [es_ES]
+For capabilities not backed by ICU there are support for 'en' and 'es'.
 
 h2. Examples
 

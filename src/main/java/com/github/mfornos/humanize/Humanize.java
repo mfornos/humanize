@@ -1183,8 +1183,8 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Guesses the best locale-dependent pattern to format the information that
-	 * the skeleton specifies.
+	 * Guesses the best locale-dependent pattern to format the date/time fields
+	 * that the skeleton specifies.
 	 * </p>
 	 * 
 	 * @param value
