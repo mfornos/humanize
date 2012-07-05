@@ -26,7 +26,6 @@ import com.github.mfornos.humanize.spi.context.ContextFactory;
 import com.github.mfornos.humanize.util.RelativeDate;
 import com.github.mfornos.humanize.util.UnicodeUtils;
 import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.DateTimePatternGenerator;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
@@ -178,6 +177,47 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Returns an ICU based DateFormat instance for the current thread.
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.DateFormat DateFormat}
+	 * @return a DateFormat instance for the current thread
+	 */
+	public static DateFormat dateFormatInstance(String pattern) {
+
+		return DateFormat.getPatternInstance(pattern, context.get().getLocale());
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #dateFormatInstance(String) dateFormatInstance} for the
+	 * specified locale.
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.DateFormat DateFormat}
+	 * @param locale
+	 *            Target locale
+	 * @return a DateFormat instance for the current thread
+	 */
+	public static DateFormat dateFormatInstance(final String pattern, final Locale locale) {
+
+		return withinLocale(new Callable<DateFormat>() {
+			public DateFormat call() throws Exception {
+
+				return dateFormatInstance(pattern);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Converts a camel case string into a human-readable name.
 	 * </p>
 	 * 
@@ -216,6 +256,49 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Returns an ICU based DecimalFormat instance for the current thread.
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
+	 * @return a DecimalFormat instance for the current thread
+	 */
+	public static DecimalFormat decimalFormatInstance(String pattern) {
+
+		DecimalFormat decFmt = context.get().getDecimalFormat();
+		decFmt.applyPattern(pattern);
+		return decFmt;
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #decimalFormatInstance(String) decimalFormatInstance} for
+	 * the specified locale.
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
+	 * @param locale
+	 *            Target locale
+	 * @return a DecimalFormat instance for the current thread
+	 */
+	public static DecimalFormat decimalFormatInstance(final String pattern, final Locale locale) {
+
+		return withinLocale(new Callable<DecimalFormat>() {
+			public DecimalFormat call() throws Exception {
+
+				return decimalFormatInstance(pattern);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Formats a number of seconds as hours, minutes and seconds.
 	 * </p>
 	 * 
@@ -225,7 +308,7 @@ public final class Humanize {
 	 */
 	public static String duration(Number value) {
 
-		// NOTE: does not support any other locale
+		// NOTE: does not provide any other locale
 		return new RuleBasedNumberFormat(Locale.ENGLISH, RuleBasedNumberFormat.DURATION).format(value);
 
 	}
@@ -331,11 +414,16 @@ public final class Humanize {
 
 	}
 
-	// XXX
 	/**
+	 * <p>
+	 * Formats a date according to the given pattern.
+	 * </p>
+	 * 
 	 * @param value
+	 *            Date to be formatted
 	 * @param pattern
-	 * @return
+	 *            The pattern
+	 * @return a formatted date/time string
 	 */
 	public static String formatDate(Date value, String pattern) {
 
@@ -344,12 +432,18 @@ public final class Humanize {
 	}
 
 	/**
-	 * XXX
+	 * <p>
+	 * Same as {@link #formatDate(Date, String) formatDate} for the specified
+	 * locale.
+	 * </p>
 	 * 
 	 * @param value
+	 *            Date to be formatted
 	 * @param pattern
+	 *            The pattern
 	 * @param locale
-	 * @return
+	 *            Target locale
+	 * @return a formatted date/time string
 	 */
 	public static String formatDate(final Date value, final String pattern, final Locale locale) {
 
@@ -531,54 +625,6 @@ public final class Humanize {
 	}
 
 	/**
-	 * XXX Rich pattern syntax...
-	 * <p>
-	 * Returns a ICU MessageFormat instance for the current thread.
-	 * 
-	 * For plural rules see <a href="http://unicode
-	 * .org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules
-	 * .html">CLDR Language Plural Rules</a>
-	 * </p>
-	 * 
-	 * @param pattern
-	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
-	 * @return a MessageFormat instance for the current thread
-	 */
-	public static MessageFormat formatInstance(final String pattern) {
-
-		MessageFormat msgFmt = context.get().getMessageFormat();
-		msgFmt.applyPattern(pattern);
-		return msgFmt;
-
-	}
-
-	/**
-	 * <p>
-	 * Same as {@link #formatInstance(String) formatInstance} for the specified
-	 * locale.
-	 * </p>
-	 * 
-	 * @param locale
-	 *            Target locale
-	 * @param pattern
-	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
-	 * @return a MessageFormat instance for the current thread
-	 */
-	public static MessageFormat formatInstance(final String pattern, final Locale locale) {
-
-		return withinLocale(new Callable<MessageFormat>() {
-			public MessageFormat call() throws Exception {
-
-				return formatInstance(pattern);
-
-			}
-		}, locale);
-
-	}
-
-	/**
 	 * <p>
 	 * Formats the given ratio as a percentage.
 	 * </p>
@@ -637,10 +683,14 @@ public final class Humanize {
 	}
 
 	/**
-	 * XXX
+	 * <p>
+	 * Formats a monetary amount with currency plural names, for example,
+	 * "US dollar" or "US dollars" for America.
+	 * </p>
 	 * 
 	 * @param value
-	 * @return
+	 *            Number to be formatted
+	 * @return String representing the monetary amount
 	 */
 	public static String formatPluralCurrency(Number value) {
 
@@ -650,12 +700,16 @@ public final class Humanize {
 	}
 
 	/**
-	 * XXX
+	 * <p>
+	 * Same as {@link #formatPluralCurrency(Number) formatPluralCurrency} for
+	 * the specified locale.
+	 * </p>
 	 * 
 	 * @param value
+	 *            Number to be formatted
 	 * @param locale
 	 *            Target locale
-	 * @return
+	 * @return String representing the monetary amount
 	 */
 	public static String formatPluralCurrency(final Number value, final Locale locale) {
 
@@ -699,6 +753,53 @@ public final class Humanize {
 			public RelativeDate call() throws Exception {
 
 				return context.get().getRelativeDate();
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Returns an ICU based MessageFormat instance for the current thread. This
+	 * formatter supports a rich pattern model. For plural rules see <a
+	 * href="http://unicode
+	 * .org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules
+	 * .html">CLDR Language Plural Rules</a>
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 * @return a MessageFormat instance for the current thread
+	 */
+	public static MessageFormat messageFormatInstance(final String pattern) {
+
+		MessageFormat msgFmt = context.get().getMessageFormat();
+		msgFmt.applyPattern(pattern);
+		return msgFmt;
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #messageFormatInstance(String) messageFormatInstance} for
+	 * the specified locale.
+	 * </p>
+	 * 
+	 * @param locale
+	 *            Target locale
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 * @return a MessageFormat instance for the current thread
+	 */
+	public static MessageFormat messageFormatInstance(final String pattern, final Locale locale) {
+
+		return withinLocale(new Callable<MessageFormat>() {
+			public MessageFormat call() throws Exception {
+
+				return messageFormatInstance(pattern);
 
 			}
 		}, locale);
@@ -852,22 +953,6 @@ public final class Humanize {
 	public static String naturalTime(Date duration) {
 
 		return context.get().formatRelativeDate(duration);
-
-	}
-
-	/**
-	 * <p>
-	 * Replaces characters outside the Basic Multilingual Plane with their name.
-	 * </p>
-	 * 
-	 * @param value
-	 *            The text to be matched
-	 * @return text with characters outside BMP replaced by their name or the
-	 *         given text unaltered
-	 */
-	public static String replaceSupplementary(String value) {
-
-		return UnicodeUtils.replaceSupplementary(value);
 
 	}
 
@@ -1128,28 +1213,54 @@ public final class Humanize {
 	}
 
 	/**
-	 * XXX
+	 * <p>
+	 * Replaces characters outside the Basic Multilingual Plane with their name.
+	 * </p>
 	 * 
 	 * @param value
-	 * @param skeleton
-	 * @return
+	 *            The text to be matched
+	 * @return text with characters outside BMP replaced by their name or the
+	 *         given text unaltered
 	 */
-	public static String smartFormatDate(Date value, String skeleton) {
+	public static String replaceSupplementary(String value) {
 
-		// TODO cached
-		DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(ULocale.forLocale(context.get()
-		        .getLocale()));
-		return formatDate(value, generator.getBestPattern(skeleton));
+		return UnicodeUtils.replaceSupplementary(value);
 
 	}
 
 	/**
-	 * XXX
+	 * <p>
+	 * Guesses the best locale-dependent pattern to format the information that
+	 * the skeleton specifies.
+	 * </p>
 	 * 
 	 * @param value
+	 *            The date to be formatted
 	 * @param skeleton
+	 *            A pattern containing only the variable fields. For example,
+	 *            "MMMdd" and "mmhh" are skeletons.
+	 * @return A string with a text representation of the date
+	 */
+	public static String smartFormatDate(Date value, String skeleton) {
+
+		return formatDate(value, context.get().getBestPattern(skeleton));
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #smartFormatDate(Date) smartFormatDate} for the specified
+	 * locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            The date to be formatted
+	 * @param skeleton
+	 *            A pattern containing only the variable fields. For example,
+	 *            "MMMdd" and "mmhh" are skeletons.
 	 * @param locale
-	 * @return
+	 *            Target locale
+	 * @return A string with a text representation of the date
 	 */
 	public static String smartFormatDate(final Date value, final String skeleton, final Locale locale) {
 

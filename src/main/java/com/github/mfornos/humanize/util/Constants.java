@@ -10,6 +10,9 @@ public class Constants {
 	public static final Pattern SPLIT_CAMEL_REGEX = Pattern
 	        .compile("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])");
 
+	// See http://en.wikipedia.org/wiki/UTF-16
+	public static final Pattern NOT_IN_BMP = Pattern.compile("([^\u0000-\uD7FF\uE000-\uFFFF])");
+
 	public static final String ORDINAL_FMT = "%d%s";
 
 	public static final int ND_FACTOR = 1000 * 60 * 60 * 23;

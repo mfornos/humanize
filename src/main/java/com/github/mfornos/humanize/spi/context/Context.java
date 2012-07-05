@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.util.RelativeDate;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.NumberFormat;
+import com.ibm.icu.util.ULocale;
 
 public interface Context {
 
@@ -29,11 +29,11 @@ public interface Context {
 
 	String formatRelativeDate(Date reference, Date duration);
 
+	String getBestPattern(String skeleton);
+
 	ResourceBundle getBundle();
 
 	DecimalFormat getCurrencyFormat();
-
-	DecimalFormat getPluralCurrencyFormat();
 
 	DateFormat getDateFormat(int style);
 
@@ -53,9 +53,13 @@ public interface Context {
 
 	DecimalFormat getPercentFormat();
 
+	DecimalFormat getPluralCurrencyFormat();
+
 	RelativeDate getRelativeDate();
 
 	NumberFormat getRuleBasedNumberFormat(int type);
+
+	ULocale getULocale();
 
 	String ordinalSuffix(int index);
 

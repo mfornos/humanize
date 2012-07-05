@@ -8,15 +8,16 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 
-
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.cache.CacheProvider;
 import com.github.mfornos.humanize.util.RelativeDate;
 import com.github.mfornos.humanize.util.UTF8Control;
 import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.DateTimePatternGenerator;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.ibm.icu.util.ULocale;
 
 /**
  * Default implementation of {@link Context}.
@@ -56,6 +57,8 @@ public class DefaultContext implements Context {
 
 	private Locale locale;
 
+	private ULocale ulocale;
+
 	private final MessageFormat messageFormat;
 
 	public DefaultContext() {
@@ -66,8 +69,9 @@ public class DefaultContext implements Context {
 
 	public DefaultContext(Locale locale) {
 
-		this.locale = locale;
 		this.messageFormat = new MessageFormat(EMPTY_STRING, locale);
+
+		setLocale(locale);
 
 	}
 
@@ -125,6 +129,14 @@ public class DefaultContext implements Context {
 	public String formatRelativeDate(Date reference, Date duration) {
 
 		return getRelativeDate().format(reference, duration);
+
+	}
+
+	@Override
+	public String getBestPattern(String skeleton) {
+
+		DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(getULocale());
+		return generator.getBestPattern(skeleton);
 
 	}
 
@@ -208,17 +220,6 @@ public class DefaultContext implements Context {
 
 	}
 
-	// XXX
-	// @Override
-	// public NumberText getNumberText() {
-	//
-	// if (!cache.containsNumberText(locale))
-	// cache.putNumberText(locale, loadNumberTextProvider());
-	//
-	// return cache.getNumberText(locale);
-	//
-	// }
-
 	@Override
 	public DecimalFormat getPercentFormat() {
 
@@ -259,44 +260,24 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
+	public ULocale getULocale() {
+
+		return ulocale;
+
+	}
+
+	@Override
 	public String ordinalSuffix(int index) {
 
 		return resolveStringArray(ORDINAL_SUFFIXES, index);
 
 	}
 
-	// XXX
-	// @Override
-	// public String toText(Number value) {
-	//
-	// return getNumberText().toText(value);
-	//
-	// }
-
-	// private boolean acceptsLocale(NumberText provider) {
-	//
-	// ForLocale forLocale = provider.getClass().getAnnotation(ForLocale.class);
-	// return forLocale != null && locale.toString().equals(forLocale.value());
-	//
-	// }
-
-	// private NumberText loadNumberTextProvider() {
-	//
-	// ServiceLoader<NumberText> ldr = ServiceLoader.load(NumberText.class);
-	// for (NumberText provider : ldr) {
-	// if (acceptsLocale(provider))
-	// return provider;
-	// }
-	//
-	// // Fallback instance
-	// return NumberTextGB.getInstance();
-	//
-	// }
-
 	@Override
 	public void setLocale(Locale locale) {
 
 		this.locale = locale;
+		this.ulocale = ULocale.forLocale(locale);
 
 	}
 

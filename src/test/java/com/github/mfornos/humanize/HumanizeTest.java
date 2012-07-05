@@ -102,39 +102,33 @@ public class HumanizeTest {
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void formatDateTest() {
 
-		Calendar cal = Calendar.getInstance();
 		int day = rand.nextInt(20) + 1;
-		cal.set(Calendar.DATE, day);
-		cal.set(Calendar.MONTH, 11);
-		cal.set(Calendar.YEAR, 2015);
+		Date date = newTestDate(day, 11, 2015);
 
-		assertEquals(formatDate(DateFormat.MEDIUM, cal.getTime()), String.format("%d Dec 2015", day));
-		assertEquals(formatDate(cal.getTime()), String.format("%02d/12/2015", day));
+		assertEquals(formatDate(DateFormat.MEDIUM, date), String.format("%d Dec 2015", day));
+		assertEquals(formatDate(date), String.format("%02d/12/2015", day));
 
-		assertEquals(formatDate(DateFormat.MEDIUM, cal.getTime(), ES), String.format("%02d/12/2015", day));
-		assertEquals(formatDate(cal.getTime(), ES), String.format("%02d/12/15", day));
+		assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%02d/12/2015", day));
+		assertEquals(formatDate(date, ES), String.format("%02d/12/15", day));
+
+		assertEquals(formatDate(date, "dd/MM/yy"), String.format("%02d/12/15", day));
+		assertEquals(formatDate(date, "dd/MM/yy", ES), String.format("%02d/12/15", day));
 
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void formatDateTimeTest() {
 
-		Calendar cal = Calendar.getInstance();
 		int day = rand.nextInt(20) + 1;
-		cal.set(Calendar.DATE, day);
-		cal.set(Calendar.MONTH, 11);
-		cal.set(Calendar.YEAR, 2015);
-		cal.set(Calendar.HOUR_OF_DAY, 22);
-		cal.set(Calendar.MINUTE, 10);
-		cal.set(Calendar.SECOND, 0);
+		Date date = newTestDate(day, 11, 2015, 22, 10, 0);
 
-		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, cal.getTime()),
+		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date),
 		        String.format("%d Dec 2015 22:10:00", day));
-		assertEquals(formatDateTime(cal.getTime()), String.format("%02d/12/2015 22:10", day));
+		assertEquals(formatDateTime(date), String.format("%02d/12/2015 22:10", day));
 
-		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, cal.getTime(), ES),
+		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date, ES),
 		        String.format("%02d/12/2015 22:10:00", day));
-		assertEquals(formatDateTime(cal.getTime(), ES), String.format("%02d/12/15 22:10", day));
+		assertEquals(formatDateTime(date, ES), String.format("%02d/12/15 22:10", day));
 
 	}
 
@@ -178,6 +172,21 @@ public class HumanizeTest {
 		assertEquals(formatPluralCurrency(1, ES), "1 euro");
 		assertEquals(formatPluralCurrency(100, ES), "100 euros");
 		assertEquals(formatPluralCurrency(1000.55, ES), "1.000,55 euros");
+
+	}
+
+	@Test(threadPoolSize = 5, invocationCount = 10)
+	public void formattersTest() {
+
+		for (int i = 0; i < 3; i++) {
+			assertEquals(decimalFormatInstance("@@##").format(i + 1.14159), String.format("%d.142", (i + 1)));
+			assertEquals(decimalFormatInstance("@@##", ES).format(i + 1.14159), String.format("%d,142", (i + 1)));
+		}
+
+		int day = rand.nextInt(20) + 1;
+		Date date = newTestDate(day, 11, 2015);
+		assertEquals(dateFormatInstance("dd/MM/yyyy").format(date), String.format("%02d/%d/%d", day, 12, 2015));
+		assertEquals(dateFormatInstance("dd/MM/yyyy", ES).format(date), String.format("%02d/%d/%d", day, 12, 2015));
 
 	}
 
@@ -307,7 +316,7 @@ public class HumanizeTest {
 
 		int df = rand.nextInt(9);
 
-		MessageFormat f = formatInstance("There {0, plural, one{is one file}other{are {0} files}} on {1}.");
+		MessageFormat f = messageFormatInstance("There {0, plural, one{is one file}other{are {0} files}} on {1}.");
 
 		assertEquals(f.render(1000 + df, "disk"), "There are 1,00" + df + " files on disk.");
 		assertEquals(f.render(0, "disk"), "There are 0 files on disk.");
@@ -315,7 +324,7 @@ public class HumanizeTest {
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
 
-		f = formatInstance("Hay {0, plural, one{un fichero}other{{0} ficheros}} en {1}.", ES);
+		f = messageFormatInstance("Hay {0, plural, one{un fichero}other{{0} ficheros}} en {1}.", ES);
 
 		assertEquals(f.render(1000 + df, "disco"), "Hay 1.00" + df + " ficheros en disco.");
 		assertEquals(f.render(1, "disco"), "Hay un fichero en disco.");
@@ -387,14 +396,11 @@ public class HumanizeTest {
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void smartFormatDateTest() {
 
-		Calendar cal = Calendar.getInstance();
 		int day = rand.nextInt(20) + 1;
-		cal.set(Calendar.DATE, day);
-		cal.set(Calendar.MONTH, 11);
-		cal.set(Calendar.YEAR, 2015);
+		Date date = newTestDate(day, 11, 2015);
 
-		assertEquals(smartFormatDate(cal.getTime(), "MMMd"), day + " Dec");
-		assertEquals(smartFormatDate(cal.getTime(), "MMMd", ES), day + " dic");
+		assertEquals(smartFormatDate(date, "MMMd"), day + " Dec");
+		assertEquals(smartFormatDate(date, "MMMd", ES), day + " dic");
 
 	}
 
@@ -493,6 +499,25 @@ public class HumanizeTest {
 
 		Locale.setDefault(Locale.UK);
 		rand = new Random();
+
+	}
+
+	private Date newTestDate(int day, int month, int year) {
+
+		return newTestDate(day, month, year, 0, 0, 0);
+
+	}
+
+	private Date newTestDate(int day, int month, int year, int h, int m, int s) {
+
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DATE, day);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.HOUR_OF_DAY, h);
+		cal.set(Calendar.MINUTE, m);
+		cal.set(Calendar.SECOND, s);
+		return cal.getTime();
 
 	}
 
