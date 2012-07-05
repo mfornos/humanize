@@ -33,7 +33,7 @@ h3. Date&Time
 
 |_. Method |_. Description |_. Output |
 | naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted |
-| naturalTime | Computes both past and future relative dates. | 'one day ago', 'one day from now', '10 years ago', '3 minutes from now', 'right now', etc. |
+| naturalTime | Computes both past and future relative dates. | '2 days from now', '10 years ago', '3 minutes from now', etc. |
 | duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.|
 
 h3. Numbers

@@ -5,9 +5,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.github.mfornos.humanize.spi.MessageFormat;
-import com.github.mfornos.humanize.util.RelativeDate;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
+import com.ibm.icu.text.DurationFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.util.ULocale;
 
@@ -25,10 +25,6 @@ public interface Context {
 
 	String formatMessage(String key, Object... args);
 
-	String formatRelativeDate(Date duration);
-
-	String formatRelativeDate(Date reference, Date duration);
-
 	String getBestPattern(String skeleton);
 
 	ResourceBundle getBundle();
@@ -43,6 +39,8 @@ public interface Context {
 
 	DecimalFormat getDecimalFormat();
 
+	DurationFormat getDurationFormat();
+
 	Locale getLocale();
 
 	String getMessage(String key);
@@ -55,13 +53,9 @@ public interface Context {
 
 	DecimalFormat getPluralCurrencyFormat();
 
-	RelativeDate getRelativeDate();
-
 	NumberFormat getRuleBasedNumberFormat(int type);
 
 	ULocale getULocale();
-
-	String ordinalSuffix(int index);
 
 	void setLocale(Locale locale);
 

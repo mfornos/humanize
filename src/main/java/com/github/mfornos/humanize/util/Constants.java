@@ -13,10 +13,6 @@ public class Constants {
 	// See http://en.wikipedia.org/wiki/UTF-16
 	public static final Pattern NOT_IN_BMP = Pattern.compile("([^\u0000-\uD7FF\uE000-\uFFFF])");
 
-	public static final String ORDINAL_FMT = "%d%s";
-
-	public static final int ND_FACTOR = 1000 * 60 * 60 * 23;
-
 	public static final String SPACE_STRING = " ";
 
 	public static final String EMPTY_STRING = "";

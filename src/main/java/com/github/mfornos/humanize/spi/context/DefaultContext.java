@@ -10,11 +10,11 @@ import java.util.ServiceLoader;
 
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.cache.CacheProvider;
-import com.github.mfornos.humanize.util.RelativeDate;
 import com.github.mfornos.humanize.util.UTF8Control;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DateTimePatternGenerator;
 import com.ibm.icu.text.DecimalFormat;
+import com.ibm.icu.text.DurationFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.util.ULocale;
@@ -27,9 +27,9 @@ import com.ibm.icu.util.ULocale;
  */
 public class DefaultContext implements Context {
 
-	private static final String BUNDLE_LOCATION = "i18n.Humanize";
+	private static final String DURATION_FORMAT = "duration.format";
 
-	private static final String ORDINAL_SUFFIXES = "ordinal.suffixes";
+	private static final String BUNDLE_LOCATION = "i18n.Humanize";
 
 	private static final String CURRENCY = "currency";
 
@@ -119,20 +119,6 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
-	public String formatRelativeDate(Date duration) {
-
-		return getRelativeDate().format(duration);
-
-	}
-
-	@Override
-	public String formatRelativeDate(Date reference, Date duration) {
-
-		return getRelativeDate().format(reference, duration);
-
-	}
-
-	@Override
 	public String getBestPattern(String skeleton) {
 
 		DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(getULocale());
@@ -153,10 +139,10 @@ public class DefaultContext implements Context {
 	@Override
 	public DecimalFormat getCurrencyFormat() {
 
-		if (!cache.containsNumberFormat(CURRENCY, locale))
-			cache.putNumberFormat(CURRENCY, locale, NumberFormat.getCurrencyInstance(locale));
+		if (!cache.containsFormat(CURRENCY, locale))
+			cache.putFormat(CURRENCY, locale, NumberFormat.getCurrencyInstance(locale));
 
-		return (DecimalFormat) cache.getNumberFormat(CURRENCY, locale);
+		return (DecimalFormat) cache.getFormat(CURRENCY, locale);
 
 	}
 
@@ -189,6 +175,16 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
+	public DurationFormat getDurationFormat() {
+
+		if (!cache.containsFormat(DURATION_FORMAT, locale))
+			cache.putFormat(DURATION_FORMAT, locale, DurationFormat.getInstance(ulocale));
+
+		return cache.getFormat(DURATION_FORMAT, locale);
+
+	}
+
+	@Override
 	public Locale getLocale() {
 
 		return locale;
@@ -213,38 +209,30 @@ public class DefaultContext implements Context {
 	@Override
 	public NumberFormat getNumberFormat() {
 
-		if (!cache.containsNumberFormat(DECIMAL, locale))
-			cache.putNumberFormat(DECIMAL, locale, NumberFormat.getInstance(locale));
+		if (!cache.containsFormat(DECIMAL, locale))
+			cache.putFormat(DECIMAL, locale, NumberFormat.getInstance(locale));
 
-		return cache.getNumberFormat(DECIMAL, locale);
+		return cache.getFormat(DECIMAL, locale);
 
 	}
 
 	@Override
 	public DecimalFormat getPercentFormat() {
 
-		if (!cache.containsNumberFormat(PERCENT, locale))
-			cache.putNumberFormat(PERCENT, locale, NumberFormat.getPercentInstance(locale));
+		if (!cache.containsFormat(PERCENT, locale))
+			cache.putFormat(PERCENT, locale, NumberFormat.getPercentInstance(locale));
 
-		return (DecimalFormat) cache.getNumberFormat(PERCENT, locale);
+		return (DecimalFormat) cache.getFormat(PERCENT, locale);
 
 	}
 
 	@Override
 	public DecimalFormat getPluralCurrencyFormat() {
 
-		if (!cache.containsNumberFormat(CURRENCY_PL, locale))
-			cache.putNumberFormat(CURRENCY_PL, locale,
-			        NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE));
+		if (!cache.containsFormat(CURRENCY_PL, locale))
+			cache.putFormat(CURRENCY_PL, locale, NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE));
 
-		return (DecimalFormat) cache.getNumberFormat(CURRENCY_PL, locale);
-
-	}
-
-	@Override
-	public RelativeDate getRelativeDate() {
-
-		return RelativeDate.getInstance(this);
+		return (DecimalFormat) cache.getFormat(CURRENCY_PL, locale);
 
 	}
 
@@ -252,10 +240,10 @@ public class DefaultContext implements Context {
 	public NumberFormat getRuleBasedNumberFormat(int type) {
 
 		String ruleBasedName = RULE_BASED + type;
-		if (!cache.containsNumberFormat(ruleBasedName, locale))
-			cache.putNumberFormat(ruleBasedName, locale, new RuleBasedNumberFormat(locale, type));
+		if (!cache.containsFormat(ruleBasedName, locale))
+			cache.putFormat(ruleBasedName, locale, new RuleBasedNumberFormat(locale, type));
 
-		return cache.getNumberFormat(ruleBasedName, locale);
+		return cache.getFormat(ruleBasedName, locale);
 
 	}
 
@@ -263,13 +251,6 @@ public class DefaultContext implements Context {
 	public ULocale getULocale() {
 
 		return ulocale;
-
-	}
-
-	@Override
-	public String ordinalSuffix(int index) {
-
-		return resolveStringArray(ORDINAL_SUFFIXES, index);
 
 	}
 

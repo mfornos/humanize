@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.github.mfornos.humanize.spi.MessageFormat;
-import com.github.mfornos.humanize.util.RelativeDate;
 
 public class HumanizeTest {
 
@@ -229,31 +228,35 @@ public class HumanizeTest {
 	@Test(threadPoolSize = 5, invocationCount = 10)
 	public void naturalTimeTest() {
 
-		assertEquals(naturalTime(new Date()), "right now");
+		assertTrue(naturalTime(new Date()).endsWith(" from now"));
 
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
-		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "one day from now");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "1 day from now");
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 3)), "3 days from now");
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 7 * 3)), "3 weeks from now");
-		assertEquals(naturalTime(new Date(0), new Date(2629743830L * 3L)), "3 months from now");
+		assertEquals(naturalTime(new Date(0), new Date(2629743830L * 3L)), "2 months from now");
 		assertEquals(naturalTime(new Date(0), new Date(2629743830L * 13L * 3L)), "3 years from now");
-		assertEquals(naturalTime(new Date(0), new Date(315569259747L * 3L)), "30 years from now");
+		assertEquals(naturalTime(new Date(0), new Date(315769289947L * 3L)), "30 years from now");
 		assertEquals(naturalTime(new Date(0), new Date(3155792597470L * 3L)), "300 years from now");
 
-		assertEquals(naturalTime(new Date(6000), new Date(0)), "moments ago");
+		assertEquals(naturalTime(new Date(6000), new Date(0)), "6 seconds ago");
 		assertEquals(naturalTime(new Date(1000 * 60 * 12), new Date(0)), "12 minutes ago");
 		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 3), new Date(0)), "3 hours ago");
-		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)), "one day ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)), "1 day ago");
 		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 3), new Date(0)), "3 days ago");
 		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 7 * 3), new Date(0)), "3 weeks ago");
-		assertEquals(naturalTime(new Date(2629743830L * 3L), new Date(0)), "3 months ago");
+		assertEquals(naturalTime(new Date(2629743830L * 3L), new Date(0)), "2 months ago");
 		assertEquals(naturalTime(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
-		assertEquals(naturalTime(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
+		assertEquals(naturalTime(new Date(315769289947L * 3L), new Date(0)), "30 years ago");
 		assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
 
 		// within locale
-		assertEquals(naturalTime(new Date(), ES), "justo ahora");
+		assertTrue(naturalTime(new Date(), ES).startsWith("dentro de"));
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 3), ES), "dentro de 3 horas");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1), ES), "dentro de un día");
+		assertEquals(naturalTime(new Date(315769289947L * 3L), new Date(0), ES), "hace 30 años");
+		assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0), ES), "hace 300 años");
 
 	}
 
@@ -355,26 +358,6 @@ public class HumanizeTest {
 		} catch (IllegalArgumentException ex) {
 
 		}
-
-	}
-
-	@Test(threadPoolSize = 5, invocationCount = 10)
-	public void relativeDateTest() {
-
-		RelativeDate relativeDate = getRelativeDateInstance();
-		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
-		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
-		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "one day from now");
-		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 3)), "3 days from now");
-		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 7 * 3)), "3 weeks from now");
-		assertEquals(relativeDate.format(new Date(2629743830L * 3L), new Date(0)), "3 months ago");
-		assertEquals(relativeDate.format(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
-		assertEquals(relativeDate.format(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
-		assertEquals(relativeDate.format(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
-
-		// within locale
-		relativeDate = getRelativeDateInstance(ES);
-		assertEquals(relativeDate.format(new Date()), "justo ahora");
 
 	}
 

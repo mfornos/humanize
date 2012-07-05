@@ -1,7 +1,6 @@
 package com.github.mfornos.humanize;
 
 import static com.github.mfornos.humanize.util.Constants.EMPTY_STRING;
-import static com.github.mfornos.humanize.util.Constants.ND_FACTOR;
 import static com.github.mfornos.humanize.util.Constants.SPACE_STRING;
 import static com.github.mfornos.humanize.util.Constants.SPLIT_CAMEL_REGEX;
 import static com.github.mfornos.humanize.util.Constants.THOUSAND;
@@ -23,7 +22,6 @@ import java.util.concurrent.Callable;
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.context.Context;
 import com.github.mfornos.humanize.spi.context.ContextFactory;
-import com.github.mfornos.humanize.util.RelativeDate;
 import com.github.mfornos.humanize.util.UnicodeUtils;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
@@ -725,42 +723,6 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Creates a RelativeDate instance. It is useful to compute multiple
-	 * relative dates with the same instance.
-	 * </p>
-	 * 
-	 * @return RelativeDate instance
-	 */
-	public static RelativeDate getRelativeDateInstance() {
-
-		return context.get().getRelativeDate();
-
-	}
-
-	/**
-	 * <p>
-	 * Same as {@link #getRelativeDateInstance() getRelativeDateInstance} for
-	 * the specified locale.
-	 * </p>
-	 * 
-	 * @param locale
-	 *            Target locale
-	 * @return RelativeDate instance
-	 */
-	public static RelativeDate getRelativeDateInstance(final Locale locale) {
-
-		return withinLocale(new Callable<RelativeDate>() {
-			public RelativeDate call() throws Exception {
-
-				return context.get().getRelativeDate();
-
-			}
-		}, locale);
-
-	}
-
-	/**
-	 * <p>
 	 * Returns an ICU based MessageFormat instance for the current thread. This
 	 * formatter supports a rich pattern model. For plural rules see <a
 	 * href="http://unicode
@@ -879,7 +841,7 @@ public final class Humanize {
 	 */
 	public static String naturalDay(Date value) {
 
-		return naturalDay(DateFormat.SHORT, value);
+		return naturalDay(DateFormat.RELATIVE_SHORT, value);
 
 	}
 
@@ -916,7 +878,8 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * @param style
-	 *            DateFormat style
+	 *            DateFormat style. RELATIVE_SHORT, RELATIVE_MEDIUM or
+	 *            RELATIVE_LONG
 	 * @param value
 	 *            Date to be converted
 	 * @return String with "today", "tomorrow" or "yesterday" compared to
@@ -925,18 +888,7 @@ public final class Humanize {
 	 */
 	public static String naturalDay(int style, Date value) {
 
-		Date today = new Date();
-		long delta = value.getTime() - today.getTime();
-		long days = delta / ND_FACTOR;
-
-		if (days == 0)
-			return context.get().getMessage("today");
-		else if (days == 1)
-			return context.get().getMessage("tomorrow");
-		else if (days == -1)
-			return context.get().getMessage("yesterday");
-
-		return formatDate(style, value);
+		return formatDate(style, value).toLowerCase();
 
 	}
 
@@ -952,7 +904,7 @@ public final class Humanize {
 	 */
 	public static String naturalTime(Date duration) {
 
-		return context.get().formatRelativeDate(duration);
+		return context.get().getDurationFormat().formatDurationFromNowTo(duration);
 
 	}
 
@@ -962,8 +914,8 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * <p>
-	 * E.g. "one day ago", "one day from now", "10 years ago", "3 minutes from
-	 * now", "right now" and so on.
+	 * E.g. "1 day ago", "1 day from now", "10 years ago", "3 minutes from now"
+	 * and so on.
 	 * </p>
 	 * 
 	 * @param reference
@@ -974,7 +926,8 @@ public final class Humanize {
 	 */
 	public static String naturalTime(Date reference, Date duration) {
 
-		return context.get().formatRelativeDate(reference, duration);
+		long diff = duration.getTime() - reference.getTime();
+		return context.get().getDurationFormat().formatDurationFrom(diff, reference.getTime());
 
 	}
 

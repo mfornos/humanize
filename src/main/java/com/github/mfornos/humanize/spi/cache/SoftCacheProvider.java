@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.github.mfornos.humanize.util.SoftHashMap;
-import com.ibm.icu.text.NumberFormat;
 
 /**
  * {@link CacheProvider} implementation that uses {@link SoftHashMap} as in
@@ -19,7 +18,7 @@ public class SoftCacheProvider implements CacheProvider {
 
 	private final static Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
 
-	private final static Map<String, Map<Locale, NumberFormat>> numberFormats = new SoftHashMap<String, Map<Locale, NumberFormat>>();
+	private final static Map<String, Map<Locale, Object>> formats = new SoftHashMap<String, Map<Locale, Object>>();
 
 	private final static Map<String, Map<Locale, String[]>> stringCaches = new HashMap<String, Map<Locale, String[]>>();
 
@@ -31,9 +30,9 @@ public class SoftCacheProvider implements CacheProvider {
 	}
 
 	@Override
-	public boolean containsNumberFormat(String cache, Locale locale) {
+	public boolean containsFormat(String cache, Locale locale) {
 
-		return getNumberFormatCache(cache).containsKey(locale);
+		return getFormatsCache(cache).containsKey(locale);
 
 	}
 
@@ -51,10 +50,11 @@ public class SoftCacheProvider implements CacheProvider {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public NumberFormat getNumberFormat(String cache, Locale locale) {
+	public <T> T getFormat(String cache, Locale locale) {
 
-		return getNumberFormatCache(cache).get(locale);
+		return (T) getFormatsCache(cache).get(locale);
 
 	}
 
@@ -74,9 +74,9 @@ public class SoftCacheProvider implements CacheProvider {
 	}
 
 	@Override
-	public NumberFormat putNumberFormat(String cache, Locale locale, NumberFormat format) {
+	public <T> T putFormat(String cache, Locale locale, T format) {
 
-		Map<Locale, NumberFormat> numberFormatCache = getNumberFormatCache(cache);
+		Map<Locale, T> numberFormatCache = getFormatsCache(cache);
 		synchronized (numberFormatCache) {
 			return numberFormatCache.put(locale, format);
 		}
@@ -93,12 +93,13 @@ public class SoftCacheProvider implements CacheProvider {
 
 	}
 
-	private Map<Locale, NumberFormat> getNumberFormatCache(String cache) {
+	@SuppressWarnings("unchecked")
+	private <T> Map<Locale, T> getFormatsCache(String cache) {
 
-		if (!numberFormats.containsKey(cache))
-			numberFormats.put(cache, new SoftHashMap<Locale, NumberFormat>());
+		if (!formats.containsKey(cache))
+			formats.put(cache, (Map<Locale, Object>) new SoftHashMap<Locale, T>());
 
-		return numberFormats.get(cache);
+		return (Map<Locale, T>) formats.get(cache);
 
 	}
 
