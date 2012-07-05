@@ -9,7 +9,6 @@ import static com.github.mfornos.humanize.util.Constants.binPrefixes;
 import static com.github.mfornos.humanize.util.Constants.metricPrefixes;
 
 import java.math.BigDecimal;
-import java.text.BreakIterator;
 import java.text.ChoiceFormat;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -23,11 +22,11 @@ import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.context.Context;
 import com.github.mfornos.humanize.spi.context.ContextFactory;
 import com.github.mfornos.humanize.util.UnicodeUtils;
+import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
-import com.ibm.icu.util.ULocale;
 
 /**
  * <p>
@@ -425,7 +424,7 @@ public final class Humanize {
 	 */
 	public static String formatDate(Date value, String pattern) {
 
-		return new SimpleDateFormat(pattern, ULocale.forLocale(context.get().getLocale())).format(value);
+		return new SimpleDateFormat(pattern, context.get().getLocale()).format(value);
 
 	}
 
