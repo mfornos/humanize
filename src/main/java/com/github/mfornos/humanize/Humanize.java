@@ -32,7 +32,8 @@ import com.ibm.icu.text.SimpleDateFormat;
  * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
  * per-thread internationalization. Additionally provides a concise facade for
- * access to the standard internationalization Java APIs.
+ * access to the <a href="http://icu-project.org/">International Components for
+ * Unicode</a> (ICU) Java APIs.
  * </p>
  * 
  * @author mfornos
@@ -305,7 +306,7 @@ public final class Humanize {
 	 */
 	public static String duration(Number value) {
 
-		// NOTE: does not provide any other locale
+		// NOTE: does not support any other locale
 		return new RuleBasedNumberFormat(Locale.ENGLISH, RuleBasedNumberFormat.DURATION).format(value);
 
 	}
