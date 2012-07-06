@@ -10,7 +10,7 @@ h2. Dependencies
 
 * icu4j 49.1
 
-If you want to customize the data included in ICU by default (all features and languages ~7.1MB), you can use the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/
+If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful.
 
 h2. Usage
 
