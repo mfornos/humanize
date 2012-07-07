@@ -19,7 +19,7 @@ Using Humanize is dead simple. See the javadoc "documentation":http://mfornos.gi
 # Import the static methods of the Humanize class that you want to call.
 # Invoke these methods.
 
-bc.. import static org.nikko.humanize.Humanize.binaryPrefix; 
+bc.. import static com.github.mfornos.humanize.Humanize.binaryPrefix;
  
 class SomeClass {
 
