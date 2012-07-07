@@ -21,7 +21,7 @@ import java.util.concurrent.Callable;
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.context.Context;
 import com.github.mfornos.humanize.spi.context.ContextFactory;
-import com.github.mfornos.humanize.util.UnicodeUtils;
+import com.github.mfornos.humanize.util.TextUtils;
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
@@ -1738,7 +1738,7 @@ public final class Humanize {
 	 */
 	public static String replaceSupplementary(String value) {
 
-		return UnicodeUtils.replaceSupplementary(value);
+		return TextUtils.replaceSupplementary(value);
 
 	}
 

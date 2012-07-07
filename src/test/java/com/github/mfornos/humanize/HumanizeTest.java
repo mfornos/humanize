@@ -393,8 +393,8 @@ public class HumanizeTest {
 	public void replaceSupplementaryTest() {
 
 		assertEquals(
-		        replaceSupplementary("The first three letters of the Gothic alphabet are: \uD800\uDF30 \uD800\uDF31 \uD800\uDF32"),
-		        "The first three letters of the Gothic alphabet are: GOTHIC LETTER AHSA GOTHIC LETTER BAIRKAN GOTHIC LETTER GIBA");
+		        replaceSupplementary("The first three letters of the Gothic alphabet are: \uD800\uDF30 \uD800\uDF31 \uD800\uDF32 and not"),
+		        "The first three letters of the Gothic alphabet are: GOTHIC LETTER AHSA GOTHIC LETTER BAIRKAN GOTHIC LETTER GIBA and not");
 
 		assertEquals(replaceSupplementary("A normal string"), "A normal string");
 
