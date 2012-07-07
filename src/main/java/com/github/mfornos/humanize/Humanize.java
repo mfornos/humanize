@@ -366,7 +366,7 @@ public final class Humanize {
 	 * localized.
 	 * </p>
 	 * 
-	 * <h4>Patterns</h4>
+	 * <h5>Patterns</h5>
 	 * 
 	 * <p>
 	 * A <code>DecimalFormat</code> consists of a <em>pattern</em> and a set of
@@ -376,7 +376,7 @@ public final class Humanize {
 	 * stored in a DecimalFormatSymbols object. When using the NumberFormat
 	 * factory methods, the pattern and symbols are read from ICU's locale data.
 	 * 
-	 * <h4>Special Pattern Characters</h4>
+	 * <h5>Special Pattern Characters</h5>
 	 * 
 	 * <p>
 	 * Many characters in a pattern are taken literally; they are matched during
@@ -543,7 +543,7 @@ public final class Humanize {
 	 * <code>DecimalFormat</code> to throw an IllegalArgumentException with a
 	 * message that describes the problem.
 	 * 
-	 * <h4>Pattern BNF</h4>
+	 * <h5>Pattern BNF</h5>
 	 * 
 	 * <pre>
 	 * pattern    := subpattern (';' subpattern)?
@@ -1066,7 +1066,7 @@ public final class Humanize {
 	 * .html">CLDR Language Plural Rules</a>
 	 * </p>
 	 * 
-	 * <h4>Patterns and Their Interpretation</h4>
+	 * <h5>Patterns and Their Interpretation</h5>
 	 * 
 	 * <code>MessageFormat</code> uses patterns of the following form:
 	 * <blockquote>
@@ -1262,7 +1262,7 @@ public final class Humanize {
 	 * <td><code>new PluralFormat(subformatPattern)</code>
 	 * </table>
 	 * 
-	 * <h4>Examples:</h4>
+	 * <h5>Examples:</h5>
 	 * 
 	 * <pre>
 	 * MessageFormat msg = messageFormatInstance("There {0, plural, one{is one file}other{are {0} files}} on {1}.")
@@ -1626,7 +1626,7 @@ public final class Humanize {
 	 * Constructs a message with pluralization logic from the given template.
 	 * </p>
 	 * 
-	 * <h4>Examples:</h4>
+	 * <h5>Examples:</h5>
 	 * 
 	 * <pre>
 	 * MessageFormat msg = pluralize(&quot;There {0} on {1}.::are no files::is one file::are {2} files&quot;);
