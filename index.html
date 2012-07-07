@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Humanize by mfornos</title>
+    <title>Humanize for Java</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -27,100 +27,120 @@
       <section>
         <h1>Humanize for Java</h1>
 
-<p>Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. Additionally provides a concise facade for access to the standard internationalization Java APIs.</p>
+<p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization. Additionally provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
 
 <h2>Getting Started</h2>
 
 <p>The project is not yet available in any public Maven repository, so you can <a href="https://github.com/mfornos/humanize/fork">fork it on Github</a>  or download the jar package from the <a href="https://github.com/mfornos/humanize/downloads">project downloads</a> section.</p>
 
-<h2>Runtime Dependencies</h2>
+<h2>Dependencies</h2>
 
-<p>Humanize has no runtime dependencies besides JRE 1.6.</p>
+<ul>
+<li>icu4j 49.1</li>
+</ul>
+
+<p>If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the <a href="http://apps.icu-project.org/datacustom/">ICU Data Library Customizer</a> may be useful.</p>
 
 <h2>Usage</h2>
 
-<p>Using Humanize is dead simple. See the <a href="apidocs/index.html?org/nikko/humanize/Humanize.html">documentation</a> (javadoc).</p>
+<p>Using Humanize is dead simple. See the <a href="apidocs/index.html">documentation</a>.</p>
 
 <ol>
-<li>Import the static methods of Humanize class that you plan to call</li>
-<li>Invoke the methods.</li>
+<li>Import the static methods of the Humanize class that you want to call.</li>
+<li>Invoke these methods.</li>
 </ol>
 
 <div class="highlight">
-<pre>    <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">nikko</span><span class="o">.</span><span class="na">humanize</span><span class="o">.</span><span class="na">Humanize</span><span class="o">.</span><span class="na">binaryPrefix</span><span class="o">;</span> 
+<pre>    
+    <span class="kn">import</span> <span class="nn">static</span> <span class="n">com</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">mfornos</span><span class="o">.</span><span class="n">humanize</span><span class="o">.</span><span class="n">Humanize</span><span class="o">.</span><span class="na">binaryPrefix</span><span class="o">;</span> 
 
     <span class="kd">class</span> <span class="nc">SomeClass</span> <span class="o">{</span>
+      
       <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
-         <span class="n">String</span> <span class="n">size</span> <span class="o">=</span> <span class="n">binaryPrefix</span><span class="o">(</span><span class="mi">1325899906842624L</span><span class="o">);</span>
+         
+         <span class="n">String</span> <span class="n">size</span> <span class="o">=</span> <span class="na">binaryPrefix</span><span class="o">(</span><span class="mi">1325899906842624L</span><span class="o">);</span> <span>// 1.18 PB</span>
+      
       <span class="o">}</span>
+      
     <span class="o">}</span>
 </pre>
 </div>
 
-
 <h2>Principal Methods</h2>
-
-<p>All methods support internationalization. The table listings shows outputs for en_GB locale as reference.</p>
 
 <h3>Date&amp;Time</h3>
 
 <table>
 <tr>
 <th>Method </th>
-        <th>Description </th>
-        <th>Output </th>
-    </tr>
+		<th>Description </th>
+		<th>Output </th>
+	</tr>
 <tr>
 <td> naturalDay </td>
-        <td> For dates that are the current day or within one day, return ‘today’,‘tomorrow’ or ‘yesterday’, as appropriate. </td>
-        <td> ‘today’, ‘tomorrow’, ‘yesterday’ or the date formatted </td>
-    </tr>
+		<td> For dates that are the current day or within one day, return ‘today’,‘tomorrow’ or ‘yesterday’, as appropriate. </td>
+		<td> ‘today’, ‘tomorrow’, ‘yesterday’ or the date formatted </td>
+	</tr>
 <tr>
 <td> naturalTime </td>
-        <td> Computes both past and future relative dates. </td>
-        <td> ‘one day ago’, ‘one day from now’, ‘10 years ago’, ‘3 minutes from now’, ‘right now’, etc. </td>
-    </tr>
-</table><h3>Numbers</h3>
+		<td> Computes both past and future relative dates. </td>
+		<td> ‘2 days from now’, ‘10 years ago’, ‘3 minutes from now’, etc. </td>
+	</tr>
+<tr>
+<td> duration </td>
+		<td> Formats a number of seconds as hours, minutes and seconds. </td>
+		<td> ‘1 sec.’, ‘1:02:10’, etc.</td>
+	</tr>
+<tr>
+<td> smartDateFormat </td>
+		<td> Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. </td>
+		<td> skeleton ‘MMMd’ produces ‘11 Dec.’ </td>
+	</tr>
+</table>
+
+<h3>Numbers</h3>
 
 <table>
 <tr>
 <th>Method </th>
-        <th>Description </th>
-        <th>Output </th>
-    </tr>
+		<th>Description </th>
+		<th>Output </th>
+	</tr>
 <tr>
 <td> ordinalize </td>
-        <td> Converts a number to its ordinal as a string. </td>
-        <td> ‘1st’, ‘2nd’, ‘3rd’, etc. </td>
-    </tr>
+		<td> Converts a number to its ordinal as a string. </td>
+		<td> ‘1st’, ‘2nd’, ‘3rd’, etc. </td>
+	</tr>
 <tr>
 <td> spellBigNumber </td>
-        <td> Converts a big number to a friendly text representation. </td>
-        <td> ‘2.3 thousand’, ‘1 million’, ‘-1.55 billion’, ‘3 decillion’, ‘2 googol’, etc. </td>
-    </tr>
+		<td> Converts a big number to a friendly text representation. </td>
+		<td> ‘2.3 thousand’, ‘1 million’, ‘-1.55 billion’, ‘3 decillion’, ‘2 googol’, etc. </td>
+	</tr>
 <tr>
 <td> spellDigit </td>
-        <td> For decimal digits, returns the number spelled out. </td>
-        <td> ‘one’, ‘two’, ‘three’, etc. </td>
-    </tr>
+		<td> For decimal digits, returns the number spelled out. </td>
+		<td> ‘one’, ‘two’, ‘three’, etc. </td>
+	</tr>
 <tr>
-<td> toText </td>
+<td> spellNumber </td>
 		<td> Converts the given number to words. </td>
 		<td> ‘twenty-three’, ‘two thousand eight hundred and forty’, ‘one million four hundred and twelve thousand six hundred and five’, etc.  </td>
 	</tr>
-</table><h3>Units</h3>
+</table>
+
+<h3>Units</h3>
 
 <table>
 <tr>
 <th>Method </th>
-        <th>Description </th>
-        <th>Output </th>
-    </tr>
+		<th>Description </th>
+		<th>Output </th>
+	</tr>
 <tr>
 <td> binaryPrefix </td>
-        <td> Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. </td>
-        <td> ‘2 bytes’, ‘1.5 kB’, ‘5 MB’, ‘1.18 PB’, etc. </td>
-    </tr>
+		<td> Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. </td>
+		<td> ‘2 bytes’, ‘1.5 kB’, ‘5 MB’, ‘1.18 PB’, etc. </td>
+	</tr>
 <tr>
 <td> metricPrefix </td>
 		<td> Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  </td>
@@ -128,27 +148,34 @@
 	</tr>
 <tr>
 <td> formatCurrency </td>
-        <td> Smartly formats the given number as a monetary amount. </td>
-        <td> ‘£34’, ‘£1,000’, ‘£12.50’, etc. </td>
-    </tr>
+		<td> Smartly formats the given number as a monetary amount. </td>
+		<td> ‘£34’, ‘£1,000’, ‘£12.50’, etc. </td>
+	</tr>
+<tr>
+<td> formatPluralCurrency </td>
+		<td> Smartly formats the given number as a monetary amount in plural form. </td>
+		<td> ‘34 British pounds sterling’, ‘1,500.55 British pounds sterling’, ‘1 euro’, etc. </td>
+	</tr>
 <tr>
 <td> formatPercent </td>
 		<td> Formats the given ratio as a percentage. </td>
 		<td> ‘500%’, ‘56%’, etc.  </td>
 	</tr>
-</table><h3>Text</h3>
+</table>
+
+<h3>Text</h3>
 
 <table>
 <tr>
 <th>Method </th>
-        <th>Description </th>
-        <th>Output </th>
-    </tr>
+		<th>Description </th>
+		<th>Output </th>
+	</tr>
 <tr>
 <td> pluralize </td>
-        <td> Constructs a message with pluralization logic by the means of ChoiceFormat. </td>
-        <td> – </td>
-    </tr>
+		<td> Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to <em>messageFormatInstance</em> for pluralization using CLDR Plural Rules. </td>
+		<td> – </td>
+	</tr>
 <tr>
 <td> camelize </td>
 		<td> Makes a phrase camel case. Spaces and underscores will be removed.  </td>
@@ -161,45 +188,34 @@
 	</tr>
 <tr>
 <td> decamelize </td>
-        <td> Converts a camel case string into a human-readable name. </td>
-        <td> – </td>
-    </tr>
+		<td> Converts a camel case string into a human-readable name. </td>
+		<td> – </td>
+	</tr>
 <tr>
-
 <td> titleize </td>
-        <td> Capitalize all the words, and replace some characters in the string to create a nice looking title. </td>
-        <td> – </td>
-    </tr>
+		<td> Capitalize all the words, and replace some characters in the string to create a nice looking title. </td>
+		<td> – </td>
+	</tr>
 <tr>
 <td> wordWrap </td>
-        <td> Truncate a string to the closest word boundary after a number of characters. </td>
-        <td> – </td>
-    </tr>
+		<td> Truncate a string to the closest word boundary after a number of characters. </td>
+		<td> – </td>
+</tr>
+<tr>
+		<td> replaceSupplementary </td>
+		<td> Replaces characters outside the Basic Multilingual Plane with their name. </td>
+		<td> ‘SMILING FACE WITH SMILING EYES’ for the corresponding Emoji char </td>
+	</tr>
+<tr>
+<td> messageFormatInstance </td>
+		<td> Returns an ICU based MessageFormat instance for the current thread. </td>
+		<td> – </td>
+	</tr>
 </table>
 
-<h2>
-<a name="extensibility" class="anchor" href="#extensibility"><span class="mini-icon mini-icon-link"></span></a>Extensibility</h2>
-<h3>
-<a name="numbertext" class="anchor" href="#numbertext"><span class="mini-icon mini-icon-link"></span></a>NumberText</h3>
-<p>Language-dependent providers for number to text conversion.</p>
-<p>You can plug your own NumberText provider implementations just dropping a jar in the classpath with the proper <code>META-INF/services/nikko.humanize.spi.number.NumberText</code> file.</p>
-<h2>
-<a name="supported-languages" class="anchor" href="#supported-languages"><span class="mini-icon mini-icon-link"></span></a>Supported languages</h2>
-<p>Languages supported by the Java internationalization APIs.</p>
-<p>Humanize nowadays, since it is in an early stage, only have translations for the following reference languages:</p>
-<p><strong>Common functions</strong></p>
-<ul>
-<li>English (United Kingdom) [en_GB]</li>
-	<li>English (United States) [en_US]</li>
-	<li>Spanish (Spain) [es_ES]</li>
-</ul><p><strong>Text to number</strong></p>
-<ul>
-<li>Chinese (simplified) [zh_CN]</li>
-	<li>Chinese (traditional) [zh_TW]</li>
-	<li>English (United Kingdom) [en_GB]</li>
-	<li>English (United States) [en_US]</li>
-	<li>Spanish (Spain) [es_ES]</li>
-</ul>
+<h2>Supported languages</h2>
+<p>All languages supported by the ICU APIs.</p>
+<p>For capabilities not backed by ICU there are support for ‘en’ and ‘es’.</p>
 
 <h2>Examples</h2>
 
