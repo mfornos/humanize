@@ -639,17 +639,23 @@ public final class Humanize {
 	 *            Number of seconds
 	 * @return Number of seconds as hours, minutes and seconds
 	 */
-	public static String duration(Number value) {
+	public static String duration(final Number value) {
 
 		// NOTE: does not support any other locale
-		return new RuleBasedNumberFormat(Locale.ENGLISH, RuleBasedNumberFormat.DURATION).format(value);
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.DURATION).format(value);
+
+			}
+		}, Locale.ENGLISH);
 
 	}
 
 	/**
 	 * <p>
-	 * Creates a MessageFormat with the given pattern and uses it to format the
-	 * given arguments.
+	 * Gets the ICU based DecimalFormat instance for the current thread with the
+	 * given pattern and uses it to format the given arguments.
 	 * </p>
 	 * 
 	 * @param pattern
