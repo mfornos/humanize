@@ -1,6 +1,5 @@
-org.nikko.humanize
-org.nikko.humanize.spi
-org.nikko.humanize.spi.cache
-org.nikko.humanize.spi.context
-org.nikko.humanize.spi.number
-org.nikko.humanize.util
+com.github.mfornos.humanize
+com.github.mfornos.humanize.spi
+com.github.mfornos.humanize.spi.cache
+com.github.mfornos.humanize.spi.context
+com.github.mfornos.humanize.util
