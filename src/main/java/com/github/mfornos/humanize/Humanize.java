@@ -177,6 +177,108 @@ public final class Humanize {
 	 * <p>
 	 * Returns an ICU based DateFormat instance for the current thread.
 	 * </p>
+	 * <p>
+	 * Date/Time format syntax:
+	 * </p>
+	 * <p>
+	 * The date/time format is specified by means of a string time pattern. In
+	 * this pattern, all ASCII letters are reserved as pattern letters, which
+	 * are defined as the following:
+	 * </p>
+	 * <style>pre { white-space: pre-wrap; white-space: -moz-pre-wrap;
+	 * white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;
+	 * }</style>
+	 * 
+	 * <pre>
+	 *  Symbol   Meaning                 Presentation        Example
+	 *  ------   -------                 ------------        -------
+	 *  G        era designator          (Text)              AD
+	 *  y        year                    (Number)            1996
+	 *  Y        year (week of year)     (Number)            1997
+	 *  u        extended year           (Number)            4601
+	 *  U        cyclic year name        (Text,NumFallback)  ren-chen (29)
+	 *  Q        Quarter                 (Text &amp; Number)     Q2 &amp; 02
+	 *  M        month in year           (Text &amp; Number)     July &amp; 07
+	 *  d        day in month            (Number)            10
+	 *  h        hour in am/pm (1~12)    (Number)            12
+	 *  H        hour in day (0~23)      (Number)            0
+	 *  m        minute in hour          (Number)            30
+	 *  s        second in minute        (Number)            55
+	 *  S        fractional second       (Number)            978
+	 *  E        day of week             (Text)              Tuesday
+	 *  e        day of week (local 1~7) (Text &amp; Number)     Tues &amp; 2
+	 *  D        day in year             (Number)            189
+	 *  F        day of week in month    (Number)            2 (2nd Wed in July)
+	 *  w        week in year            (Number)            27
+	 *  W        week in month           (Number)            2
+	 *  a        am/pm marker            (Text)              PM
+	 *  k        hour in day (1~24)      (Number)            24
+	 *  K        hour in am/pm (0~11)    (Number)            0
+	 *  z        time zone               (Text)              PST
+	 *  zzzz     time zone               (Text)              Pacific Standard Time
+	 *  Z        time zone (RFC 822)     (Number)            -0800
+	 *  ZZZZ     time zone (RFC 822)     (Text &amp; Number)     GMT-08:00
+	 *  ZZZZZ    time zone (ISO 8601)    (Text &amp; Number)     -08:00 &amp; Z
+	 *  v        time zone (generic)     (Text)              PT
+	 *  vvvv     time zone (generic)     (Text)              Pacific Time
+	 *  V        time zone (abreviation) (Text)              PST
+	 *  VVVV     time zone (location)    (Text)              United States Time (Los Angeles)
+	 *  g        Julian day              (Number)            2451334
+	 *  A        milliseconds in day     (Number)            69540000
+	 *  q        stand alone quarter     (Text &amp; Number)     Q2 &amp; 02
+	 *  L        stand alone month       (Text &amp; Number)     July &amp; 07
+	 *  c        stand alone day of week (Text &amp; Number)     Tuesday &amp; 2
+	 *  &#39;        escape for text         (Delimiter)         &#39;Date=&#39;
+	 *  &#39;&#39;       single quote            (Literal)           &#39;o&#39;&#39;clock&#39;
+	 * </pre>
+	 * <p>
+	 * The count of pattern letters determine the format.
+	 * </p>
+	 * <p>
+	 * (Text): 4 or more, use full form, &lt;4, use short or abbreviated form if
+	 * it exists. (e.g., "EEEE" produces "Monday", "EEE" produces "Mon")
+	 * </p>
+	 * <p>
+	 * (Number): the minimum number of digits. Shorter numbers are zero-padded
+	 * to this amount (e.g. if "m" produces "6", "mm" produces "06"). Year is
+	 * handled specially; that is, if the count of 'y' is 2, the Year will be
+	 * truncated to 2 digits. (e.g., if "yyyy" produces "1997", "yy" produces
+	 * "97".) Unlike other fields, fractional seconds are padded on the right
+	 * with zero.
+	 * </p>
+	 * <p>
+	 * (Text &amp; Number): 3 or over, use text, otherwise use number. (e.g.,
+	 * "M" produces "1", "MM" produces "01", "MMM" produces "Jan", and "MMMM"
+	 * produces "January".)
+	 * </p>
+	 * <p>
+	 * (Text,NumFallback): Behaves like Text if there is supporting data, like
+	 * Number otherwise.
+	 * </p>
+	 * <p>
+	 * Any characters in the pattern that are not in the ranges of ['a'..'z']
+	 * and ['A'..'Z'] will be treated as quoted text. For instance, characters
+	 * like ':', '.', ' ', '#' and '@' will appear in the resulting time text
+	 * even they are not embraced within single quotes.
+	 * </p>
+	 * <p>
+	 * A pattern containing any invalid pattern letter will result in a failing
+	 * UErrorCode result during formatting or parsing.
+	 * </p>
+	 * <p>
+	 * Examples using the US locale:
+	 * </p>
+	 * 
+	 * <pre>
+	 *     Format Pattern                         Result
+	 *     --------------                         -------
+	 *     &quot;yyyy.MM.dd G &#39;at&#39; HH:mm:ss vvvv&quot; -&gt;&gt;  1996.07.10 AD at 15:08:56 Pacific Time
+	 *     &quot;EEE, MMM d, &#39;&#39;yy&quot;                -&gt;&gt;  Wed, July 10, &#39;96
+	 *     &quot;h:mm a&quot;                          -&gt;&gt;  12:08 PM
+	 *     &quot;hh &#39;o&#39;&#39;clock&#39; a, zzzz&quot;           -&gt;&gt;  12 o&#39;clock PM, Pacific Daylight Time
+	 *     &quot;K:mm a, vvv&quot;                     -&gt;&gt;  0:00 PM, PT
+	 *     &quot;yyyyy.MMMMM.dd GGG hh:mm aaa&quot;    -&gt;&gt;  1996.July.10 AD 12:08 PM
+	 * </pre>
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
@@ -254,8 +356,241 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Returns an ICU based DecimalFormat instance for the current thread.
+	 * Returns an ICU based DecimalFormat instance for the current thread. It
+	 * has a variety of features designed to make it possible to parse and
+	 * format numbers in any locale, including support for Western, Arabic, or
+	 * Indic digits. It also supports different flavors of numbers, including
+	 * integers ("123"), fixed-point numbers ("123.4"), scientific notation
+	 * ("1.23E4"), percentages ("12%"), and currency amounts ("$123.00",
+	 * "USD123.00", "123.00 US dollars"). All of these flavors can be easily
+	 * localized.
 	 * </p>
+	 * 
+	 * <h4>Patterns</h4>
+	 * 
+	 * <p>
+	 * A <code>DecimalFormat</code> consists of a <em>pattern</em> and a set of
+	 * <em>symbols</em>. The pattern may be set directly using #applyPattern ,
+	 * or indirectly using other API methods which manipulate aspects of the
+	 * pattern, such as the minimum number of integer digits. The symbols are
+	 * stored in a DecimalFormatSymbols object. When using the NumberFormat
+	 * factory methods, the pattern and symbols are read from ICU's locale data.
+	 * 
+	 * <h4>Special Pattern Characters</h4>
+	 * 
+	 * <p>
+	 * Many characters in a pattern are taken literally; they are matched during
+	 * parsing and output unchanged during formatting. Special characters, on
+	 * the other hand, stand for other characters, strings, or classes of
+	 * characters. For example, the '#' character is replaced by a localized
+	 * digit. Often the replacement character is the same as the pattern
+	 * character; in the U.S. locale, the ',' grouping character is replaced by
+	 * ','. However, the replacement is still happening, and if the symbols are
+	 * modified, the grouping character changes. Some special characters affect
+	 * the behavior of the formatter by their presence; for example, if the
+	 * percent character is seen, then the value is multiplied by 100 before
+	 * being displayed.
+	 * 
+	 * <p>
+	 * To insert a special character in a pattern as a literal, that is, without
+	 * any special meaning, the character must be quoted. There are some
+	 * exceptions to this which are noted below.
+	 * 
+	 * <p>
+	 * The characters listed here are used in non-localized patterns. Localized
+	 * patterns use the corresponding characters taken from this formatter's
+	 * DecimalFormatSymbols object instead, and these characters lose their
+	 * special status. Two exceptions are the currency sign and quote, which are
+	 * not localized.
+	 * 
+	 * <blockquote>
+	 * <table border=0 cellspacing=3 cellpadding=0 summary="Chart showing symbol, location, localized, and meaning.">
+	 * <tr bgcolor="#ccccff">
+	 * <th align=left>Symbol
+	 * <th align=left>Location
+	 * <th align=left>Localized?
+	 * <th align=left>Meaning
+	 * <tr valign=top>
+	 * <td><code>0</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Digit
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>1-9</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>'1' through '9' indicate rounding.
+	 * 
+	 * <tr valign=top>
+	 * <td><code>@</code>
+	 * <td>Number
+	 * <td>No
+	 * <td>Significant digit
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>#</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Digit, zero shows as absent
+	 * <tr valign=top>
+	 * <td><code>.</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Decimal separator or monetary decimal separator
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>-</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Minus sign
+	 * <tr valign=top>
+	 * <td><code>,</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Grouping separator
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>E</code>
+	 * <td>Number
+	 * <td>Yes
+	 * <td>Separates mantissa and exponent in scientific notation.
+	 * <em>Need not be quoted in prefix or suffix.</em>
+	 * <tr valign=top>
+	 * <td><code>+</code>
+	 * <td>Exponent
+	 * <td>Yes
+	 * <td>Prefix positive exponents with localized plus sign.
+	 * <em>Need not be quoted in prefix or suffix.</em>
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>;</code>
+	 * <td>Subpattern boundary
+	 * <td>Yes
+	 * <td>Separates positive and negative subpatterns
+	 * <tr valign=top>
+	 * <td><code>%</code>
+	 * <td>Prefix or suffix
+	 * <td>Yes
+	 * <td>Multiply by 100 and show as percentage
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>&#92;u2030</code>
+	 * <td>Prefix or suffix
+	 * <td>Yes
+	 * <td>Multiply by 1000 and show as per mille
+	 * <tr valign=top>
+	 * <td><code>&#164;</code> (<code>&#92;u00A4</code>)
+	 * <td>Prefix or suffix
+	 * <td>No
+	 * <td>Currency sign, replaced by currency symbol. If doubled, replaced by
+	 * international currency symbol. If tripled, replaced by currency plural
+	 * names, for example, "US dollar" or "US dollars" for America. If present
+	 * in a pattern, the monetary decimal separator is used instead of the
+	 * decimal separator.
+	 * <tr valign=top bgcolor="#eeeeff">
+	 * <td><code>'</code>
+	 * <td>Prefix or suffix
+	 * <td>No
+	 * <td>Used to quote special characters in a prefix or suffix, for example,
+	 * <code>"'#'#"</code> formats 123 to <code>"#123"</code>. To create a
+	 * single quote itself, use two in a row: <code>"# o''clock"</code>.
+	 * <tr valign=top>
+	 * <td><code>*</code>
+	 * <td>Prefix or suffix boundary
+	 * <td>Yes
+	 * <td>Pad escape, precedes pad character
+	 * </table>
+	 * </blockquote>
+	 * 
+	 * <p>
+	 * A <code>DecimalFormat</code> pattern contains a postive and negative
+	 * subpattern, for example, "#,##0.00;(#,##0.00)". Each subpattern has a
+	 * prefix, a numeric part, and a suffix. If there is no explicit negative
+	 * subpattern, the negative subpattern is the localized minus sign prefixed
+	 * to the positive subpattern. That is, "0.00" alone is equivalent to
+	 * "0.00;-0.00". If there is an explicit negative subpattern, it serves only
+	 * to specify the negative prefix and suffix; the number of digits, minimal
+	 * digits, and other characteristics are ignored in the negative subpattern.
+	 * That means that "#,##0.0#;(#)" has precisely the same result as
+	 * "#,##0.0#;(#,##0.0#)".
+	 * 
+	 * <p>
+	 * The prefixes, suffixes, and various symbols used for infinity, digits,
+	 * thousands separators, decimal separators, etc. may be set to arbitrary
+	 * values, and they will appear properly during formatting. However, care
+	 * must be taken that the symbols and strings do not conflict, or parsing
+	 * will be unreliable. For example, either the positive and negative
+	 * prefixes or the suffixes must be distinct for #parse to be able to
+	 * distinguish positive from negative values. Another example is that the
+	 * decimal separator and thousands separator should be distinct characters,
+	 * or parsing will be impossible.
+	 * 
+	 * <p>
+	 * The <em>grouping separator</em> is a character that separates clusters of
+	 * integer digits to make large numbers more legible. It commonly used for
+	 * thousands, but in some locales it separates ten-thousands. The
+	 * <em>grouping size</em> is the number of digits between the grouping
+	 * separators, such as 3 for "100,000,000" or 4 for "1 0000 0000". There are
+	 * actually two different grouping sizes: One used for the least significant
+	 * integer digits, the <em>primary grouping size</em>, and one used for all
+	 * others, the <em>secondary grouping size</em>. In most locales these are
+	 * the same, but sometimes they are different. For example, if the primary
+	 * grouping interval is 3, and the secondary is 2, then this corresponds to
+	 * the pattern "#,##,##0", and the number 123456789 is formatted as
+	 * "12,34,56,789". If a pattern contains multiple grouping separators, the
+	 * interval between the last one and the end of the integer defines the
+	 * primary grouping size, and the interval between the last two defines the
+	 * secondary grouping size. All others are ignored, so "#,##,###,####" ==
+	 * "###,###,####" == "##,#,###,####".
+	 * 
+	 * <p>
+	 * Illegal patterns, such as "#.#.#" or "#.###,###", will cause
+	 * <code>DecimalFormat</code> to throw an IllegalArgumentException with a
+	 * message that describes the problem.
+	 * 
+	 * <h4>Pattern BNF</h4>
+	 * 
+	 * <pre>
+	 * pattern    := subpattern (';' subpattern)?
+	 * subpattern := prefix? number exponent? suffix?
+	 * number     := (integer ('.' fraction)?) | sigDigits
+	 * prefix     := '&#92;u0000'..'&#92;uFFFD' - specialCharacters
+	 * suffix     := '&#92;u0000'..'&#92;uFFFD' - specialCharacters
+	 * integer    := '#'* '0'* '0'
+	 * fraction   := '0'* '#'*
+	 * sigDigits  := '#'* '@' '@'* '#'*
+	 * exponent   := 'E' '+'? '0'* '0'
+	 * padSpec    := '*' padChar
+	 * padChar    := '&#92;u0000'..'&#92;uFFFD' - quote
+	 * &#32;
+	 * Notation:
+	 *   X*       0 or more instances of X
+	 *   X?       0 or 1 instances of X
+	 *   X|Y      either X or Y
+	 *   C..D     any character from C up to D, inclusive
+	 *   S-T      characters in S, except those in T
+	 * </pre>
+	 * 
+	 * The first subpattern is for positive numbers. The second (optional)
+	 * subpattern is for negative numbers.
+	 * 
+	 * <p>
+	 * Not indicated in the BNF syntax above:
+	 * 
+	 * <ul>
+	 * <li>The grouping separator ',' can occur inside the integer and sigDigits
+	 * elements, between any two pattern characters of that element, as long as
+	 * the integer or sigDigits element is not followed by the exponent element.
+	 * 
+	 * <li>Two grouping intervals are recognized: That between the decimal point
+	 * and the first grouping symbol, and that between the first and second
+	 * grouping symbols. These intervals are identical in most locales, but in
+	 * some locales they differ. For example, the pattern &quot;#,##,###&quot;
+	 * formats the number 123456789 as &quot;12,34,56,789&quot;.</li>
+	 * 
+	 * <li>
+	 * The pad specifier <code>padSpec</code> may appear before the prefix,
+	 * after the prefix, before the suffix, after the suffix, or not at all.
+	 * 
+	 * <li>
+	 * In place of '0', the digits '1' through '9' may be used to indicate a
+	 * rounding increment.
+	 * </ul>
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
@@ -375,8 +710,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDate(int, Date) formatDate} with DateFormat.SHORT
-	 * style.
+	 * Same as {@link #formatDate(int, Date) formatDate} with SHORT style.
 	 * </p>
 	 * 
 	 * @param value
@@ -420,7 +754,7 @@ public final class Humanize {
 	 * @param value
 	 *            Date to be formatted
 	 * @param pattern
-	 *            The pattern
+	 *            The pattern. See {@link dateFormatInstance(String)}
 	 * @return a formatted date/time string
 	 */
 	public static String formatDate(Date value, String pattern) {
@@ -438,7 +772,7 @@ public final class Humanize {
 	 * @param value
 	 *            Date to be formatted
 	 * @param pattern
-	 *            The pattern
+	 *            The pattern. See {@link dateFormatInstance(String)}
 	 * @param locale
 	 *            Target locale
 	 * @return a formatted date/time string
@@ -543,9 +877,9 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * @param dateStyle
-	 *            DateFormat date style
+	 *            Date style
 	 * @param timeStyle
-	 *            DateFormat time style
+	 *            Time style
 	 * @param value
 	 *            Date to be formatted
 	 * @return String representation of the date
@@ -563,7 +897,9 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * @param dateStyle
+	 *            Date style
 	 * @param timeStyle
+	 *            Time style
 	 * @param value
 	 *            Date to be formatted
 	 * @param locale
@@ -729,6 +1065,210 @@ public final class Humanize {
 	 * .org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules
 	 * .html">CLDR Language Plural Rules</a>
 	 * </p>
+	 * 
+	 * <h4>Patterns and Their Interpretation</h4>
+	 * 
+	 * <code>MessageFormat</code> uses patterns of the following form:
+	 * <blockquote>
+	 * 
+	 * <pre>
+	 * <i>MessageFormatPattern:</i>
+	 *         <i>String</i>
+	 *         <i>MessageFormatPattern</i> <i>FormatElement</i> <i>String</i>
+	 * 
+	 * <i>FormatElement:</i>
+	 *         { <i>ArgumentIndexOrName</i> }
+	 *         { <i>ArgumentIndexOrName</i> , <i>FormatType</i> }
+	 *         { <i>ArgumentIndexOrName</i> , <i>FormatType</i> , <i>FormatStyle</i> }
+	 * 
+	 * <i>ArgumentIndexOrName: one of </i>
+	 *         ['0'-'9']+
+	 *         [:ID_START:][:ID_CONTINUE:]*
+	 * 
+	 * <i>FormatType: one of </i>
+	 *         number date time choice
+	 * 
+	 * <i>FormatStyle:</i>
+	 *         short
+	 *         medium
+	 *         long
+	 *         full
+	 *         integer
+	 *         currency
+	 *         percent
+	 *         <i>SubformatPattern</i>
+	 * 
+	 * <i>String:</i>
+	 *         <i>StringPart<sub>opt</sub></i>
+	 *         <i>String</i> <i>StringPart</i>
+	 * 
+	 * <i>StringPart:</i>
+	 *         ''
+	 *         ' <i>QuotedString</i> '
+	 *         <i>UnquotedString</i>
+	 * 
+	 * <i>SubformatPattern:</i>
+	 *         <i>SubformatPatternPart<sub>opt</sub></i>
+	 *         <i>SubformatPattern</i> <i>SubformatPatternPart</i>
+	 * 
+	 * <i>SubFormatPatternPart:</i>
+	 *         ' <i>QuotedPattern</i> '
+	 *         <i>UnquotedPattern</i>
+	 * </pre>
+	 * 
+	 * </blockquote>
+	 * 
+	 * <p>
+	 * Within a <i>String</i>, <code>"''"</code> represents a single quote. A
+	 * <i>QuotedString</i> can contain arbitrary characters except single
+	 * quotes; the surrounding single quotes are removed. An
+	 * <i>UnquotedString</i> can contain arbitrary characters except single
+	 * quotes and left curly brackets. Thus, a string that should result in the
+	 * formatted message "'{0}'" can be written as <code>"'''{'0}''"</code> or
+	 * <code>"'''{0}'''"</code>.
+	 * <p>
+	 * Within a <i>SubformatPattern</i>, different rules apply. A
+	 * <i>QuotedPattern</i> can contain arbitrary characters except single
+	 * quotes; but the surrounding single quotes are <strong>not</strong>
+	 * removed, so they may be interpreted by the subformat. For example,
+	 * <code>"{1,number,$'#',##}"</code> will produce a number format with the
+	 * pound-sign quoted, with a result such as: "$#31,45". An
+	 * <i>UnquotedPattern</i> can contain arbitrary characters except single
+	 * quotes, but curly braces within it must be balanced. For example,
+	 * <code>"ab {0} de"</code> and <code>"ab '}' de"</code> are valid subformat
+	 * patterns, but <code>"ab {0'}' de"</code> and <code>"ab } de"</code> are
+	 * not.
+	 * <p>
+	 * <dl>
+	 * <dt><b>Warning:</b>
+	 * <dd>The rules for using quotes within message format patterns
+	 * unfortunately have shown to be somewhat confusing. In particular, it
+	 * isn't always obvious to localizers whether single quotes need to be
+	 * doubled or not. Make sure to inform localizers about the rules, and tell
+	 * them (for example, by using comments in resource bundle source files)
+	 * which strings will be processed by MessageFormat. Note that localizers
+	 * may need to use single quotes in translated strings where the original
+	 * version doesn't have them. <br>
+	 * Note also that the simplest way to avoid the problem is to use the real
+	 * apostrophe (single quote) character \u2019 (') for human-readable text,
+	 * and to use the ASCII apostrophe (\u0027 ' ) only in program syntax, like
+	 * quoting in MessageFormat. See the annotations for U+0027 Apostrophe in
+	 * The Unicode Standard.
+	 * </p>
+	 * </dl>
+	 * <p>
+	 * The <i>ArgumentIndex</i> value is a non-negative integer written using
+	 * the digits '0' through '9', and represents an index into the
+	 * <code>arguments</code> array passed to the <code>format</code> methods or
+	 * the result array returned by the <code>parse</code> methods.
+	 * <p>
+	 * The <i>FormatType</i> and <i>FormatStyle</i> values are used to create a
+	 * <code>Format</code> instance for the format element. The following table
+	 * shows how the values map to Format instances. Combinations not shown in
+	 * the table are illegal. A <i>SubformatPattern</i> must be a valid pattern
+	 * string for the Format subclass used.
+	 * <p>
+	 * <table border=1>
+	 * <tr>
+	 * <th>Format Type
+	 * <th>Format Style
+	 * <th>Subformat Created
+	 * <tr>
+	 * <td colspan=2><i>(none)</i>
+	 * <td><code>null</code>
+	 * <tr>
+	 * <td rowspan=5><code>number</code>
+	 * <td><i>(none)</i>
+	 * <td><code>NumberFormat.getInstance(getLocale())</code>
+	 * <tr>
+	 * <td><code>integer</code>
+	 * <td><code>NumberFormat.getIntegerInstance(getLocale())</code>
+	 * <tr>
+	 * <td><code>currency</code>
+	 * <td><code>NumberFormat.getCurrencyInstance(getLocale())</code>
+	 * <tr>
+	 * <td><code>percent</code>
+	 * <td><code>NumberFormat.getPercentInstance(getLocale())</code>
+	 * <tr>
+	 * <td><i>SubformatPattern</i>
+	 * <td>
+	 * <code>new DecimalFormat(subformatPattern, new DecimalFormatSymbols(getLocale()))</code>
+	 * <tr>
+	 * <td rowspan=6><code>date</code>
+	 * <td><i>(none)</i>
+	 * <td>
+	 * <code>DateFormat.getDateInstance(DateFormat.DEFAULT, getLocale())</code>
+	 * <tr>
+	 * <td><code>short</code>
+	 * <td>
+	 * <code>DateFormat.getDateInstance(DateFormat.SHORT, getLocale())</code>
+	 * <tr>
+	 * <td><code>medium</code>
+	 * <td>
+	 * <code>DateFormat.getDateInstance(DateFormat.DEFAULT, getLocale())</code>
+	 * <tr>
+	 * <td><code>long</code>
+	 * <td><code>DateFormat.getDateInstance(DateFormat.LONG, getLocale())</code>
+	 * <tr>
+	 * <td><code>full</code>
+	 * <td><code>DateFormat.getDateInstance(DateFormat.FULL, getLocale())</code>
+	 * <tr>
+	 * <td><i>SubformatPattern</i>
+	 * <td><code>new SimpleDateFormat(subformatPattern, getLocale())
+	 * <tr>
+	 * <td rowspan=6><code>time</code>
+	 * <td><i>(none)</i>
+	 * <td>
+	 * <code>DateFormat.getTimeInstance(DateFormat.DEFAULT, getLocale())</code>
+	 * <tr>
+	 * <td><code>short</code>
+	 * <td>
+	 * <code>DateFormat.getTimeInstance(DateFormat.SHORT, getLocale())</code>
+	 * <tr>
+	 * <td><code>medium</code>
+	 * <td>
+	 * <code>DateFormat.getTimeInstance(DateFormat.DEFAULT, getLocale())</code>
+	 * <tr>
+	 * <td><code>long</code>
+	 * <td><code>DateFormat.getTimeInstance(DateFormat.LONG, getLocale())</code>
+	 * <tr>
+	 * <td><code>full</code>
+	 * <td><code>DateFormat.getTimeInstance(DateFormat.FULL, getLocale())</code>
+	 * <tr>
+	 * <td><i>SubformatPattern</i>
+	 * <td><code>new SimpleDateFormat(subformatPattern, getLocale())
+	 * <tr>
+	 * <td><code>choice</code>
+	 * <td><i>SubformatPattern</i>
+	 * <td><code>new ChoiceFormat(subformatPattern)</code>
+	 * <tr>
+	 * <td><code>spellout</code>
+	 * <td><i>Ruleset name (optional)</i>
+	 * <td>
+	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.SPELLOUT)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
+	 * <tr>
+	 * <td><code>ordinal</code>
+	 * <td><i>Ruleset name (optional)</i>
+	 * <td>
+	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.ORDINAL)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
+	 * <tr>
+	 * <td><code>duration</code>
+	 * <td><i>Ruleset name (optional)</i>
+	 * <td>
+	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.DURATION)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
+	 * <tr>
+	 * <td><code>plural</code>
+	 * <td><i>SubformatPattern</i>
+	 * <td><code>new PluralFormat(subformatPattern)</code>
+	 * </table>
+	 * 
+	 * <h4>Examples:</h4>
+	 * 
+	 * <pre>
+	 * MessageFormat msg = messageFormatInstance("There {0, plural, one{is one file}other{are {0} files}} on {1}.")
+	 * 
+	 * msg.render(1000, "disk"); // == "There are 1,000 files on disk."
+	 * </pre>
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
@@ -1086,17 +1626,14 @@ public final class Humanize {
 	 * Constructs a message with pluralization logic from the given template.
 	 * </p>
 	 * 
-	 * Example:
+	 * <h4>Examples:</h4>
 	 * 
 	 * <pre>
-	 * {
-	 * 	&#064;code
-	 * 	Message msg = pluralize(&quot;There {0} on {1}.::are no files::is one file::are {2} files&quot;);
+	 * MessageFormat msg = pluralize(&quot;There {0} on {1}.::are no files::is one file::are {2} files&quot;);
 	 * 
-	 * 	msg.render(0, &quot;disk&quot;); // == &quot;There are no files on disk.&quot;
-	 * 	msg.render(1, &quot;disk&quot;); // == &quot;There is one file on disk.&quot;
-	 * 	msg.render(1000, &quot;disk&quot;); // == &quot;There are 1,000 files on disk.&quot;
-	 * }
+	 * msg.render(0, &quot;disk&quot;); // == &quot;There are no files on disk.&quot;
+	 * msg.render(1, &quot;disk&quot;); // == &quot;There is one file on disk.&quot;
+	 * msg.render(1000, &quot;disk&quot;); // == &quot;There are 1,000 files on disk.&quot;
 	 * </pre>
 	 * 
 	 * @param template
@@ -1194,7 +1731,7 @@ public final class Humanize {
 	 *            "MMMdd" and "mmhh" are skeletons.
 	 * @return A string with a text representation of the date
 	 */
-	public static String smartFormatDate(Date value, String skeleton) {
+	public static String smartDateFormat(Date value, String skeleton) {
 
 		return formatDate(value, context.get().getBestPattern(skeleton));
 
@@ -1202,7 +1739,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #smartFormatDate(Date) smartFormatDate} for the specified
+	 * Same as {@link #smartDateFormat(Date) smartDateFormat} for the specified
 	 * locale.
 	 * </p>
 	 * 
@@ -1215,12 +1752,12 @@ public final class Humanize {
 	 *            Target locale
 	 * @return A string with a text representation of the date
 	 */
-	public static String smartFormatDate(final Date value, final String skeleton, final Locale locale) {
+	public static String smartDateFormat(final Date value, final String skeleton, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
 			public String call() throws Exception {
 
-				return smartFormatDate(value, skeleton);
+				return smartDateFormat(value, skeleton);
 
 			}
 		}, locale);

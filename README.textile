@@ -39,13 +39,12 @@ h3. Date&Time
 | naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted |
 | naturalTime | Computes both past and future relative dates. | '2 days from now', '10 years ago', '3 minutes from now', etc. |
 | duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.|
+| smartDateFormat | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' |
 
 h3. Numbers
 
 |_. Method |_. Description |_. Output |
 | ordinalize | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
-| parseNumber | Converts the given text to number. | - |
-| smartFormatDate | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' |
 | spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. |
 | spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. |
 | spellNumber | Converts the given number to words. | 'twenty-three', 'two thousand eight hundred and forty', 'one million four hundred and twelve thousand six hundred and five', etc.  |
@@ -62,7 +61,7 @@ h3. Units
 h3. Text
 
 |_. Method |_. Description |_. Output |
-| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to formatInstance for pluralization using CLDR Plural Rules. | - |
+| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormatInstance_ for pluralization using CLDR Plural Rules. | - |
 | camelize | Makes a phrase camel case. Spaces and underscores will be removed.  | - |
 | capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - |
 | decamelize | Converts a camel case string into a human-readable name. | - |

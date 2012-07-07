@@ -377,13 +377,13 @@ public class HumanizeTest {
 	}
 
 	@Test(threadPoolSize = 5, invocationCount = 10)
-	public void smartFormatDateTest() {
+	public void smartDateFormatTest() {
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015);
 
-		assertEquals(smartFormatDate(date, "MMMd"), day + " Dec");
-		assertEquals(smartFormatDate(date, "MMMd", ES), day + " dic");
+		assertEquals(smartDateFormat(date, "MMMd"), day + " Dec");
+		assertEquals(smartDateFormat(date, "MMMd", ES), day + " dic");
 
 	}
 
