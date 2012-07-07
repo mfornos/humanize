@@ -16,11 +16,11 @@ import com.github.mfornos.humanize.util.SoftHashMap;
  */
 public class SoftCacheProvider implements CacheProvider {
 
-	private final static Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
+	private final Map<Locale, ResourceBundle> bundles = new SoftHashMap<Locale, ResourceBundle>();
 
-	private final static Map<String, Map<Locale, Object>> formats = new SoftHashMap<String, Map<Locale, Object>>();
+	private final Map<String, Map<Locale, Object>> formats = new SoftHashMap<String, Map<Locale, Object>>();
 
-	private final static Map<String, Map<Locale, String[]>> stringCaches = new HashMap<String, Map<Locale, String[]>>();
+	private final Map<String, Map<Locale, String[]>> stringCaches = new HashMap<String, Map<Locale, String[]>>();
 
 	@Override
 	public boolean containsBundle(Locale locale) {

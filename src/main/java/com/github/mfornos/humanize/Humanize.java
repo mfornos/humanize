@@ -648,6 +648,25 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Creates a MessageFormat with the given pattern and uses it to format the
+	 * given arguments.
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            Format pattern that follows the conventions of
+	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 * @param args
+	 *            Arguments
+	 * @return The formatted String
+	 */
+	public static String format(String pattern, Object... args) {
+
+		return messageFormatInstance(pattern).render(args);
+
+	}
+
+	/**
+	 * <p>
 	 * Smartly formats the given number as a monetary amount.
 	 * </p>
 	 * 
@@ -1277,9 +1296,9 @@ public final class Humanize {
 	 */
 	public static MessageFormat messageFormatInstance(final String pattern) {
 
-		MessageFormat msgFmt = context.get().getMessageFormat();
-		msgFmt.applyPattern(pattern);
-		return msgFmt;
+		MessageFormat msg = context.get().getMessageFormat();
+		msg.applyPattern(pattern);
+		return msg;
 
 	}
 
@@ -1694,8 +1713,7 @@ public final class Humanize {
 			indexes[i] = i;
 
 		ChoiceFormat choiceForm = new ChoiceFormat(indexes, choices);
-		MessageFormat format = (MessageFormat) context.get().getMessageFormat().clone();
-		format.applyPattern(pattern);
+		MessageFormat format = (MessageFormat) messageFormatInstance(pattern).clone();
 		format.setFormat(0, choiceForm);
 
 		return format;
@@ -2008,6 +2026,8 @@ public final class Humanize {
 
 	}
 
+	// ( private methods )------------------------------------------------------
+
 	/**
 	 * <p>
 	 * Truncate a string to the closest word boundary after a number of
@@ -2030,8 +2050,6 @@ public final class Humanize {
 		return value.substring(0, bi.following(len));
 
 	}
-
-	// ( private methods )------------------------------------------------------
 
 	private static ContextFactory loadContextFactory() {
 

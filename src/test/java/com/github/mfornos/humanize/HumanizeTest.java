@@ -1,7 +1,35 @@
 package com.github.mfornos.humanize;
 
-import static com.github.mfornos.humanize.Humanize.*;
-import static org.testng.Assert.*;
+import static com.github.mfornos.humanize.Humanize.binaryPrefix;
+import static com.github.mfornos.humanize.Humanize.camelize;
+import static com.github.mfornos.humanize.Humanize.dateFormatInstance;
+import static com.github.mfornos.humanize.Humanize.decamelize;
+import static com.github.mfornos.humanize.Humanize.decimalFormatInstance;
+import static com.github.mfornos.humanize.Humanize.duration;
+import static com.github.mfornos.humanize.Humanize.formatCurrency;
+import static com.github.mfornos.humanize.Humanize.formatDate;
+import static com.github.mfornos.humanize.Humanize.formatDateTime;
+import static com.github.mfornos.humanize.Humanize.formatDecimal;
+import static com.github.mfornos.humanize.Humanize.formatPercent;
+import static com.github.mfornos.humanize.Humanize.formatPluralCurrency;
+import static com.github.mfornos.humanize.Humanize.messageFormatInstance;
+import static com.github.mfornos.humanize.Humanize.metricPrefix;
+import static com.github.mfornos.humanize.Humanize.naturalDay;
+import static com.github.mfornos.humanize.Humanize.naturalTime;
+import static com.github.mfornos.humanize.Humanize.ordinalize;
+import static com.github.mfornos.humanize.Humanize.parseNumber;
+import static com.github.mfornos.humanize.Humanize.pluralize;
+import static com.github.mfornos.humanize.Humanize.replaceSupplementary;
+import static com.github.mfornos.humanize.Humanize.smartDateFormat;
+import static com.github.mfornos.humanize.Humanize.spellBigNumber;
+import static com.github.mfornos.humanize.Humanize.spellDigit;
+import static com.github.mfornos.humanize.Humanize.spellNumber;
+import static com.github.mfornos.humanize.Humanize.titleize;
+import static com.github.mfornos.humanize.Humanize.underscore;
+import static com.github.mfornos.humanize.Humanize.wordWrap;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -22,7 +50,7 @@ public class HumanizeTest {
 
 	private Random rand;
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void binPrefixTest() {
 
 		assertEquals(binaryPrefix(-1), "-1");
@@ -63,7 +91,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void decamelizeTest() {
 
 		assertEquals(decamelize("lowercase"), "lowercase");
@@ -77,7 +105,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void durationTest() {
 
 		assertEquals(duration(1), "1 sec.");
@@ -85,7 +113,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatCurrencyTest() {
 
 		int df = rand.nextInt(9);
@@ -98,7 +126,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatDateTest() {
 
 		int day = rand.nextInt(20) + 1;
@@ -115,7 +143,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatDateTimeTest() {
 
 		int day = rand.nextInt(20) + 1;
@@ -131,7 +159,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatDecimalTest() {
 
 		int df = rand.nextInt(9);
@@ -141,7 +169,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatPercentTest() {
 
 		assertEquals(formatPercent(0), "0%");
@@ -160,7 +188,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatPluralCurrencyTest() {
 
 		int df = rand.nextInt(9);
@@ -174,7 +202,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formattersTest() {
 
 		for (int i = 0; i < 3; i++) {
@@ -189,7 +217,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void metricPrefixTest() {
 
 		assertEquals(metricPrefix(-1), "-1");
@@ -204,7 +232,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void naturalDayTest() {
 
 		Calendar cal = Calendar.getInstance();
@@ -225,10 +253,10 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void naturalTimeTest() {
 
-		assertTrue(naturalTime(new Date()).endsWith(" from now"));
+		assertTrue(naturalTime(new Date(0), new Date(10)).endsWith(" from now"));
 
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
@@ -252,7 +280,7 @@ public class HumanizeTest {
 		assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
 
 		// within locale
-		assertTrue(naturalTime(new Date(), ES).startsWith("dentro de"));
+		assertTrue(naturalTime(new Date(0), new Date(10), ES).startsWith("dentro de"));
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 3), ES), "dentro de 3 horas");
 		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1), ES), "dentro de un día");
 		assertEquals(naturalTime(new Date(315769289947L * 3L), new Date(0), ES), "hace 30 años");
@@ -260,7 +288,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void ordinalizeTest() {
 
 		assertEquals(ordinalize(0), "0th");
@@ -286,7 +314,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void parseNumberTest() throws ParseException {
 
 		assertEquals(parseNumber("one hundred twenty-three").intValue(), 123);
@@ -294,7 +322,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void pluralizeTest() {
 
 		int df = rand.nextInt(9);
@@ -314,7 +342,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void pluralizeWithFormatInstance() {
 
 		int df = rand.nextInt(9);
@@ -334,7 +362,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void pluralizeWithSimpleTemplate() {
 
 		int df = rand.nextInt(9);
@@ -376,7 +404,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void smartDateFormatTest() {
 
 		int day = rand.nextInt(20) + 1;
@@ -387,7 +415,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void spellBigNumberTest() {
 
 		assertEquals(spellBigNumber(100), "100");
@@ -413,7 +441,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void spellDigitTest() {
 
 		assertEquals(spellDigit(1), "one");
@@ -428,7 +456,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void spellNumberTest() {
 
 		assertEquals(spellNumber(123), "one hundred twenty-three");
@@ -444,7 +472,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void titleizeTest() {
 
 		assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
@@ -462,7 +490,7 @@ public class HumanizeTest {
 
 	}
 
-	@Test(threadPoolSize = 5, invocationCount = 10)
+	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void wordWrapTest() {
 
 		int df = rand.nextInt(9);

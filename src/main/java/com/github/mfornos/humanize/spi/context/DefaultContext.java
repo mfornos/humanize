@@ -35,15 +35,21 @@ public class DefaultContext implements Context {
 
 	private static final String DECIMAL = "decimal";
 
+	private static final String NUMBER = "number";
+
 	private static final String DIGITS = "digits";
 
 	private static final String PERCENT = "percent";
 
 	private static final String RULE_BASED = "rule.based";
 
-	private final static CacheProvider cache = loadCacheProvider();
+	private static final String DATE_FORMAT = "date";
 
-	private static final String CURRENCY_PL = null;
+	private static final String CURRENCY_PL = "currency.pl";
+
+	private static final String DATE_TIME_FORMAT = "date.time";
+
+	private final static CacheProvider sharedCache = loadCacheProvider();
 
 	private static CacheProvider loadCacheProvider() {
 
@@ -55,11 +61,13 @@ public class DefaultContext implements Context {
 
 	}
 
+	private final CacheProvider localCache = loadCacheProvider();
+
+	private final MessageFormat messageFormat;
+
 	private Locale locale;
 
 	private ULocale ulocale;
-
-	private final MessageFormat messageFormat;
 
 	public DefaultContext() {
 
@@ -129,27 +137,31 @@ public class DefaultContext implements Context {
 	@Override
 	public ResourceBundle getBundle() {
 
-		if (!cache.containsBundle(locale))
-			cache.putBundle(locale, ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control()));
-
-		return cache.getBundle(locale);
+		synchronized (sharedCache) {
+			if (!sharedCache.containsBundle(locale))
+				sharedCache.putBundle(locale, ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control()));
+		}
+		return sharedCache.getBundle(locale);
 
 	}
 
 	@Override
 	public DecimalFormat getCurrencyFormat() {
 
-		if (!cache.containsFormat(CURRENCY, locale))
-			cache.putFormat(CURRENCY, locale, NumberFormat.getCurrencyInstance(locale));
-
-		return (DecimalFormat) cache.getFormat(CURRENCY, locale);
+		DecimalFormat rs = sharedCache.getFormat(CURRENCY, locale);
+		return (DecimalFormat) ((rs == null) ? toSharedFormatsCache(CURRENCY, NumberFormat.getCurrencyInstance(locale))
+		        : rs);
 
 	}
 
 	@Override
 	public DateFormat getDateFormat(int style) {
 
-		return DateFormat.getDateInstance(style, locale);
+		String name = DATE_FORMAT + style;
+		if (!localCache.containsFormat(name, locale))
+			localCache.putFormat(name, locale, DateFormat.getDateInstance(style, locale));
+
+		return localCache.getFormat(name, locale);
 
 	}
 
@@ -163,24 +175,29 @@ public class DefaultContext implements Context {
 	@Override
 	public DateFormat getDateTimeFormat(int dateStyle, int timeStyle) {
 
-		return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+		String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
+		if (!localCache.containsFormat(name, locale))
+			localCache.putFormat(name, locale, DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale));
+
+		return localCache.getFormat(name, locale);
 
 	}
 
 	@Override
 	public DecimalFormat getDecimalFormat() {
 
-		return (DecimalFormat) DecimalFormat.getInstance(locale);
+		if (!localCache.containsFormat(DECIMAL, locale))
+			localCache.putFormat(DECIMAL, locale, DecimalFormat.getInstance(locale));
+
+		return localCache.getFormat(DECIMAL, locale);
 
 	}
 
 	@Override
 	public DurationFormat getDurationFormat() {
 
-		if (!cache.containsFormat(DURATION_FORMAT, locale))
-			cache.putFormat(DURATION_FORMAT, locale, DurationFormat.getInstance(ulocale));
-
-		return cache.getFormat(DURATION_FORMAT, locale);
+		DurationFormat rs = sharedCache.getFormat(DURATION_FORMAT, locale);
+		return (rs == null) ? toSharedFormatsCache(DURATION_FORMAT, DurationFormat.getInstance(ulocale)) : rs;
 
 	}
 
@@ -209,30 +226,26 @@ public class DefaultContext implements Context {
 	@Override
 	public NumberFormat getNumberFormat() {
 
-		if (!cache.containsFormat(DECIMAL, locale))
-			cache.putFormat(DECIMAL, locale, NumberFormat.getInstance(locale));
-
-		return cache.getFormat(DECIMAL, locale);
+		NumberFormat rs = sharedCache.getFormat(NUMBER, locale);
+		return (rs == null) ? toSharedFormatsCache(NUMBER, NumberFormat.getInstance(locale)) : rs;
 
 	}
 
 	@Override
 	public DecimalFormat getPercentFormat() {
 
-		if (!cache.containsFormat(PERCENT, locale))
-			cache.putFormat(PERCENT, locale, NumberFormat.getPercentInstance(locale));
-
-		return (DecimalFormat) cache.getFormat(PERCENT, locale);
+		DecimalFormat rs = sharedCache.getFormat(PERCENT, locale);
+		return (DecimalFormat) ((rs == null) ? toSharedFormatsCache(PERCENT, NumberFormat.getPercentInstance(locale))
+		        : rs);
 
 	}
 
 	@Override
 	public DecimalFormat getPluralCurrencyFormat() {
 
-		if (!cache.containsFormat(CURRENCY_PL, locale))
-			cache.putFormat(CURRENCY_PL, locale, NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE));
-
-		return (DecimalFormat) cache.getFormat(CURRENCY_PL, locale);
+		DecimalFormat rs = sharedCache.getFormat(CURRENCY_PL, locale);
+		return (DecimalFormat) ((rs == null) ? toSharedFormatsCache(CURRENCY_PL,
+		        NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE)) : rs);
 
 	}
 
@@ -240,10 +253,9 @@ public class DefaultContext implements Context {
 	public NumberFormat getRuleBasedNumberFormat(int type) {
 
 		String ruleBasedName = RULE_BASED + type;
-		if (!cache.containsFormat(ruleBasedName, locale))
-			cache.putFormat(ruleBasedName, locale, new RuleBasedNumberFormat(locale, type));
-
-		return cache.getFormat(ruleBasedName, locale);
+		NumberFormat rs = sharedCache.getFormat(ruleBasedName, locale);
+		return (NumberFormat) ((rs == null) ? toSharedFormatsCache(ruleBasedName, new RuleBasedNumberFormat(locale,
+		        type)) : rs);
 
 	}
 
@@ -264,11 +276,19 @@ public class DefaultContext implements Context {
 
 	private String resolveStringArray(String cacheName, int index) {
 
-		if (!cache.containsStrings(cacheName, locale))
-			cache.putStrings(cacheName, locale, getBundle().getString(cacheName).split(SPACE_STRING));
+		synchronized (sharedCache) {
+			if (!sharedCache.containsStrings(cacheName, locale))
+				sharedCache.putStrings(cacheName, locale, getBundle().getString(cacheName).split(SPACE_STRING));
+		}
+		return sharedCache.getStrings(cacheName, locale)[index];
 
-		return cache.getStrings(cacheName, locale)[index];
+	}
 
+	private <T> T toSharedFormatsCache(String cache, T obj) {
+
+		synchronized (sharedCache) {
+			return sharedCache.putFormat(cache, locale, obj);
+		}
 	}
 
 }

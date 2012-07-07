@@ -8,12 +8,11 @@ import java.util.Set;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.github.mfornos.humanize.util.SoftHashMap;
-
 public class SoftHashMapTest {
 
 	@Test
 	public void SoftHashMap() {
+
 		Map<String, Integer> m = new SoftHashMap<String, Integer>();
 		Assert.assertNotNull(m);
 		Integer num = new Integer(23);
@@ -98,19 +97,23 @@ public class SoftHashMapTest {
 
 	@Test
 	public void SoftHashMapint() {
+
 		Assert.assertNotNull(new SoftHashMap<String, Integer>(10));
 	}
 
 	@Test
 	public void SoftHashMapintfloat() {
+
 		Assert.assertNotNull(new SoftHashMap<String, Integer>(10, 1.5f));
 	}
 
 	@Test
 	public void SoftHashMapMapextendsKextendsV() {
+
 		Map<String, Integer> b = new HashMap<String, Integer>();
 		b.put("1", 2);
 		Map<String, Integer> m = new SoftHashMap<String, Integer>(b);
 		Assert.assertEquals(m.get("1"), new Integer(2));
+		
 	}
 }
