@@ -66,7 +66,7 @@ h3. Text
 | capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - |
 | decamelize | Converts a camel case string into a human-readable name. | - |
 | titleize | Capitalize all the words, and replace some characters in the string to create a nice looking title. | - |
-| wordWrap | Truncate a string to the closest word boundary after a number of characters. | - |  
+| wordWrap | Truncate a string to the closest word boundary after a number of characters. | - |
 | messageFormatInstance | Returns an ICU based MessageFormat instance for the current thread. | - |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char |
 
