@@ -1,7 +1,7 @@
 package com.github.mfornos.humanize.spi.context;
 
-import static com.github.mfornos.humanize.util.Constants.EMPTY_STRING;
-import static com.github.mfornos.humanize.util.Constants.SPACE_STRING;
+import static com.github.mfornos.humanize.util.Constants.EMPTY;
+import static com.github.mfornos.humanize.util.Constants.SPACE;
 
 import java.util.Date;
 import java.util.Locale;
@@ -10,6 +10,7 @@ import java.util.ServiceLoader;
 
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.cache.CacheProvider;
+import com.github.mfornos.humanize.text.MaskFormat;
 import com.github.mfornos.humanize.util.UTF8Control;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DateTimePatternGenerator;
@@ -49,6 +50,8 @@ public class DefaultContext implements Context {
 
 	private static final String DATE_TIME_FORMAT = "date.time";
 
+	private static final String MASK = "mask";
+
 	private final static CacheProvider sharedCache = loadCacheProvider();
 
 	private static CacheProvider loadCacheProvider() {
@@ -77,7 +80,7 @@ public class DefaultContext implements Context {
 
 	public DefaultContext(Locale locale) {
 
-		this.messageFormat = new MessageFormat(EMPTY_STRING, locale);
+		this.messageFormat = new MessageFormat(EMPTY, locale);
 
 		setLocale(locale);
 
@@ -209,6 +212,16 @@ public class DefaultContext implements Context {
 	}
 
 	@Override
+	public MaskFormat getMaskFormat() {
+
+		if (!localCache.containsFormat(MASK, Locale.ROOT))
+			localCache.putFormat(MASK, Locale.ROOT, new MaskFormat(""));
+
+		return localCache.getFormat(MASK, Locale.ROOT);
+
+	}
+
+	@Override
 	public String getMessage(String key) {
 
 		return getBundle().getString(key);
@@ -278,7 +291,7 @@ public class DefaultContext implements Context {
 
 		synchronized (sharedCache) {
 			if (!sharedCache.containsStrings(cacheName, locale))
-				sharedCache.putStrings(cacheName, locale, getBundle().getString(cacheName).split(SPACE_STRING));
+				sharedCache.putStrings(cacheName, locale, getBundle().getString(cacheName).split(SPACE));
 		}
 		return sharedCache.getStrings(cacheName, locale)[index];
 

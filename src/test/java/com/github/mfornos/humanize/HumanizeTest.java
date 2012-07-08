@@ -1,32 +1,6 @@
 package com.github.mfornos.humanize;
 
-import static com.github.mfornos.humanize.Humanize.binaryPrefix;
-import static com.github.mfornos.humanize.Humanize.camelize;
-import static com.github.mfornos.humanize.Humanize.dateFormatInstance;
-import static com.github.mfornos.humanize.Humanize.decamelize;
-import static com.github.mfornos.humanize.Humanize.decimalFormatInstance;
-import static com.github.mfornos.humanize.Humanize.duration;
-import static com.github.mfornos.humanize.Humanize.formatCurrency;
-import static com.github.mfornos.humanize.Humanize.formatDate;
-import static com.github.mfornos.humanize.Humanize.formatDateTime;
-import static com.github.mfornos.humanize.Humanize.formatDecimal;
-import static com.github.mfornos.humanize.Humanize.formatPercent;
-import static com.github.mfornos.humanize.Humanize.formatPluralCurrency;
-import static com.github.mfornos.humanize.Humanize.messageFormatInstance;
-import static com.github.mfornos.humanize.Humanize.metricPrefix;
-import static com.github.mfornos.humanize.Humanize.naturalDay;
-import static com.github.mfornos.humanize.Humanize.naturalTime;
-import static com.github.mfornos.humanize.Humanize.ordinalize;
-import static com.github.mfornos.humanize.Humanize.parseNumber;
-import static com.github.mfornos.humanize.Humanize.pluralize;
-import static com.github.mfornos.humanize.Humanize.replaceSupplementary;
-import static com.github.mfornos.humanize.Humanize.smartDateFormat;
-import static com.github.mfornos.humanize.Humanize.spellBigNumber;
-import static com.github.mfornos.humanize.Humanize.spellDigit;
-import static com.github.mfornos.humanize.Humanize.spellNumber;
-import static com.github.mfornos.humanize.Humanize.titleize;
-import static com.github.mfornos.humanize.Humanize.underscore;
-import static com.github.mfornos.humanize.Humanize.wordWrap;
+import static com.github.mfornos.humanize.Humanize.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
@@ -102,6 +76,17 @@ public class HumanizeTest {
 		assertEquals(decamelize("AString"), "A String");
 		assertEquals(decamelize("SimpleXMLParser"), "Simple XML Parser");
 		assertEquals(decamelize("GL11Version"), "GL 11 Version");
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void maskFormatTest() throws ParseException {
+
+		int r = rand.nextInt(9);
+		assertEquals(mask("_-__-_____/_", "A5881850" + r), "A-58-81850/" + r);
+		assertEquals(mask("_# __ _____#-_", "A/5881850 " + r), "A 58 81850-" + r);
+		assertEquals(mask("__ ____ _", r + "01100A"), r + "0 1100 A");
+		assertEquals(unmask("__ ____ _", r + "0 1100 A"), r + "01100A");
 
 	}
 

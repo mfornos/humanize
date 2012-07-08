@@ -1,23 +1,12 @@
-package com.github.mfornos.humanize.util;
+package com.github.mfornos.humanize.text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.mfornos.humanize.util.Constants;
 import com.ibm.icu.lang.UCharacter;
 
 public class TextUtils {
-
-	public static String replaceSupplementary(String text) {
-
-		return interpolate(text, Constants.NOT_IN_BMP, new Replacer() {
-			public String replace(String in) {
-
-				return UCharacter.getName(in, ", ");
-
-			}
-		});
-
-	}
 
 	public static String interpolate(String text, Pattern pattern, Replacer replacer) {
 
@@ -31,6 +20,18 @@ public class TextUtils {
 		matcher.appendTail(sb);
 
 		return (sb.length() > 0) ? sb.toString() : text;
+	}
+
+	public static String replaceSupplementary(String text) {
+
+		return interpolate(text, Constants.NOT_IN_BMP, new Replacer() {
+			public String replace(String in) {
+
+				return UCharacter.getName(in, ", ");
+
+			}
+		});
+
 	}
 
 }

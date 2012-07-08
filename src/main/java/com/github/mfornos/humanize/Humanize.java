@@ -1,8 +1,8 @@
 package com.github.mfornos.humanize;
 
-import static com.github.mfornos.humanize.util.Constants.EMPTY_STRING;
-import static com.github.mfornos.humanize.util.Constants.SPACE_STRING;
-import static com.github.mfornos.humanize.util.Constants.SPLIT_CAMEL_REGEX;
+import static com.github.mfornos.humanize.util.Constants.EMPTY;
+import static com.github.mfornos.humanize.util.Constants.SPACE;
+import static com.github.mfornos.humanize.util.Constants.SPLIT_CAMEL;
 import static com.github.mfornos.humanize.util.Constants.THOUSAND;
 import static com.github.mfornos.humanize.util.Constants.bigDecExponents;
 import static com.github.mfornos.humanize.util.Constants.binPrefixes;
@@ -21,7 +21,8 @@ import java.util.concurrent.Callable;
 import com.github.mfornos.humanize.spi.MessageFormat;
 import com.github.mfornos.humanize.spi.context.Context;
 import com.github.mfornos.humanize.spi.context.ContextFactory;
-import com.github.mfornos.humanize.util.TextUtils;
+import com.github.mfornos.humanize.text.MaskFormat;
+import com.github.mfornos.humanize.text.TextUtils;
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
@@ -84,7 +85,7 @@ public final class Humanize {
 	 *            Number to be converted
 	 * @return The number preceded by the corresponding binary SI prefix
 	 */
-	public static String binaryPrefix(Number value) {
+	public static String binaryPrefix(final Number value) {
 
 		return prefix(value, 1024, binPrefixes);
 
@@ -124,7 +125,7 @@ public final class Humanize {
 	 *            String to be camelized
 	 * @return Camelized string
 	 */
-	public static String camelize(String text) {
+	public static String camelize(final String text) {
 
 		return camelize(text, false);
 
@@ -141,7 +142,7 @@ public final class Humanize {
 	 *            String to be camelized
 	 * @return Camelized string
 	 */
-	public static String camelize(String text, boolean capitalizeFirstChar) {
+	public static String camelize(final String text, final boolean capitalizeFirstChar) {
 
 		StringBuilder sb = new StringBuilder();
 		String[] tokens = text.split("[\\s_]+");
@@ -165,7 +166,7 @@ public final class Humanize {
 	 *            String to be capitalized
 	 * @return capitalized string
 	 */
-	public static String capitalize(String word) {
+	public static String capitalize(final String word) {
 
 		if (word.length() == 0)
 			return word;
@@ -285,7 +286,7 @@ public final class Humanize {
 	 *            {@link com.ibm.icu.text.DateFormat DateFormat}
 	 * @return a DateFormat instance for the current thread
 	 */
-	public static DateFormat dateFormatInstance(String pattern) {
+	public static DateFormat dateFormatInstance(final String pattern) {
 
 		return DateFormat.getPatternInstance(pattern, context.get().getLocale());
 
@@ -348,9 +349,9 @@ public final class Humanize {
 	 *            String to be converted
 	 * @return words converted to human-readable name
 	 */
-	public static String decamelize(String words) {
+	public static String decamelize(final String words) {
 
-		return SPLIT_CAMEL_REGEX.matcher(words).replaceAll(SPACE_STRING);
+		return SPLIT_CAMEL.matcher(words).replaceAll(SPACE);
 
 	}
 
@@ -403,9 +404,8 @@ public final class Humanize {
 	 * special status. Two exceptions are the currency sign and quote, which are
 	 * not localized.
 	 * 
-	 * <blockquote>
-	 * <table border=0 cellspacing=3 cellpadding=0 summary="Chart showing symbol, location, localized, and meaning.">
-	 * <tr bgcolor="#ccccff">
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%" summary="Chart showing symbol, location, localized, and meaning.">
+	 * <tr>
 	 * <th align=left>Symbol
 	 * <th align=left>Location
 	 * <th align=left>Localized?
@@ -415,7 +415,7 @@ public final class Humanize {
 	 * <td>Number
 	 * <td>Yes
 	 * <td>Digit
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top">
 	 * <td><code>1-9</code>
 	 * <td>Number
 	 * <td>Yes
@@ -426,7 +426,7 @@ public final class Humanize {
 	 * <td>Number
 	 * <td>No
 	 * <td>Significant digit
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>#</code>
 	 * <td>Number
 	 * <td>Yes
@@ -436,7 +436,7 @@ public final class Humanize {
 	 * <td>Number
 	 * <td>Yes
 	 * <td>Decimal separator or monetary decimal separator
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>-</code>
 	 * <td>Number
 	 * <td>Yes
@@ -446,7 +446,7 @@ public final class Humanize {
 	 * <td>Number
 	 * <td>Yes
 	 * <td>Grouping separator
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>E</code>
 	 * <td>Number
 	 * <td>Yes
@@ -458,7 +458,7 @@ public final class Humanize {
 	 * <td>Yes
 	 * <td>Prefix positive exponents with localized plus sign.
 	 * <em>Need not be quoted in prefix or suffix.</em>
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>;</code>
 	 * <td>Subpattern boundary
 	 * <td>Yes
@@ -468,7 +468,7 @@ public final class Humanize {
 	 * <td>Prefix or suffix
 	 * <td>Yes
 	 * <td>Multiply by 100 and show as percentage
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>&#92;u2030</code>
 	 * <td>Prefix or suffix
 	 * <td>Yes
@@ -482,7 +482,7 @@ public final class Humanize {
 	 * names, for example, "US dollar" or "US dollars" for America. If present
 	 * in a pattern, the monetary decimal separator is used instead of the
 	 * decimal separator.
-	 * <tr valign=top bgcolor="#eeeeff">
+	 * <tr valign=top>
 	 * <td><code>'</code>
 	 * <td>Prefix or suffix
 	 * <td>No
@@ -495,8 +495,6 @@ public final class Humanize {
 	 * <td>Yes
 	 * <td>Pad escape, precedes pad character
 	 * </table>
-	 * </blockquote>
-	 * 
 	 * <p>
 	 * A <code>DecimalFormat</code> pattern contains a postive and negative
 	 * subpattern, for example, "#,##0.00;(#,##0.00)". Each subpattern has a
@@ -597,7 +595,7 @@ public final class Humanize {
 	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
 	 * @return a DecimalFormat instance for the current thread
 	 */
-	public static DecimalFormat decimalFormatInstance(String pattern) {
+	public static DecimalFormat decimalFormatInstance(final String pattern) {
 
 		DecimalFormat decFmt = context.get().getDecimalFormat();
 		decFmt.applyPattern(pattern);
@@ -665,7 +663,7 @@ public final class Humanize {
 	 *            Arguments
 	 * @return The formatted String
 	 */
-	public static String format(String pattern, Object... args) {
+	public static String format(final String pattern, final Object... args) {
 
 		return messageFormatInstance(pattern).render(args);
 
@@ -702,7 +700,7 @@ public final class Humanize {
 	 *            Number to be formatted
 	 * @return String representing the monetary amount
 	 */
-	public static String formatCurrency(Number value) {
+	public static String formatCurrency(final Number value) {
 
 		DecimalFormat decf = context.get().getCurrencyFormat();
 		return stripZeros(decf, decf.format(value));
@@ -742,7 +740,7 @@ public final class Humanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDate(Date value) {
+	public static String formatDate(final Date value) {
 
 		return formatDate(DateFormat.SHORT, value);
 
@@ -782,7 +780,7 @@ public final class Humanize {
 	 *            The pattern. See {@link dateFormatInstance(String)}
 	 * @return a formatted date/time string
 	 */
-	public static String formatDate(Date value, String pattern) {
+	public static String formatDate(final Date value, final String pattern) {
 
 		return new SimpleDateFormat(pattern, context.get().getLocale()).format(value);
 
@@ -825,7 +823,7 @@ public final class Humanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDate(int style, Date value) {
+	public static String formatDate(final int style, final Date value) {
 
 		return context.get().formatDate(style, value);
 
@@ -866,7 +864,7 @@ public final class Humanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(Date value) {
+	public static String formatDateTime(final Date value) {
 
 		return context.get().formatDateTime(value);
 
@@ -909,7 +907,7 @@ public final class Humanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(int dateStyle, int timeStyle, Date value) {
+	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value) {
 
 		return context.get().formatDateTime(dateStyle, timeStyle, value);
 
@@ -953,7 +951,7 @@ public final class Humanize {
 	 *            Number to be formatted
 	 * @return Standard localized format representation
 	 */
-	public static String formatDecimal(Number value) {
+	public static String formatDecimal(final Number value) {
 
 		return context.get().formatDecimal(value);
 
@@ -1011,7 +1009,7 @@ public final class Humanize {
 	 *            Ratio to be converted
 	 * @return String representing the percentage
 	 */
-	public static String formatPercent(Number value) {
+	public static String formatPercent(final Number value) {
 
 		return context.get().getPercentFormat().format(value);
 
@@ -1051,7 +1049,7 @@ public final class Humanize {
 	 *            Number to be formatted
 	 * @return String representing the monetary amount
 	 */
-	public static String formatPluralCurrency(Number value) {
+	public static String formatPluralCurrency(final Number value) {
 
 		DecimalFormat decf = context.get().getPluralCurrencyFormat();
 		return stripZeros(decf, decf.format(value));
@@ -1079,6 +1077,40 @@ public final class Humanize {
 
 			}
 		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Formats the given text with the mask specified.
+	 * </p>
+	 * 
+	 * @param mask
+	 *            The pattern mask. See {@link MaskFormat} for details.
+	 * @param value
+	 *            The text to be masked
+	 * @return The formatted text
+	 */
+	public static String mask(final String mask, final String value) {
+
+		return maskFormatInstance(mask).format(value);
+
+	}
+
+	/**
+	 * <p>
+	 * Returns a {@link MaskFormat} instance for the current thread.
+	 * </p>
+	 * 
+	 * @param mask
+	 *            The pattern mask
+	 * @return a {@link MaskFormat} instance
+	 */
+	public static MaskFormat maskFormatInstance(final String mask) {
+
+		MaskFormat maskFmt = context.get().getMaskFormat();
+		maskFmt.setMask(mask);
+		return maskFmt;
 
 	}
 
@@ -1362,7 +1394,7 @@ public final class Humanize {
 	 *            Number to be converted
 	 * @return The number preceded by the corresponding SI prefix
 	 */
-	public static String metricPrefix(Number value) {
+	public static String metricPrefix(final Number value) {
 
 		return prefix(value, 1000, metricPrefixes);
 
@@ -1404,7 +1436,7 @@ public final class Humanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
-	public static String naturalDay(Date value) {
+	public static String naturalDay(final Date value) {
 
 		return naturalDay(DateFormat.RELATIVE_SHORT, value);
 
@@ -1451,7 +1483,7 @@ public final class Humanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
-	public static String naturalDay(int style, Date value) {
+	public static String naturalDay(final int style, final Date value) {
 
 		return formatDate(style, value).toLowerCase();
 
@@ -1467,7 +1499,7 @@ public final class Humanize {
 	 *            Date to be used as duration from current date
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(Date duration) {
+	public static String naturalTime(final Date duration) {
 
 		return context.get().getDurationFormat().formatDurationFromNowTo(duration);
 
@@ -1489,7 +1521,7 @@ public final class Humanize {
 	 *            Date to be used as duration from reference
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(Date reference, Date duration) {
+	public static String naturalTime(final Date reference, final Date duration) {
 
 		long diff = duration.getTime() - reference.getTime();
 		return context.get().getDurationFormat().formatDurationFrom(diff, reference.getTime());
@@ -1577,7 +1609,7 @@ public final class Humanize {
 	 *            Number to be converted
 	 * @return String representing the number as ordinal
 	 */
-	public static String ordinalize(Number value) {
+	public static String ordinalize(final Number value) {
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.ORDINAL).format(value);
 
@@ -1615,7 +1647,7 @@ public final class Humanize {
 	 * @return Text converted to Number
 	 * @throws ParseException
 	 */
-	public static Number parseNumber(String text) throws ParseException {
+	public static Number parseNumber(final String text) throws ParseException {
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).parse(text);
 
@@ -1666,7 +1698,7 @@ public final class Humanize {
 	 * 
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(String template) {
+	public static MessageFormat pluralize(final String template) {
 
 		String[] tokens = template.split("\\s*\\:{2}\\s*");
 
@@ -1688,7 +1720,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(final String template, Locale locale) {
+	public static MessageFormat pluralize(final String template, final Locale locale) {
 
 		return withinLocale(new Callable<MessageFormat>() {
 			public MessageFormat call() throws Exception {
@@ -1712,7 +1744,7 @@ public final class Humanize {
 	 *            Values that match the pattern
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(String pattern, String... choices) {
+	public static MessageFormat pluralize(final String pattern, final String... choices) {
 
 		double[] indexes = new double[choices.length];
 		for (int i = 0; i < choices.length; i++)
@@ -1736,7 +1768,7 @@ public final class Humanize {
 	 * @return text with characters outside BMP replaced by their name or the
 	 *         given text unaltered
 	 */
-	public static String replaceSupplementary(String value) {
+	public static String replaceSupplementary(final String value) {
 
 		return TextUtils.replaceSupplementary(value);
 
@@ -1755,7 +1787,7 @@ public final class Humanize {
 	 *            "MMMdd" and "mmhh" are skeletons.
 	 * @return A string with a text representation of the date
 	 */
-	public static String smartDateFormat(Date value, String skeleton) {
+	public static String smartDateFormat(final Date value, final String skeleton) {
 
 		return formatDate(value, context.get().getBestPattern(skeleton));
 
@@ -1798,7 +1830,7 @@ public final class Humanize {
 	 *            Number to be converted
 	 * @return Friendly text representation of the given value
 	 */
-	public static String spellBigNumber(Number value) {
+	public static String spellBigNumber(final Number value) {
 
 		BigDecimal v = new BigDecimal(value.toString());
 
@@ -1870,7 +1902,7 @@ public final class Humanize {
 	 *            Decimal digit
 	 * @return String representing the number spelled out
 	 */
-	public static String spellDigit(Number value) {
+	public static String spellDigit(final Number value) {
 
 		int v = value.intValue();
 		if (v < 0 || v > 9)
@@ -1938,7 +1970,7 @@ public final class Humanize {
 	 *            Number to be converted
 	 * @return the number converted to words
 	 */
-	public static String spellNumber(Number value) {
+	public static String spellNumber(final Number value) {
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).format(value);
 
@@ -1994,7 +2026,7 @@ public final class Humanize {
 	 * 
 	 * @return Nice looking title
 	 */
-	public static String titleize(String text) {
+	public static String titleize(final String text) {
 
 		StringBuilder sb = new StringBuilder(text.length());
 		boolean capitalize = true; // To get the first character right
@@ -2026,9 +2058,27 @@ public final class Humanize {
 	 *            Phrase to underscore
 	 * @return converted String
 	 */
-	public static String underscore(String text) {
+	public static String underscore(final String text) {
 
 		return text.replaceAll("\\s+", "_");
+
+	}
+
+	/**
+	 * <p>
+	 * Parses the given text with the mask specified.
+	 * </p>
+	 * 
+	 * @param mask
+	 *            The pattern mask. See {@link MaskFormat} for details.
+	 * @param value
+	 *            The text to be parsed
+	 * @return The parsed text
+	 * @throws ParseException
+	 */
+	public static String unmask(final String mask, final String value) throws ParseException {
+
+		return maskFormatInstance(mask).parse(value);
 
 	}
 
@@ -2046,7 +2096,7 @@ public final class Humanize {
 	 *            Number of characters
 	 * @return String truncated to the closes word boundary
 	 */
-	public static String wordWrap(String value, int len) {
+	public static String wordWrap(final String value, final int len) {
 
 		if (len < 0 || value.length() <= len)
 			return value;
@@ -2077,16 +2127,16 @@ public final class Humanize {
 	 * @return true if the number contains a digit greater than 1, false
 	 *         otherwise
 	 */
-	private static boolean needPlural(int n) {
+	private static boolean needPlural(final int n) {
 
 		int tmp = 0;
-		n = Math.abs(n);
+		int an = Math.abs(n);
 
-		while (n > 0) {
-			tmp = n % 10;
+		while (an > 0) {
+			tmp = an % 10;
 			if (tmp > 1)
 				return true;
-			n /= 10;
+			an /= 10;
 		}
 
 		return false;
@@ -2111,10 +2161,10 @@ public final class Humanize {
 		return stripZeros(df, df.format(value.toString()));
 	}
 
-	private static String stripZeros(DecimalFormat decf, String fmtd) {
+	private static String stripZeros(final DecimalFormat decf, final String fmtd) {
 
 		char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
-		return fmtd.replaceAll("\\" + decsep + "00", EMPTY_STRING);
+		return fmtd.replaceAll("\\" + decsep + "00", EMPTY);
 
 	}
 
@@ -2129,7 +2179,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return Result of the operation
 	 */
-	private static <T> T withinLocale(Callable<T> operation, Locale locale) {
+	private static <T> T withinLocale(final Callable<T> operation, final Locale locale) {
 
 		Context ctx = context.get();
 		Locale oldLocale = ctx.getLocale();

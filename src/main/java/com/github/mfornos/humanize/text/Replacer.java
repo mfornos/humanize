@@ -1,4 +1,4 @@
-package com.github.mfornos.humanize.util;
+package com.github.mfornos.humanize.text;
 
 public interface Replacer {
 	

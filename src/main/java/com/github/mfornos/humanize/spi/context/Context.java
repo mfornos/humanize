@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.github.mfornos.humanize.spi.MessageFormat;
+import com.github.mfornos.humanize.text.MaskFormat;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.DurationFormat;
@@ -42,6 +43,8 @@ public interface Context {
 	DurationFormat getDurationFormat();
 
 	Locale getLocale();
+
+	MaskFormat getMaskFormat();
 
 	String getMessage(String key);
 
