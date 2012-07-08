@@ -2,4 +2,5 @@ com.github.mfornos.humanize
 com.github.mfornos.humanize.spi
 com.github.mfornos.humanize.spi.cache
 com.github.mfornos.humanize.spi.context
+com.github.mfornos.humanize.text
 com.github.mfornos.humanize.util
