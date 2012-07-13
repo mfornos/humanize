@@ -96,8 +96,10 @@ public class SoftCacheProvider implements CacheProvider {
 	@SuppressWarnings("unchecked")
 	private <T> Map<Locale, T> getFormatsCache(String cache) {
 
-		if (!formats.containsKey(cache))
-			formats.put(cache, (Map<Locale, Object>) new SoftHashMap<Locale, T>());
+		synchronized (formats) {
+			if (!formats.containsKey(cache))
+				formats.put(cache, (Map<Locale, Object>) new SoftHashMap<Locale, T>());
+		}
 
 		return (Map<Locale, T>) formats.get(cache);
 
