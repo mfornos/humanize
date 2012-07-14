@@ -4,7 +4,14 @@ Humanize is a Java facility for adding a "human touch" to data. It is thread-saf
 
 h2. Getting Started
 
-The project is not yet available in any public Maven repository, so you can "fork it on Github":https://github.com/mfornos/humanize/fork or download the jar package from the "project downloads":https://github.com/mfornos/humanize/downloads section.
+h3. Maven
+
+bc.. 
+<dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize</artifactId>
+  <version>0.1.1</version>
+</dependency>
 
 h2. Dependencies
 
