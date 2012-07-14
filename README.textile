@@ -6,8 +6,7 @@ h2. Getting Started
 
 h3. Maven
 
-bc.. 
-<dependency>
+bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize</artifactId>
   <version>0.1.1</version>
