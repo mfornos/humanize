@@ -1,7 +1,5 @@
 package humanize.spi.cache;
 
-import humanize.util.SoftHashMap;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -14,8 +12,8 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 /**
- * {@link CacheProvider} implementation that uses {@link SoftHashMap} as in
- * memory storage.
+ * {@link CacheProvider} implementation that uses Guava caches as in memory
+ * storage.
  * 
  * @author mfornos
  * 
