@@ -564,8 +564,8 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Gets the ICU based DecimalFormat instance for the current thread with the
-	 * given pattern and uses it to format the given arguments.
+	 * Gets a DecimalFormat instance for the current thread with the given
+	 * pattern and uses it to format the given arguments.
 	 * </p>
 	 * 
 	 * @param pattern
@@ -1023,220 +1023,12 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Returns an ICU based MessageFormat instance for the current thread. This
-	 * formatter supports a rich pattern model. For plural rules see <a
-	 * href="http://unicode
-	 * .org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules
-	 * .html">CLDR Language Plural Rules</a>
+	 * Returns a MessageFormat instance for the current thread.
 	 * </p>
-	 * 
-	 * <h5>Patterns and Their Interpretation</h5>
-	 * 
-	 * <code>MessageFormat</code> uses patterns of the following form:
-	 * <blockquote>
-	 * 
-	 * <pre>
-	 * <i>MessageFormatPattern:</i>
-	 *         <i>String</i>
-	 *         <i>MessageFormatPattern</i> <i>FormatElement</i> <i>String</i>
-	 * 
-	 * <i>FormatElement:</i>
-	 *         { <i>ArgumentIndexOrName</i> }
-	 *         { <i>ArgumentIndexOrName</i> , <i>FormatType</i> }
-	 *         { <i>ArgumentIndexOrName</i> , <i>FormatType</i> , <i>FormatStyle</i> }
-	 * 
-	 * <i>ArgumentIndexOrName: one of </i>
-	 *         ['0'-'9']+
-	 *         [:ID_START:][:ID_CONTINUE:]*
-	 * 
-	 * <i>FormatType: one of </i>
-	 *         number date time choice
-	 * 
-	 * <i>FormatStyle:</i>
-	 *         short
-	 *         medium
-	 *         long
-	 *         full
-	 *         integer
-	 *         currency
-	 *         percent
-	 *         <i>SubformatPattern</i>
-	 * 
-	 * <i>String:</i>
-	 *         <i>StringPart<sub>opt</sub></i>
-	 *         <i>String</i> <i>StringPart</i>
-	 * 
-	 * <i>StringPart:</i>
-	 *         ''
-	 *         ' <i>QuotedString</i> '
-	 *         <i>UnquotedString</i>
-	 * 
-	 * <i>SubformatPattern:</i>
-	 *         <i>SubformatPatternPart<sub>opt</sub></i>
-	 *         <i>SubformatPattern</i> <i>SubformatPatternPart</i>
-	 * 
-	 * <i>SubFormatPatternPart:</i>
-	 *         ' <i>QuotedPattern</i> '
-	 *         <i>UnquotedPattern</i>
-	 * </pre>
-	 * 
-	 * </blockquote>
-	 * 
-	 * <p>
-	 * Within a <i>String</i>, <code>"''"</code> represents a single quote. A
-	 * <i>QuotedString</i> can contain arbitrary characters except single
-	 * quotes; the surrounding single quotes are removed. An
-	 * <i>UnquotedString</i> can contain arbitrary characters except single
-	 * quotes and left curly brackets. Thus, a string that should result in the
-	 * formatted message "'{0}'" can be written as <code>"'''{'0}''"</code> or
-	 * <code>"'''{0}'''"</code>.
-	 * <p>
-	 * Within a <i>SubformatPattern</i>, different rules apply. A
-	 * <i>QuotedPattern</i> can contain arbitrary characters except single
-	 * quotes; but the surrounding single quotes are <strong>not</strong>
-	 * removed, so they may be interpreted by the subformat. For example,
-	 * <code>"{1,number,$'#',##}"</code> will produce a number format with the
-	 * pound-sign quoted, with a result such as: "$#31,45". An
-	 * <i>UnquotedPattern</i> can contain arbitrary characters except single
-	 * quotes, but curly braces within it must be balanced. For example,
-	 * <code>"ab {0} de"</code> and <code>"ab '}' de"</code> are valid subformat
-	 * patterns, but <code>"ab {0'}' de"</code> and <code>"ab } de"</code> are
-	 * not.
-	 * <p>
-	 * <dl>
-	 * <dt><b>Warning:</b>
-	 * <dd>The rules for using quotes within message format patterns
-	 * unfortunately have shown to be somewhat confusing. In particular, it
-	 * isn't always obvious to localizers whether single quotes need to be
-	 * doubled or not. Make sure to inform localizers about the rules, and tell
-	 * them (for example, by using comments in resource bundle source files)
-	 * which strings will be processed by MessageFormat. Note that localizers
-	 * may need to use single quotes in translated strings where the original
-	 * version doesn't have them. <br>
-	 * Note also that the simplest way to avoid the problem is to use the real
-	 * apostrophe (single quote) character \u2019 (') for human-readable text,
-	 * and to use the ASCII apostrophe (\u0027 ' ) only in program syntax, like
-	 * quoting in MessageFormat. See the annotations for U+0027 Apostrophe in
-	 * The Unicode Standard.
-	 * </p>
-	 * </dl>
-	 * <p>
-	 * The <i>ArgumentIndex</i> value is a non-negative integer written using
-	 * the digits '0' through '9', and represents an index into the
-	 * <code>arguments</code> array passed to the <code>format</code> methods or
-	 * the result array returned by the <code>parse</code> methods.
-	 * <p>
-	 * The <i>FormatType</i> and <i>FormatStyle</i> values are used to create a
-	 * <code>Format</code> instance for the format element. The following table
-	 * shows how the values map to Format instances. Combinations not shown in
-	 * the table are illegal. A <i>SubformatPattern</i> must be a valid pattern
-	 * string for the Format subclass used.
-	 * <p>
-	 * <table border=1>
-	 * <tr>
-	 * <th>Format Type
-	 * <th>Format Style
-	 * <th>Subformat Created
-	 * <tr>
-	 * <td colspan=2><i>(none)</i>
-	 * <td><code>null</code>
-	 * <tr>
-	 * <td rowspan=5><code>number</code>
-	 * <td><i>(none)</i>
-	 * <td><code>NumberFormat.getInstance(getLocale())</code>
-	 * <tr>
-	 * <td><code>integer</code>
-	 * <td><code>NumberFormat.getIntegerInstance(getLocale())</code>
-	 * <tr>
-	 * <td><code>currency</code>
-	 * <td><code>NumberFormat.getCurrencyInstance(getLocale())</code>
-	 * <tr>
-	 * <td><code>percent</code>
-	 * <td><code>NumberFormat.getPercentInstance(getLocale())</code>
-	 * <tr>
-	 * <td><i>SubformatPattern</i>
-	 * <td>
-	 * <code>new DecimalFormat(subformatPattern, new DecimalFormatSymbols(getLocale()))</code>
-	 * <tr>
-	 * <td rowspan=6><code>date</code>
-	 * <td><i>(none)</i>
-	 * <td>
-	 * <code>DateFormat.getDateInstance(DateFormat.DEFAULT, getLocale())</code>
-	 * <tr>
-	 * <td><code>short</code>
-	 * <td>
-	 * <code>DateFormat.getDateInstance(DateFormat.SHORT, getLocale())</code>
-	 * <tr>
-	 * <td><code>medium</code>
-	 * <td>
-	 * <code>DateFormat.getDateInstance(DateFormat.DEFAULT, getLocale())</code>
-	 * <tr>
-	 * <td><code>long</code>
-	 * <td><code>DateFormat.getDateInstance(DateFormat.LONG, getLocale())</code>
-	 * <tr>
-	 * <td><code>full</code>
-	 * <td><code>DateFormat.getDateInstance(DateFormat.FULL, getLocale())</code>
-	 * <tr>
-	 * <td><i>SubformatPattern</i>
-	 * <td><code>new SimpleDateFormat(subformatPattern, getLocale())
-	 * <tr>
-	 * <td rowspan=6><code>time</code>
-	 * <td><i>(none)</i>
-	 * <td>
-	 * <code>DateFormat.getTimeInstance(DateFormat.DEFAULT, getLocale())</code>
-	 * <tr>
-	 * <td><code>short</code>
-	 * <td>
-	 * <code>DateFormat.getTimeInstance(DateFormat.SHORT, getLocale())</code>
-	 * <tr>
-	 * <td><code>medium</code>
-	 * <td>
-	 * <code>DateFormat.getTimeInstance(DateFormat.DEFAULT, getLocale())</code>
-	 * <tr>
-	 * <td><code>long</code>
-	 * <td><code>DateFormat.getTimeInstance(DateFormat.LONG, getLocale())</code>
-	 * <tr>
-	 * <td><code>full</code>
-	 * <td><code>DateFormat.getTimeInstance(DateFormat.FULL, getLocale())</code>
-	 * <tr>
-	 * <td><i>SubformatPattern</i>
-	 * <td><code>new SimpleDateFormat(subformatPattern, getLocale())
-	 * <tr>
-	 * <td><code>choice</code>
-	 * <td><i>SubformatPattern</i>
-	 * <td><code>new ChoiceFormat(subformatPattern)</code>
-	 * <tr>
-	 * <td><code>spellout</code>
-	 * <td><i>Ruleset name (optional)</i>
-	 * <td>
-	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.SPELLOUT)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
-	 * <tr>
-	 * <td><code>ordinal</code>
-	 * <td><i>Ruleset name (optional)</i>
-	 * <td>
-	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.ORDINAL)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
-	 * <tr>
-	 * <td><code>duration</code>
-	 * <td><i>Ruleset name (optional)</i>
-	 * <td>
-	 * <code>new RuleBasedNumberFormat(getLocale(), RuleBasedNumberFormat.DURATION)<br/>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(ruleset);</code>
-	 * <tr>
-	 * <td><code>plural</code>
-	 * <td><i>SubformatPattern</i>
-	 * <td><code>new PluralFormat(subformatPattern)</code>
-	 * </table>
-	 * 
-	 * <h5>Examples:</h5>
-	 * 
-	 * <pre>
-	 * MessageFormat msg = messageFormatInstance("There {0, plural, one{is one file}other{are {0} files}} on {1}.")
-	 * 
-	 * msg.render(1000, "disk"); // == "There are 1,000 files on disk."
-	 * </pre>
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 *            {@link java.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
 	public static MessageFormat messageFormatInstance(final String pattern) {
@@ -1257,7 +1049,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 *            {@link java.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
 	public static MessageFormat messageFormatInstance(final String pattern, final Locale locale) {
