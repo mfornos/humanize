@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>humanize</artifactId>
+    <groupId>com.github.mfornos</groupId>
+    <version>0.1.2-SNAPSHOT</version>
+  </parent>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-icu</artifactId>
+  <version>0.1.2-SNAPSHOT</version>
+  <name>Humanize for Java - ICU</name>
+  <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>49.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.mfornos</groupId>
+      <artifactId>humanize-slim</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+</project>

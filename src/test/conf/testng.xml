@@ -3,7 +3,7 @@
 <suite name="HumanizeSuite" verbose="1" >
   <test name="All">
     <packages>
-      <package name="org.nikko" />
+      <package name="humanize" />
    </packages>
  </test>
 </suite>

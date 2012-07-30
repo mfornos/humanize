@@ -1,19 +1,39 @@
 h1. Humanize for Java
 
-Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. Additionally provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
+Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. 
+
+Humanize exists in two flavors, *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
 
 h2. Getting Started
 
 h3. Maven
 
+For the slim flavor write the following in your _pom_:
+
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize</artifactId>
-  <version>0.1.1</version>
+  <artifactId>humanize-slim</artifactId>
+  <version>0.1.2</version>
 </dependency>
+
+p. For the full fledged ICU distribution:
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-icu</artifactId>
+  <version>0.1.2</version>
+</dependency>
+
 
 h2. Dependencies
 
+h3. Humanize-slim
+
+* Only depends on guava 12.0
+
+h3. Humanize-icu
+
+* humanize-slim 0.1.2
 * icu4j 49.1
 
 If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful.
@@ -25,7 +45,7 @@ Using Humanize is dead simple. See the javadoc "documentation":http://mfornos.gi
 # Import the static methods of the Humanize class that you want to call.
 # Invoke these methods.
 
-bc.. import static com.github.mfornos.humanize.Humanize.binaryPrefix;
+bc.. import static humanize.Humanize.binaryPrefix;
  
 class SomeClass {
 
