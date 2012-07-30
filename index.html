@@ -27,28 +27,48 @@
       <section>
         <h1>Humanize for Java</h1>
 
-<p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization. Additionally provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
+<p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
+<p>Exists in two flavors: <strong>humanize-slim</strong> and <strong>humanize-icu</strong>. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
 
 <h2>Getting Started</h2>
 
 <h3>Maven</h3>
 
-<pre><code>
-&lt;dependency>
+<p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
+
+<pre><code>&lt;dependency>
   &lt;groupId>com.github.mfornos&lt;/groupId>
-  &lt;artifactId>humanize&lt;/artifactId>
-  &lt;version>0.1.1&lt;/version>
+  &lt;artifactId>humanize-slim&lt;/artifactId>
+  &lt;version>0.1.2&lt;/version>
 &lt;/dependency>
 </code></pre>
 
+<p>For the <strong>full-fledged ICU</strong> distribution:</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
+  &lt;artifactId&gt;humanize-icu&lt;/artifactId&gt;
+  &lt;version&gt;0.1.2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p></p>
+
+
 <h2>Dependencies</h2>
-
+<h3>
+Humanize-slim</h3>
 <ul>
-<li>icu4j 49.1</li>
+<li>Only depends on guava 12.0</li>
+</ul><h3>
+Humanize-icu</h3>
+<ul>
+<li>humanize-slim 0.1.2</li>
+	<li>icu4j 49.1</li>
 </ul>
-
-<p>If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the <a href="http://apps.icu-project.org/datacustom/">ICU Data Library Customizer</a> may be useful.</p>
-
+<p>
+<span style="font-size:1.5em;">☝</span>
+<em>
+If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the <a href="http://apps.icu-project.org/datacustom/">ICU Data Library Customizer</a> may be useful.
+</em></p>
 <h2>Usage</h2>
 
 <p>Using Humanize is dead simple. See the <a href="apidocs/index.html">documentation</a>.</p>
@@ -60,7 +80,7 @@
 
 <div class="highlight">
 <pre>    
-    <span class="kn">import</span> <span class="nn">static</span> <span class="n">com</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">mfornos</span><span class="o">.</span><span class="n">humanize</span><span class="o">.</span><span class="n">Humanize</span><span class="o">.</span><span class="na">binaryPrefix</span><span class="o">;</span> 
+    <span class="kn">import</span> <span class="nn">static</span> <span class="n">humanize</span><span class="o">.</span><span class="n">Humanize</span><span class="o">.</span><span class="na">binaryPrefix</span><span class="o">;</span> 
 
     <span class="kd">class</span> <span class="n">SomeClass</span> <span class="o">{</span>
       
@@ -115,7 +135,7 @@
 		<th>Output </th>
 	</tr>
 <tr>
-<td> ordinalize </td>
+<td> ordinal </td>
 		<td> Converts a number to its ordinal as a string. </td>
 		<td> ‘1st’, ‘2nd’, ‘3rd’, etc. </td>
 	</tr>
@@ -232,12 +252,12 @@
 
 <h2>Examples</h2>
 
-<p>See <code>src/test/HumanizeTest</code> for examples.</p>
+<p>See <code>src/test/.../HumanizeTest</code> for examples.</p>
 
 <h2>Epilog</h2>
 
 <div style="display: block; overflow: hidden; margin-bottom: 10px;">
-  <span style="float:left;">Have fun and stay fresh!</span>
+  <span style="float:left;"><span style="font-size:1.5em;">☄</span> Have fun and stay fresh!</span>
   <span style="float:right; margin-right:10px;">
     <a href="http://travis-ci.org/mfornos/humanize">
        <img src="https://secure.travis-ci.org/mfornos/humanize.png?branch=master" alt="build status" />
