@@ -1,29 +1,39 @@
 package humanize.spi.context;
 
 import humanize.spi.MessageFormat;
+import humanize.time.RelativeDate;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 
 public interface StandardContext {
-	
-	MessageFormat getMessageFormat();
 
-	NumberFormat getNumberFormat();
+	String formatRelativeDate(Date duration);
 
-	DecimalFormat getPercentFormat();
+	String formatRelativeDate(Date reference, Date duration);
 
 	DecimalFormat getCurrencyFormat();
 
 	DateFormat getDateFormat(int style);
+
+	DateFormat getDateFormat(String pattern);
 
 	DateFormat getDateTimeFormat();
 
 	DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
 
 	DecimalFormat getDecimalFormat();
-	
-	DateFormat getDateFormat(String pattern);
-	
+
+	MessageFormat getMessageFormat();
+
+	NumberFormat getNumberFormat();
+
+	DecimalFormat getPercentFormat();
+
+	RelativeDate getRelativeDate();
+
+	String ordinalSuffix(int index);
+
 }

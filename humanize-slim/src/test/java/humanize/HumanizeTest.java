@@ -8,8 +8,12 @@ import static humanize.Humanize.formatDate;
 import static humanize.Humanize.formatDateTime;
 import static humanize.Humanize.formatDecimal;
 import static humanize.Humanize.formatPercent;
+import static humanize.Humanize.getRelativeDateInstance;
 import static humanize.Humanize.mask;
 import static humanize.Humanize.metricPrefix;
+import static humanize.Humanize.naturalDay;
+import static humanize.Humanize.naturalTime;
+import static humanize.Humanize.ordinal;
 import static humanize.Humanize.pluralize;
 import static humanize.Humanize.replaceSupplementary;
 import static humanize.Humanize.spellBigNumber;
@@ -21,6 +25,7 @@ import static humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
+import humanize.time.RelativeDate;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -38,6 +43,96 @@ public class HumanizeTest {
 	private static final Locale ES = new Locale("es", "ES");
 
 	private Random rand;
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void ordinalTest() {
+
+		assertEquals(ordinal(0), "0th");
+		assertEquals(ordinal(1), "1st");
+		assertEquals(ordinal(2), "2nd");
+		assertEquals(ordinal(3), "3rd");
+		assertEquals(ordinal(4), "4th");
+		assertEquals(ordinal(5), "5th");
+		assertEquals(ordinal(33), "33rd");
+		assertEquals(ordinal(11), "11th");
+		assertEquals(ordinal(12), "12th");
+		assertEquals(ordinal(13), "13th");
+		assertEquals(ordinal(10), "10th");
+		assertEquals(ordinal(22), "22nd");
+		assertEquals(ordinal(101), "101st");
+		assertEquals(ordinal(-10), "-10th");
+		assertEquals(ordinal(1.25), "1st");
+		assertEquals(ordinal(new Float(1.33)), "1st");
+		assertEquals(ordinal(new Long(10000000)), "10000000th");
+
+		assertEquals(ordinal(1, ES), "1º");
+		
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void naturalDayTest() {
+
+		Calendar cal = Calendar.getInstance();
+		assertEquals(naturalDay(cal.getTime()), "today");
+		cal.add(Calendar.DATE, 1);
+		assertEquals(naturalDay(cal.getTime()), "tomorrow");
+		cal.add(Calendar.DAY_OF_MONTH, -2);
+		assertEquals(naturalDay(cal.getTime()), "yesterday");
+		cal.add(Calendar.DAY_OF_WEEK, -1);
+		assertEquals(naturalDay(cal.getTime()), formatDate(cal.getTime()));
+		
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void naturalTimeTest() {
+
+		assertEquals(naturalTime(new Date()), "right now");
+
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "one day from now");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 3)), "3 days from now");
+		assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 7 * 3)), "3 weeks from now");
+		assertEquals(naturalTime(new Date(0), new Date(2629743830L * 3L)), "3 months from now");
+		assertEquals(naturalTime(new Date(0), new Date(2629743830L * 13L * 3L)), "3 years from now");
+		assertEquals(naturalTime(new Date(0), new Date(315569259747L * 3L)), "30 years from now");
+		assertEquals(naturalTime(new Date(0), new Date(3155792597470L * 3L)), "300 years from now");
+
+		assertEquals(naturalTime(new Date(6000), new Date(0)), "moments ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 12), new Date(0)), "12 minutes ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 3), new Date(0)), "3 hours ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)), "one day ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 3), new Date(0)), "3 days ago");
+		assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 7 * 3), new Date(0)), "3 weeks ago");
+		assertEquals(naturalTime(new Date(2629743830L * 3L), new Date(0)), "3 months ago");
+		assertEquals(naturalTime(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
+		assertEquals(naturalTime(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
+		assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
+
+		// within locale
+		assertEquals(naturalTime(new Date(), ES), "justo ahora");
+		
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void relativeDateTest() {
+
+		RelativeDate relativeDate = getRelativeDateInstance();
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 3)), "3 hours from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)), "one day from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 3)), "3 days from now");
+		assertEquals(relativeDate.format(new Date(0), new Date(1000 * 60 * 60 * 24 * 7 * 3)), "3 weeks from now");
+		assertEquals(relativeDate.format(new Date(2629743830L * 3L), new Date(0)), "3 months ago");
+		assertEquals(relativeDate.format(new Date(2629743830L * 13L * 3L), new Date(0)), "3 years ago");
+		assertEquals(relativeDate.format(new Date(315569259747L * 3L), new Date(0)), "30 years ago");
+		assertEquals(relativeDate.format(new Date(3155792597470L * 3L), new Date(0)), "300 years ago");
+
+		// within locale
+		relativeDate = getRelativeDateInstance(ES);
+		assertEquals(relativeDate.format(new Date()), "justo ahora");
+		
+	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void binPrefixTest() {
@@ -105,7 +200,6 @@ public class HumanizeTest {
 
 	}
 
-	
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void formatCurrencyTest() {
 
@@ -253,8 +347,7 @@ public class HumanizeTest {
 		assertEquals(replaceSupplementary("A normal string"), "A normal string");
 
 		// Emoji face
-		assertEquals(replaceSupplementary(new StringBuilder().appendCodePoint(0x1F60A).toString()),
-		        "\\uD83D\\uDE0A");
+		assertEquals(replaceSupplementary(new StringBuilder().appendCodePoint(0x1F60A).toString()), "\\uD83D\\uDE0A");
 
 	}
 
@@ -298,7 +391,6 @@ public class HumanizeTest {
 		assertEquals(spellDigit(9, ES), "nueve");
 
 	}
-
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void titleizeTest() {

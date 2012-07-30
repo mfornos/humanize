@@ -1,12 +1,6 @@
 package humanize;
 
-import static humanize.util.Constants.EMPTY;
-import static humanize.util.Constants.SPACE;
-import static humanize.util.Constants.SPLIT_CAMEL;
-import static humanize.util.Constants.THOUSAND;
-import static humanize.util.Constants.bigDecExponents;
-import static humanize.util.Constants.binPrefixes;
-import static humanize.util.Constants.metricPrefixes;
+import static humanize.util.Constants.*;
 import humanize.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
 import humanize.spi.context.DefaultContext;
@@ -14,6 +8,7 @@ import humanize.spi.context.DefaultContextFactory;
 import humanize.text.MaskFormat;
 import humanize.text.Replacer;
 import humanize.text.TextUtils;
+import humanize.time.RelativeDate;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -958,6 +953,42 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Creates a RelativeDate instance. It is useful to compute multiple
+	 * relative dates with the same instance.
+	 * </p>
+	 * 
+	 * @return RelativeDate instance
+	 */
+	public static RelativeDate getRelativeDateInstance() {
+
+		return context.get().getRelativeDate();
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #getRelativeDateInstance() getRelativeDateInstance} for
+	 * the specified locale.
+	 * </p>
+	 * 
+	 * @param locale
+	 *            Target locale
+	 * @return RelativeDate instance
+	 */
+	public static RelativeDate getRelativeDateInstance(final Locale locale) {
+
+		return withinLocale(new Callable<RelativeDate>() {
+			public RelativeDate call() throws Exception {
+
+				return context.get().getRelativeDate();
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
 	 * Formats the given text with the mask specified.
 	 * </p>
 	 * 
@@ -1295,6 +1326,166 @@ public final class Humanize {
 
 				return metricPrefix(value);
 
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * Same as {@link #naturalDay(int, Date) naturalDay} with DateFormat.SHORT
+	 * style.
+	 * 
+	 * @param Date
+	 *            The date
+	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 *         current day. Otherwise, returns a string formatted according to a
+	 *         locale sensitive DateFormat.
+	 */
+	public static String naturalDay(Date value) {
+
+		return naturalDay(DateFormat.SHORT, value);
+
+	}
+
+	/**
+	 * For dates that are the current day or within one day, return 'today',
+	 * 'tomorrow' or 'yesterday', as appropriate. Otherwise, returns a string
+	 * formatted according to a locale sensitive DateFormat.
+	 * 
+	 * @param int The style of the Date
+	 * @param Date
+	 *            The date (GMT)
+	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 *         current day. Otherwise, returns a string formatted according to a
+	 *         locale sensitive DateFormat.
+	 */
+	public static String naturalDay(int style, Date value) {
+
+		Date today = new Date();
+		long delta = value.getTime() - today.getTime();
+		long days = delta / ND_FACTOR;
+
+		if (days == 0)
+			return context.get().getMessage("today");
+		else if (days == 1)
+			return context.get().getMessage("tomorrow");
+		else if (days == -1)
+			return context.get().getMessage("yesterday");
+
+		return formatDate(style, value);
+
+	}
+
+	/**
+	 * Same as {@link #naturalTime(Date, Date) naturalTime} with current date as
+	 * reference.
+	 * 
+	 * @param Date
+	 *            The duration
+	 * @return String representing the relative date
+	 */
+	public static String naturalTime(Date duration) {
+
+		return context.get().formatRelativeDate(duration);
+
+	}
+
+	/**
+	 * Computes both past and future relative dates.
+	 * 
+	 * <p>
+	 * 
+	 * E.g. 'one day ago', 'one day from now', '10 years ago', '3 minutes from
+	 * now', 'right now' and so on.
+	 * 
+	 * @param Date
+	 *            The reference
+	 * @param Date
+	 *            The duration
+	 * @return String representing the relative date
+	 */
+	public static String naturalTime(Date reference, Date duration) {
+
+		return context.get().formatRelativeDate(reference, duration);
+
+	}
+
+	/**
+	 * Same as {@link #naturalTime(Date, Date) naturalTime} for the specified
+	 * locale.
+	 * 
+	 * @param Date
+	 *            The reference
+	 * @param Date
+	 *            The duration
+	 * @param Locale
+	 *            The locale
+	 * @return String representing the relative date
+	 */
+	public static String naturalTime(final Date reference, final Date duration, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() {
+
+				return naturalTime(reference, duration);
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * Same as {@link #naturalTime(Date) naturalTime} for the specified locale.
+	 * 
+	 * @param Date
+	 *            The duration
+	 * @param Locale
+	 *            The locale
+	 * @return String representing the relative date
+	 */
+	public static String naturalTime(final Date duration, final Locale locale) {
+
+		return naturalTime(new Date(), duration, locale);
+
+	}
+
+	/**
+	 * Converts a number to its ordinal as a string.
+	 * 
+	 * <p>
+	 * 
+	 * E.g. 1 becomes '1st', 2 becomes '2nd', 3 becomes '3rd', etc.
+	 * 
+	 * @param Number
+	 *            The number to convert
+	 * @return String representing the number as ordinal
+	 */
+	public static String ordinal(Number value) {
+
+		int v = value.intValue();
+		int vc = v % 100;
+
+		if (vc > 10 && vc < 14)
+			return String.format(ORDINAL_FMT, v, context.get().ordinalSuffix(0));
+
+		return String.format(ORDINAL_FMT, v, context.get().ordinalSuffix(v % 10));
+
+	}
+
+	/**
+	 * Same as {@link #ordinal(Number) ordinal} for the specified locale.
+	 * 
+	 * @param Number
+	 *            The number to convert
+	 * @param Locale
+	 *            The locale
+	 * @return String representing the number as ordinal
+	 */
+	public static String ordinal(final Number value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() {
+
+				return ordinal(value);
 			}
 		}, locale);
 

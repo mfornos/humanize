@@ -16,6 +16,10 @@ public class Constants {
 	public static final String SPACE = " ";
 
 	public static final String EMPTY = "";
+	
+	public static final String ORDINAL_FMT = "%d%s";
+
+	public static final int ND_FACTOR = 1000 * 60 * 60 * 23;
 
 	public static final BigDecimal THOUSAND = BigDecimal.valueOf(1000);
 
