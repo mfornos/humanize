@@ -3,11 +3,11 @@
   <parent>
     <artifactId>humanize</artifactId>
     <groupId>com.github.mfornos</groupId>
-    <version>0.1.2</version>
+    <version>0.1.3-SNAPSHOT</version>
   </parent>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-slim</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3-SNAPSHOT</version>
   <name>Humanize for Java - Slim</name>
   <packaging>jar</packaging>
   <dependencies>
