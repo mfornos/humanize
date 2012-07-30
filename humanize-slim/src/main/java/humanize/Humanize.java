@@ -526,7 +526,7 @@ public final class Humanize {
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
+	 *            {@link java.text.DecimalFormat DecimalFormat}
 	 * @return a DecimalFormat instance for the current thread
 	 */
 	public static DecimalFormat decimalFormatInstance(final String pattern) {
@@ -545,7 +545,7 @@ public final class Humanize {
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
+	 *            {@link java.text.DecimalFormat DecimalFormat}
 	 * @param locale
 	 *            Target locale
 	 * @return a DecimalFormat instance for the current thread
@@ -570,7 +570,7 @@ public final class Humanize {
 	 * 
 	 * @param pattern
 	 *            Format pattern that follows the conventions of
-	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
+	 *            {@link java.text.MessageFormat MessageFormat}
 	 * @param args
 	 *            Arguments
 	 * @return The formatted String
