@@ -28,23 +28,23 @@ import com.ibm.icu.util.ULocale;
  */
 public class DefaultICUContext implements Context, ICUContext {
 
-	private static final String DURATION_FORMAT = "duration.format";
+	private static final String DURATION_FORMAT = "icu.duration.format";
 
-	private static final String CURRENCY = "currency";
+	private static final String CURRENCY = "icu.currency";
 
-	private static final String DECIMAL = "decimal";
+	private static final String DECIMAL = "icu.decimal";
 
-	private static final String NUMBER = "number";
+	private static final String NUMBER = "icu.number";
 
-	private static final String PERCENT = "percent";
+	private static final String PERCENT = "icu.percent";
 
-	private static final String RULE_BASED = "rule.based";
+	private static final String RULE_BASED = "icu.rule.based";
 
-	private static final String DATE_FORMAT = "date";
+	private static final String DATE_FORMAT = "icu.date";
 
-	private static final String CURRENCY_PL = "currency.pl";
+	private static final String CURRENCY_PL = "icu.currency.pl";
 
-	private static final String DATE_TIME_FORMAT = "date.time";
+	private static final String DATE_TIME_FORMAT = "icu.date.time";
 
 	private final static CacheProvider sharedCache = loadCacheProvider();
 
@@ -86,7 +86,7 @@ public class DefaultICUContext implements Context, ICUContext {
 		return messageFormat;
 
 	}
-	
+
 	@Override
 	public String formatDate(int style, Date value) {
 
@@ -225,7 +225,7 @@ public class DefaultICUContext implements Context, ICUContext {
 			@Override
 			public DecimalFormat call() throws Exception {
 
-				return (DecimalFormat)NumberFormat.getPercentInstance(locale);
+				return (DecimalFormat) NumberFormat.getPercentInstance(locale);
 			}
 		});
 
@@ -273,40 +273,38 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-    public String digitStrings(int index) {
+	public String digitStrings(int index) {
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
-	    
-    }
+
+	}
 
 	@Override
-    public String formatMessage(String key, Object... args) {
+	public String formatMessage(String key, Object... args) {
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
-		
-    }
+
+	}
 
 	@Override
-    public ResourceBundle getBundle() {
+	public ResourceBundle getBundle() {
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-    }
+	}
 
 	@Override
-    public MaskFormat getMaskFormat() {
+	public MaskFormat getMaskFormat() {
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-    }
+	}
 
 	@Override
-    public String getMessage(String key) {
+	public String getMessage(String key) {
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-    }
-
-	
+	}
 
 }
