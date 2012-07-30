@@ -2,13 +2,13 @@ h1. Humanize for Java
 
 Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. 
 
-Humanize exists in two flavors, *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
+Exists in two flavors: *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
 
 h2. Getting Started
 
 h3. Maven
 
-For the slim flavor write the following in your _pom_:
+For the *slim flavor* write the following in your _pom_:
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -16,7 +16,7 @@ bc.. <dependency>
   <version>0.1.2</version>
 </dependency>
 
-p. For the full fledged ICU distribution:
+p. For the *full-fledged ICU* distribution:
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -37,7 +37,7 @@ h3. Humanize-icu
 * humanize-slim 0.1.2
 * icu4j 49.1
 
-If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful.
+_If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful._
 
 h2. Usage
 
@@ -71,7 +71,7 @@ h3. Date&Time
 h3. Numbers
 
 |_. Method |_. Description |_. Output |
-| ordinalize | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
+| ordinal | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. |
 | spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. |
 | spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. |
 | spellNumber | Converts the given number to words. | 'twenty-three', 'two thousand eight hundred and forty', 'one million four hundred and twelve thousand six hundred and five', etc.  |
