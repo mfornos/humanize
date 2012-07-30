@@ -41,7 +41,7 @@ _If you need customize the data included by default in the ICU distribution (all
 
 h2. Usage
 
-Using Humanize is dead simple. See the javadoc "documentation":http://mfornos.github.com/humanize/apidocs/index.html
+Using Humanize is dead simple. See the *documentation* for "humanize-slim":http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html or "humanize-icu":http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
 
 # Import the static methods of the Humanize class that you want to call.
 # Invoke these methods.
