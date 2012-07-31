@@ -12,7 +12,7 @@ import humanize.spi.MessageFormat;
  * 
  * <pre>
  * EmojiInterpolator.interpolate(&quot;&lt;img src=\&quot;imgs/{0}.png\&quot; title=\&quot;{0}\&quot; /&gt;&quot;, &quot;Hi :sparkles:!&quot;);
- * // outputs: &quot;Hi &lt;img src=\&quot;imgs/sparkles.png\&quot; title=\&quot;sparkles\&quot; /&gt;!&quot;
+ * // == &quot;Hi &lt;img src=\&quot;imgs/sparkles.png\&quot; title=\&quot;sparkles\&quot; /&gt;!&quot;
  * </pre>
  * 
  * @author mfornos
