@@ -19,7 +19,7 @@ body {
 }
 
 .wrapper {
-  width: 640px;
+  width: 720px;
   margin: 0 auto;
   background: #DEDEDE;
   -webkit-border-radius: 8px;
@@ -241,7 +241,7 @@ code, pre {
 
 pre {
   padding: 20px;
-  background: #3A3C42;
+  background: #3F3F3F;
   color: #f8f8f2;
   margin: 0 -20px 20px;
 }
