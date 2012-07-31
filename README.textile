@@ -8,12 +8,16 @@ h2. Getting Started
 
 h3. Maven
 
-For the *slim flavor* write the following in your _pom_:
+Last version:
+
+bc.. <humanize.version>0.1.3</humanize.version>
+
+p. For the *slim flavor* write the following in your _pom_:
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-slim</artifactId>
-  <version>0.1.2</version>
+  <version>${humanize.version}</version>
 </dependency>
 
 p. For the *full-fledged ICU* distribution:
@@ -21,7 +25,7 @@ p. For the *full-fledged ICU* distribution:
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-icu</artifactId>
-  <version>0.1.2</version>
+  <version>${humanize.version}</version>
 </dependency>
 
 p. 
@@ -34,7 +38,7 @@ h3. Humanize-slim
 
 h3. Humanize-icu
 
-* humanize-slim 0.1.2
+* humanize-slim ${humanize.version}
 * icu4j 49.1
 
 _If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful._
