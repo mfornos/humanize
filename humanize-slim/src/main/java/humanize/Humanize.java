@@ -1298,6 +1298,24 @@ public final class Humanize {
 	 * msg.render(1000, &quot;disk&quot;); // == &quot;There are 1,000 files on disk.&quot;
 	 * </pre>
 	 * 
+	 * <pre>
+	 * MessageFormat msg = pluralize(&quot;nothing::one thing::{0} things&quot;);
+	 * 
+	 * msg.render(-1); // == &quot;nothing&quot;
+	 * msg.render(0); // == &quot;nothing&quot;
+	 * msg.render(1); // == &quot;one thing&quot;
+	 * msg.render(2); // == &quot;2 things&quot;
+	 * </pre>
+	 * 
+	 * <pre>
+	 * MessageFormat msg = pluralize(&quot;one thing::{0} things&quot;);
+	 * 
+	 * msg.render(-1); // == &quot;-1 things&quot;
+	 * msg.render(0); // == &quot;0 things&quot;
+	 * msg.render(1); // == &quot;one thing&quot;
+	 * msg.render(2); // == &quot;2 things&quot;
+	 * </pre>
+	 * 
 	 * @param template
 	 *            String of tokens delimited by '::'
 	 * 
@@ -1307,8 +1325,16 @@ public final class Humanize {
 
 		String[] tokens = template.split("\\s*\\:{2}\\s*");
 
-		if (tokens.length < 3)
-			throw new IllegalArgumentException(String.format("Template '%s' must declare at least 3 tokens", template));
+		if (tokens.length < 4) {
+			if (tokens.length == 2) {
+				tokens = new String[] { "{0}", tokens[1], tokens[0], tokens[1] };
+			} else if (tokens.length == 3) {
+				tokens = new String[] { "{0}", tokens[0], tokens[1], tokens[2] };
+			} else {
+				throw new IllegalArgumentException(String.format(
+				        "Template '%s' must declare at least 2 tokens. V.gr. 'one thing::{0} things'", template));
+			}
+		}
 
 		return pluralize(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
 

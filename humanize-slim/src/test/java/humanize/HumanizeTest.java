@@ -66,7 +66,7 @@ public class HumanizeTest {
 		assertEquals(ordinal(new Long(10000000)), "10000000th");
 
 		assertEquals(ordinal(1, ES), "1º");
-		
+
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
@@ -80,7 +80,7 @@ public class HumanizeTest {
 		assertEquals(naturalDay(cal.getTime()), "yesterday");
 		cal.add(Calendar.DAY_OF_WEEK, -1);
 		assertEquals(naturalDay(cal.getTime()), formatDate(cal.getTime()));
-		
+
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
@@ -111,7 +111,7 @@ public class HumanizeTest {
 
 		// within locale
 		assertEquals(naturalTime(new Date(), ES), "justo ahora");
-		
+
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
@@ -131,7 +131,7 @@ public class HumanizeTest {
 		// within locale
 		relativeDate = getRelativeDateInstance(ES);
 		assertEquals(relativeDate.format(new Date()), "justo ahora");
-		
+
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
@@ -311,7 +311,24 @@ public class HumanizeTest {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeWithSimpleTemplate() {
+	public void pluralizeSimpleTest() {
+
+		String pattern = "{0}";
+		String none = "{0} things";
+		String one = "one thing";
+		String many = "{0} things";
+
+		MessageFormat f = pluralize(pattern, none, one, many);
+
+		assertEquals(f.render(0), "0 things");
+		assertEquals(f.render(-1), "-1 things");
+		assertEquals(f.render(1), "one thing");
+		assertEquals(f.render(2), "2 things");
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void pluralizeWithTemplate() {
 
 		int df = rand.nextInt(9);
 
@@ -329,11 +346,37 @@ public class HumanizeTest {
 		assertEquals(f.render(2000), "Hay 2.000 ficheros.");
 
 		try {
-			pluralize("---::---");
+			pluralize("---");
 			fail("incorrect number of tokens");
 		} catch (IllegalArgumentException ex) {
 
 		}
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void pluralizeWithSimpleTemplate() {
+
+		MessageFormat f = pluralize("{0}::nothing::one thing::{0} things");
+
+		assertEquals(f.render(0), "nothing");
+		assertEquals(f.render(-1), "nothing");
+		assertEquals(f.render(1), "one thing");
+		assertEquals(f.render(2), "2 things");
+
+		f = pluralize("nothing::one thing::{0} things");
+
+		assertEquals(f.render(0), "nothing");
+		assertEquals(f.render(-1), "nothing");
+		assertEquals(f.render(1), "one thing");
+		assertEquals(f.render(2), "2 things");
+
+		f = pluralize("one thing::{0} things");
+
+		assertEquals(f.render(0), "0 things");
+		assertEquals(f.render(-1), "-1 things");
+		assertEquals(f.render(1), "one thing");
+		assertEquals(f.render(2), "2 things");
 
 	}
 
