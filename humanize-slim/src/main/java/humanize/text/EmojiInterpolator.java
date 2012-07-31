@@ -4,6 +4,20 @@ import java.util.regex.Pattern;
 
 import humanize.spi.MessageFormat;
 
+/**
+ * <p>
+ * Provides easy text interpolation of Emoji symbols.
+ * </p>
+ * <h5>Examples:</h5>
+ * 
+ * <pre>
+ * EmojiInterpolator.interpolate(&quot;&lt;img src=\&quot;imgs/{0}.png\&quot; title=\&quot;{0}\&quot; /&gt;&quot;, &quot;Hi :sparkles:!&quot;);
+ * // outputs: &quot;Hi &lt;img src=\&quot;imgs/sparkles.png\&quot; title=\&quot;sparkles\&quot; /&gt;!&quot;
+ * </pre>
+ * 
+ * @author mfornos
+ * 
+ */
 public class EmojiInterpolator implements Replacer {
 
 	public static Pattern EMOJI = Pattern.compile(":("
@@ -61,13 +75,19 @@ public class EmojiInterpolator implements Replacer {
 	public EmojiInterpolator(String pattern) {
 
 		this.msgFormat = new MessageFormat(pattern);
-		
+
 	}
 
 	@Override
 	public String replace(String text) {
 
 		return msgFormat.render(text);
+
+	}
+
+	public static String interpolate(String pattern, String text) {
+
+		return TextUtils.interpolate(text, EmojiInterpolator.EMOJI, new EmojiInterpolator(pattern));
 
 	}
 
