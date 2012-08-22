@@ -43,6 +43,7 @@ public class MaskFormatTest {
 		} catch (ParseException ex) {
 			//
 		}
+		
 	}
 
 	@Test
