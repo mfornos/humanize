@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
+import com.google.common.base.CharMatcher;
+
 /**
  * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
@@ -1419,6 +1421,41 @@ public final class Humanize {
 
 	/**
 	 * <p>
+	 * Transforms a text into a representation suitable to be used in an URL.
+	 * </p>
+	 * 
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+	 * <tr>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>"J'étudie le français"</td>
+	 * <td>"jetudie-le-francais"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"Lo siento, no hablo español."</td>
+	 * <td>"lo-siento-no-hablo-espanol"</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param text
+	 *            The text to be slugified
+	 * @return Slugified String
+	 */
+	public static String slugify(final String text) {
+
+		String result = transliterate(text);
+		result = ONLY_SLUG_CHARS.matcher(result).replaceAll("");
+		result = CharMatcher.WHITESPACE.trimFrom(result);
+		result = HYPEN_SPACE.matcher(result).replaceAll("-");
+
+		return result.toLowerCase();
+
+	}
+
+	/**
+	 * <p>
 	 * Converts a big number to a friendly text representation. Accepts values
 	 * ranging from thousands to googols. Uses BigDecimal.
 	 * </p>
@@ -1578,6 +1615,37 @@ public final class Humanize {
 			}
 		}
 		return sb.toString();
+
+	}
+
+	/**
+	 * <p>
+	 * Strips diacritic marks.
+	 * </p>
+	 * 
+	 * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+	 * <tr>
+	 * <th class="colFirst">Input</th>
+	 * <th class="colLast">Output</th>
+	 * </tr>
+	 * <tr>
+	 * <td>"J'étudie le français"</td>
+	 * <td>"J'etudie le francais"</td>
+	 * </tr>
+	 * <tr>
+	 * <td>"Lo siento, no hablo español."</td>
+	 * <td>"Lo siento, no hablo espanol."</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param text
+	 *            The text to be transliterated.
+	 * @return String without diacritic marks.
+	 */
+	public static String transliterate(final String text) {
+
+		String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
+		return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
 	}
 

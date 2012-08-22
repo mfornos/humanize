@@ -1,13 +1,16 @@
 package humanize.spi.cache;
 
+import humanize.config.ConfigLoader;
+
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheBuilderSpec;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
@@ -20,32 +23,48 @@ import com.google.common.cache.LoadingCache;
  */
 public class GuavaCacheProvider implements CacheProvider {
 
-	private final Cache<Locale, ResourceBundle> bundles = CacheBuilder.newBuilder()
-	        .expireAfterAccess(1, TimeUnit.HOURS).<Locale, ResourceBundle> build();
+	private static final CacheBuilderSpec spec = initSpec();
 
-	private final LoadingCache<String, Cache<Locale, Object>> formats = CacheBuilder.newBuilder()
-	        .expireAfterAccess(1, TimeUnit.HOURS).build(new CacheLoader<String, Cache<Locale, Object>>() {
+	private static CacheBuilderSpec initSpec() {
 
-		        @Override
-		        public Cache<Locale, Object> load(String cache) throws Exception {
+		final Properties properties = ConfigLoader.loadProperties();
+		return CacheBuilderSpec.parse(properties.getProperty(ConfigLoader.CACHE_BUILDER_SPEC));
 
-			        return CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.HOURS).<Locale, Object> build();
+	}
 
-		        }
+	private final Cache<Locale, ResourceBundle> bundles;
 
-	        });
+	private final LoadingCache<String, Cache<Locale, Object>> formats;
 
-	private final LoadingCache<String, Cache<Locale, String[]>> stringCaches = CacheBuilder.newBuilder()
-	        .expireAfterAccess(1, TimeUnit.HOURS).build(new CacheLoader<String, Cache<Locale, String[]>>() {
+	private final LoadingCache<String, Cache<Locale, String[]>> stringCaches;
 
-		        @Override
-		        public Cache<Locale, String[]> load(String cache) throws Exception {
+	public GuavaCacheProvider() {
 
-			        return CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.HOURS).<Locale, String[]> build();
+		bundles = CacheBuilder.from(spec).<Locale, ResourceBundle> build();
 
-		        }
+		formats = CacheBuilder.from(spec).build(new CacheLoader<String, Cache<Locale, Object>>() {
 
-	        });
+			@Override
+			public Cache<Locale, Object> load(String cache) throws Exception {
+
+				return CacheBuilder.from(spec).<Locale, Object> build();
+
+			}
+
+		});
+
+		stringCaches = CacheBuilder.from(spec).build(new CacheLoader<String, Cache<Locale, String[]>>() {
+
+			@Override
+			public Cache<Locale, String[]> load(String cache) throws Exception {
+
+				return CacheBuilder.from(spec).<Locale, String[]> build();
+
+			}
+
+		});
+
+	}
 
 	@Override
 	public boolean containsBundle(Locale locale) {

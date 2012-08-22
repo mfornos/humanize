@@ -98,7 +98,11 @@ bc.. MessageFormat msg = pluralize("one thing::{0} things");
 msg.render(-1); // == "-1 things"
 msg.render(0);  // == "0 things"
 msg.render(1);  // == "one thing"
-msg.render(2);  // == "2 things" 
+msg.render(2);  // == "2 things"
+
+p. *Slugify*
+
+bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder" 
 
 p. *Interpolation*
 
@@ -147,6 +151,8 @@ h3. Text
 | capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - | ✔ | - |
 | decamelize | Converts a camel case string into a human-readable name. | - | ✔ | - |
 | titleize | Capitalize all the words, and replace some characters in the string to create a nice looking title. | - | ✔ | - |
+| transliterate | Strips diacritic marks. | - | ✔ | - |
+| slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
 | mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
 | messageFormatInstance | Returns an ICU based MessageFormat instance for the current thread. | - | - | ✔ |
