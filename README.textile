@@ -64,6 +64,27 @@ class SomeClass {
 
 p. 
 
+h2. Cache configuration
+
+By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a @humanize.properties@ file, or specify the location of a properties file using the @humanize.config@ system property, with a CacheBuilderSpec string configuration like this:
+
+bc.. cache.builder.spec:expireAfterAccess=15m
+
+p. The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.
+
+* concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.
+* initialCapacity=[integer]: sets CacheBuilder.initialCapacity.
+* maximumSize=[long]: sets CacheBuilder.maximumSize.
+* maximumWeight=[long]: sets CacheBuilder.maximumWeight.
+* expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).
+* expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).
+* refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).
+* weakKeys: sets CacheBuilder.weakKeys().
+* softValues: sets CacheBuilder.softValues().
+* weakValues: sets CacheBuilder.weakValues().
+
+Durations are represented by an integer, followed by one of "d", "h", "m", or "s", representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.) 
+
 h2. Javadoc
 
 * "Documentation for humanize-slim":http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
