@@ -19,5 +19,6 @@ public class MessageFormatTest {
 		Assert.assertEquals(buffer.toString(), "hello one two");
 
 		Assert.assertEquals(new MessageFormat("hi {0}").render("ho"), "hi ho");
+		
 	}
 }
