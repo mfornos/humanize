@@ -1599,7 +1599,7 @@ public final class ICUHumanize {
 	}
 
 	private ICUHumanize() {
-
+		//
 	}
 
 }

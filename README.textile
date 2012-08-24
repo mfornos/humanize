@@ -45,7 +45,7 @@ _If you need customize the data included by default in the ICU distribution (all
 
 h2. Usage
 
-Using Humanize is dead simple.
+Humanize usage is quite simple.
 
 # Import the static methods of the Humanize class that you want to call.
 # Invoke these methods.
