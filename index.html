@@ -41,7 +41,7 @@
 <h3>Maven</h3>
 
 <p>Last version:</p>
-<pre><code>&lt;humanize.version&gt;0.1.3&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;0.1.4&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -94,6 +94,22 @@ class SomeClass {
   
 }</code></pre>
 <p></p>
+<h2>Cache configuration</h2>
+<p>By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a <code>humanize.properties</code> file, or specify the location of a properties file using the <code>humanize.config</code> system property, with a CacheBuilderSpec string configuration like this:</p>
+<pre><code>cache.builder.spec:expireAfterAccess=15m</code></pre>
+<p>The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.</p>
+<ul>
+<li>concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.</li>
+	<li>initialCapacity=[integer]: sets CacheBuilder.initialCapacity.</li>
+	<li>maximumSize=[long]: sets CacheBuilder.maximumSize.</li>
+	<li>maximumWeight=[long]: sets CacheBuilder.maximumWeight.</li>
+	<li>expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).</li>
+	<li>expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).</li>
+	<li>refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).</li>
+	<li>weakKeys: sets CacheBuilder.weakKeys().</li>
+	<li>softValues: sets CacheBuilder.softValues().</li>
+	<li>weakValues: sets CacheBuilder.weakValues().</li>
+</ul><p>Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)</p>
 <h2>Javadoc</h2>
 <ul>
 <li><a href="http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html">Documentation for humanize-slim</a></li>
@@ -120,6 +136,8 @@ msg.render(-1); // == "-1 things"
 msg.render(0);  // == "0 things"
 msg.render(1);  // == "one thing"
 msg.render(2);  // == "2 things" </code></pre>
+<p><strong>Slugify</strong></p>
+<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder" </code></pre>
 <p><strong>Interpolation</strong></p>
 <pre><code class="java">EmojiInterpolator.interpolate(
         "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
@@ -288,6 +306,20 @@ msg.render(2);  // == "2 things" </code></pre>
 <tr>
 <td> titleize </td>
 		<td> Capitalize all the words, and replace some characters in the string to create a nice looking title. </td>
+		<td> – </td>
+		<td> ✔ </td>
+		<td> – </td>
+	</tr>
+<tr>
+<td> transliterate </td>
+		<td> Strips diacritic marks. </td>
+		<td> – </td>
+		<td> ✔ </td>
+		<td> – </td>
+	</tr>
+<tr>
+<td> slugify </td>
+		<td> Transforms a text into a representation suitable to be used in an URL. </td>
 		<td> – </td>
 		<td> ✔ </td>
 		<td> – </td>
