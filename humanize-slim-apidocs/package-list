@@ -1,4 +1,5 @@
 humanize
+humanize.config
 humanize.spi
 humanize.spi.cache
 humanize.spi.context
