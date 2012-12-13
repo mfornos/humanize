@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import humanize.spi.MessageFormat;
 import humanize.text.util.Replacer;
-import humanize.text.util.TextUtils;
+import humanize.text.util.InterpolationHelper;
 
 /**
  * <p>
@@ -89,7 +89,7 @@ public class EmojiInterpolator implements Replacer {
 
 	public static String interpolate(String pattern, String text) {
 
-		return TextUtils.interpolate(text, EmojiInterpolator.EMOJI, new EmojiInterpolator(pattern));
+		return InterpolationHelper.interpolate(text, EmojiInterpolator.EMOJI, new EmojiInterpolator(pattern));
 
 	}
 

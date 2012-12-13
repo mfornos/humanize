@@ -63,11 +63,11 @@ import com.google.common.base.Preconditions;
  * </ul>
  * </p>
  * 
- * @since 2.4
  * @version $Id: ExtendedMessageFormat.java 1144929 2011-07-10 18:26:16Z
  *          ggregory $
  */
 public class ExtendedMessageFormat extends MessageFormat {
+
 	private static final long serialVersionUID = -2362048321261811743L;
 
 	private static final String DUMMY_PATTERN = "";
@@ -616,4 +616,5 @@ public class ExtendedMessageFormat extends MessageFormat {
 		} while (len > 0 && pos.getIndex() < pattern.length());
 
 	}
+
 }

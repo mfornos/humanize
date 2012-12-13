@@ -13,7 +13,7 @@ import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
 import humanize.text.util.Replacer;
-import humanize.text.util.TextUtils;
+import humanize.text.util.InterpolationHelper;
 
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;
@@ -1429,7 +1429,7 @@ public final class ICUHumanize {
 	 */
 	public static String replaceSupplementary(final String value) {
 
-		return TextUtils.replaceSupplementary(value, new Replacer() {
+		return InterpolationHelper.replaceSupplementary(value, new Replacer() {
 			public String replace(String in) {
 
 				return UCharacter.getName(in, ", ");

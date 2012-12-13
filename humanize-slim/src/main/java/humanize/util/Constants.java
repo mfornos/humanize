@@ -5,7 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Constants {
+/**
+ * Humanize constants
+ * 
+ */
+public final class Constants {
 
 	public static final Pattern SPLIT_CAMEL = Pattern
 	        .compile("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])");

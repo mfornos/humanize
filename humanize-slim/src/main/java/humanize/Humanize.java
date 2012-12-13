@@ -19,7 +19,7 @@ import humanize.spi.context.DefaultContext;
 import humanize.spi.context.DefaultContextFactory;
 import humanize.text.MaskFormat;
 import humanize.text.util.Replacer;
-import humanize.text.util.TextUtils;
+import humanize.text.util.InterpolationHelper;
 import humanize.time.RelativeDate;
 
 import java.math.BigDecimal;
@@ -1446,7 +1446,7 @@ public final class Humanize {
 	@Expose
 	public static String replaceSupplementary(final String value) {
 
-		return TextUtils.replaceSupplementary(value, new Replacer() {
+		return InterpolationHelper.replaceSupplementary(value, new Replacer() {
 			public String replace(String in) {
 
 				StringBuilder uc = new StringBuilder();

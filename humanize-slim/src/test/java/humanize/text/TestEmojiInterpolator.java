@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import humanize.text.EmojiInterpolator;
-import humanize.text.util.TextUtils;
+import humanize.text.util.InterpolationHelper;
 
 public class TestEmojiInterpolator {
 
@@ -12,7 +12,7 @@ public class TestEmojiInterpolator {
 	public void basic() {
 
 		String text = "Lorem ipsum :sparkles: dolorem:star: and dolorem sit amet";
-		String replaced = TextUtils.interpolate(text, EmojiInterpolator.EMOJI, new EmojiInterpolator(
+		String replaced = InterpolationHelper.interpolate(text, EmojiInterpolator.EMOJI, new EmojiInterpolator(
 		        "<img src=\"imgs/{0}.png\" title=\"{0}\" />"));
 
 		Assert.assertEquals(

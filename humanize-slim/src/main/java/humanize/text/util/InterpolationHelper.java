@@ -5,7 +5,11 @@ import humanize.util.Constants;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextUtils {
+/**
+ * Helper for text interpolation.
+ * 
+ */
+public class InterpolationHelper {
 
 	public static String interpolate(String text, Pattern pattern, Replacer replacer) {
 
