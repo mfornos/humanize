@@ -41,7 +41,7 @@
 <h3>Maven</h3>
 
 <p>Last version:</p>
-<pre><code>&lt;humanize.version&gt;0.1.4&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;0.1.5&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -61,7 +61,7 @@
 <h3>
 Humanize-slim</h3>
 <ul>
-<li>Only depends on guava 12.0</li>
+<li>Only depends on guava 13.0</li>
 </ul><h3>
 Humanize-icu</h3>
 <ul>
@@ -170,6 +170,13 @@ msg.render(2);  // == "2 things" </code></pre>
 		<td> ‘2 days from now’, ‘10 years ago’, ‘3 minutes from now’, etc. </td>
 		<td> ✔ </td>
 		<td> ✔ </td>
+	</tr>
+<tr>
+<td> nanoTime </td>
+		<td> Formats a number of nanoseconds as the proper ten power unit. </td>
+		<td> ‘1.5µs’, ‘10.51ms’, ‘30ns’, etc. </td>
+		<td> ✔ </td>
+		<td> - </td>
 	</tr>
 <tr>
 <td> duration </td>
