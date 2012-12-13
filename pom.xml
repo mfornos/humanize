@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Humanize for Java</name>
   <description>Java facility for adding a “human touch” to data.</description>
