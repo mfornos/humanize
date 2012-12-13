@@ -3,11 +3,11 @@
   <parent>
     <artifactId>humanize</artifactId>
     <groupId>com.github.mfornos</groupId>
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.5</version>
   </parent>
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-icu</artifactId>
-  <version>0.1.5-SNAPSHOT</version>
+  <version>0.1.5</version>
   <name>Humanize for Java - ICU</name>
   <packaging>jar</packaging>
   <dependencies>
