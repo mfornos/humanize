@@ -4,5 +4,6 @@ humanize.spi
 humanize.spi.cache
 humanize.spi.context
 humanize.text
+humanize.text.util
 humanize.time
 humanize.util
