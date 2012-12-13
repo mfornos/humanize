@@ -68,4 +68,13 @@ public class Constants {
 		metricPrefixes.put(0L, "#.#");
 	}
 
+	public static final Map<Long, String> nanoTimePrefixes = new LinkedHashMap<Long, String>();
+
+	static {
+		nanoTimePrefixes.put(1000000000L, "#.##s");
+		nanoTimePrefixes.put(1000000L, "#.###ms");
+		nanoTimePrefixes.put(1000L, "#.####µs");
+		nanoTimePrefixes.put(0L, "#.####ns");
+	}
+
 }

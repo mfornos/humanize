@@ -1,10 +1,9 @@
 package humanize.text;
 
 import humanize.Humanize;
-import humanize.spi.Export;
+import humanize.spi.Expose;
 import humanize.spi.FormatProvider;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.FieldPosition;
@@ -17,50 +16,26 @@ import java.util.Map;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * <p>
+ * Exposes as {@link Format}s all the methods annotated with {@link Expose} of
+ * {@link Humanize} class.
+ * </p>
+ * 
+ * Example:
+ * 
+ * <pre>
+ * MessageFormat mf = new MessageFormat(&quot;size {0, humanize, binaryPrefix}&quot;);
+ * mf.render(8); // &quot;size 8 bytes&quot;
+ * </pre>
+ */
 public class HumanizeFormat extends Format implements FormatProvider {
 
 	private static final long serialVersionUID = 4144220416351621568L;
 
 	private static final Map<String, Method> humanizeMethods = getStaticMethods(Humanize.class);
 
-	private Locale locale;
-
-	private Method method;
-
-	public HumanizeFormat(Method method, Locale locale) {
-
-		this.method = method;
-		this.locale = locale;
-
-	}
-
-	/**
-	 * Returns the public static methods of a class or interface, including
-	 * those declared in super classes and interfaces.
-	 */
-	private static Map<String, Method> getStaticMethods(Class<?> clazz) {
-
-		Map<String, Method> methods = new HashMap<String, Method>();
-
-		for (Method method : clazz.getMethods()) {
-			if (Modifier.isStatic(method.getModifiers()) && method.getAnnotation(Export.class) != null) {
-				methods.put(method.getName(), method);
-			}
-		}
-
-		return Collections.unmodifiableMap(methods);
-
-	}
-
-	@Override
-	public String getFormatName() {
-
-		return "humanize";
-
-	}
-
-	@Override
-	public FormatFactory getFactory() {
+	public static FormatFactory factory() {
 
 		return new FormatFactory() {
 			@Override
@@ -75,12 +50,39 @@ public class HumanizeFormat extends Format implements FormatProvider {
 				return null;
 			}
 		};
+		
+	}
+
+	private static Map<String, Method> getStaticMethods(Class<?> clazz) {
+
+		Map<String, Method> methods = new HashMap<String, Method>();
+
+		for (Method method : clazz.getMethods()) {
+			if (Modifier.isStatic(method.getModifiers()) && method.getAnnotation(Expose.class) != null) {
+				methods.put(method.getName(), method);
+			}
+		}
+
+		return Collections.unmodifiableMap(methods);
 
 	}
 
+	private final Locale locale;
+
+	private final Method method;
+
 	public HumanizeFormat() {
 
-		//
+		// Constructor for Provider
+		this(null, null);
+
+	}
+
+	public HumanizeFormat(Method method, Locale locale) {
+
+		this.method = method;
+		this.locale = locale;
+
 	}
 
 	@Override
@@ -98,23 +100,32 @@ public class HumanizeFormat extends Format implements FormatProvider {
 				break;
 			}
 		}
-		
+
 		try {
-			
+
 			retval = withLocale ? method.invoke(null, paramObject, locale) : method.invoke(null, paramObject);
 
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+
+			retval = String.format("[invalid call: '%s']", e.getMessage());
+
 		}
 
 		return toAppendTo.append(retval);
+	}
+
+	@Override
+	public FormatFactory getFactory() {
+
+		return factory();
+
+	}
+
+	@Override
+	public String getFormatName() {
+
+		return "humanize";
+
 	}
 
 	@Override

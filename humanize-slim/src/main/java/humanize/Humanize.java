@@ -11,14 +11,15 @@ import static humanize.util.Constants.THOUSAND;
 import static humanize.util.Constants.bigDecExponents;
 import static humanize.util.Constants.binPrefixes;
 import static humanize.util.Constants.metricPrefixes;
-import humanize.spi.Export;
+import static humanize.util.Constants.nanoTimePrefixes;
+import humanize.spi.Expose;
 import humanize.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
 import humanize.spi.context.DefaultContext;
 import humanize.spi.context.DefaultContextFactory;
 import humanize.text.MaskFormat;
-import humanize.text.Replacer;
-import humanize.text.TextUtils;
+import humanize.text.util.Replacer;
+import humanize.text.util.TextUtils;
 import humanize.time.RelativeDate;
 
 import java.math.BigDecimal;
@@ -101,8 +102,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #binaryPrefix(Number) binaryPrefix} for the specified
-	 * locale.
+	 * Same as {@link #binaryPrefix(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -111,7 +111,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return The number preceded by the corresponding binary SI prefix
 	 */
-	@Export
+	@Expose
 	public static String binaryPrefix(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -126,15 +126,14 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #camelize(String, boolean) camelize} with capitalize to
-	 * false.
+	 * Same as {@link #camelize(String, boolean)} with capitalize to false.
 	 * </p>
 	 * 
 	 * @param text
 	 *            String to be camelized
 	 * @return Camelized string
 	 */
-	@Export
+	@Expose
 	public static String camelize(final String text) {
 
 		return camelize(text, false);
@@ -176,7 +175,7 @@ public final class Humanize {
 	 *            String to be capitalized
 	 * @return capitalized string
 	 */
-	@Export
+	@Expose
 	public static String capitalize(final String word) {
 
 		if (word.length() == 0)
@@ -453,8 +452,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #dateFormatInstance(String) dateFormatInstance} for the
-	 * specified locale.
+	 * Same as {@link #dateFormatInstance(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param pattern
@@ -478,8 +476,8 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #decamelize(String String) decamelize} defaulting to SPACE
-	 * for replacement
+	 * Same as {@link #decamelize(String String)} defaulting to SPACE for
+	 * replacement
 	 * </p>
 	 * 
 	 * @param words
@@ -555,8 +553,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #decimalFormatInstance(String) decimalFormatInstance} for
-	 * the specified locale.
+	 * Same as {@link #decimalFormatInstance(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param pattern
@@ -637,8 +634,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatCurrency(Number) formatCurrency} for the specified
-	 * locale.
+	 * Same as {@link #formatCurrency(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -661,7 +657,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDate(int, Date) formatDate} with SHORT style.
+	 * Same as {@link #formatDate(int, Date)} with SHORT style.
 	 * </p>
 	 * 
 	 * @param value
@@ -676,7 +672,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDate(Date) formatDate} for the specified locale.
+	 * Same as {@link #formatDate(Date)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -705,8 +701,9 @@ public final class Humanize {
 	 * @param value
 	 *            Date to be formatted
 	 * @param pattern
-	 *            The pattern. See {@link dateFormatInstance(String)}
+	 *            The pattern.
 	 * @return a formatted date/time string
+	 * @see {@link dateFormatInstance(String)}
 	 */
 	public static String formatDate(final Date value, final String pattern) {
 
@@ -716,17 +713,17 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDate(Date, String) formatDate} for the specified
-	 * locale.
+	 * Same as {@link #formatDate(Date, String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
 	 *            Date to be formatted
 	 * @param pattern
-	 *            The pattern. See {@link dateFormatInstance(String)}
+	 *            The pattern.
 	 * @param locale
 	 *            Target locale
 	 * @return a formatted date/time string
+	 * @see {@link dateFormatInstance(String)}
 	 */
 	public static String formatDate(final Date value, final String pattern, final Locale locale) {
 
@@ -759,8 +756,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDate(int, Date) formatDate} for the specified
-	 * locale.
+	 * Same as {@link #formatDate(int, Date)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param style
@@ -800,8 +796,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDateTime(Date) formatDateTime} for the specified
-	 * locale.
+	 * Same as {@link #formatDateTime(Date)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -843,8 +838,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDateTime(int, int, Date) formatDateTime} for the
-	 * specified locale.
+	 * Same as {@link #formatDateTime(int, int, Date)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param dateStyle
@@ -887,8 +881,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatDecimal(Number) formatDecimal} for the specified
-	 * locale.
+	 * Same as {@link #formatDecimal(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -945,8 +938,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #formatPercent(Number) formatPercent} for the specified
-	 * locale.
+	 * Same as {@link #formatPercent(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -983,8 +975,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #getRelativeDateInstance() getRelativeDateInstance} for
-	 * the specified locale.
+	 * Same as {@link #getRelativeDateInstance()} for the specified locale.
 	 * </p>
 	 * 
 	 * @param locale
@@ -1009,10 +1000,11 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * @param mask
-	 *            The pattern mask. See {@link MaskFormat} for details.
+	 *            The pattern mask.
 	 * @param value
 	 *            The text to be masked
 	 * @return The formatted text
+	 * @see {@link MaskFormat}
 	 */
 	public static String mask(final String mask, final String value) {
 
@@ -1057,8 +1049,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #messageFormatInstance(String) messageFormatInstance} for
-	 * the specified locale.
+	 * Same as {@link #messageFormatInstance(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param locale
@@ -1117,8 +1108,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #metricPrefix(Number) metricPrefix} for the specified
-	 * locale.
+	 * Same as {@link #metricPrefix(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -1127,7 +1117,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return The number preceded by the corresponding SI prefix
 	 */
-	@Export
+	@Expose
 	public static String metricPrefix(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1141,8 +1131,45 @@ public final class Humanize {
 	}
 
 	/**
-	 * Same as {@link #naturalDay(int, Date) naturalDay} with DateFormat.SHORT
-	 * style.
+	 * <p>
+	 * Formats a number of nanoseconds as the proper ten power unit.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Number of nanoseconds
+	 * @return The transformed quantity preceded by the corresponding SI symbol
+	 */
+	public static String nanoTime(final Number value) {
+
+		return prefix(value, 1000, nanoTimePrefixes);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #nanoTime(Number)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param value
+	 *            Number of nanoseconds
+	 * @param locale
+	 *            Target locale
+	 * @return The number preceded by the corresponding SI symbol
+	 */
+	public static String nanoTime(final Number value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() {
+
+				return prefix(value, 1000, nanoTimePrefixes);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * Same as {@link #naturalDay(int, Date)} with DateFormat.SHORT style.
 	 * 
 	 * @param Date
 	 *            The date
@@ -1186,8 +1213,7 @@ public final class Humanize {
 	}
 
 	/**
-	 * Same as {@link #naturalTime(Date, Date) naturalTime} with current date as
-	 * reference.
+	 * Same as {@link #naturalTime(Date, Date)} with current date as reference.
 	 * 
 	 * @param Date
 	 *            The duration
@@ -1220,8 +1246,7 @@ public final class Humanize {
 	}
 
 	/**
-	 * Same as {@link #naturalTime(Date, Date) naturalTime} for the specified
-	 * locale.
+	 * Same as {@link #naturalTime(Date, Date)} for the specified locale.
 	 * 
 	 * @param Date
 	 *            The reference
@@ -1243,7 +1268,7 @@ public final class Humanize {
 	}
 
 	/**
-	 * Same as {@link #naturalTime(Date) naturalTime} for the specified locale.
+	 * Same as {@link #naturalTime(Date)} for the specified locale.
 	 * 
 	 * @param Date
 	 *            The duration
@@ -1281,7 +1306,7 @@ public final class Humanize {
 	}
 
 	/**
-	 * Same as {@link #ordinal(Number) ordinal} for the specified locale.
+	 * Same as {@link #ordinal(Number)} for the specified locale.
 	 * 
 	 * @param Number
 	 *            The number to convert
@@ -1289,14 +1314,14 @@ public final class Humanize {
 	 *            The locale
 	 * @return String representing the number as ordinal
 	 */
-	@Export
+	@Expose
 	public static String ordinal(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
 			public String call() {
 
 				return ordinal(value);
-				
+
 			}
 		}, locale);
 
@@ -1361,7 +1386,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #pluralize(String) pluralize} for the specified locale.
+	 * Same as {@link #pluralize(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param template
@@ -1418,7 +1443,7 @@ public final class Humanize {
 	 * @return text with characters outside BMP replaced by their unicode
 	 *         numbers or the given text unaltered
 	 */
-	@Export
+	@Expose
 	public static String replaceSupplementary(final String value) {
 
 		return TextUtils.replaceSupplementary(value, new Replacer() {
@@ -1461,7 +1486,7 @@ public final class Humanize {
 	 *            The text to be slugified
 	 * @return Slugified String
 	 */
-	@Export
+	@Expose
 	public static String slugify(final String text) {
 
 		String result = transliterate(text);
@@ -1504,8 +1529,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #spellBigNumber(Number) spellBigNumber} for the specified
-	 * locale.
+	 * Same as {@link #spellBigNumber(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -1514,7 +1538,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return Friendly text representation of the given value
 	 */
-	@Export
+	@Expose
 	public static String spellBigNumber(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1568,7 +1592,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #spellDigit(Number) spellDigit} for the specified locale.
+	 * Same as {@link #spellDigit(Number)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param value
@@ -1577,7 +1601,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return String representing the number spelled out
 	 */
-	@Export
+	@Expose
 	public static String spellDigit(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1616,7 +1640,7 @@ public final class Humanize {
 	 * 
 	 * @return Nice looking title
 	 */
-	@Export
+	@Expose
 	public static String titleize(final String text) {
 
 		StringBuilder sb = new StringBuilder(text.length());
@@ -1664,7 +1688,7 @@ public final class Humanize {
 	 *            The text to be transliterated.
 	 * @return String without diacritic marks.
 	 */
-	@Export
+	@Expose
 	public static String transliterate(final String text) {
 
 		String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
@@ -1681,7 +1705,7 @@ public final class Humanize {
 	 *            Phrase to underscore
 	 * @return converted String
 	 */
-	@Export
+	@Expose
 	public static String underscore(final String text) {
 
 		return text.replaceAll("\\s+", "_");
@@ -1694,11 +1718,12 @@ public final class Humanize {
 	 * </p>
 	 * 
 	 * @param mask
-	 *            The pattern mask. See {@link MaskFormat} for details.
+	 *            The pattern mask.
 	 * @param value
 	 *            The text to be parsed
 	 * @return The parsed text
 	 * @throws ParseException
+	 * @see {@link MaskFormat}
 	 */
 	public static String unmask(final String mask, final String value) throws ParseException {
 

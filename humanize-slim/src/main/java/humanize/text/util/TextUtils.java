@@ -1,4 +1,4 @@
-package humanize.text;
+package humanize.text.util;
 
 import humanize.util.Constants;
 

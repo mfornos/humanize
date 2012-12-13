@@ -6,11 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks method as exported to {@link HumanizeFormat}.
+ * Marks a method to be exposed as {@link HumanizeFormat}.
  * 
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Export {
+public @interface Expose {
 
 }

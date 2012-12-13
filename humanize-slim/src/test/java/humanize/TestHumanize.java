@@ -1,6 +1,30 @@
 package humanize;
 
-import static humanize.Humanize.*;
+import static humanize.Humanize.binaryPrefix;
+import static humanize.Humanize.camelize;
+import static humanize.Humanize.decamelize;
+import static humanize.Humanize.formatCurrency;
+import static humanize.Humanize.formatDate;
+import static humanize.Humanize.formatDateTime;
+import static humanize.Humanize.formatDecimal;
+import static humanize.Humanize.formatPercent;
+import static humanize.Humanize.getRelativeDateInstance;
+import static humanize.Humanize.mask;
+import static humanize.Humanize.metricPrefix;
+import static humanize.Humanize.nanoTime;
+import static humanize.Humanize.naturalDay;
+import static humanize.Humanize.naturalTime;
+import static humanize.Humanize.ordinal;
+import static humanize.Humanize.pluralize;
+import static humanize.Humanize.replaceSupplementary;
+import static humanize.Humanize.slugify;
+import static humanize.Humanize.spellBigNumber;
+import static humanize.Humanize.spellDigit;
+import static humanize.Humanize.titleize;
+import static humanize.Humanize.transliterate;
+import static humanize.Humanize.underscore;
+import static humanize.Humanize.unmask;
+import static humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
@@ -179,6 +203,23 @@ public class TestHumanize {
 		assertEquals(metricPrefix(3500000), "3.5M");
 
 		assertEquals(metricPrefix(3500000, ES), "3,5M");
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void nanoTimeTest() {
+
+		assertEquals(nanoTime(0), "0ns");
+		assertEquals(nanoTime(1500), "1.5µs");
+		assertEquals(nanoTime(1000), "1µs");
+		assertEquals(nanoTime(100000), "100µs");
+		assertEquals(nanoTime(1000000), "1ms");
+		assertEquals(nanoTime(15400000), "15.4ms");
+		assertEquals(nanoTime(5000000000L), "5s");
+		assertEquals(nanoTime(550150000000L), "550.15s");
+
+		// within locale
+		assertEquals(nanoTime(15400000, ES), "15,4ms");
 
 	}
 

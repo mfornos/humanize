@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import humanize.text.EmojiInterpolator;
-import humanize.text.TextUtils;
+import humanize.text.util.TextUtils;
 
 public class TestEmojiInterpolator {
 

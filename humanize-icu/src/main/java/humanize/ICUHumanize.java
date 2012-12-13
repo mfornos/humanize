@@ -5,7 +5,6 @@ import humanize.icu.spi.context.DefaultICUContext;
 import humanize.icu.spi.context.ICUContextFactory;
 import humanize.icu.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
-import humanize.text.TextUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -13,7 +12,8 @@ import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
-import humanize.text.Replacer;
+import humanize.text.util.Replacer;
+import humanize.text.util.TextUtils;
 
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;

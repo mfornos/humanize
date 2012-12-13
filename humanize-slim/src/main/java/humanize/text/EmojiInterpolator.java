@@ -3,6 +3,8 @@ package humanize.text;
 import java.util.regex.Pattern;
 
 import humanize.spi.MessageFormat;
+import humanize.text.util.Replacer;
+import humanize.text.util.TextUtils;
 
 /**
  * <p>
