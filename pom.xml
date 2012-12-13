@@ -16,6 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
     <testng.version>6.5.2</testng.version>
+    <compiler.version>3.0</compiler.version>
     <javadoc.version>2.8.1</javadoc.version>
     <surefire.version>2.4.3</surefire.version>
     <obertura.version>2.5.2</obertura.version>
@@ -49,6 +50,15 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${compiler.version}</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
