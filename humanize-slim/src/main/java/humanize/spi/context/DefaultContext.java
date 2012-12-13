@@ -27,7 +27,7 @@ import java.util.concurrent.Callable;
 public class DefaultContext implements Context, StandardContext {
 
 	private static final String BUNDLE_LOCATION = "i18n.Humanize";
-	
+
 	private static final String ORDINAL_SUFFIXES = "ordinal.suffixes";
 
 	private static final String CURRENCY = "currency";
@@ -43,7 +43,7 @@ public class DefaultContext implements Context, StandardContext {
 	private static final String DATE_FORMAT = "date";
 
 	private static final String DATE_TIME_FORMAT = "date.time";
-	
+
 	private static final String SIMPLE_DATE = "simple.date";
 
 	private static final String MASK = "mask";
@@ -125,11 +125,13 @@ public class DefaultContext implements Context, StandardContext {
 
 	@Override
 	public String formatRelativeDate(Date duration) {
+
 		return getRelativeDate().format(duration);
 	}
 
 	@Override
 	public String formatRelativeDate(Date reference, Date duration) {
+
 		return getRelativeDate().format(reference, duration);
 	}
 
@@ -141,6 +143,7 @@ public class DefaultContext implements Context, StandardContext {
 			public ResourceBundle call() throws Exception {
 
 				return ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control());
+
 			}
 		});
 
@@ -175,18 +178,18 @@ public class DefaultContext implements Context, StandardContext {
 	}
 
 	@Override
-    public DateFormat getDateFormat(final String pattern) {
+	public DateFormat getDateFormat(final String pattern) {
 
 		return localCache.getFormat(SIMPLE_DATE, locale, new Callable<DateFormat>() {
 			@Override
 			public DateFormat call() throws Exception {
-				
+
 				return new SimpleDateFormat(pattern, locale);
-				
+
 			}
 		});
-		
-    }
+
+	}
 
 	@Override
 	public DateFormat getDateTimeFormat() {
@@ -286,11 +289,13 @@ public class DefaultContext implements Context, StandardContext {
 
 	@Override
 	public RelativeDate getRelativeDate() {
+
 		return RelativeDate.getInstance(this);
 	}
 
 	@Override
 	public String ordinalSuffix(int index) {
+
 		return resolveStringArray(ORDINAL_SUFFIXES, index);
 	}
 
@@ -313,6 +318,5 @@ public class DefaultContext implements Context, StandardContext {
 		})[index];
 
 	}
-
 
 }

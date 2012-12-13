@@ -10,11 +10,16 @@
   <version>0.1.5-SNAPSHOT</version>
   <name>Humanize for Java - Slim</name>
   <packaging>jar</packaging>
+  
+  <properties>
+    <guava.version>13.0</guava.version>
+  </properties>
+  
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>12.0</version>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 </project>

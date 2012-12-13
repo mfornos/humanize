@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import humanize.spi.MessageFormat;
 
-public class MaskFormatTest {
+public class TestMaskFormat {
 
 	@Test
 	public void maskFormatTest() {

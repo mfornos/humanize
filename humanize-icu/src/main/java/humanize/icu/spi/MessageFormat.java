@@ -3,7 +3,7 @@ package humanize.icu.spi;
 import java.util.Locale;
 
 /**
- * Adds syntactic sugar methods to avoid explicit array creation for arguments.
+ * Convenience methods to avoid explicit array creation for arguments.
  * 
  * @author mfornos
  * 

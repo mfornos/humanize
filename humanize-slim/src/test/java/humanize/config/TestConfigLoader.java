@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import com.google.common.cache.CacheBuilderSpec;
 
-public class ConfigLoaderTest {
+public class TestConfigLoader {
 
 	@Test
 	public void defaultsTests() {

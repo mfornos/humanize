@@ -5,7 +5,7 @@ import java.util.Locale;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class MessageFormatTest {
+public class TestMessageFormat {
 
 	@Test
 	public void MessageLocale() {

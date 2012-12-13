@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import humanize.text.EmojiInterpolator;
 import humanize.text.TextUtils;
 
-public class EmojiInterpolatorTest {
+public class TestEmojiInterpolator {
 
 	@Test
 	public void basic() {

@@ -1,9 +1,12 @@
 package humanize.text;
 
+import humanize.spi.FormatProvider;
+
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.util.Locale;
 
 /**
  * <p>
@@ -41,11 +44,24 @@ import java.text.ParsePosition;
  * </table>
  * 
  */
-public class MaskFormat extends Format {
+public class MaskFormat extends Format implements FormatProvider {
 
 	private static final long serialVersionUID = -2072270263539296713L;
 
 	private static final char DEFAULT_PLACEHOLDER = '_';
+
+	public static FormatFactory factory() {
+
+		return new FormatFactory() {
+			@Override
+			public Format getFormat(String name, String args, Locale locale) {
+
+				return new MaskFormat(args);
+
+			}
+		};
+
+	}
 
 	public static String format(String mask, String str) {
 
@@ -74,6 +90,12 @@ public class MaskFormat extends Format {
 	private String mask;
 
 	private char placeholder;
+
+	public MaskFormat() {
+
+		// Empty constructor for FormatProvider
+		
+	}
 
 	public MaskFormat(String mask) {
 
@@ -140,6 +162,20 @@ public class MaskFormat extends Format {
 		}
 
 		return result.toString();
+
+	}
+
+	@Override
+	public FormatFactory getFactory() {
+
+		return factory();
+
+	}
+
+	@Override
+	public String getFormatName() {
+
+		return "mask";
 
 	}
 

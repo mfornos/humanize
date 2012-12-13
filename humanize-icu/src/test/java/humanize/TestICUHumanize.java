@@ -28,14 +28,17 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ICUHumanizeTest {
+public class TestICUHumanize {
 
 	private static final Locale ES = new Locale("es", "ES");
 
 	private Random rand;
+
+	private Locale defaultLocale;
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void durationTest() {
@@ -304,8 +307,16 @@ public class ICUHumanizeTest {
 	@BeforeClass
 	protected void setUp() {
 
+		defaultLocale = Locale.getDefault();
 		Locale.setDefault(Locale.UK);
 		rand = new Random();
+
+	}
+
+	@AfterClass
+	protected void tearDown() {
+
+		Locale.setDefault(defaultLocale);
 
 	}
 

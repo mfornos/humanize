@@ -1,6 +1,17 @@
 package humanize;
 
-import static humanize.util.Constants.*;
+import static humanize.util.Constants.EMPTY;
+import static humanize.util.Constants.HYPEN_SPACE;
+import static humanize.util.Constants.ND_FACTOR;
+import static humanize.util.Constants.ONLY_SLUG_CHARS;
+import static humanize.util.Constants.ORDINAL_FMT;
+import static humanize.util.Constants.SPACE;
+import static humanize.util.Constants.SPLIT_CAMEL;
+import static humanize.util.Constants.THOUSAND;
+import static humanize.util.Constants.bigDecExponents;
+import static humanize.util.Constants.binPrefixes;
+import static humanize.util.Constants.metricPrefixes;
+import humanize.spi.Export;
 import humanize.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
 import humanize.spi.context.DefaultContext;
@@ -100,6 +111,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return The number preceded by the corresponding binary SI prefix
 	 */
+	@Export
 	public static String binaryPrefix(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -122,6 +134,7 @@ public final class Humanize {
 	 *            String to be camelized
 	 * @return Camelized string
 	 */
+	@Export
 	public static String camelize(final String text) {
 
 		return camelize(text, false);
@@ -163,6 +176,7 @@ public final class Humanize {
 	 *            String to be capitalized
 	 * @return capitalized string
 	 */
+	@Export
 	public static String capitalize(final String word) {
 
 		if (word.length() == 0)
@@ -1113,6 +1127,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return The number preceded by the corresponding SI prefix
 	 */
+	@Export
 	public static String metricPrefix(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1274,12 +1289,14 @@ public final class Humanize {
 	 *            The locale
 	 * @return String representing the number as ordinal
 	 */
+	@Export
 	public static String ordinal(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
 			public String call() {
 
 				return ordinal(value);
+				
 			}
 		}, locale);
 
@@ -1401,6 +1418,7 @@ public final class Humanize {
 	 * @return text with characters outside BMP replaced by their unicode
 	 *         numbers or the given text unaltered
 	 */
+	@Export
 	public static String replaceSupplementary(final String value) {
 
 		return TextUtils.replaceSupplementary(value, new Replacer() {
@@ -1443,6 +1461,7 @@ public final class Humanize {
 	 *            The text to be slugified
 	 * @return Slugified String
 	 */
+	@Export
 	public static String slugify(final String text) {
 
 		String result = transliterate(text);
@@ -1495,6 +1514,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return Friendly text representation of the given value
 	 */
+	@Export
 	public static String spellBigNumber(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1557,6 +1577,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return String representing the number spelled out
 	 */
+	@Export
 	public static String spellDigit(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1595,6 +1616,7 @@ public final class Humanize {
 	 * 
 	 * @return Nice looking title
 	 */
+	@Export
 	public static String titleize(final String text) {
 
 		StringBuilder sb = new StringBuilder(text.length());
@@ -1642,6 +1664,7 @@ public final class Humanize {
 	 *            The text to be transliterated.
 	 * @return String without diacritic marks.
 	 */
+	@Export
 	public static String transliterate(final String text) {
 
 		String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
@@ -1658,6 +1681,7 @@ public final class Humanize {
 	 *            Phrase to underscore
 	 * @return converted String
 	 */
+	@Export
 	public static String underscore(final String text) {
 
 		return text.replaceAll("\\s+", "_");
