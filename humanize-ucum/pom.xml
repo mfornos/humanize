@@ -9,7 +9,7 @@
   <artifactId>humanize-ucum</artifactId>
   <version>0.1.6-SNAPSHOT</version>
   <name>Humanize for Java - UCUM</name>
-  <description>Unified Code for Units of Measure (jsr-275) support</description>
+  <description>Unified Code for Units of Measure support (JSR-275)</description>
   
   <properties>
     <jsr275.version>1.0.0</jsr275.version>
