@@ -202,6 +202,8 @@ p. 2) Format some message
 
 bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"
+
+p. 
  
 
 h2. Supported languages
