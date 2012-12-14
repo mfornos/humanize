@@ -375,7 +375,8 @@ msg.render(2);  // == "2 things" </code></pre>
 &lt;/dependency&gt;</code></pre>
 
 <p>2) Format some message</p>
-<pre><code class="java">Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
+<pre><code class="java">Humanize.format("Hello from measures at {0, measure}", 
+                 Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"</code></pre>
 
 <p></p>
