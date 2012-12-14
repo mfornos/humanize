@@ -5,6 +5,7 @@
     <groupId>com.github.mfornos</groupId>
     <version>0.1.6-SNAPSHOT</version>
   </parent>
+  
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-icu</artifactId>
   <version>0.1.6-SNAPSHOT</version>

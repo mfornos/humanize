@@ -8,7 +8,7 @@ h2. Getting Started
 
 h3. Maven
 
-Last version:
+Current version:
 
 bc.. <humanize.version>0.1.5</humanize.version>
 
@@ -186,11 +186,11 @@ If you want to plug in your own formats then place a @META-INF/services/humanize
 
 h2. The Unified Code for Units of Measure (UCUM)
 
-Humanize provides a module called *humanize-ucum* that adds support to JSR-275.
+Humanize provides a module called *humanize-ucum* that adds JSR-275* support.
 
 Usage:
 
-1) Declare the Maven dependency
+Declare the Maven dependency
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -198,13 +198,12 @@ bc.. <dependency>
   <version>${humanize.version}</version>
 </dependency>
 
-p. 2) Format some message
+p. ... and format some messages
 
 bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"
 
-p. 
- 
+p. * _This will be replaced by Units of Measurement API when it is available in Maven central repo._ 
 
 h2. Supported languages
 

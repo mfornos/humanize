@@ -7,11 +7,13 @@
   <name>Humanize for Java</name>
   <description>Java facility for adding a “human touch” to data.</description>
   <url>https://github.com/mfornos/humanize</url>
+  
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>7</version>
   </parent>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
@@ -21,6 +23,7 @@
     <surefire.version>2.4.3</surefire.version>
     <obertura.version>2.5.2</obertura.version>
   </properties>
+  
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -28,11 +31,13 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <scm>
     <connection>scm:git:git@github.com:mfornos/humanize.git</connection>
     <developerConnection>scm:git:git@github.com:mfornos/humanize.git</developerConnection>
     <url>git@github.com:mfornos/humanize.git</url>
   </scm>
+  
   <developers>
     <developer>
       <id>mfornos</id>
@@ -40,6 +45,7 @@
       <url>https://github.com/mfornos</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>org.testng</groupId>
@@ -48,6 +54,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
@@ -71,6 +78,7 @@
       </plugin>
     </plugins>
   </build>
+  
   <reporting>
     <plugins>
       <plugin>
@@ -80,6 +88,7 @@
       </plugin>
     </plugins>
   </reporting>
+  
   <modules>
   	<module>humanize-slim</module>
   	<module>humanize-icu</module>

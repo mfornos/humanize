@@ -5,6 +5,7 @@
     <groupId>com.github.mfornos</groupId>
     <version>0.1.6-SNAPSHOT</version>
   </parent>
+  
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-ucum</artifactId>
   <version>0.1.6-SNAPSHOT</version>
@@ -16,6 +17,7 @@
   </properties>
   
   <dependencies>
+    <!-- TODO replace with Units of Measurement API when available in central -->
     <dependency>
       <groupId>javax.measure</groupId>
       <artifactId>jsr-275</artifactId>
