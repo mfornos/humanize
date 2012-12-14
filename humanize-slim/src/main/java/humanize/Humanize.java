@@ -703,7 +703,7 @@ public final class Humanize {
 	 * @param pattern
 	 *            The pattern.
 	 * @return a formatted date/time string
-	 * @see {@link dateFormatInstance(String)}
+	 * @see #dateFormatInstance(String)
 	 */
 	public static String formatDate(final Date value, final String pattern) {
 
@@ -723,7 +723,7 @@ public final class Humanize {
 	 * @param locale
 	 *            Target locale
 	 * @return a formatted date/time string
-	 * @see {@link dateFormatInstance(String)}
+	 * @see #dateFormatInstance(String)
 	 */
 	public static String formatDate(final Date value, final String pattern, final Locale locale) {
 
@@ -1004,7 +1004,7 @@ public final class Humanize {
 	 * @param value
 	 *            The text to be masked
 	 * @return The formatted text
-	 * @see {@link MaskFormat}
+	 * @see MaskFormat
 	 */
 	public static String mask(final String mask, final String value) {
 
@@ -1723,7 +1723,7 @@ public final class Humanize {
 	 *            The text to be parsed
 	 * @return The parsed text
 	 * @throws ParseException
-	 * @see {@link MaskFormat}
+	 * @see MaskFormat
 	 */
 	public static String unmask(final String mask, final String value) throws ParseException {
 

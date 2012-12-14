@@ -6,21 +6,20 @@
     <version>0.1.6-SNAPSHOT</version>
   </parent>
   <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize-icu</artifactId>
+  <artifactId>humanize-ucum</artifactId>
   <version>0.1.6-SNAPSHOT</version>
-  <name>Humanize for Java - ICU</name>
-  <description>International Components for Unicode support</description>
-  <packaging>jar</packaging>
+  <name>Humanize for Java - UCUM</name>
+  <description>Unified Code for Units of Measure (jsr-275) support</description>
   
   <properties>
-    <icu.version>50.1</icu.version>
+    <jsr275.version>1.0.0</jsr275.version>
   </properties>
   
   <dependencies>
     <dependency>
-      <groupId>com.ibm.icu</groupId>
-      <artifactId>icu4j</artifactId>
-      <version>${icu.version}</version>
+      <groupId>javax.measure</groupId>
+      <artifactId>jsr-275</artifactId>
+      <version>${jsr275.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.mfornos</groupId>
@@ -29,4 +28,3 @@
     </dependency>
   </dependencies>
 </project>
-

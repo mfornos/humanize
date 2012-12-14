@@ -10,8 +10,14 @@ import humanize.text.FormatFactory;
  */
 public interface FormatProvider {
 
-	String getFormatName();
-
+	/**
+	 * @return a {@link FormatFactory} instance
+	 */
 	FormatFactory getFactory();
+
+	/**
+	 * @return the format name
+	 */
+	String getFormatName();
 
 }

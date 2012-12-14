@@ -83,6 +83,7 @@
   <modules>
   	<module>humanize-slim</module>
   	<module>humanize-icu</module>
+  	<module>humanize-ucum</module>
   </modules>
 </project>
 

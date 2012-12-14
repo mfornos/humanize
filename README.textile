@@ -1,4 +1,4 @@
-h1. Humanize for Java
+h1. Humanize for Java !https://secure.travis-ci.org/mfornos/humanize.png?branch=master(Build Status)!:http://travis-ci.org/mfornos/humanize
 
 Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. 
 
@@ -39,7 +39,7 @@ h3. Humanize-slim
 h3. Humanize-icu
 
 * humanize-slim ${humanize.version}
-* icu4j 49.1
+* icu4j 50.1
 
 _If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful._
 
@@ -180,15 +180,36 @@ h3. Text
 | messageFormatInstance | Returns an ICU based MessageFormat instance for the current thread. | - | - | ✔ |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
 
+h2. Extensible Message Formats
+
+If you want to plug in your own formats then place a @META-INF/services/humanize.spi.FormatProvider@ file inside your jar. This file must contain a list of the full qualified class names of your @FormatProvider@ implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.
+
+h2. The Unified Code for Units of Measure (UCUM)
+
+Humanize provides a module called *humanize-ucum* that adds support to JSR-275.
+
+Usage:
+
+1) Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-ucum</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. 2) Format some message
+
+bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
+// == "Hello from measures at 150 mph"
+ 
+
 h2. Supported languages
 
 All languages supported by the ICU APIs.
 
 For capabilities not backed by ICU there are support for 'en' and 'es'.
 
-h2. Build Status
-
-!https://secure.travis-ci.org/mfornos/humanize.png?branch=master(Build Status)!:http://travis-ci.org/mfornos/humanize
 
 h2. Epilog
 

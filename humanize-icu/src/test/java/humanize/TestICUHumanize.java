@@ -127,9 +127,9 @@ public class TestICUHumanize {
 	public void formatPluralCurrencyTest() {
 
 		int df = rand.nextInt(9);
-		assertEquals(formatPluralCurrency(34), "34 British pounds sterling");
-		assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds sterling");
-		assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds sterling");
+		assertEquals(formatPluralCurrency(34), "34 British pounds");
+		assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds");
+		assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds");
 
 		assertEquals(formatPluralCurrency(1, ES), "1 euro");
 		assertEquals(formatPluralCurrency(100, ES), "100 euros");
@@ -229,7 +229,7 @@ public class TestICUHumanize {
 		assertEquals(ordinalize(new Float(1.33)), "1st");
 		assertEquals(ordinalize(new Long(10000000)), "10,000,000th");
 
-		assertEquals(ordinalize(1, ES), "1er");
+		assertEquals(ordinalize(1, ES), "1º");
 		assertEquals(ordinalize(20, ES), "20º");
 
 	}
