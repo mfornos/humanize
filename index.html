@@ -40,7 +40,7 @@
 
 <h3>Maven</h3>
 
-<p>Last version:</p>
+<p>Current version:</p>
 <pre><code>&lt;humanize.version&gt;0.1.5&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code class="xml">&lt;dependency&gt;
@@ -365,21 +365,23 @@ msg.render(2);  // == "2 things" </code></pre>
 <p>If you want to plug in your own formats then place a <em>META-INF/services/humanize.spi.FormatProvider</em> file inside your jar. This file must contain a list of the full qualified class names of your <em>FormatProvider</em> implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.</p>
 
 <h2>The Unified Code for Units of Measure (UCUM)</h2>
-<p>Humanize provides a module called <strong>humanize-ucum</strong> that adds support to JSR-275.</p>
+<p>Humanize provides a module called <strong>humanize-ucum</strong> that adds JSR-275* support.</p>
 <p>Usage:</p>
-<p>1) Declare the Maven dependency</p>
+<p>Declare the Maven dependency</p>
 <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
   &lt;artifactId&gt;humanize-ucum&lt;/artifactId&gt;
   &lt;version&gt;${humanize.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 
-<p>2) Format some message</p>
+<p>... and format some messages</p>
 <pre><code class="java">Humanize.format("Hello from measures at {0, measure}", 
                  Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"</code></pre>
 
-<p></p>
+<p>
+* <em>This will be replaced by Units of Measurement API when it is available in Maven central repo.</em>
+</p>
 
 <h2>Epilog</h2>
 
