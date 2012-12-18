@@ -1,7 +1,7 @@
 package humanize.spi.context;
 
 import humanize.spi.MessageFormat;
-import humanize.time.RelativeDate;
+import humanize.time.PrettyTimeFormat;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -32,7 +32,7 @@ public interface StandardContext {
 
 	DecimalFormat getPercentFormat();
 
-	RelativeDate getRelativeDate();
+	PrettyTimeFormat getPrettyTimeFormat();
 
 	String ordinalSuffix(int index);
 

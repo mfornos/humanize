@@ -16,6 +16,7 @@
   
   <properties>
     <guava.version>13.0</guava.version>
+    <prettytime.version>2.0.0.Final</prettytime.version>
   </properties>
   
   <dependencies>
@@ -23,6 +24,11 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ocpsoft.prettytime</groupId>
+      <artifactId>prettytime</artifactId>
+      <version>${prettytime.version}</version>
     </dependency>
   </dependencies>
 </project>

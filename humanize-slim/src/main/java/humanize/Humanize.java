@@ -18,9 +18,9 @@ import humanize.spi.context.ContextFactory;
 import humanize.spi.context.DefaultContext;
 import humanize.spi.context.DefaultContextFactory;
 import humanize.text.MaskFormat;
-import humanize.text.util.Replacer;
 import humanize.text.util.InterpolationHelper;
-import humanize.time.RelativeDate;
+import humanize.text.util.Replacer;
+import humanize.time.PrettyTimeFormat;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -484,6 +484,7 @@ public final class Humanize {
 	 *            String to be converted
 	 * @return words converted to human-readable name
 	 */
+	@Expose
 	public static String decamelize(final String words) {
 
 		return SPLIT_CAMEL.matcher(words).replaceAll(SPACE);
@@ -961,41 +962,6 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Creates a RelativeDate instance. It is useful to compute multiple
-	 * relative dates with the same instance.
-	 * </p>
-	 * 
-	 * @return RelativeDate instance
-	 */
-	public static RelativeDate getRelativeDateInstance() {
-
-		return context.get().getRelativeDate();
-
-	}
-
-	/**
-	 * <p>
-	 * Same as {@link #getRelativeDateInstance()} for the specified locale.
-	 * </p>
-	 * 
-	 * @param locale
-	 *            Target locale
-	 * @return RelativeDate instance
-	 */
-	public static RelativeDate getRelativeDateInstance(final Locale locale) {
-
-		return withinLocale(new Callable<RelativeDate>() {
-			public RelativeDate call() throws Exception {
-
-				return context.get().getRelativeDate();
-
-			}
-		}, locale);
-
-	}
-
-	/**
-	 * <p>
 	 * Formats the given text with the mask specified.
 	 * </p>
 	 * 
@@ -1156,6 +1122,7 @@ public final class Humanize {
 	 *            Target locale
 	 * @return The number preceded by the corresponding SI symbol
 	 */
+	@Expose
 	public static String nanoTime(final Number value, final Locale locale) {
 
 		return withinLocale(new Callable<String>() {
@@ -1184,11 +1151,29 @@ public final class Humanize {
 	}
 
 	/**
+	 * Same as {@link #naturalDay(Date)} with the given locale.
+	 * 
+	 * @param Date
+	 *            The date
+	 * @param Locale
+	 *            Target locale
+	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 *         current day. Otherwise, returns a string formatted according to a
+	 *         locale sensitive DateFormat.
+	 */
+	public static String naturalDay(Date value, Locale locale) {
+
+		return naturalDay(DateFormat.SHORT, value, locale);
+
+	}
+
+	/**
 	 * For dates that are the current day or within one day, return 'today',
 	 * 'tomorrow' or 'yesterday', as appropriate. Otherwise, returns a string
 	 * formatted according to a locale sensitive DateFormat.
 	 * 
-	 * @param int The style of the Date
+	 * @param style
+	 *            The style of the Date
 	 * @param Date
 	 *            The date (GMT)
 	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
@@ -1209,6 +1194,31 @@ public final class Humanize {
 			return context.get().getMessage("yesterday");
 
 		return formatDate(style, value);
+
+	}
+
+	/**
+	 * Same as {@link #naturalDay(int, Date)} with the given locale.
+	 * 
+	 * @param style
+	 *            The style of the Date
+	 * @param Date
+	 *            The date (GMT)
+	 * @param locale
+	 *            Target locale
+	 * @return String with 'today', 'tomorrow' or 'yesterday' compared to
+	 *         current day. Otherwise, returns a string formatted according to a
+	 *         locale sensitive DateFormat.
+	 */
+	public static String naturalDay(final int style, final Date value, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return naturalDay(style, value);
+
+			}
+		}, locale);
 
 	}
 
@@ -1276,6 +1286,7 @@ public final class Humanize {
 	 *            The locale
 	 * @return String representing the relative date
 	 */
+	@Expose
 	public static String naturalTime(final Date duration, final Locale locale) {
 
 		return naturalTime(new Date(), duration, locale);
@@ -1430,6 +1441,42 @@ public final class Humanize {
 		format.setFormat(0, choiceForm);
 
 		return format;
+
+	}
+
+	/**
+	 * <p>
+	 * Returns a thread-safe {@link PrettyTimeFormat} instance.
+	 * </p>
+	 * 
+	 * @return PrettyTimeFormat instance
+	 * @see PrettyTimeFormat
+	 */
+	public static PrettyTimeFormat prettyTimeFormat() {
+
+		return context.get().getPrettyTimeFormat();
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #prettyTimeFormat()} for the specified locale.
+	 * </p>
+	 * 
+	 * @param locale
+	 *            Target locale
+	 * @return PrettyTimeFormat instance
+	 * @see PrettyTimeFormat
+	 */
+	public static PrettyTimeFormat prettyTimeFormat(final Locale locale) {
+
+		return withinLocale(new Callable<PrettyTimeFormat>() {
+			public PrettyTimeFormat call() throws Exception {
+
+				return context.get().getPrettyTimeFormat();
+
+			}
+		}, locale);
 
 	}
 

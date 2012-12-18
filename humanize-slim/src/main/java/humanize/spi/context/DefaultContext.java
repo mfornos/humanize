@@ -5,7 +5,7 @@ import static humanize.util.Constants.SPACE;
 import humanize.spi.MessageFormat;
 import humanize.spi.cache.CacheProvider;
 import humanize.text.MaskFormat;
-import humanize.time.RelativeDate;
+import humanize.time.PrettyTimeFormat;
 import humanize.util.UTF8Control;
 
 import java.text.DateFormat;
@@ -45,6 +45,8 @@ public class DefaultContext implements Context, StandardContext {
 	private static final String DATE_TIME_FORMAT = "date.time";
 
 	private static final String SIMPLE_DATE = "simple.date";
+
+	private static final String PRETTY_TIME = "pretty.time";
 
 	private static final String MASK = "mask";
 
@@ -126,13 +128,13 @@ public class DefaultContext implements Context, StandardContext {
 	@Override
 	public String formatRelativeDate(Date duration) {
 
-		return getRelativeDate().format(duration);
+		return getPrettyTimeFormat().format(duration);
 	}
 
 	@Override
 	public String formatRelativeDate(Date reference, Date duration) {
 
-		return getRelativeDate().format(reference, duration);
+		return getPrettyTimeFormat().format(reference, duration);
 	}
 
 	@Override
@@ -288,15 +290,24 @@ public class DefaultContext implements Context, StandardContext {
 	}
 
 	@Override
-	public RelativeDate getRelativeDate() {
+	public PrettyTimeFormat getPrettyTimeFormat() {
 
-		return RelativeDate.getInstance(this);
+		return sharedCache.getFormat(PRETTY_TIME, locale, new Callable<PrettyTimeFormat>() {
+			@Override
+			public PrettyTimeFormat call() throws Exception {
+
+				return PrettyTimeFormat.getInstance(locale);
+
+			}
+		});
+
 	}
 
 	@Override
 	public String ordinalSuffix(int index) {
 
 		return resolveStringArray(ORDINAL_SUFFIXES, index);
+
 	}
 
 	@Override

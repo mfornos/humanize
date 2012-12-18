@@ -34,7 +34,8 @@ h2. Dependencies
 
 h3. Humanize-slim
 
-* Only depends on guava 13.0
+* guava 13.0
+* prettytime 2.0.0.Final
 
 h3. Humanize-icu
 
@@ -94,9 +95,12 @@ h2. Examples
 
 h3. Date&Time
 
-bc.. naturalTime(new Date()); // == "right now"
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); // == "one day ago"
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "one day from now"
+bc.. naturalTime(new Date()); // == "moments ago"
+naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); // == "1 day ago"
+naturalTime(new Date(3155792597470L * 3L), new Date(0)); // == "3 centuries ago"
+naturalTime(new Date(0), new Date(1000 * 60 * 12)); // == "12 minutes from now"
+naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "1 day from now"
+naturalTime(new Date(0), new Date(2629743830L * 3L)); // == "3 months from now"
 
 p. 
 
@@ -143,10 +147,11 @@ h3. Date&Time
 
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
 | naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted | ✔ | ✔ |
-| naturalTime | Computes both past and future relative dates. | '2 days from now', '10 years ago', '3 minutes from now', etc. | ✔ | ✔ |
+| naturalTime | Computes both past and future relative dates. | '2 days from now', '3 decades ago', '3 minutes from now', 'moments ago', etc. | ✔ | ✔ |
 | nanoTime | Formats a number of nanoseconds as the proper ten power unit. | '1.5µs', '10.51ms', '30ns', etc. | ✔ | - |
 | duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.| - | ✔ |
 | smartDateFormat | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' | - | ✔ |
+| prettyTimeFormat | Returns a PrettyTime instance for the current thread. | - | ✔ | - |
 
 h3. Numbers
 
@@ -177,7 +182,7 @@ h3. Text
 | slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
 | mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
-| messageFormatInstance | Returns an ICU based MessageFormat instance for the current thread. | - | - | ✔ |
+| messageFormatInstance | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
 
 h2. Extensible Message Formats
@@ -207,9 +212,9 @@ p. * _This will be replaced by Units of Measurement API when it is available in 
 
 h2. Supported languages
 
-All languages supported by the ICU APIs.
+*humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.
 
-For capabilities not backed by ICU there are support for 'en' and 'es'.
+*humanize-icu*: all languages supported by the "ICU APIs":http://icu-project.org/.
 
 
 h2. Epilog
