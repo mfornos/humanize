@@ -26,19 +26,20 @@ public class TestHumanizeMessage {
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void dateTime() {
-
-		Assert.assertEquals(Humanize.format("hello {0, joda.time}!!", new DateTime(0)), "hello 1/1/70!!");
+		DateTime zero = new DateTime(0).millisOfDay().setCopy(0).secondOfDay().setCopy(0);
+		
+		Assert.assertEquals(Humanize.format("hello {0, joda.time}!!", zero), "hello 1/1/70!!");
 
 		MessageFormat mf = Humanize.messageFormatInstance("hello {0, joda.time, full.date}!!", Locale.FRENCH);
-		Assert.assertEquals(mf.render(new DateTime(0)), "hello jeudi 1 janvier 1970!!");
+		Assert.assertEquals(mf.render(zero), "hello jeudi 1 janvier 1970!!");
 
-		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0)),
-		        "hello 1970W014T010000+0100!!");
-		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, basic.ordinal.date}!!", new DateTime(0)),
+		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", zero),
+		        "hello 1970W014T000000+0100!!");
+		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, basic.ordinal.date}!!", zero),
 		        "hello 1970001!!");
-		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, weekyear.week.day}!!", new DateTime(0)),
+		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, weekyear.week.day}!!", zero),
 		        "hello 1970-W01-4!!");
-		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, year.month.day}!!", new DateTime(0)),
+		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, year.month.day}!!", zero),
 		        "hello 1970-01-01!!");
 
 	}

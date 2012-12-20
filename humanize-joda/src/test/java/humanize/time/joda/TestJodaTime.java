@@ -39,16 +39,17 @@ public class TestJodaTime {
 	public void dateFormat() {
 
 		DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-		Assert.assertEquals(new DateTime(0).toString(fmt), "1970-01-01T01:00:00.000+01:00");
+		DateTime zero = new DateTime(0).millisOfDay().setCopy(0).secondOfDay().setCopy(0);
+		Assert.assertEquals(zero.toString(fmt), "1970-01-01T00:00:00.000+01:00");
 
 		fmt = ISODateTimeFormat.basicDate();
-		Assert.assertEquals(new DateTime(0).toString(fmt), "19700101");
+		Assert.assertEquals(zero.toString(fmt), "19700101");
 
 		fmt = ISODateTimeFormat.basicOrdinalDate();
-		Assert.assertEquals(new DateTime(0).toString(fmt), "1970001");
+		Assert.assertEquals(zero.toString(fmt), "1970001");
 
 		fmt = DateTimeFormat.fullDate().withLocale(Locale.ENGLISH);
-		Assert.assertEquals(new DateTime(0).toString(fmt), "Thursday, January 1, 1970");
+		Assert.assertEquals(zero.toString(fmt), "Thursday, January 1, 1970");
 
 	}
 
