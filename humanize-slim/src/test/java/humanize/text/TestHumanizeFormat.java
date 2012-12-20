@@ -16,12 +16,24 @@ public class TestHumanizeFormat {
 
 		Assert.assertEquals(Humanize.ordinal(10, Locale.ENGLISH), "10th");
 
-		FormatFactory factory = HumanizeFormat.factory();
+		FormatFactory factory = HumanizeFormatProvider.factory();
 
 		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
 		Assert.assertEquals(f.format(10), "10th");
 
 		f = factory.getFormat("humanize", "binaryPrefix", Locale.UK);
+		Assert.assertEquals(f.format(0), "0 bytes");
+
+		f = factory.getFormat("humanize", "binary.prefix", Locale.UK);
+		Assert.assertEquals(f.format(0), "0 bytes");
+
+		f = factory.getFormat("humanize", "binary-prefix", Locale.UK);
+		Assert.assertEquals(f.format(0), "0 bytes");
+
+		f = factory.getFormat("humanize", "binary_prefix", Locale.UK);
+		Assert.assertEquals(f.format(0), "0 bytes");
+
+		f = factory.getFormat("humanize", "binary prefix", Locale.UK);
 		Assert.assertEquals(f.format(0), "0 bytes");
 
 		f = factory.getFormat("humanize", "camelize", Locale.UK);
@@ -37,7 +49,7 @@ public class TestHumanizeFormat {
 	@Test
 	public void invalidCall() {
 
-		FormatFactory factory = HumanizeFormat.factory();
+		FormatFactory factory = HumanizeFormatProvider.factory();
 
 		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
 		Assert.assertEquals(f.format(new Object[] { "juidui" }), "[invalid call: 'argument type mismatch']");
@@ -47,7 +59,7 @@ public class TestHumanizeFormat {
 	@Test(expectedExceptions = UnsupportedOperationException.class)
 	public void parse() throws ParseException {
 
-		FormatFactory factory = HumanizeFormat.factory();
+		FormatFactory factory = HumanizeFormatProvider.factory();
 
 		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
 		f.parseObject("any");

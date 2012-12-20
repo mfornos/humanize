@@ -75,12 +75,15 @@ public class TestHumanize {
 		assertEquals(camelize("bla bla_bla "), "blaBlaBla");
 		assertEquals(camelize("  blA_blA  Bla", true), "BlaBlaBla");
 		assertEquals(camelize("bla_bla!"), "blaBla!");
+		assertEquals(camelize("bla-bla!"), "blaBla!");
+		assertEquals(camelize("bla.bla!"), "blaBla!");
 		assertEquals(camelize("xxx"), "xxx");
 		assertEquals(camelize("___"), "___");
 		assertEquals(camelize(" "), " ");
 		assertEquals(camelize(" _ _ _"), " _ _ _");
 		assertEquals(camelize(""), "");
 		assertEquals(camelize("xxx", true), "Xxx");
+		assertEquals(camelize("alreadyCamelized"), "alreadyCamelized");
 
 		try {
 			camelize(null);
@@ -517,7 +520,7 @@ public class TestHumanize {
 	}
 
 	@BeforeClass
-	protected void setUp() {
+	void setUp() {
 
 		defaultLocale = Locale.getDefault();
 		Locale.setDefault(Locale.UK);
@@ -526,7 +529,7 @@ public class TestHumanize {
 	}
 
 	@AfterClass
-	protected void tearDown() {
+	void tearDown() {
 
 		Locale.setDefault(defaultLocale);
 	}

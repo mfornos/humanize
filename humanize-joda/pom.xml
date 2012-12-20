@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>humanize</artifactId>
+    <groupId>com.github.mfornos</groupId>
+    <version>0.1.6-SNAPSHOT</version>
+  </parent>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-joda</artifactId>
+  <version>0.1.6-SNAPSHOT</version>
+  <name>Humanize for Java - Joda time</name>
+  <description>Humanize Joda time support</description>
+  
+  <properties>
+    <joda-time.version>2.1</joda-time.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.github.mfornos</groupId>
+      <artifactId>humanize-slim</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda-time.version}</version>
+    </dependency>
+  </dependencies>
+  
+</project>

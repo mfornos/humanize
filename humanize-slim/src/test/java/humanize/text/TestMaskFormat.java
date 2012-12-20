@@ -1,14 +1,52 @@
 package humanize.text;
 
+import humanize.spi.MessageFormat;
+
 import java.text.FieldPosition;
+import java.text.Format;
 import java.text.ParseException;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import humanize.spi.MessageFormat;
-
 public class TestMaskFormat {
+
+	@Test
+	public void instanceTest() throws ParseException {
+
+		MaskFormat mf = new MaskFormat("_# __ _____#-_");
+		Assert.assertEquals(mf.getPlaceholder(), '_');
+		Assert.assertEquals(mf.getMask(), "_# __ _____#-_");
+
+		Assert.assertEquals(mf.format("A/5881850 1"), "A 58 81850-1");
+
+		mf.setMask("-- -- -");
+		mf.setPlaceholder('-');
+		Assert.assertEquals(mf.format("10010"), "10 01 0");
+		StringBuffer sb = new StringBuffer();
+		mf.format("10010", sb, new FieldPosition(0));
+		Assert.assertEquals(sb.toString(), "10 01 0");
+		sb = new StringBuffer();
+		Assert.assertEquals(mf.format("10010", sb, null).toString(), "10 01 0");
+		Assert.assertEquals(mf.format(null, sb, null), null);
+
+		Assert.assertEquals(mf.parseObject(""), "");
+		Assert.assertEquals(mf.parseObject(null), null);
+		Assert.assertEquals(mf.parseObject("10 01 0"), "10010");
+		Assert.assertEquals(mf.parseObject("10 01 0", null), "10010");
+
+		Assert.assertEquals(mf.parse("99 99 A"), "9999A");
+		try {
+			mf.parse("90890");
+			Assert.fail();
+		} catch (ParseException e) {
+			//
+		}
+
+		Format fmt = MaskFormat.factory().getFormat("", "____ ____ __", null);
+		Assert.assertEquals(fmt.parseObject("1234 5678 90"), "1234567890");
+
+	}
 
 	@Test
 	public void maskFormatTest() {
@@ -41,40 +79,6 @@ public class TestMaskFormat {
 			MaskFormat.parse("helo", "123");
 			Assert.fail();
 		} catch (ParseException ex) {
-			//
-		}
-		
-	}
-
-	@Test
-	void instanceTest() throws ParseException {
-
-		MaskFormat mf = new MaskFormat("_# __ _____#-_");
-		Assert.assertEquals(mf.getPlaceholder(), '_');
-		Assert.assertEquals(mf.getMask(), "_# __ _____#-_");
-
-		Assert.assertEquals(mf.format("A/5881850 1"), "A 58 81850-1");
-
-		mf.setMask("-- -- -");
-		mf.setPlaceholder('-');
-		Assert.assertEquals(mf.format("10010"), "10 01 0");
-		StringBuffer sb = new StringBuffer();
-		mf.format("10010", sb, new FieldPosition(0));
-		Assert.assertEquals(sb.toString(), "10 01 0");
-		sb = new StringBuffer();
-		Assert.assertEquals(mf.format("10010", sb, null).toString(), "10 01 0");
-		Assert.assertEquals(mf.format(null, sb, null), null);
-
-		Assert.assertEquals(mf.parseObject(""), "");
-		Assert.assertEquals(mf.parseObject(null), null);
-		Assert.assertEquals(mf.parseObject("10 01 0"), "10010");
-		Assert.assertEquals(mf.parseObject("10 01 0", null), "10010");
-
-		Assert.assertEquals(mf.parse("99 99 A"), "9999A");
-		try {
-			mf.parse("90890");
-			Assert.fail();
-		} catch (ParseException e) {
 			//
 		}
 

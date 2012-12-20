@@ -94,7 +94,7 @@ public class MaskFormat extends Format implements FormatProvider {
 	public MaskFormat() {
 
 		// Empty constructor for FormatProvider
-		
+
 	}
 
 	public MaskFormat(String mask) {

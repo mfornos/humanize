@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>humanize</artifactId>
+		<groupId>com.github.mfornos</groupId>
+		<version>0.1.6-SNAPSHOT</version>
+	</parent>
+	<groupId>com.github.mfornos</groupId>
+	<artifactId>humanize-taglib</artifactId>
+	<version>0.1.6-SNAPSHOT</version>
+	<name>Humanize for Java - Taglib</name>
+	<description>Humanize tag library.</description>
+
+	<properties>
+		<standard.version>1.1.2</standard.version>
+		<jstl.version>1.1.2</jstl.version>
+		<jetty.version>8.1.7.v20120910</jetty.version>
+		<jsp-api.version>2.2</jsp-api.version>
+		<htmlunit.version>2.11</htmlunit.version>
+		<taglib-plugin.version>2.4</taglib-plugin.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.mfornos</groupId>
+			<artifactId>humanize-slim</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${standard.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${jetty.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jsp</artifactId>
+			<version>${jetty.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>${htmlunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.sourceforge.maven-taglib</groupId>
+				<artifactId>maven-taglib-plugin</artifactId>
+				<version>${taglib-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>net.sourceforge.maven-taglib</groupId>
+				<artifactId>maven-taglib-plugin</artifactId>
+				<version>${taglib-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

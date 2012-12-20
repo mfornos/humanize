@@ -93,6 +93,8 @@
   	<module>humanize-slim</module>
   	<module>humanize-icu</module>
   	<module>humanize-ucum</module>
+  	<module>humanize-joda</module>
+  	<module>humanize-taglib</module>
   </modules>
 </project>
 

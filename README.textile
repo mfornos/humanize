@@ -210,6 +210,61 @@ bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150,
 
 p. * _This will be replaced by Units of Measurement API when it is available in Maven central repo._ 
 
+h2. Joda Time
+
+p. Humanize provides a module called *humanize-joda* that adds support for Joda time formats.
+
+Usage:
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-joda</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. ... and format some messages
+
+bc.. Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
+// == "hello 1/1/70!!"
+
+mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
+mf.render(new Period(0, 100000));
+// == "hello 1 Minute und 40 Sekunden!!"
+    
+Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
+// == "hello 1970W014T010000+0100!!"
+
+p. Note that it supports almost any Joda format as subformat. See FormatNames for details.
+
+h2. Taglib
+
+p. Humanize Tag library.
+
+Usage:
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-taglib</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. Use it in a page
+
+bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
+
+<hmnz:pluralize value="0" template="nothing::something::{0} things" />
+<hmnz:metricPrefix value="100000000" />
+
+p. 
+* TLD documentation.
+* See @humanize-taglib/src/integration/webapp@ for a complete example.
+
+
+
 h2. Supported languages
 
 *humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.

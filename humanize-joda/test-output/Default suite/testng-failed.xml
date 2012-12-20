@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)" preserve-order="true">
+    <classes>
+      <class name="humanize.time.joda.TestHumanizeMessage">
+        <methods>
+          <include name="period"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

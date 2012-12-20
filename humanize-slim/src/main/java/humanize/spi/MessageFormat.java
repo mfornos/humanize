@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 /**
- * Convenience methods to avoid explicit array creation for arguments.
- * 
- * @author mfornos
+ * {@link ExtendedMessageFormat} wrapper.
  * 
  */
 public class MessageFormat extends ExtendedMessageFormat {
@@ -26,10 +24,26 @@ public class MessageFormat extends ExtendedMessageFormat {
 		ServiceLoader<FormatProvider> ldr = ServiceLoader.load(FormatProvider.class);
 
 		for (FormatProvider provider : ldr) {
-			factories.put(provider.getFormatName(), provider.getFactory());
+			registerProvider(factories, provider);
 		}
 
 		return factories;
+
+	}
+
+	private static void registerProvider(Map<String, FormatFactory> factories, FormatProvider provider) {
+
+		String formatName = provider.getFormatName();
+		FormatFactory factory = provider.getFactory();
+
+		if (formatName.indexOf('|') > -1) {
+			String[] names = formatName.split("\\|");
+			for (String name : names) {
+				factories.put(name, factory);
+			}
+		} else {
+			factories.put(formatName, factory);
+		}
 
 	}
 
@@ -57,12 +71,28 @@ public class MessageFormat extends ExtendedMessageFormat {
 
 	}
 
+	/**
+	 * Formats the current pattern with the given arguments.
+	 * 
+	 * @param arguments
+	 *            The formatting arguments
+	 * @return Formatted message
+	 */
 	public String render(Object... arguments) {
 
 		return format(arguments);
 
 	}
 
+	/**
+	 * Formats the current pattern with the given arguments.
+	 * 
+	 * @param buffer
+	 *            The StringBuffer
+	 * @param arguments
+	 *            The formatting arguments
+	 * @return StringBuffer with the formatted message
+	 */
 	public StringBuffer render(StringBuffer buffer, Object... arguments) {
 
 		return format(arguments, buffer, null);

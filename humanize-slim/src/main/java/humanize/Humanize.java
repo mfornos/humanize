@@ -142,7 +142,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Makes a phrase camel case. Spaces and underscores will be removed.
+	 * Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.
 	 * </p>
 	 * 
 	 * @param capitalizeFirstChar
@@ -154,10 +154,10 @@ public final class Humanize {
 	public static String camelize(final String text, final boolean capitalizeFirstChar) {
 
 		StringBuilder sb = new StringBuilder();
-		String[] tokens = text.split("[\\s_]+");
+		String[] tokens = text.split("[\\.\\s_-]+");
 
 		if (tokens.length < 2)
-			return capitalizeFirstChar ? capitalize(text) : text.toLowerCase();
+			return capitalizeFirstChar ? capitalize(text) : text;
 
 		for (String token : tokens)
 			sb.append(capitalize(token));
@@ -1161,6 +1161,7 @@ public final class Humanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
+	@Expose
 	public static String naturalDay(Date value, Locale locale) {
 
 		return naturalDay(DateFormat.SHORT, value, locale);
