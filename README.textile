@@ -283,7 +283,7 @@ bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
 <hmnz:metricPrefix value="100000000" />
 
 p. 
-* TLD documentation.
+* "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
 * See @humanize-taglib/src/integration/webapp@ for a complete example.
 
 
