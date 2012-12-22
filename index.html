@@ -6,8 +6,7 @@
     <title>Humanize for Java</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <link rel="stylesheet" href="stylesheets/zenburn.css">
+    <link rel="stylesheet" href="stylesheets/humanize.css">
     <script src="javascripts/scale.fix.js"></script>
     <script src="javascripts/highlight.pack.js"></script>
     <script>
@@ -25,13 +24,9 @@
       <header>
         <h1>Humanize</h1>
         <p>Java facility for adding a “human touch” to data.</p>
-        <p class="view"><a href="https://github.com/mfornos/humanize">View the Project on GitHub <small>mfornos/humanize</small></a></p>
-        <ul>
-          <li><a href="https://github.com/mfornos/humanize">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <a href="https://github.com/mfornos/humanize"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
       </header>
       <section>
-        <h1>Humanize for Java</h1>
 
 <p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
 <p>Exists in two flavors: <strong>humanize-slim</strong> and <strong>humanize-icu</strong>. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
@@ -41,7 +36,7 @@
 <h3>Maven</h3>
 
 <p>Current version:</p>
-<pre><code>&lt;humanize.version&gt;0.1.5&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;1.0.0&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -61,7 +56,8 @@
 <h3>
 Humanize-slim</h3>
 <ul>
-<li>Only depends on guava 13.0</li>
+<li>guava 13.0</li>
+<li>prettytime 2.0.0.Final</li>
 </ul><h3>
 Humanize-icu</h3>
 <ul>
@@ -116,9 +112,12 @@ class SomeClass {
 	<li><a href="http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html">Documentation for humanize-icu</a></li>
 </ul><h2>Examples</h2>
 <h3>Date&amp;Time</h3>
-<pre><code class="java">naturalTime(new Date()); // == "right now"
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); // == "one day ago"
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "one day from now"</code></pre>
+<pre><code class="java">naturalTime(new Date()); // == "moments ago"
+naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); // == "1 day ago"
+naturalTime(new Date(3155792597470L * 3L), new Date(0)); // == "3 centuries ago"
+naturalTime(new Date(0), new Date(1000 * 60 * 12)); // == "12 minutes from now"
+naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "1 day from now"
+naturalTime(new Date(0), new Date(2629743830L * 3L)); // == "3 months from now"</code></pre>
 <p></p>
 <h3>Text</h3>
 <p><strong>Pluralize</strong></p>
@@ -139,11 +138,28 @@ msg.render(2);  // == "2 things" </code></pre>
 <p><strong>Slugify</strong></p>
 <pre><code class="java">slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder" </code></pre>
 <p><strong>Interpolation</strong></p>
+<p>Emoji aliases:</p>
 <pre><code class="java">EmojiInterpolator.interpolate(
         "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
         "Hi :sparkles:!");
 
 // == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
+<p>Emoji chars:</p>
+<pre><code class="java">EmojiInterpolator.interpolateChars(
+        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
+        "Hi \uE025!"); 
+
+// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
+</code></pre>
+<h3>Parse</h3>
+<strong>Date&amp;Time</strong>
+<pre><code class="java">parseISODateTime("2011-09-14T15:22:01Z");
+parseISOTime("15:22:01Z");
+
+// Smart
+
+parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
+</code></pre>
 <h3>More</h3>
 <p><em>See <code>src/test/.../HumanizeTest</code> for complete examples.</em></p>
 
@@ -167,7 +183,7 @@ msg.render(2);  // == "2 things" </code></pre>
 <tr>
 <td> naturalTime </td>
 		<td> Computes both past and future relative dates. </td>
-		<td> ‘2 days from now’, ‘10 years ago’, ‘3 minutes from now’, etc. </td>
+		<td> ‘2 days from now’, ‘3 decades ago’, ‘3 minutes from now’, ‘moments ago’, etc. </td>
 		<td> ✔ </td>
 		<td> ✔ </td>
 	</tr>
@@ -191,6 +207,13 @@ msg.render(2);  // == "2 things" </code></pre>
 		<td> skeleton ‘MMMd’ produces ‘11 Dec.’ </td>
 		<td> – </td>
 		<td> ✔ </td>
+	</tr>
+<tr>
+<td> prettyTimeFormat </td>
+		<td> Returns a PrettyTime instance for the current thread. </td>
+		<td> - </td>
+		<td> ✔ </td>
+		<td> - </td>
 	</tr>
 </table><h3>Numbers</h3>
 <table>
@@ -291,7 +314,7 @@ msg.render(2);  // == "2 things" </code></pre>
 	</tr>
 <tr>
 <td> camelize </td>
-		<td> Makes a phrase camel case. Spaces and underscores will be removed.  </td>
+		<td> Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.  </td>
 		<td> – </td>
 		<td> ✔ </td>
 		<td> – </td>
@@ -382,7 +405,48 @@ msg.render(2);  // == "2 things" </code></pre>
 <p>
 * <em>This will be replaced by Units of Measurement API when it is available in Maven central repo.</em>
 </p>
+<h2>Joda Time</h2>
+<p>Humanize provides a module called <strong>humanize-joda</strong> that adds support for Joda time formats.</p>
+<p>Usage:</p>
+<p>Declare the Maven dependency</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
+  &lt;artifactId&gt;humanize-joda&lt;/artifactId&gt;
+  &lt;version&gt;${humanize.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>… and format some messages</p>
+<pre><code class="java">Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
+// == "hello 1/1/70!!"
 
+mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
+mf.render(new Period(0, 100000));
+// == "hello 1 Minute und 40 Sekunden!!"
+    
+Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
+// == "hello 1970W014T010000+0100!!"</code></pre>
+<p>Note that it supports almost any Joda format as subformat. See FormatNames for details.</p>
+<h2>Taglib</h2>
+<p>Humanize Tag library.</p>
+<p>Usage:</p>
+<p>Declare the Maven dependency</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
+  &lt;artifactId&gt;humanize-taglib&lt;/artifactId&gt;
+  &lt;version&gt;${humanize.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>Use it in a page</p>
+<pre><code class="xml">&lt;%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %&gt;
+
+&lt;hmnz:pluralize value="0" template="nothing::something::{0} things" /&gt;
+&lt;hmnz:metricPrefix value="100000000" /&gt;</code></pre>
+<p></p>
+<ul>
+<li><a href="http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html">TLD documentation</a></li>
+	<li>See <code>humanize-taglib/src/integration/webapp</code> for a complete example.</li>
+</ul><h2>
+<a name="supported-languages" class="anchor" href="#supported-languages"><span class="mini-icon mini-icon-link"></span></a>Supported languages</h2>
+<p><strong>humanize-slim</strong>: <em>naturalTime</em> supports over 25 languages, see <a href="http://ocpsoft.org/prettytime">prettytime</a>. Rest of methods have support for english and spanish.</p>
+<p><strong>humanize-icu</strong>: all languages supported by the <a href="http://icu-project.org/">ICU APIs</a>.</p>
 <h2>Epilog</h2>
 
 <div style="display: block; overflow: hidden; margin-bottom: 10px;">
@@ -397,7 +461,7 @@ msg.render(2);  // == "2 things" </code></pre>
     </div>
     <footer>
       <p>Project maintained by <a href="https://github.com/mfornos">mfornos</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+      <p>Hosted on GitHub Pages.</p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
     

@@ -1,35 +1,38 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 html {
-  background: #6C7989;
-  background: #6c7989 -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6c7989), color-stop(100%, #434b55)) fixed;
-  background: #6c7989 -webkit-linear-gradient(#6c7989, #434b55) fixed;
-  background: #6c7989 -moz-linear-gradient(#6c7989, #434b55) fixed;
-  background: #6c7989 -o-linear-gradient(#6c7989, #434b55) fixed;
-  background: #6c7989 -ms-linear-gradient(#6c7989, #434b55) fixed;
-  background: #6c7989 linear-gradient(#6c7989, #434b55) fixed;
+  
+  background: #606060;
+ /* background: #61767E -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #61767E), color-stop(100%, #353C53)) fixed;
+  background: #61767E -webkit-linear-gradient(#61767E, #353C53) fixed;
+  background: #61767E -moz-linear-gradient(#61767E, #353C53) fixed;
+  background: #61767E -o-linear-gradient(#61767E, #353C53) fixed;
+  background: #61767E -ms-linear-gradient(#61767E, #353C53) fixed;
+  background: #697060 linear-gradient(#353C53, #271F3A) fixed;*/
 }
 
 body {
-  padding: 50px 0;
+  padding: 0 0 0 50px;
   margin: 0;
   font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #555;
   font-weight: 300;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg==') fixed;
+  /*background-color: #61767E;*/
 }
 
 .wrapper {
   width: 720px;
   margin: 0 auto;
   background: #DEDEDE;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  border-radius: 8px;
+  border-right: 1px solid #EEE;
+  border-left: 1px solid #EEE;
+  /*-webkit-border-radius: 0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -ms-border-radius: 0 0 8px 8px;
+  -o-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;*/
 }
 
 header, section, footer {
@@ -52,36 +55,25 @@ strong {
 }
 
 header {
-  -webkit-border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  -ms-border-radius: 8px 8px 0 0;
-  -o-border-radius: 8px 8px 0 0;
-  border-radius: 8px 8px 0 0;
-  background: #C6EAFA;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ddfbfc), color-stop(100%, #c6eafa));
-  background: -webkit-linear-gradient(#ddfbfc, #c6eafa);
-  background: -moz-linear-gradient(#ddfbfc, #c6eafa);
-  background: -o-linear-gradient(#ddfbfc, #c6eafa);
-  background: -ms-linear-gradient(#ddfbfc, #c6eafa);
-  background: linear-gradient(#ddfbfc, #c6eafa);
+  background: #272822;
   position: relative;
-  padding: 15px 20px;
-  border-bottom: 1px solid #B2D2E1;
+  padding: 30px 20px 15px 20px;
 }
 header h1 {
   margin: 0;
   padding: 0;
-  font-size: 24px;
   line-height: 1.2;
-  color: #069;
-  text-shadow: rgba(255, 255, 255, 0.9) 0 1px 0;
+  color: #C6E17E;
+  letter-spacing: 3px;
+  font-size: 34px;
+  font-weight: 100;
 }
 header.without-description h1 {
   margin: 10px 0;
 }
 header p {
   margin: 0;
-  color: #61778B;
+  color: #B3B3B3;
   width: 300px;
   font-size: 13px;
 }
@@ -195,8 +187,12 @@ section {
 h1, h2, h3, h4, h5, h6 {
   color: #222;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 20px 0 10px 0;
   line-height: 1.2;
+}
+
+h2 {
+  margin: 40px 0 10px 0;
 }
 
 p, ul, ol, table, pre, dl {
@@ -245,9 +241,7 @@ pre {
   color: #f8f8f2;
   margin: 0 -20px 20px;
 }
-pre code {
-  color: #f8f8f2;
-}
+
 li pre {
   margin-left: -60px;
   padding-left: 60px;
@@ -285,11 +279,14 @@ hr {
 }
 
 footer {
-  width: 640px;
+  width: 720px;
   margin: 0 auto;
   padding: 20px 0 0;
   color: #ccc;
   overflow: hidden;
+  background-color: #272822;
+  border-right: 1px solid #EEE;
+  border-left: 1px solid #EEE;
 }
 footer a {
   color: #fff;
@@ -297,6 +294,7 @@ footer a {
 }
 footer p {
   float: left;
+  padding: 0 20px;
 }
 footer p + p {
   float: right;
