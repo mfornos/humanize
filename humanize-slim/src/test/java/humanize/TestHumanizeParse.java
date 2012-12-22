@@ -3,6 +3,7 @@ package humanize;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -25,7 +26,7 @@ public class TestHumanizeParse {
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void parseDate() {
 
-		Date target = newDate(2011, 8, 14, 17, 22, 1);
+		Date target = newDate(2011, 8, 14, 15, 22, 1);
 
 		Date date = Humanize.parseISODateTime("2011-09-14T15:22:01Z");
 		Assert.assertEquals(date, target);
@@ -33,7 +34,7 @@ public class TestHumanizeParse {
 		date = Humanize.parseISODate("2011-09-14T15:22:01Z");
 		Assert.assertEquals(date, target);
 
-		target = newTime(16, 22, 1);
+		target = newTime(15, 22, 1);
 		date = Humanize.parseISOTime("15:22:01Z");
 		Assert.assertEquals(date, target);
 
@@ -42,7 +43,7 @@ public class TestHumanizeParse {
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void parseSmartDate() {
 
-		Date target = newDate(2012, 1, 1, 0, 0, 0);
+		Date target = newDate(2012, 1, 1, 0, 0, 0, TimeZone.getDefault());
 
 		String dates[] = new String[] { "1.2.12", "01.02.2012", "2012.02.01", "01-02-12", "1 2 2012" };
 
@@ -80,7 +81,13 @@ public class TestHumanizeParse {
 
 	private Date newDate(int year, int month, int day, int hour, int minute, int second) {
 
-		Calendar cal = Calendar.getInstance();
+		return newDate(year, month, day, hour, minute, second, TimeZone.getTimeZone("GMT+00:00"));
+
+	}
+
+	private Date newDate(int year, int month, int day, int hour, int minute, int second, TimeZone tz) {
+
+		Calendar cal = Calendar.getInstance(tz);
 		cal.set(year, month, day, hour, minute, second);
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
@@ -89,8 +96,7 @@ public class TestHumanizeParse {
 
 	private Date newTime(int hour, int minute, int second) {
 
-		Calendar cal = Calendar.getInstance();
-		cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+00:00"));
 		cal.setTimeInMillis(0);
 		cal.set(Calendar.HOUR, hour);
 		cal.set(Calendar.MINUTE, minute);
