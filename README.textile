@@ -131,15 +131,38 @@ bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a
 
 p. *Interpolation*
 
-bc.. EmojiInterpolator.interpolate(
+p. Emoji aliases:
+
+bc.. EmojiInterpolator.interpolateAlias(
         "<img src=\"imgs/{0}.png\" title=\"{0}\" />;", 
         "Hi :sparkles:!"); 
 
 // == "Hi <img src=\"imgs/sparkles.png\" title=\"sparkles\" />!"
 
+p. Emoji chars:
+
+bc.. EmojiInterpolator.interpolateChars(
+        "<img src=\"imgs/{0}.png\" />;", 
+        "Hi \uE025!"); 
+
+// == "Hi <img src=\"imgs/uE025.png\" />!"
+
+h3. Parse
+
+p. *Date & Time*
+
+bc.. parseISODateTime("2011-09-14T15:22:01Z");
+parseISOTime("15:22:01Z");
+
+// Smart
+
+parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
+
+p. 
+
 h3. More
 
-p. _See @src/test/.../HumanizeTest@ for complete examples._
+p. _See @src/test/.../TestHumanize@ for complete examples._
 
 h2. Principal Methods
 
@@ -174,7 +197,7 @@ h3. Text
 
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
 | pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormatInstance_ for pluralization using CLDR Plural Rules. | - | ✔ | - |
-| camelize | Makes a phrase camel case. Spaces and underscores will be removed.  | - | ✔ | - |
+| camelize | Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed. | - | ✔ | - |
 | capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - | ✔ | - |
 | decamelize | Converts a camel case string into a human-readable name. | - | ✔ | - |
 | titleize | Capitalize all the words, and replace some characters in the string to create a nice looking title. | - | ✔ | - |

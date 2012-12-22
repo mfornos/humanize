@@ -182,7 +182,7 @@ public class DefaultContext implements Context, StandardContext {
 	@Override
 	public DateFormat getDateFormat(final String pattern) {
 
-		return localCache.getFormat(SIMPLE_DATE, locale, new Callable<DateFormat>() {
+		return localCache.getFormat(SIMPLE_DATE + pattern.hashCode(), locale, new Callable<DateFormat>() {
 			@Override
 			public DateFormat call() throws Exception {
 

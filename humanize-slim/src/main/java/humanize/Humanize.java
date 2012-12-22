@@ -37,6 +37,8 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
+import javax.xml.bind.DatatypeConverter;
+
 import com.google.common.base.CharMatcher;
 
 /**
@@ -142,7 +144,8 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.
+	 * Makes a phrase camel case. Spaces, hyphens, underscores and dots will be
+	 * removed.
 	 * </p>
 	 * 
 	 * @param capitalizeFirstChar
@@ -1340,6 +1343,118 @@ public final class Humanize {
 	}
 
 	/**
+	 * Converts the string argument into an array of bytes.
+	 * 
+	 * @param base64str
+	 *            The Base64 encoded string
+	 * @return an array of bytes with the decoded content
+	 */
+	public static byte[] parseBase64(String base64str) {
+
+		return DatatypeConverter.parseBase64Binary(base64str);
+
+	}
+
+	/**
+	 * Converts the string argumento into a Date value.
+	 * 
+	 * @param dateStr
+	 *            The ISO8601 date string
+	 * @return the converted Date
+	 */
+	public static Date parseISODate(String dateStr) {
+
+		return DatatypeConverter.parseDate(dateStr).getTime();
+
+	}
+
+	/**
+	 * Converts the string argumento into a Date value.
+	 * 
+	 * @param dateStr
+	 *            The ISO8601 date string
+	 * @return the converted Date
+	 */
+	public static Date parseISODateTime(String dateStr) {
+
+		return DatatypeConverter.parseDateTime(dateStr).getTime();
+
+	}
+
+	/**
+	 * Converts the string argumento into a Date value.
+	 * 
+	 * @param timeStr
+	 *            The ISO8601 time string
+	 * @return the converted Date
+	 */
+	public static Date parseISOTime(String timeStr) {
+
+		return DatatypeConverter.parseTime(timeStr).getTime();
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #parseSmartDateWithSeparator(String, String, String...)}
+	 * but with "[\\D-_\\s]+" as the default separator.
+	 * </p>
+	 * Example:
+	 * 
+	 * <pre>
+	 * Date target = newDate(2012, 1, 1, 0, 0, 0);
+	 * 
+	 * String dates[] = new String[] { &quot;1.2.12&quot;, &quot;01.02.2012&quot;, &quot;2012.02.01&quot;, &quot;01-02-12&quot;, &quot;1 2 2012&quot; };
+	 * 
+	 * for (String ds : dates) {
+	 * 	Date date = Humanize.parseSmartDate(ds, &quot;dd/MM/yy&quot;, &quot;yyyy/MM/dd&quot;, &quot;dd/MM/yyyy&quot;);
+	 * 	Assert.assertEquals(date, target);
+	 * }
+	 * </pre>
+	 * 
+	 * @param dateStr
+	 *            The date string
+	 * @param fmts
+	 *            An array of formats
+	 * @return the converted Date
+	 */
+	public static Date parseSmartDate(String dateStr, String... fmts) {
+
+		return parseSmartDateWithSeparator(dateStr, "[\\D-_\\s]+", fmts);
+
+	}
+
+	/**
+	 * <p>
+	 * Tries to parse a date string applying an array of non lenient format
+	 * patterns. The formats are automatically cached.
+	 * </p>
+	 * 
+	 * @param dateStr
+	 *            The date string
+	 * @param separator
+	 *            The separator regexp
+	 * @param fmts
+	 *            An array of formats
+	 * @return the converted Date
+	 * @see #parseSmartDate(String, String...)
+	 */
+	public static Date parseSmartDateWithSeparator(String dateStr, String separator, String... fmts) {
+
+		dateStr = dateStr.replaceAll(separator, "/");
+
+		for (String fmt : fmts) {
+			try {
+				DateFormat df = dateFormatInstance(fmt); // cached
+				df.setLenient(false);
+				return df.parse(dateStr);
+			} catch (ParseException ignored) {
+			}
+		}
+		throw new IllegalArgumentException("Unable to parse date '" + dateStr + "'");
+	}
+
+	/**
 	 * <p>
 	 * Constructs a message with pluralization logic from the given template.
 	 * </p>
@@ -1744,6 +1859,8 @@ public final class Humanize {
 
 	}
 
+	// ( private methods )------------------------------------------------------
+
 	/**
 	 * <p>
 	 * Makes a phrase underscored instead of spaced.
@@ -1801,8 +1918,6 @@ public final class Humanize {
 		return value.substring(0, bi.following(len));
 
 	}
-
-	// ( private methods )------------------------------------------------------
 
 	private static ContextFactory loadContextFactory() {
 
