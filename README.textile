@@ -108,18 +108,26 @@ h3. Text
 
 p. *Pluralize*
 
-bc.. MessageFormat msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
+bc.. pluralize("one", "{0}", 1);    // == "one"
+pluralize("one", "{0}", 2);         // == "2"
+pluralize("one", "{0}", "none", 0); // == "none"
+
+bc.. pluralize("one {1}.", "{0} {1}s.", 1, "disk");       // == "one disk."
+pluralize("one {1}.", "{0} {1}s.", 2, "disk");            // == "2 disks."
+pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."
+
+bc.. MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
 msg.render(0, "disk");    // == "There are no files on disk."
 msg.render(1, "disk");    // == "There is one file on disk."
 msg.render(1000, "disk"); // == "There are 1,000 files on disk."
 
-bc.. MessageFormat msg = pluralize("nothing::one thing::{0} things");
+bc.. MessageFormat msg = pluralizeFormat("nothing::one thing::{0} things");
 msg.render(-1); // == "nothing"
 msg.render(0);  // == "nothing"
 msg.render(1);  // == "one thing"
 msg.render(2);  // == "2 things"
 
-bc.. MessageFormat msg = pluralize("one thing::{0} things");
+bc.. MessageFormat msg = pluralizeFormat("one thing::{0} things");
 msg.render(-1); // == "-1 things"
 msg.render(0);  // == "0 things"
 msg.render(1);  // == "one thing"
@@ -196,7 +204,8 @@ h3. Units
 h3. Text
 
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| pluralize | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormatInstance_ for pluralization using CLDR Plural Rules. | - | ✔ | - |
+| pluralize | Applies the proper format for a given plural state. | - | ✔ | - |
+| pluralizeFormat | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormat_ for pluralization using CLDR Plural Rules. | - | ✔ | - |
 | camelize | Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed. | - | ✔ | - |
 | capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - | ✔ | - |
 | decamelize | Converts a camel case string into a human-readable name. | - | ✔ | - |
@@ -205,7 +214,7 @@ h3. Text
 | slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
 | mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
-| messageFormatInstance | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
+| messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
 
 h2. Extensible Message Formats

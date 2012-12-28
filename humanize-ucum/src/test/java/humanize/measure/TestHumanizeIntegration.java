@@ -51,7 +51,7 @@ public class TestHumanizeIntegration {
 
 		Assert.assertEquals(Humanize.format("{0, measure, standard}", Measure.valueOf(100, SI.GRAM.times(1000))), "100 kg");
 		
-		MessageFormat esFormat = Humanize.messageFormatInstance("{0, measure}", new Locale("es"));
+		MessageFormat esFormat = Humanize.messageFormat("{0, measure}", new Locale("es"));
 		Assert.assertEquals(esFormat.render(Measure.valueOf(1000, SI.GRAM.times(1000))), "1.000 kg");
 		Assert.assertEquals(esFormat.render(Measure.valueOf(1000, NonSI.DAY_SIDEREAL)), "1.000 day_sidereal");
 

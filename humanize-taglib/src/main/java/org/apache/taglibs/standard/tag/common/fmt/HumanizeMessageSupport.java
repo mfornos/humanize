@@ -198,8 +198,8 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 							locale = SetLocaleSupport.getFormattingLocale(pageContext);
 							// System.out.println("LOCALE: " + locale);
 						}
-						MessageFormat formatter = (locale != null) ? Humanize.messageFormatInstance(message, locale)
-						        : Humanize.messageFormatInstance(message);
+						MessageFormat formatter = (locale != null) ? Humanize.messageFormat(message, locale)
+						        : Humanize.messageFormat(message);
 						message = formatter.format(messageArgs);
 					}
 				} catch (MissingResourceException mre) {

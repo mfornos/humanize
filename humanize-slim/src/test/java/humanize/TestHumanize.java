@@ -15,6 +15,7 @@ import static humanize.Humanize.naturalDay;
 import static humanize.Humanize.naturalTime;
 import static humanize.Humanize.ordinal;
 import static humanize.Humanize.pluralize;
+import static humanize.Humanize.pluralizeFormat;
 import static humanize.Humanize.prettyTimeFormat;
 import static humanize.Humanize.replaceSupplementary;
 import static humanize.Humanize.slugify;
@@ -303,14 +304,14 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeSimpleTest() {
+	public void pluralizeFormatSimpleTest() {
 
 		String pattern = "{0}";
 		String none = "{0} things";
 		String one = "one thing";
 		String many = "{0} things";
 
-		MessageFormat f = pluralize(pattern, none, one, many);
+		MessageFormat f = pluralizeFormat(pattern, none, one, many);
 
 		assertEquals(f.render(0), "0 things");
 		assertEquals(f.render(-1), "-1 things");
@@ -320,7 +321,7 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeTest() {
+	public void pluralizeFormatTest() {
 
 		int df = rand.nextInt(9);
 
@@ -329,7 +330,7 @@ public class TestHumanize {
 		String one = "is one file";
 		String many = "are {2} files";
 
-		MessageFormat f = pluralize(pattern, none, one, many);
+		MessageFormat f = pluralizeFormat(pattern, none, one, many);
 
 		assertEquals(f.render(1000 + df, "disk", 1000 + df), "There are 1,00" + df + " files on disk.");
 		assertEquals(f.render(0, "disk"), "There are no files on disk.");
@@ -340,23 +341,23 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeWithSimpleTemplate() {
+	public void pluralizeFormatWithSimpleTemplate() {
 
-		MessageFormat f = pluralize("{0}::nothing::one thing::{0} things");
-
-		assertEquals(f.render(0), "nothing");
-		assertEquals(f.render(-1), "nothing");
-		assertEquals(f.render(1), "one thing");
-		assertEquals(f.render(2), "2 things");
-
-		f = pluralize("nothing::one thing::{0} things");
+		MessageFormat f = pluralizeFormat("{0}::nothing::one thing::{0} things");
 
 		assertEquals(f.render(0), "nothing");
 		assertEquals(f.render(-1), "nothing");
 		assertEquals(f.render(1), "one thing");
 		assertEquals(f.render(2), "2 things");
 
-		f = pluralize("one thing::{0} things");
+		f = pluralizeFormat("nothing::one thing::{0} things");
+
+		assertEquals(f.render(0), "nothing");
+		assertEquals(f.render(-1), "nothing");
+		assertEquals(f.render(1), "one thing");
+		assertEquals(f.render(2), "2 things");
+
+		f = pluralizeFormat("one thing::{0} things");
 
 		assertEquals(f.render(0), "0 things");
 		assertEquals(f.render(-1), "-1 things");
@@ -366,11 +367,11 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeWithTemplate() {
+	public void pluralizeFormatWithTemplate() {
 
 		int df = rand.nextInt(9);
 
-		MessageFormat f = pluralize("There {0} on {1}. :: are no files::is one file::  are {2} files");
+		MessageFormat f = pluralizeFormat("There {0} on {1}. :: are no files::is one file::  are {2} files");
 
 		assertEquals(f.render(1000 + df, "disk", 1000 + df), "There are 1,00" + df + " files on disk.");
 		assertEquals(f.render(0, "disk"), "There are no files on disk.");
@@ -378,17 +379,57 @@ public class TestHumanize {
 		assertEquals(f.render(1, "disk"), "There is one file on disk.");
 		assertEquals(f.render(1, "disk", 1000, "bla bla"), "There is one file on disk.");
 
-		f = pluralize("{0}.::No hay ficheros::Hay un fichero::Hay {0,number} ficheros", ES);
+		f = pluralizeFormat("{0}.::No hay ficheros::Hay un fichero::Hay {0,number} ficheros", ES);
 		assertEquals(f.render(0), "No hay ficheros.");
 		assertEquals(f.render(1), "Hay un fichero.");
 		assertEquals(f.render(2000), "Hay 2.000 ficheros.");
 
 		try {
-			pluralize("---");
+			pluralizeFormat("---");
 			fail("incorrect number of tokens");
 		} catch (IllegalArgumentException ex) {
 
 		}
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void pluralizeNoExtTest() {
+
+		int df = rand.nextInt(9);
+
+		String none = "There are no files.";
+		String one = "There is one file.";
+		String many = "There are {0} files.";
+
+		assertEquals(pluralize(one, many, 2 + df), "There are " + (2 + df) + " files.");
+		assertEquals(pluralize(one, many, 1), "There is one file.");
+		assertEquals(pluralize(one, many, 0), "There are 0 files.");
+		assertEquals(pluralize(one, many, none, 2 + df), "There are " + (2 + df) + " files.");
+		assertEquals(pluralize(one, many, none, 0), "There are no files.");
+		assertEquals(pluralize(one, many, none, 1), "There is one file.");
+
+		assertEquals(pluralize("one", "{0}", "none", 1), "one");
+		assertEquals(pluralize("one", "{0}", "none", 0), "none");
+		assertEquals(pluralize("one", "{0}", "none", 2), "2");
+		
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void pluralizeTest() {
+
+		int df = rand.nextInt(9);
+
+		String none = "There are no files on {1}.";
+		String one = "There is one file on {1}.";
+		String many = "There are {0} files on {1}.";
+
+		assertEquals(pluralize(one, many, 2 + df, "disk"), "There are " + (2 + df) + " files on disk.");
+		assertEquals(pluralize(one, many, 1, "disk"), "There is one file on disk.");
+		assertEquals(pluralize(one, many, 0, "disk"), "There are 0 files on disk.");
+		assertEquals(pluralize(one, many, none, 2 + df, "disk"), "There are " + (2 + df) + " files on disk.");
+		assertEquals(pluralize(one, many, none, 0, "disk"), "There are no files on disk.");
+		assertEquals(pluralize(one, many, none, 1, "disk"), "There is one file on disk.");
 
 	}
 

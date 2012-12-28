@@ -40,6 +40,7 @@ import java.util.concurrent.Callable;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.collect.ObjectArrays;
 
 /**
  * <p>
@@ -447,7 +448,7 @@ public final class Humanize {
 	 *            {@link java.text.SimpleDateFormat SimpleDateFormat}
 	 * @return a DateFormat instance for the current thread
 	 */
-	public static DateFormat dateFormatInstance(final String pattern) {
+	public static DateFormat dateFormat(final String pattern) {
 
 		return context.get().getDateFormat(pattern);
 
@@ -455,7 +456,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #dateFormatInstance(String)} for the specified locale.
+	 * Same as {@link #dateFormat(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param pattern
@@ -465,12 +466,12 @@ public final class Humanize {
 	 *            Target locale
 	 * @return a DateFormat instance for the current thread
 	 */
-	public static DateFormat dateFormatInstance(final String pattern, final Locale locale) {
+	public static DateFormat dateFormat(final String pattern, final Locale locale) {
 
 		return withinLocale(new Callable<DateFormat>() {
 			public DateFormat call() throws Exception {
 
-				return dateFormatInstance(pattern);
+				return dateFormat(pattern);
 
 			}
 		}, locale);
@@ -547,7 +548,7 @@ public final class Humanize {
 	 *            {@link java.text.DecimalFormat DecimalFormat}
 	 * @return a DecimalFormat instance for the current thread
 	 */
-	public static DecimalFormat decimalFormatInstance(final String pattern) {
+	public static DecimalFormat decimalFormat(final String pattern) {
 
 		DecimalFormat decFmt = context.get().getDecimalFormat();
 		decFmt.applyPattern(pattern);
@@ -557,7 +558,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #decimalFormatInstance(String)} for the specified locale.
+	 * Same as {@link #decimalFormat(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param pattern
@@ -567,12 +568,12 @@ public final class Humanize {
 	 *            Target locale
 	 * @return a DecimalFormat instance for the current thread
 	 */
-	public static DecimalFormat decimalFormatInstance(final String pattern, final Locale locale) {
+	public static DecimalFormat decimalFormat(final String pattern, final Locale locale) {
 
 		return withinLocale(new Callable<DecimalFormat>() {
 			public DecimalFormat call() throws Exception {
 
-				return decimalFormatInstance(pattern);
+				return decimalFormat(pattern);
 
 			}
 		}, locale);
@@ -594,7 +595,7 @@ public final class Humanize {
 	 */
 	public static String format(final String pattern, final Object... args) {
 
-		return messageFormatInstance(pattern).render(args);
+		return messageFormat(pattern).render(args);
 
 	}
 
@@ -707,7 +708,7 @@ public final class Humanize {
 	 * @param pattern
 	 *            The pattern.
 	 * @return a formatted date/time string
-	 * @see #dateFormatInstance(String)
+	 * @see #dateFormat(String)
 	 */
 	public static String formatDate(final Date value, final String pattern) {
 
@@ -727,7 +728,7 @@ public final class Humanize {
 	 * @param locale
 	 *            Target locale
 	 * @return a formatted date/time string
-	 * @see #dateFormatInstance(String)
+	 * @see #dateFormat(String)
 	 */
 	public static String formatDate(final Date value, final String pattern, final Locale locale) {
 
@@ -977,7 +978,7 @@ public final class Humanize {
 	 */
 	public static String mask(final String mask, final String value) {
 
-		return maskFormatInstance(mask).format(value);
+		return maskFormat(mask).format(value);
 
 	}
 
@@ -990,7 +991,7 @@ public final class Humanize {
 	 *            The pattern mask
 	 * @return a {@link MaskFormat} instance
 	 */
-	public static MaskFormat maskFormatInstance(final String mask) {
+	public static MaskFormat maskFormat(final String mask) {
 
 		MaskFormat maskFmt = context.get().getMaskFormat();
 		maskFmt.setMask(mask);
@@ -1008,7 +1009,7 @@ public final class Humanize {
 	 *            {@link java.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
-	public static MessageFormat messageFormatInstance(final String pattern) {
+	public static MessageFormat messageFormat(final String pattern) {
 
 		MessageFormat msg = context.get().getMessageFormat();
 		msg.applyPattern(pattern);
@@ -1018,7 +1019,7 @@ public final class Humanize {
 
 	/**
 	 * <p>
-	 * Same as {@link #messageFormatInstance(String)} for the specified locale.
+	 * Same as {@link #messageFormat(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param locale
@@ -1028,12 +1029,12 @@ public final class Humanize {
 	 *            {@link java.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
-	public static MessageFormat messageFormatInstance(final String pattern, final Locale locale) {
+	public static MessageFormat messageFormat(final String pattern, final Locale locale) {
 
 		return withinLocale(new Callable<MessageFormat>() {
 			public MessageFormat call() throws Exception {
 
-				return messageFormatInstance(pattern);
+				return messageFormat(pattern);
 
 			}
 		}, locale);
@@ -1276,6 +1277,7 @@ public final class Humanize {
 			public String call() {
 
 				return naturalTime(reference, duration);
+
 			}
 		}, locale);
 
@@ -1445,13 +1447,152 @@ public final class Humanize {
 
 		for (String fmt : fmts) {
 			try {
-				DateFormat df = dateFormatInstance(fmt); // cached
+				DateFormat df = dateFormat(fmt); // cached
 				df.setLenient(false);
 				return df.parse(dateStr);
 			} catch (ParseException ignored) {
 			}
 		}
 		throw new IllegalArgumentException("Unable to parse date '" + dateStr + "'");
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #pluralize(String, String, Number, Object...)} for the
+	 * target locale.
+	 * </p>
+	 * 
+	 * @param locale
+	 *            Target locale
+	 * @param one
+	 *            Format for single element
+	 * @param many
+	 *            Format for many elements
+	 * @param n
+	 *            The number that triggers the plural state
+	 * @param exts
+	 *            Extended parameters for the specified formats
+	 * @return formatted text according the right plural state
+	 */
+	public static String pluralize(final Locale locale, final String one, final String many, final Number n,
+	        final Object... exts) {
+
+		return withinLocale(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+
+				return pluralize(one, many, n, exts);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #pluralize(String, String, String, Number, Object...)} for
+	 * the target locale.
+	 * </p>
+	 * 
+	 * @param locale
+	 *            Target locale
+	 * @param one
+	 *            Format for single element
+	 * @param many
+	 *            Format for many elements
+	 * @param none
+	 *            Format for no element
+	 * @param n
+	 *            The number that triggers the plural state
+	 * @param exts
+	 *            Extended parameters for the specified formats
+	 * @return formatted text according the right plural state
+	 */
+	public static String pluralize(final Locale locale, final String one, final String many, final String none,
+	        final Number n, final Object... exts) {
+
+		return withinLocale(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+
+				return pluralize(one, many, none, n, exts);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Applies the proper format for a given plural state.
+	 * </p>
+	 * 
+	 * Example:
+	 * 
+	 * <pre>
+	 * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, 1, &quot;disk&quot;);
+	 * // == There is one file on disk.
+	 * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, 2, &quot;disk&quot;);
+	 * // == There are 2 files on disk.
+	 * </pre>
+	 * 
+	 * @param one
+	 *            Format for single element
+	 * @param many
+	 *            Format for many elements
+	 * @param n
+	 *            The number that triggers the plural state
+	 * @param exts
+	 *            Extended parameters for the specified formats
+	 * @return formatted text according the right plural state
+	 */
+	public static String pluralize(final String one, final String many, final Number n, final Object... exts) {
+
+		MessageFormat format = pluralizeFormat("{0}", many, one, many);
+		Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
+		return format.render(params);
+
+	}
+
+	/**
+	 * <p>
+	 * Applies the proper format for a given plural state.
+	 * </p>
+	 * Example:
+	 * 
+	 * <pre>
+	 * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 1, &quot;disk&quot;);
+	 * // == There is one file on disk.
+	 * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 2, &quot;disk&quot;);
+	 * // == There are 2 files on disk.
+	 * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 0, &quot;disk&quot;);
+	 * // == There are no files on disk.
+	 * 
+	 * pluralize(&quot;one&quot;, &quot;{0}&quot;, &quot;none&quot;, 1);
+	 * // = &quot;one&quot;
+	 * pluralize(&quot;one&quot;, &quot;{0}&quot;, &quot;none&quot;, 2);
+	 * // = &quot;2&quot;
+	 * </pre>
+	 * 
+	 * @param one
+	 *            Format for single element
+	 * @param many
+	 *            Format for many elements
+	 * @param none
+	 *            Format for no element
+	 * @param n
+	 *            The number that triggers the plural state
+	 * @param exts
+	 *            Extended parameters for the specified formats
+	 * @return formatted text according the right plural state
+	 */
+	public static String pluralize(final String one, final String many, final String none, final Number n,
+	        final Object... exts) {
+
+		MessageFormat format = pluralizeFormat("{0}", none, one, many);
+		Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
+		return format.render(params);
+
 	}
 
 	/**
@@ -1492,7 +1633,7 @@ public final class Humanize {
 	 * 
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(final String template) {
+	public static MessageFormat pluralizeFormat(final String template) {
 
 		String[] tokens = template.split("\\s*\\:{2}\\s*");
 
@@ -1507,13 +1648,13 @@ public final class Humanize {
 			}
 		}
 
-		return pluralize(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
+		return pluralizeFormat(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
 
 	}
 
 	/**
 	 * <p>
-	 * Same as {@link #pluralize(String)} for the specified locale.
+	 * Same as {@link #pluralizeFormat(String)} for the specified locale.
 	 * </p>
 	 * 
 	 * @param template
@@ -1522,12 +1663,12 @@ public final class Humanize {
 	 *            Target locale
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(final String template, final Locale locale) {
+	public static MessageFormat pluralizeFormat(final String template, final Locale locale) {
 
 		return withinLocale(new Callable<MessageFormat>() {
 			public MessageFormat call() throws Exception {
 
-				return pluralize(template);
+				return pluralizeFormat(template);
 
 			};
 		}, locale);
@@ -1546,14 +1687,14 @@ public final class Humanize {
 	 *            Values that match the pattern
 	 * @return Message instance prepared to generate pluralized strings
 	 */
-	public static MessageFormat pluralize(final String pattern, final String... choices) {
+	public static MessageFormat pluralizeFormat(final String pattern, final String... choices) {
 
 		double[] indexes = new double[choices.length];
 		for (int i = 0; i < choices.length; i++)
 			indexes[i] = i;
 
 		ChoiceFormat choiceForm = new ChoiceFormat(indexes, choices);
-		MessageFormat format = (MessageFormat) messageFormatInstance(pattern).clone();
+		MessageFormat format = (MessageFormat) messageFormat(pattern).clone();
 		format.setFormat(0, choiceForm);
 
 		return format;
@@ -1892,7 +2033,7 @@ public final class Humanize {
 	 */
 	public static String unmask(final String mask, final String value) throws ParseException {
 
-		return maskFormatInstance(mask).parse(value);
+		return maskFormat(mask).parse(value);
 
 	}
 

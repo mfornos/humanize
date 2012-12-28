@@ -12,6 +12,7 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 
+// TODO adapt to new pluralize method
 public class PluralizeTag extends HumanizeSupport {
 
 	private static final long serialVersionUID = -3406725990318696579L;
@@ -79,14 +80,14 @@ public class PluralizeTag extends HumanizeSupport {
 	@Override
 	protected String render() throws JspException {
 
-		return Humanize.pluralize(input).render(argsArray);
+		return Humanize.pluralizeFormat(input).render(argsArray);
 
 	}
 
 	@Override
 	protected String render(Locale locale) throws JspException {
 
-		return Humanize.pluralize(input, locale).render(argsArray);
+		return Humanize.pluralizeFormat(input, locale).render(argsArray);
 
 	}
 

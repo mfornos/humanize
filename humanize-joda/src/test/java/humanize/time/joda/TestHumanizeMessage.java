@@ -30,7 +30,7 @@ public class TestHumanizeMessage {
 		
 		Assert.assertEquals(Humanize.format("hello {0, joda.time}!!", zero), "hello 1/1/70!!");
 
-		MessageFormat mf = Humanize.messageFormatInstance("hello {0, joda.time, full.date}!!", Locale.FRENCH);
+		MessageFormat mf = Humanize.messageFormat("hello {0, joda.time, full.date}!!", Locale.FRENCH);
 		Assert.assertEquals(mf.render(zero), "hello jeudi 1 janvier 1970!!");
 
 //		Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", zero),
@@ -51,10 +51,10 @@ public class TestHumanizeMessage {
 		Assert.assertEquals(Humanize.format("hello {0, joda.period}!!", new Period(0, 100000)),
 		        "hello 1 minute and 40 seconds!!");
 
-		MessageFormat mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.FRENCH);
+		MessageFormat mf = Humanize.messageFormat("hello {0, joda.period}!!", Locale.FRENCH);
 		Assert.assertEquals(mf.render(new Period(0, 100000)), "hello 1 minute et 40 secondes!!");
 
-		mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
+		mf = Humanize.messageFormat("hello {0, joda.period}!!", Locale.GERMAN);
 		Assert.assertEquals(mf.render(new Period(0, 100000)), "hello 1 Minute und 40 Sekunden!!");
 
 	}
