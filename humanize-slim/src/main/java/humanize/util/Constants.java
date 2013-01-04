@@ -1,5 +1,7 @@
 package humanize.util;
 
+import humanize.spi.context.DefaultContext;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,6 +12,38 @@ import java.util.regex.Pattern;
  * 
  */
 public final class Constants {
+
+	public enum TimeStyle {
+		STANDARD {
+			public String format(DefaultContext ctx, int h, int m, int s) {
+
+				return String.format("%d:%02d:%02d", h, m, s);
+
+			}
+		},
+		FRENCH_DECIMAL {
+			public String format(DefaultContext ctx, int h, int m, int s) {
+
+				if (h == 0) {
+					return (m == 0) ? String.format("%d%s", s, ctx.timeSuffix(2)) :
+					        (s == 0) ? String.format("%d%s", m, ctx.timeSuffix(1)) :
+					                String.format("%d%s %d%s", m, ctx.timeSuffix(1), s, ctx.timeSuffix(2));
+				} else {
+					return (m == 0) ?
+					        ((s == 0) ? String.format("%d%s", h, ctx.timeSuffix(0)) :
+					                String.format("%d%s %d%s", h, ctx.timeSuffix(0), s, ctx.timeSuffix(2))) :
+					        (s == 0) ?
+					                String.format("%d%s %d%s", h, ctx.timeSuffix(0), m, ctx.timeSuffix(1)) :
+					                String.format("%d%s %d%s %d%s", h, ctx.timeSuffix(0), m, ctx.timeSuffix(1), s,
+					                        ctx.timeSuffix(2));
+				}
+
+			}
+		};
+
+		public abstract String format(DefaultContext defaultContext, int h, int m, int s);
+
+	}
 
 	public static final Pattern SPLIT_CAMEL = Pattern
 	        .compile("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])");

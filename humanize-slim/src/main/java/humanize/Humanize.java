@@ -21,6 +21,7 @@ import humanize.text.MaskFormat;
 import humanize.text.util.InterpolationHelper;
 import humanize.text.util.Replacer;
 import humanize.time.PrettyTimeFormat;
+import humanize.util.Constants.TimeStyle;
 
 import java.math.BigDecimal;
 import java.text.BreakIterator;
@@ -574,6 +575,90 @@ public final class Humanize {
 			public DecimalFormat call() throws Exception {
 
 				return decimalFormat(pattern);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Formats a number of seconds as hours, minutes and seconds. Defaults to
+	 * STANDARD time style.
+	 * </p>
+	 * 
+	 * @param seconds
+	 *            Number of seconds
+	 * @return a String with the formatted time
+	 */
+	public static String duration(final Number seconds) {
+
+		return duration(seconds, TimeStyle.STANDARD);
+		
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #duration(Number)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param seconds
+	 *            Number of seconds
+	 * @param locale
+	 *            Target locale
+	 * @return a String with the formatted time
+	 */
+	public static String duration(final Number seconds, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+
+				return duration(seconds);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Formats a number of seconds as hours, minutes and seconds.
+	 * </p>
+	 * 
+	 * @param seconds
+	 *            Number of seconds
+	 * @param style
+	 *            Time style
+	 * @return a String with the formatted time according to the given style
+	 */
+	public static String duration(final Number seconds, final TimeStyle style) {
+
+		int s = seconds.intValue();
+		return style.format(context.get(), (s / 3600) % 60, (s / 60) % 60, s % 60);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #duration(Number, TimeStyle)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param seconds
+	 *            Number of seconds
+	 * @param style
+	 *            Time style
+	 * @param locale
+	 *            Target locale
+	 * @return a String with the formatted time
+	 */
+	public static String duration(final Number seconds, final TimeStyle style, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+
+				return duration(seconds, style);
 
 			}
 		}, locale);
@@ -2103,14 +2188,16 @@ public final class Humanize {
 
 		long v = value.longValue();
 
-		if (v < 0)
+		if (v < 0) {
 			return value.toString();
+		}
 
-		for (Long num : prefixes.keySet())
+		for (Long num : prefixes.keySet()) {
 			if (num <= v) {
 				df.applyPattern(prefixes.get(num));
 				return stripZeros(df, df.format((v >= min) ? v / (float) num : v));
 			}
+		}
 
 		return stripZeros(df, df.format(value.toString()));
 	}

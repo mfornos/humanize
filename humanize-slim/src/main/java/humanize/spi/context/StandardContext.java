@@ -36,4 +36,6 @@ public interface StandardContext {
 
 	String ordinalSuffix(int index);
 
+	String timeSuffix(int index);
+
 }

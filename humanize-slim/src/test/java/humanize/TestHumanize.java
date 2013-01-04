@@ -3,6 +3,7 @@ package humanize;
 import static humanize.Humanize.binaryPrefix;
 import static humanize.Humanize.camelize;
 import static humanize.Humanize.decamelize;
+import static humanize.Humanize.duration;
 import static humanize.Humanize.formatCurrency;
 import static humanize.Humanize.formatDate;
 import static humanize.Humanize.formatDateTime;
@@ -30,6 +31,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
 import humanize.time.PrettyTimeFormat;
+import humanize.util.Constants.TimeStyle;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -106,6 +108,48 @@ public class TestHumanize {
 		assertEquals(decamelize("AString"), "A String");
 		assertEquals(decamelize("SimpleXMLParser"), "Simple XML Parser");
 		assertEquals(decamelize("GL11Version"), "GL 11 Version");
+
+	}
+
+	@Test
+	public void durationFrenchTest() {
+
+		assertEquals(duration(3600, TimeStyle.FRENCH_DECIMAL), "1h");
+		assertEquals(duration(3661, TimeStyle.FRENCH_DECIMAL), "1h 1m 1s");
+
+		assertEquals(duration(-7200, TimeStyle.FRENCH_DECIMAL), "-2h");
+		assertEquals(duration(7200, TimeStyle.FRENCH_DECIMAL), "2h");
+		assertEquals(duration(7214, TimeStyle.FRENCH_DECIMAL), "2h 14s");
+		assertEquals(duration(7261, TimeStyle.FRENCH_DECIMAL), "2h 1m 1s");
+
+		assertEquals(duration(0, TimeStyle.FRENCH_DECIMAL), "0s");
+		assertEquals(duration(10, TimeStyle.FRENCH_DECIMAL), "10s");
+		assertEquals(duration(60, TimeStyle.FRENCH_DECIMAL), "1m");
+		assertEquals(duration(61, TimeStyle.FRENCH_DECIMAL), "1m 1s");
+		assertEquals(duration(120, TimeStyle.FRENCH_DECIMAL), "2m");
+		assertEquals(duration(125, TimeStyle.FRENCH_DECIMAL), "2m 5s");
+		assertEquals(duration(2015, TimeStyle.FRENCH_DECIMAL), "33m 35s");
+
+	}
+
+	@Test
+	public void durationStandardTest() {
+
+		assertEquals(duration(3600), "1:00:00");
+		assertEquals(duration(3661), "1:01:01");
+
+		assertEquals(duration(-7200), "-2:00:00");
+		assertEquals(duration(7200), "2:00:00");
+		assertEquals(duration(7214), "2:00:14");
+		assertEquals(duration(7261), "2:01:01");
+
+		assertEquals(duration(0), "0:00:00");
+		assertEquals(duration(10), "0:00:10");
+		assertEquals(duration(60), "0:01:00");
+		assertEquals(duration(61), "0:01:01");
+		assertEquals(duration(120), "0:02:00");
+		assertEquals(duration(125), "0:02:05");
+		assertEquals(duration(2015), "0:33:35");
 
 	}
 
@@ -412,7 +456,7 @@ public class TestHumanize {
 		assertEquals(pluralize("one", "{0}", "none", 1), "one");
 		assertEquals(pluralize("one", "{0}", "none", 0), "none");
 		assertEquals(pluralize("one", "{0}", "none", 2), "2");
-		
+
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)

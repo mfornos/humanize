@@ -29,6 +29,8 @@ public class DefaultContext implements Context, StandardContext {
 	private static final String BUNDLE_LOCATION = "i18n.Humanize";
 
 	private static final String ORDINAL_SUFFIXES = "ordinal.suffixes";
+	
+	private static final String TIME_SUFFIXES = "time.suffixes";
 
 	private static final String CURRENCY = "currency";
 
@@ -309,11 +311,18 @@ public class DefaultContext implements Context, StandardContext {
 		return resolveStringArray(ORDINAL_SUFFIXES, index);
 
 	}
-
+	
 	@Override
 	public void setLocale(Locale locale) {
 
 		this.locale = locale;
+
+	}
+
+	@Override
+	public String timeSuffix(int index) {
+
+		return resolveStringArray(TIME_SUFFIXES, index);
 
 	}
 
