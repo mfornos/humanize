@@ -1,0 +1,4 @@
+node_modules/
+*.asc
+target/
+publish.sh

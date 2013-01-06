@@ -4,7 +4,6 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 
 pre code {
   display: block; padding: 0.5em;
-  background: #3F3F3F;
 }
 
 pre .tag,
@@ -18,19 +17,19 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title,
 pre .tex .special {
-  color: #E88B97;
+  color: #cb4b16;
 }
 
 pre code {
-  color: #DDD;
+  color: #657B83;
 }
 
 pre code .constant {
-	color: #66D9EF;
+	color: #586E75;
 }
 
 pre .class .title {
-	color: white;
+	color: #586E75;
 }
 
 pre .attribute,
@@ -38,7 +37,7 @@ pre .symbol,
 pre .symbol .string,
 pre .value,
 pre .regexp {
-	color: #9FD6D2;
+	color: #6c71c4;
 }
 
 pre .tag .value,
@@ -66,11 +65,11 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .prompt {
-  color: #C6E17E;
+  color: #2aa198;
 }
 
 pre .number {
-  color: #EBEFC9;
+  color: #268bd2;
 }
 
 pre .comment,
@@ -83,7 +82,7 @@ pre .deletion,
 pre .shebang,
 pre .apache .sqbracket,
 pre .tex .formula {
-  color: #919191;
+  color: #93a1a1;
 }
 
 pre .keyword,

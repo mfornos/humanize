@@ -13,6 +13,12 @@
       hljs.tabReplace = '    ';
       hljs.initHighlightingOnLoad();
     </script>
+    <script>
+	/* grunticon Stylesheet Loader | https://github.com/filamentgroup/grunticon | (c) 2012 Scott Jehl, Filament Group, Inc. | MIT license. */
+window.grunticon=function(e,t){if(!e||e.length!==3)return;var n=window,r=!!n.document.createElementNS&&!!n.document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect,i=function(t){var i=n.document.createElement("link"),s=n.document.getElementsByTagName("script")[0];i.rel="stylesheet",i.href=e[t&&r?0:t?1:2],s.parentNode.insertBefore(i,s)},s=new n.Image;s.onerror=function(){i(!1)},s.onload=function(){i(s.width===1&&s.height===1)},s.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="};
+grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.data.png.css", "stylesheets/icons/icons.fallback.css" ] );
+    </script>
+	<noscript><link href="stylesheets/icons/icons.fallback.css" rel="stylesheet"></noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
@@ -20,12 +26,17 @@
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
+  	<header>
+  	  <div class="wrapper">
+      <div class="title-icon iconhumanize"></div>
+      <div class="title">
         <h1>Humanize</h1>
         <p>Java facility for adding a “human touch” to data.</p>
-        <a href="https://github.com/mfornos/humanize"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-      </header>
+      </div>
+      </div>
+      <a href="https://github.com/mfornos/humanize"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    </header>
+    <div class="wrapper">
       <section>
 
 <p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
@@ -65,7 +76,6 @@ Humanize-icu</h3>
 	<li>icu4j 50.1</li>
 </ul>
 <p>
-<span style="font-size:1.5em;">☝</span>
 <em>
 If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the <a href="http://apps.icu-project.org/datacustom/">ICU Data Library Customizer</a> may be useful.
 </em></p>
@@ -177,21 +187,21 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <td> naturalDay </td>
 		<td> For dates that are the current day or within one day, return ‘today’,‘tomorrow’ or ‘yesterday’, as appropriate. </td>
 		<td> ‘today’, ‘tomorrow’, ‘yesterday’ or the date formatted </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> naturalTime </td>
 		<td> Computes both past and future relative dates. </td>
 		<td> ‘2 days from now’, ‘3 decades ago’, ‘3 minutes from now’, ‘moments ago’, etc. </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> nanoTime </td>
 		<td> Formats a number of nanoseconds as the proper ten power unit. </td>
 		<td> ‘1.5µs’, ‘10.51ms’, ‘30ns’, etc. </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> - </td>
 	</tr>
 <tr>
@@ -199,20 +209,20 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<td> Formats a number of seconds as hours, minutes and seconds. </td>
 		<td> ‘1 sec.’, ‘1:02:10’, etc.</td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> smartDateFormat </td>
 		<td> Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. </td>
 		<td> skeleton ‘MMMd’ produces ‘11 Dec.’ </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> prettyTimeFormat </td>
 		<td> Returns a PrettyTime instance for the current thread. </td>
 		<td> - </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> - </td>
 	</tr>
 </table><h3>Numbers</h3>
@@ -228,21 +238,21 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <td> ordinal </td>
 		<td> Converts a number to its ordinal as a string. </td>
 		<td> ‘1st’, ‘2nd’, ‘3rd’, etc. </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> spellBigNumber </td>
 		<td> Converts a big number to a friendly text representation. </td>
 		<td> ‘2.3 thousand’, ‘1 million’, ‘-1.55 billion’, ‘3 decillion’, ‘2 googol’, etc. </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> spellDigit </td>
 		<td> For decimal digits, returns the number spelled out. </td>
 		<td> ‘one’, ‘two’, ‘three’, etc. </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
@@ -250,7 +260,7 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<td> Converts the given number to words. </td>
 		<td> ‘twenty-three’, ‘two thousand eight hundred and forty’, ‘one million four hundred and twelve thousand six hundred and five’, etc.  </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 </table><h3>Units</h3>
 <table>
@@ -265,36 +275,36 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <td> binaryPrefix </td>
 		<td> Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. </td>
 		<td> ‘2 bytes’, ‘1.5 kB’, ‘5 MB’, ‘1.18 PB’, etc. </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> metricPrefix </td>
 		<td> Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  </td>
 		<td> ‘100k’, ‘1M’, ‘3.5M’, etc.  </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> formatCurrency </td>
 		<td> Smartly formats the given number as a monetary amount. </td>
 		<td> ‘£34’, ‘£1,000’, ‘£12.50’, etc. </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> formatPluralCurrency </td>
 		<td> Smartly formats the given number as a monetary amount in plural form. </td>
 		<td> ‘34 British pounds sterling’, ‘1,500.55 British pounds sterling’, ‘1 euro’, etc. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> formatPercent </td>
 		<td> Formats the given ratio as a percentage. </td>
 		<td> ‘500%’, ‘56%’, etc.  </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 </table><h3>Text</h3>
 <table>
@@ -309,63 +319,63 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <td> pluralize </td>
 		<td> Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to <em>messageFormatInstance</em> for pluralization using CLDR Plural Rules. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> camelize </td>
 		<td> Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.  </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> capitalize </td>
 		<td> Capitalizes a string (first letter uppercase and the rest lowercase). </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> decamelize </td>
 		<td> Converts a camel case string into a human-readable name. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> titleize </td>
 		<td> Capitalize all the words, and replace some characters in the string to create a nice looking title. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> transliterate </td>
 		<td> Strips diacritic marks. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> slugify </td>
 		<td> Transforms a text into a representation suitable to be used in an URL. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> mask </td>
 		<td> Formats the given text with the mask specified. </td>
 		<td> for ‘12345G’ with mask ‘__ ___/_’ produces ‘12 345/G’ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> wordWrap </td>
 		<td> Truncate a string to the closest word boundary after a number of characters. </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
@@ -373,14 +383,14 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<td> Returns an ICU based MessageFormat instance for the current thread. </td>
 		<td> – </td>
 		<td> – </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
 <td> replaceSupplementary </td>
 		<td> Replaces characters outside the Basic Multilingual Plane with their name. </td>
 		<td> ‘SMILING FACE WITH SMILING EYES’ for the corresponding Emoji char </td>
-		<td> ✔ </td>
-		<td> ✔ </td>
+		<td class="tick"> ✔ </td>
+		<td class="tick"> ✔ </td>
 	</tr>
 </table>
 
@@ -460,8 +470,11 @@ Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateT
       </section>
     </div>
     <footer>
+      <div class="wrapper">
       <p>Project maintained by <a href="https://github.com/mfornos">mfornos</a></p>
       <p>Hosted on GitHub Pages.</p>
+      <p>Color scheme Solarized by <a href="http://ethanschoonover.com/solarized">Ethan Schoonover</a></p>
+      </div>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
     
