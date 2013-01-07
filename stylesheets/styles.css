@@ -8,6 +8,12 @@ body {
   font: normal 100% sans-serif;
 }
 
+::selection {
+  background: #FF5E99;
+  color: white;
+  text-shadow: none;
+}
+
 header, section, footer {
   display: block;
   overflow: hidden;
@@ -123,13 +129,16 @@ img {
 code, pre {
   font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color: #678;
-  font-size: 12px;
 }
 
 pre {
-  padding: 20px;
+  padding: 20px 3px 20px 20px;
   background: #EEE8D5;
   color: #f8f8f2;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.95em;
 }
 
 li pre {

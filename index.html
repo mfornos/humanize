@@ -123,14 +123,26 @@ class SomeClass {
 </ul><h2>Examples</h2>
 <h3>Date&amp;Time</h3>
 <pre><code class="java">naturalTime(new Date()); // == "moments ago"
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); // == "1 day ago"
-naturalTime(new Date(3155792597470L * 3L), new Date(0)); // == "3 centuries ago"
-naturalTime(new Date(0), new Date(1000 * 60 * 12)); // == "12 minutes from now"
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "1 day from now"
-naturalTime(new Date(0), new Date(2629743830L * 3L)); // == "3 months from now"</code></pre>
+naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
+// == "1 day ago"
+naturalTime(new Date(3155792597470L * 3L), new Date(0)); 
+// == "3 centuries ago"
+naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
+// == "12 minutes from now"
+naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); 
+// == "1 day from now"
+naturalTime(new Date(0), new Date(2629743830L * 3L)); 
+// == "3 months from now"</code></pre>
 <p></p>
 <h3>Text</h3>
 <p><strong>Pluralize</strong></p>
+<pre><code class="java">pluralize("one", "{0}", 1); // == "one"
+pluralize("one", "{0}", 2); // == "2"
+pluralize("one", "{0}", "none", 0); // == "none"
+</code></pre>
+<pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
+pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
+pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
 <pre><code class="java">MessageFormat msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
 msg.render(0, "disk");    // == "There are no files on disk."
 msg.render(1, "disk");    // == "There is one file on disk."
@@ -146,7 +158,8 @@ msg.render(0);  // == "0 things"
 msg.render(1);  // == "one thing"
 msg.render(2);  // == "2 things" </code></pre>
 <p><strong>Slugify</strong></p>
-<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder" </code></pre>
+<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); 
+// == "cet-ete-jen-ai-rien-a-coder" </code></pre>
 <p><strong>Interpolation</strong></p>
 <p>Emoji aliases:</p>
 <pre><code class="java">EmojiInterpolator.interpolate(
@@ -208,7 +221,7 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <td> duration </td>
 		<td> Formats a number of seconds as hours, minutes and seconds. </td>
 		<td> ‘1 sec.’, ‘1:02:10’, etc.</td>
-		<td> – </td>
+		<td class="tick"> ✔ </td>
 		<td class="tick"> ✔ </td>
 	</tr>
 <tr>
