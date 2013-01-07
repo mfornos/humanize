@@ -136,6 +136,7 @@ naturalTime(new Date(0), new Date(2629743830L * 3L));
 <p></p>
 <h3>Text</h3>
 <p><strong>Pluralize</strong></p>
+<!--
 <pre><code class="java">pluralize("one", "{0}", 1); // == "one"
 pluralize("one", "{0}", 2); // == "2"
 pluralize("one", "{0}", "none", 0); // == "none"
@@ -143,6 +144,7 @@ pluralize("one", "{0}", "none", 0); // == "none"
 <pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
 pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
 pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
+-->
 <pre><code class="java">MessageFormat msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
 msg.render(0, "disk");    // == "There are no files on disk."
 msg.render(1, "disk");    // == "There is one file on disk."
