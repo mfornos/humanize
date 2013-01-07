@@ -20,6 +20,8 @@
     <testng.version>6.5.2</testng.version>
     <compiler.version>3.0</compiler.version>
     <javadoc.version>2.8.1</javadoc.version>
+    <doclava.version>1.0.5</doclava.version>
+    <jsr305.version>1.3.9</jsr305.version>
     <surefire.version>2.4.3</surefire.version>
     <obertura.version>2.5.2</obertura.version>
   </properties>
@@ -53,6 +55,11 @@
       <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>${jsr305.version}</version>
+    </dependency>
   </dependencies>
   
   <build>
@@ -68,14 +75,38 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${javadoc.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.version}</version>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${javadoc.version}</version>
+        <configuration>
+          <docletArtifact>
+            <groupId>com.google.doclava</groupId>
+            <artifactId>doclava</artifactId>
+            <version>${doclava.version}</version>
+          </docletArtifact>
+          <doclet>com.google.doclava.Doclava</doclet>
+          <!--
+            | bootclasspath required by Sun's JVM 
+          -->
+          <bootclasspath>${sun.boot.class.path}</bootclasspath>
+          <additionalparam>
+             -quiet
+             -federate JDK http://download.oracle.com/javase/6/docs/api/index.html?
+             -federationxml JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
+             -hdf project.name "${project.name}"
+             -d ${project.build.directory}/apidocs
+           </additionalparam>
+          <useStandardDocletOptions>false</useStandardDocletOptions>
+          <!--
+            | Apple's JVM sometimes requires more memory
+          -->
+          <additionalJOption>-J-Xmx1024m</additionalJOption>
+        </configuration>
+       </plugin>
     </plugins>
   </build>
   
