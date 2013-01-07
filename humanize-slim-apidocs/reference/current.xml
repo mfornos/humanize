@@ -1,0 +1,3633 @@
+<api>
+<package name="humanize"
+>
+<class name="Humanize"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="binaryPrefix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="binaryPrefix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="camelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="camelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="capitalizeFirstChar" type="boolean">
+</parameter>
+</method>
+<method name="capitalize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="word" type="java.lang.String">
+</parameter>
+</method>
+<method name="dateFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="dateFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="decamelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="words" type="java.lang.String">
+</parameter>
+</method>
+<method name="decamelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="words" type="java.lang.String">
+</parameter>
+<parameter name="replacement" type="java.lang.String">
+</parameter>
+</method>
+<method name="decimalFormat"
+ return="java.text.DecimalFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="decimalFormat"
+ return="java.text.DecimalFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="duration"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="seconds" type="java.lang.Number">
+</parameter>
+</method>
+<method name="duration"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="seconds" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="duration"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="seconds" type="java.lang.Number">
+</parameter>
+<parameter name="style" type="humanize.util.Constants.TimeStyle">
+</parameter>
+</method>
+<method name="duration"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="seconds" type="java.lang.Number">
+</parameter>
+<parameter name="style" type="humanize.util.Constants.TimeStyle">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="formatCurrency"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="formatCurrency"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatDecimal"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="formatDecimal"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="formatPercent"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="formatPercent"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="mask"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.String">
+</parameter>
+</method>
+<method name="maskFormat"
+ return="humanize.text.MaskFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+</method>
+<method name="messageFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="messageFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="metricPrefix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="metricPrefix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="nanoTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="nanoTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalDay"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="naturalDay"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalDay"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="naturalDay"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="ordinal"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="ordinal"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="parseBase64"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="base64str" type="java.lang.String">
+</parameter>
+</method>
+<method name="parseISODate"
+ return="java.util.Date"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStr" type="java.lang.String">
+</parameter>
+</method>
+<method name="parseISODateTime"
+ return="java.util.Date"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStr" type="java.lang.String">
+</parameter>
+</method>
+<method name="parseISOTime"
+ return="java.util.Date"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="timeStr" type="java.lang.String">
+</parameter>
+</method>
+<method name="parseSmartDate"
+ return="java.util.Date"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStr" type="java.lang.String">
+</parameter>
+<parameter name="fmts" type="java.lang.String...">
+</parameter>
+</method>
+<method name="parseSmartDateWithSeparator"
+ return="java.util.Date"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStr" type="java.lang.String">
+</parameter>
+<parameter name="separator" type="java.lang.String">
+</parameter>
+<parameter name="fmts" type="java.lang.String...">
+</parameter>
+</method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="n" type="java.lang.Number">
+</parameter>
+<parameter name="exts" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="none" type="java.lang.String">
+</parameter>
+<parameter name="n" type="java.lang.Number">
+</parameter>
+<parameter name="exts" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="n" type="java.lang.Number">
+</parameter>
+<parameter name="exts" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="none" type="java.lang.String">
+</parameter>
+<parameter name="n" type="java.lang.Number">
+</parameter>
+<parameter name="exts" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="pluralizeFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="template" type="java.lang.String">
+</parameter>
+</method>
+<method name="pluralizeFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="template" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="pluralizeFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="choices" type="java.lang.String...">
+</parameter>
+</method>
+<method name="prettyTimeFormat"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="prettyTimeFormat"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="replaceSupplementary"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.String">
+</parameter>
+</method>
+<method name="slugify"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="spellBigNumber"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="spellBigNumber"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="spellDigit"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="spellDigit"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="titleize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="transliterate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="underscore"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="unmask"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.String">
+</parameter>
+<exception name="ParseException" type="java.text.ParseException">
+</exception>
+</method>
+<method name="wordWrap"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.String">
+</parameter>
+<parameter name="len" type="int">
+</parameter>
+</method>
+</class>
+</package>
+<package name="humanize.config"
+>
+<class name="ConfigLoader"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ConfigLoader"
+ type="humanize.config.ConfigLoader"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="loadProperties"
+ return="java.util.Properties"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="loadProperties"
+ return="java.util.Properties"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="path" type="java.lang.String">
+</parameter>
+</method>
+<method name="locateConfig"
+ return="java.net.URL"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="path" type="java.lang.String">
+</parameter>
+</method>
+<field name="CACHE_BUILDER_SPEC"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;cache.builder.spec&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+</package>
+<package name="humanize.spi"
+>
+<class name="Expose"
+ extends="java.lang.Object"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="java.lang.annotation.Annotation">
+</implements>
+</class>
+<interface name="FormatProvider"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getFactory"
+ return="humanize.text.FormatFactory"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFormatName"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</interface>
+<class name="MessageFormat"
+ extends="humanize.text.ExtendedMessageFormat"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MessageFormat"
+ type="humanize.spi.MessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="MessageFormat"
+ type="humanize.spi.MessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<constructor name="MessageFormat"
+ type="humanize.spi.MessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="registry" type="java.util.Map&lt;java.lang.String, ? extends humanize.text.FormatFactory&gt;">
+</parameter>
+</constructor>
+<constructor name="MessageFormat"
+ type="humanize.spi.MessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="registry" type="java.util.Map&lt;java.lang.String, ? extends humanize.text.FormatFactory&gt;">
+</parameter>
+</constructor>
+<method name="render"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="arguments" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="render"
+ return="java.lang.StringBuffer"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="buffer" type="java.lang.StringBuffer">
+</parameter>
+<parameter name="arguments" type="java.lang.Object...">
+</parameter>
+</method>
+</class>
+</package>
+<package name="humanize.spi.cache"
+>
+<interface name="CacheProvider"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="containsBundle"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="containsFormat"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="containsStrings"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="getBundle"
+ return="java.util.ResourceBundle"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;java.util.ResourceBundle&gt;">
+</parameter>
+</method>
+<method name="getFormat"
+ return="T"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;T&gt;">
+</parameter>
+</method>
+<method name="getStrings"
+ return="java.lang.String[]"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;java.lang.String[]&gt;">
+</parameter>
+</method>
+<method name="putBundle"
+ return="java.util.ResourceBundle"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="bundle" type="java.util.ResourceBundle">
+</parameter>
+</method>
+<method name="putFormat"
+ return="T"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="format" type="T">
+</parameter>
+</method>
+<method name="putStrings"
+ return="java.lang.String[]"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="split" type="java.lang.String[]">
+</parameter>
+</method>
+</interface>
+<class name="GuavaCacheProvider"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.cache.CacheProvider">
+</implements>
+<constructor name="GuavaCacheProvider"
+ type="humanize.spi.cache.GuavaCacheProvider"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="containsBundle"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="containsFormat"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="containsStrings"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="getBundle"
+ return="java.util.ResourceBundle"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;java.util.ResourceBundle&gt;">
+</parameter>
+</method>
+<method name="getFormat"
+ return="T"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;T&gt;">
+</parameter>
+</method>
+<method name="getStrings"
+ return="java.lang.String[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="getCall" type="java.util.concurrent.Callable&lt;java.lang.String[]&gt;">
+</parameter>
+</method>
+<method name="putBundle"
+ return="java.util.ResourceBundle"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="bundle" type="java.util.ResourceBundle">
+</parameter>
+</method>
+<method name="putFormat"
+ return="T"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="format" type="T">
+</parameter>
+</method>
+<method name="putStrings"
+ return="java.lang.String[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cache" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="value" type="java.lang.String[]">
+</parameter>
+</method>
+</class>
+</package>
+<package name="humanize.spi.context"
+>
+<interface name="Context"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="digitStrings"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="date" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+<parameter name="date" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDecimal"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="formatMessage"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="getBundle"
+ return="java.util.ResourceBundle"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getLocale"
+ return="java.util.Locale"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMaskFormat"
+ return="humanize.text.MaskFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMessage"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+</method>
+<method name="setLocale"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+</interface>
+<interface name="ContextFactory"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="createContext"
+ return="humanize.spi.context.Context"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</interface>
+<class name="DefaultContext"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.context.Context">
+</implements>
+<implements name="humanize.spi.context.StandardContext">
+</implements>
+<constructor name="DefaultContext"
+ type="humanize.spi.context.DefaultContext"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<constructor name="DefaultContext"
+ type="humanize.spi.context.DefaultContext"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<method name="digitStrings"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+<method name="formatDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+<parameter name="value" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="date" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDateTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+<parameter name="date" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatDecimal"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+</method>
+<method name="formatMessage"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="formatRelativeDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatRelativeDate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="getBundle"
+ return="java.util.ResourceBundle"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getCurrencyFormat"
+ return="java.text.DecimalFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDateFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+</method>
+<method name="getDateFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="getDateTimeFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDateTimeFormat"
+ return="java.text.DateFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+</method>
+<method name="getDecimalFormat"
+ return="java.text.DecimalFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getLocale"
+ return="java.util.Locale"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMaskFormat"
+ return="humanize.text.MaskFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMessage"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+</method>
+<method name="getMessageFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getNumberFormat"
+ return="java.text.NumberFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPercentFormat"
+ return="java.text.DecimalFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPrettyTimeFormat"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="ordinalSuffix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+<method name="setLocale"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="timeSuffix"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+</class>
+<class name="DefaultContextFactory"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.context.ContextFactory">
+</implements>
+<constructor name="DefaultContextFactory"
+ type="humanize.spi.context.DefaultContextFactory"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="createContext"
+ return="humanize.spi.context.Context"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<interface name="StandardContext"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="formatRelativeDate"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatRelativeDate"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+</method>
+<method name="getCurrencyFormat"
+ return="java.text.DecimalFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDateFormat"
+ return="java.text.DateFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="style" type="int">
+</parameter>
+</method>
+<method name="getDateFormat"
+ return="java.text.DateFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+<method name="getDateTimeFormat"
+ return="java.text.DateFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDateTimeFormat"
+ return="java.text.DateFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dateStyle" type="int">
+</parameter>
+<parameter name="timeStyle" type="int">
+</parameter>
+</method>
+<method name="getDecimalFormat"
+ return="java.text.DecimalFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMessageFormat"
+ return="humanize.spi.MessageFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getNumberFormat"
+ return="java.text.NumberFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPercentFormat"
+ return="java.text.DecimalFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPrettyTimeFormat"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="ordinalSuffix"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+<method name="timeSuffix"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+</method>
+</interface>
+</package>
+<package name="humanize.text"
+>
+<class name="EmojiInterpolator"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="interpolateAlias"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="interpolateChars"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<field name="EMOJI_ALIAS"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="EMOJI_UCHARS"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="ExtendedMessageFormat"
+ extends="java.text.MessageFormat"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ExtendedMessageFormat"
+ type="humanize.text.ExtendedMessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="ExtendedMessageFormat"
+ type="humanize.text.ExtendedMessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<constructor name="ExtendedMessageFormat"
+ type="humanize.text.ExtendedMessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="registry" type="java.util.Map&lt;java.lang.String, ? extends humanize.text.FormatFactory&gt;">
+</parameter>
+</constructor>
+<constructor name="ExtendedMessageFormat"
+ type="humanize.text.ExtendedMessageFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="registry" type="java.util.Map&lt;java.lang.String, ? extends humanize.text.FormatFactory&gt;">
+</parameter>
+</constructor>
+<method name="applyPattern"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+</method>
+</class>
+<interface name="FormatFactory"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getFormat"
+ return="java.text.Format"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+<parameter name="args" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+</interface>
+<class name="HumanizeFormatProvider"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.FormatProvider">
+</implements>
+<constructor name="HumanizeFormatProvider"
+ type="humanize.text.HumanizeFormatProvider"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="factory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFactory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFormatName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="HumanizeFormatProvider.HumanizeFormat"
+ extends="java.text.Format"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="HumanizeFormatProvider.HumanizeFormat"
+ type="humanize.text.HumanizeFormatProvider.HumanizeFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="method" type="java.lang.reflect.Method">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<method name="format"
+ return="java.lang.StringBuffer"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="paramObject" type="java.lang.Object">
+</parameter>
+<parameter name="toAppendTo" type="java.lang.StringBuffer">
+</parameter>
+<parameter name="position" type="java.text.FieldPosition">
+</parameter>
+</method>
+<method name="parseObject"
+ return="java.lang.Object"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="paramString" type="java.lang.String">
+</parameter>
+<parameter name="paramParsePosition" type="java.text.ParsePosition">
+</parameter>
+</method>
+</class>
+<class name="MaskFormat"
+ extends="java.text.Format"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.FormatProvider">
+</implements>
+<constructor name="MaskFormat"
+ type="humanize.text.MaskFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<constructor name="MaskFormat"
+ type="humanize.text.MaskFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="MaskFormat"
+ type="humanize.text.MaskFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="placeholder" type="char">
+</parameter>
+</constructor>
+<method name="factory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="str" type="java.lang.String">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="str" type="java.lang.String">
+</parameter>
+<parameter name="placeholder" type="char">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.StringBuffer"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="obj" type="java.lang.Object">
+</parameter>
+<parameter name="toAppendTo" type="java.lang.StringBuffer">
+</parameter>
+<parameter name="pos" type="java.text.FieldPosition">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="str" type="java.lang.String">
+</parameter>
+</method>
+<method name="getFactory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFormatName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMask"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPlaceholder"
+ return="char"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="parse"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<exception name="ParseException" type="java.text.ParseException">
+</exception>
+</method>
+<method name="parse"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="placeholder" type="char">
+</parameter>
+<exception name="ParseException" type="java.text.ParseException">
+</exception>
+</method>
+<method name="parse"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<exception name="ParseException" type="java.text.ParseException">
+</exception>
+</method>
+<method name="parse"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="pos" type="java.text.ParsePosition">
+</parameter>
+<exception name="ParseException" type="java.text.ParseException">
+</exception>
+</method>
+<method name="parseObject"
+ return="java.lang.Object"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="pos" type="java.text.ParsePosition">
+</parameter>
+</method>
+<method name="setMask"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mask" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPlaceholder"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="placeholder" type="char">
+</parameter>
+</method>
+</class>
+</package>
+<package name="humanize.text.util"
+>
+<class name="InterpolationHelper"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="InterpolationHelper"
+ type="humanize.text.util.InterpolationHelper"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="interpolate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="pattern" type="java.util.regex.Pattern">
+</parameter>
+<parameter name="replacer" type="humanize.text.util.Replacer">
+</parameter>
+</method>
+<method name="replaceSupplementary"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="replacer" type="humanize.text.util.Replacer">
+</parameter>
+</method>
+</class>
+<interface name="Replacer"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="replace"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+</interface>
+</package>
+<package name="humanize.time"
+>
+<class name="DurationHelper"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DurationHelper"
+ type="humanize.time.DurationHelper"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="calculateDurantion"
+ return="org.ocpsoft.prettytime.Duration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ref" type="java.util.Date">
+</parameter>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="calculateDurantion"
+ return="org.ocpsoft.prettytime.Duration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ref" type="java.util.Date">
+</parameter>
+<parameter name="then" type="java.util.Date">
+</parameter>
+<parameter name="timeUnits" type="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;">
+</parameter>
+</method>
+<method name="calculateDurantion"
+ return="org.ocpsoft.prettytime.Duration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ref" type="java.util.Date">
+</parameter>
+<parameter name="then" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="getDB"
+ return="humanize.time.DurationHelper.DurationDB"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+</class>
+<class name="DurationHelper.DurationDB"
+ extends="java.lang.Object"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DurationHelper.DurationDB"
+ type="humanize.time.DurationHelper.DurationDB"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<method name="addUnit"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="unit" type="org.ocpsoft.prettytime.impl.ResourcesTimeUnit">
+</parameter>
+</method>
+<method name="clearUnits"
+ return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getUnits"
+ return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="registerUnit"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="unit" type="org.ocpsoft.prettytime.TimeUnit">
+</parameter>
+<parameter name="format" type="org.ocpsoft.prettytime.TimeFormat">
+</parameter>
+</method>
+</class>
+<class name="PrettyTimeFormat"
+ extends="java.text.Format"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="humanize.spi.FormatProvider">
+</implements>
+<constructor name="PrettyTimeFormat"
+ type="humanize.time.PrettyTimeFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<constructor name="PrettyTimeFormat"
+ type="humanize.time.PrettyTimeFormat"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</constructor>
+<method name="approximateDuration"
+ return="org.ocpsoft.prettytime.Duration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="calculatePreciseDuration"
+ return="java.util.List&lt;org.ocpsoft.prettytime.Duration&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="clearUnits"
+ return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="factory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ref" type="java.util.Date">
+</parameter>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="org.ocpsoft.prettytime.Duration">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="durations" type="java.util.List&lt;org.ocpsoft.prettytime.Duration&gt;">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.StringBuffer"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="obj" type="java.lang.Object">
+</parameter>
+<parameter name="toAppendTo" type="java.lang.StringBuffer">
+</parameter>
+<parameter name="pos" type="java.text.FieldPosition">
+</parameter>
+</method>
+<method name="formatUnrounded"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="then" type="java.util.Date">
+</parameter>
+</method>
+<method name="formatUnrounded"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="org.ocpsoft.prettytime.Duration">
+</parameter>
+</method>
+<method name="getFactory"
+ return="humanize.text.FormatFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFormat"
+ return="org.ocpsoft.prettytime.TimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="unit" type="org.ocpsoft.prettytime.TimeUnit">
+</parameter>
+</method>
+<method name="getFormatName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getInstance"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getInstance"
+ return="humanize.time.PrettyTimeFormat"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="getPrettyTime"
+ return="org.ocpsoft.prettytime.PrettyTime"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getUnits"
+ return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="parseObject"
+ return="java.lang.Object"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="pos" type="java.text.ParsePosition">
+</parameter>
+</method>
+<method name="registerUnit"
+ return="org.ocpsoft.prettytime.PrettyTime"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="unit" type="org.ocpsoft.prettytime.TimeUnit">
+</parameter>
+<parameter name="format" type="org.ocpsoft.prettytime.TimeFormat">
+</parameter>
+</method>
+</class>
+</package>
+<package name="humanize.util"
+>
+<class name="Constants"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Constants"
+ type="humanize.util.Constants"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<field name="EMPTY"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="HYPEN_SPACE"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="ND_FACTOR"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="82800000"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="NOT_IN_BMP"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="ONLY_SLUG_CHARS"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="ORDINAL_FMT"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;%d%s&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="SPACE"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot; &quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="SPLIT_CAMEL"
+ type="java.util.regex.Pattern"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="THOUSAND"
+ type="java.math.BigDecimal"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="bigDecExponents"
+ type="java.util.Map"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="binPrefixes"
+ type="java.util.Map"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="metricPrefixes"
+ type="java.util.Map"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="nanoTimePrefixes"
+ type="java.util.Map"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="Constants.TimeStyle"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="format"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="defaultContext" type="humanize.spi.context.DefaultContext">
+</parameter>
+<parameter name="h" type="int">
+</parameter>
+<parameter name="m" type="int">
+</parameter>
+<parameter name="s" type="int">
+</parameter>
+</method>
+<method name="valueOf"
+ return="humanize.util.Constants.TimeStyle"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="humanize.util.Constants.TimeStyle[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="UTF8Control"
+ extends="java.util.ResourceBundle.Control"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="UTF8Control"
+ type="humanize.util.UTF8Control"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+</class>
+</package>
+</api>
