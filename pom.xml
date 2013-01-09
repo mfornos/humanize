@@ -23,7 +23,7 @@
     <doclava.version>1.0.5</doclava.version>
     <jsr305.version>1.3.9</jsr305.version>
     <surefire.version>2.4.3</surefire.version>
-    <obertura.version>2.5.2</obertura.version>
+    <cobertura.version>2.5.2</cobertura.version>
   </properties>
   
   <licenses>
@@ -105,6 +105,8 @@
             | Apple's JVM sometimes requires more memory
           -->
           <additionalJOption>-J-Xmx1024m</additionalJOption>
+          <!-- Workaround for javadoc annotations bug -->
+          <failOnError>false</failOnError>
         </configuration>
        </plugin>
     </plugins>
