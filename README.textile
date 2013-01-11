@@ -34,8 +34,8 @@ h2. Dependencies
 
 h3. Humanize-slim
 
-* guava 13.0
-* prettytime 2.0.0.Final
+* guava 13.0.1
+* prettytime 2.1.2.Final
 
 h3. Humanize-icu
 
