@@ -69,7 +69,7 @@ public class PluralizeTag extends HumanizeSupport {
 	@Override
 	protected boolean isContextRemoveNeeded() {
 
-		return num == null;
+		return value == null;
 
 	}
 
