@@ -44,45 +44,69 @@ msg = '\${ho}'</code></pre>
     <h3>Source</h3>
     
 <pre><code class="html">&lt;hmnz:message key="plural.template" var="ptmpl" /&gt;
-&lt;hmnz:pluralize value="3"&gt;\${ptmpl}&lt;/hmnz:pluralize&gt;
-&lt;hmnz:pluralize value="1"&gt;\${ptmpl}&lt;/hmnz:pluralize&gt;
-&lt;hmnz:pluralize value="0" template="\${ptmpl}" /&gt;
+&lt;hmnz:pluralizeMessage value="3"&gt;\${ptmpl}&lt;/hmnz:pluralizeMessage&gt;
+&lt;hmnz:pluralizeMessage value="1"&gt;\${ptmpl}&lt;/hmnz:pluralizeMessage&gt;
+&lt;hmnz:pluralizeMessage value="0" template="\${ptmpl}" /&gt;
 template = '\${ptmpl}'
     
-&lt;hmnz:pluralize value="3"&gt;
+&lt;hmnz:pluralizeMessage value="3"&gt;
   nothing::something::{0} things
-&lt;/hmnz:pluralize&gt;
-&lt;hmnz:pluralize value="1"&gt;something::{0} things&lt;/hmnz:pluralize&gt;
-&lt;hmnz:pluralize value="0" template="nothing::something::{0} things" /&gt;
+&lt;/hmnz:pluralizeMessage&gt;
+&lt;hmnz:pluralizeMessage value="1"&gt;something::{0} things&lt;/hmnz:pluralizeMessage&gt;
+&lt;hmnz:pluralizeMessage value="0" template="nothing::something::{0} things" /&gt;
 
-&lt;hmnz:pluralize value="0" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
-&lt;hmnz:pluralize value="1" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
-&lt;hmnz:pluralize value="2" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
+&lt;hmnz:pluralizeMessage value="0" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
+&lt;hmnz:pluralizeMessage value="1" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
+&lt;hmnz:pluralizeMessage value="2" template="no{1}::some{1}::{0} {1}s" args="thing" /&gt;
     
-&lt;hmnz:pluralize value="1" template="no{1} {2}::some{1} {2}::{0} {1}s {2}" 
+&lt;hmnz:pluralizeMessage value="1" template="no{1} {2}::some{1} {2}::{0} {1}s {2}" 
     args="thing,extra" /&gt;
-&lt;hmnz:pluralize value="1" template="no{1} {2}::some{1} {2} {3}::{0} {1}s {2}" 
+&lt;hmnz:pluralizeMessage value="1" template="no{1} {2}::some{1} {2} {3}::{0} {1}s {2}" 
     args="thing, extra1, extra2" /&gt;</code></pre>
     
     <h3>Output</h3>
     
     <pre class="out">
     <hmnz:message key="plural.template" var="ptmpl" />
-    <hmnz:pluralize value="3">${ptmpl}</hmnz:pluralize>
-    <hmnz:pluralize value="1">${ptmpl}</hmnz:pluralize>
-    <hmnz:pluralize value="0" template="${ptmpl}" />
+    <hmnz:pluralizeMessage value="3">${ptmpl}</hmnz:pluralizeMessage>
+    <hmnz:pluralizeMessage value="1">${ptmpl}</hmnz:pluralizeMessage>
+    <hmnz:pluralizeMessage value="0" template="${ptmpl}" />
     template = '${ptmpl}'
     
-    <hmnz:pluralize value="3">nothing::something::{0} things</hmnz:pluralize>
-    <hmnz:pluralize value="1">something::{0} things</hmnz:pluralize>
-    <hmnz:pluralize value="0" template="nothing::something::{0} things" />
+    <hmnz:pluralizeMessage value="3">nothing::something::{0} things</hmnz:pluralizeMessage>
+    <hmnz:pluralizeMessage value="1">something::{0} things</hmnz:pluralizeMessage>
+    <hmnz:pluralizeMessage value="0" template="nothing::something::{0} things" />
     
-    <hmnz:pluralize value="0" template="no{1}::some{1}::{0} {1}s" args="thing" />
-    <hmnz:pluralize value="1" template="no{1}::some{1}::{0} {1}s" args="thing" />
-    <hmnz:pluralize value="2" template="no{1}::some{1}::{0} {1}s" args="thing" />
+    <hmnz:pluralizeMessage value="0" template="no{1}::some{1}::{0} {1}s" args="thing" />
+    <hmnz:pluralizeMessage value="1" template="no{1}::some{1}::{0} {1}s" args="thing" />
+    <hmnz:pluralizeMessage value="2" template="no{1}::some{1}::{0} {1}s" args="thing" />
     
-    <hmnz:pluralize value="1" template="no{1} {2}::some{1} {2}::{0} {1}s {2}" args="thing,extra" />
-    <hmnz:pluralize value="1" template="no{1} {2}::some{1} {2} {3}::{0} {1}s {2}" args="thing, extra1, extra2" />
+    <hmnz:pluralizeMessage value="1" template="no{1} {2}::some{1} {2}::{0} {1}s {2}" args="thing,extra" />
+    <hmnz:pluralizeMessage value="1" template="no{1} {2}::some{1} {2} {3}::{0} {1}s {2}" args="thing, extra1, extra2" />
+    </pre>
+    
+    <h3>Source</h3>
+    
+<pre><code class="html">&lt;hmnz:pluralize one="something" many="{0} things" value="1" /&gt;
+&lt;hmnz:pluralize one="something" many="{0} things" value="2" /&gt;
+&lt;hmnz:pluralize one="something" many="{0} things" none="nothing" value="0" /&gt;
+&lt;hmnz:pluralize one="something" many="{0} things" none="nothing" value="1" /&gt;
+&lt;hmnz:pluralize one="something" many="{0} things" none="nothing" value="2" /&gt;
+&lt;hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="0" args="disk" /&gt;
+&lt;hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="1" args="disk" /&gt;
+&lt;hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="2" args="disk" /&gt;</code></pre>
+    
+    <h3>Output</h3>
+    
+    <pre class="out">
+    <hmnz:pluralize one="something" many="{0} things" value="1" />
+    <hmnz:pluralize one="something" many="{0} things" value="2" />
+    <hmnz:pluralize one="something" many="{0} things" none="nothing" value="0" />
+    <hmnz:pluralize one="something" many="{0} things" none="nothing" value="1" />
+    <hmnz:pluralize one="something" many="{0} things" none="nothing" value="2" />
+    <hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="0" args="disk" />
+    <hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="1" args="disk" />
+    <hmnz:pluralize one="one {1}" many="{0} {1}s" none="no {1}s" value="2" args="disk" />
     </pre>
     
     <h2>Text</h2>
@@ -131,6 +155,8 @@ size = '${size}'</code></pre>
     <h3>Source</h3>
     
 <pre><code class="html">&lt;hmnz:nanoTime value="898734" var="nanos" /&gt;
+&lt;hmnz:duration value="898734" /&gt;
+&lt;hmnz:duration value="898734" style="french_decimal" /&gt;
 &lt;hmnz:naturalTime from="&lt;%= new Date(0) %&gt;" to="&lt;%= new Date(10000000L) %&gt;" /&gt;
 &lt;hmnz:naturalTime to="&lt;%= new Date(10000000L) %&gt;" /&gt;
 &lt;hmnz:naturalDay value="&lt;%= new Date() %&gt;" /&gt;
@@ -141,6 +167,8 @@ size = '${size}'</code></pre>
     
     <pre class="out">
     <hmnz:nanoTime value="898734" var="nanos" />
+    <hmnz:duration value="898734" />
+    <hmnz:duration value="898734" style="french_decimal" />
     <hmnz:naturalTime from="<%= new Date(0) %>" to="<%= new Date(10000000L) %>" />
     <hmnz:naturalTime to="<%= new Date(10000000L) %>" />
     <hmnz:naturalDay value="<%= new Date() %>" />

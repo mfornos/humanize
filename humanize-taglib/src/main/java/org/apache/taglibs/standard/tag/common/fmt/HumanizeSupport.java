@@ -102,6 +102,12 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 
 	}
 
+	protected boolean isEmpty(String str) {
+
+		return str == null || str.length() < 1;
+		
+	}
+
 	abstract protected boolean isContextRemoveNeeded();
 
 	abstract protected String render() throws JspException;

@@ -75,14 +75,80 @@ Argument used for parametric replacement.
     <description>
 Constructs a message with pluralization logic from the given template.
     </description>
-    <name>pluralize</name>
-    <tag-class>humanize.taglibs.PluralizeTag</tag-class>
+    <name>pluralizeMessage</name>
+    <tag-class>humanize.taglibs.PluralizeMessageTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
         <description>
 String of tokens delimited by '::'. Ex. 'nothing::one thing::{0} things', 'something::{0} things'.
         </description>
         <name>template</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Comma separated list of extra arguments.See fn:join.
+        </description>
+        <name>args</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+The numeric value.
+        </description>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Name of the exported scoped variable
+which stores the localized message.
+        </description>
+        <name>var</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Scope of var.
+        </description>
+        <name>scope</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <description>
+Constructs a message with pluralization logic.
+    </description>
+    <name>pluralize</name>
+    <tag-class>humanize.taglibs.PluralizeTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <description>
+Pattern for none cardinality.
+        </description>
+        <name>none</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Pattern for one cardinality.
+        </description>
+        <name>one</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Pattern for many cardinality.
+        </description>
+        <name>many</name>
         <required>false</required>
         <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -354,6 +420,48 @@ Formats a number of nanoseconds as the proper ten power unit.
 Number of nanoseconds.
         </description>
         <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Name of the exported scoped variable
+which stores the localized message.
+        </description>
+        <name>var</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Scope of var.
+        </description>
+        <name>scope</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+    <tag>
+    <description>
+Formats a number of seconds as hours, minutes and seconds.
+    </description>
+    <name>duration</name>
+    <tag-class>humanize.taglibs.DurationTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <description>
+Number of seconds.
+        </description>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>
+Format style. 'standard', 'french_decimal'
+        </description>
+        <name>style</name>
         <required>false</required>
         <rtexprvalue>true</rtexprvalue>
     </attribute>

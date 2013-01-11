@@ -12,82 +12,95 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 
-// TODO adapt to new pluralize method
 public class PluralizeTag extends HumanizeSupport {
 
-	private static final long serialVersionUID = -3406725990318696579L;
+	private static final long serialVersionUID = -8952205534935694612L;
 
-	private String template;
+	private String none;
+
+	private String one;
+
+	private String many;
 
 	private Object value;
 
 	private String args;
 
-	private String input;
+	private Number num;
 
 	private Object[] argsArray;
 
-	public void setTemplate(String template) {
-
-		this.template = template;
-
-	}
-
-	public void setValue(Object value) {
+	public void setValue(String value) {
 
 		this.value = value;
 
 	}
 
+	public void setNone(String none) {
+
+		this.none = none;
+	}
+
+	public void setOne(String one) {
+
+		this.one = one;
+	}
+
+	public void setMany(String many) {
+
+		this.many = many;
+	}
+
 	public void setArgs(String args) {
 
 		this.args = args;
-
-	}
-
-	@Override
-	protected void begin() throws JspException {
-
-		this.input = template == null || template.length() < 1 ? inputFromBody() : template;
-
-		List<Object> tmpArr = new ArrayList<Object>();
-		tmpArr.add(asNumber(value));
-		if (args != null) {
-			tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
-		}
-
-		this.argsArray = tmpArr.toArray(new Object[tmpArr.size()]);
-
 	}
 
 	protected void clean() {
 
-		this.template = null;
 		this.value = null;
-		this.input = null;
-		this.args = null;
-		this.argsArray = null;
+		this.none = null;
+		this.one = null;
+		this.many = null;
+		this.num = null;
 
 	}
 
 	@Override
 	protected boolean isContextRemoveNeeded() {
 
-		return (input == null || input.length() < 1) || (argsArray == null || argsArray.length == 0);
+		// XXX check this
+		return isEmpty(none) && isEmpty(one) && isEmpty(many);
 
 	}
 
 	@Override
 	protected String render() throws JspException {
 
-		return Humanize.pluralizeFormat(input).render(argsArray);
+		return isEmpty(none) ? Humanize.pluralize(one, many, num, argsArray) : Humanize.pluralize(one, many, none, num,
+		        argsArray);
 
 	}
 
 	@Override
 	protected String render(Locale locale) throws JspException {
 
-		return Humanize.pluralizeFormat(input, locale).render(argsArray);
+		return isEmpty(none) ? Humanize.pluralize(locale, one, many, num, argsArray) : Humanize.pluralize(locale, one,
+		        many, none, num, argsArray);
+
+	}
+
+	@Override
+	protected void begin() throws JspException {
+
+		num = asNumber(value);
+
+		List<Object> tmpArr = new ArrayList<Object>();
+		if (args != null) {
+			tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
+		}
+
+		this.argsArray = tmpArr.toArray(new Object[tmpArr.size()]);
 
 	}
 

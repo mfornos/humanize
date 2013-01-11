@@ -137,7 +137,6 @@ public final class Humanize {
 	 *            String to be camelized
 	 * @return Camelized string
 	 */
-	@Expose
 	public static String camelize(final String text) {
 
 		return camelize(text, false);
@@ -167,7 +166,49 @@ public final class Humanize {
 		for (String token : tokens)
 			sb.append(capitalize(token));
 
-		return capitalizeFirstChar ? sb.toString() : sb.substring(0, 1).toLowerCase() + sb.substring(1);
+		return capitalizeFirstChar ? sb.toString() : sb.substring(0, 1).toLowerCase(context.get().getLocale())
+		        + sb.substring(1);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #camelize(String, boolean)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param capitalizeFirstChar
+	 *            true makes the first letter uppercase
+	 * @param text
+	 *            String to be camelized
+	 * @return Camelized string
+	 */
+	public static String camelize(final String text, final boolean capitalizeFirstChar, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return camelize(text, capitalizeFirstChar);
+
+			}
+		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #camelize(String)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param text
+	 *            String to be camelized
+	 * @param locale
+	 *            Target locale
+	 * @return Camelized string
+	 */
+	@Expose
+	public static String camelize(final String text, final Locale locale) {
+
+		return camelize(text, false, locale);
 
 	}
 
@@ -180,12 +221,36 @@ public final class Humanize {
 	 *            String to be capitalized
 	 * @return capitalized string
 	 */
-	@Expose
 	public static String capitalize(final String word) {
 
 		if (word.length() == 0)
 			return word;
-		return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+		Locale locale = context.get().getLocale();
+		return word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Same as {@link #capitalize(String)} for the specified locale.
+	 * </p>
+	 * 
+	 * @param word
+	 *            String to be capitalized
+	 * @param locale
+	 *            Target locale
+	 * @return capitalized string
+	 */
+	@Expose
+	public static String capitalize(final String word, final Locale locale) {
+
+		return withinLocale(new Callable<String>() {
+			public String call() throws Exception {
+
+				return capitalize(word);
+
+			}
+		}, locale);
 
 	}
 
@@ -594,7 +659,7 @@ public final class Humanize {
 	public static String duration(final Number seconds) {
 
 		return duration(seconds, TimeStyle.STANDARD);
-		
+
 	}
 
 	/**

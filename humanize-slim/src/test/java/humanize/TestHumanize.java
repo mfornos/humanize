@@ -2,6 +2,7 @@ package humanize;
 
 import static humanize.Humanize.binaryPrefix;
 import static humanize.Humanize.camelize;
+import static humanize.Humanize.capitalize;
 import static humanize.Humanize.decamelize;
 import static humanize.Humanize.duration;
 import static humanize.Humanize.formatCurrency;
@@ -90,6 +91,26 @@ public class TestHumanize {
 
 		try {
 			camelize(null);
+			fail("handles null?");
+		} catch (NullPointerException ex) {
+
+		}
+
+	}
+
+	@Test
+	public void capitalizeTest() {
+
+		assertEquals(capitalize("hola mundo abc"), "Hola mundo abc");
+		assertEquals(capitalize("HOLA mundO AbC"), "Hola mundo abc");
+		assertEquals(capitalize("Hola Mundo abC"), "Hola mundo abc");
+		assertEquals(capitalize(""), "");
+		assertEquals(capitalize("* Hola Mundo aBC"), "* hola mundo abc");
+
+		assertEquals(capitalize("iyi akşamlar", new Locale("tr")), "İyi akşamlar");
+
+		try {
+			capitalize(null);
 			fail("handles null?");
 		} catch (NullPointerException ex) {
 
