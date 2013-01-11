@@ -288,8 +288,9 @@ p. Use it in a page
 
 bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
 
-<hmnz:pluralize value="0" template="nothing::something::{0} things" />
 <hmnz:metricPrefix value="100000000" />
+<hmnz:pluralize value="0" one="something" many="{0} things" none="nothing" />
+<hmnz:pluralizeMessage value="0" template="nothing::something::{0} things" />
 
 p. 
 * "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
