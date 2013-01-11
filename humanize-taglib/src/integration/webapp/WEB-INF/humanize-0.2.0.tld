@@ -141,7 +141,7 @@ Pattern for none cardinality.
 Pattern for one cardinality.
         </description>
         <name>one</name>
-        <required>false</required>
+        <required>true</required>
         <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
@@ -149,7 +149,7 @@ Pattern for one cardinality.
 Pattern for many cardinality.
         </description>
         <name>many</name>
-        <required>false</required>
+        <required>true</required>
         <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>

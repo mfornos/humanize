@@ -69,8 +69,7 @@ public class PluralizeTag extends HumanizeSupport {
 	@Override
 	protected boolean isContextRemoveNeeded() {
 
-		// XXX check this
-		return isEmpty(none) && isEmpty(one) && isEmpty(many);
+		return num == null;
 
 	}
 
