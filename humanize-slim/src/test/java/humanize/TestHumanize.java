@@ -514,7 +514,7 @@ public class TestHumanize {
 
 		// within locale
 		prettyTime = prettyTimeFormat(ES);
-		assertEquals(prettyTime.format(new Date()), "en un instante");
+		assertEquals(prettyTime.format(new Date(0), new Date(1)), "en un instante");
 
 	}
 
