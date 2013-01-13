@@ -41,6 +41,7 @@ import java.util.concurrent.Callable;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ObjectArrays;
 
 /**
@@ -727,6 +728,51 @@ public final class Humanize {
 
 			}
 		}, locale);
+
+	}
+
+	/**
+	 * <p>
+	 * Pads or truncates a string to a specified length.
+	 * </p>
+	 * 
+	 * @param text
+	 *            String to be fixed
+	 * @param charsNum
+	 *            The fixed length in number of chars
+	 * @param paddingChar
+	 *            The padding character
+	 * @return A fixed length string
+	 */
+	public static String fixLength(final String text, final int charsNum, final char paddingChar) {
+
+		return fixLength(text, charsNum, paddingChar, false);
+
+	}
+
+	/**
+	 * <p>
+	 * Pads or truncates a string to a specified length.
+	 * </p>
+	 * 
+	 * @param text
+	 *            String to be fixed
+	 * @param charsNum
+	 *            The fixed length in number of chars
+	 * @param paddingChar
+	 *            The padding character
+	 * @param left
+	 *            true for left padding
+	 * @return A fixed length string
+	 */
+	public static String fixLength(final String text, final int charsNum, final char paddingChar, final boolean left) {
+
+		Preconditions.checkArgument(charsNum > 0, "The number of characters must be greater than zero.");
+
+		String str = text == null ? "" : text;
+		String fmt = String.format("%%%ss", left ? charsNum : -charsNum);
+
+		return String.format(fmt, str).substring(0, charsNum).replace(' ', paddingChar);
 
 	}
 

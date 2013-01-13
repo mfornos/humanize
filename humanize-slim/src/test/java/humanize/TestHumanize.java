@@ -5,6 +5,7 @@ import static humanize.Humanize.camelize;
 import static humanize.Humanize.capitalize;
 import static humanize.Humanize.decamelize;
 import static humanize.Humanize.duration;
+import static humanize.Humanize.fixLength;
 import static humanize.Humanize.formatCurrency;
 import static humanize.Humanize.formatDate;
 import static humanize.Humanize.formatDateTime;
@@ -42,6 +43,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -171,6 +173,26 @@ public class TestHumanize {
 		assertEquals(duration(120), "0:02:00");
 		assertEquals(duration(125), "0:02:05");
 		assertEquals(duration(2015), "0:33:35");
+
+	}
+
+	@Test
+	public void fixLengthTest() {
+
+		assertEquals(fixLength("", 5, '-'), "-----");
+		assertEquals(fixLength(null, 1, '-'), "-");
+		assertEquals(fixLength("abc", 1, '-'), "a");
+		assertEquals(fixLength("12345", 10, '-'), "12345-----");
+		assertEquals(fixLength("12345", 3, '-'), "123");
+		assertEquals(fixLength("12345", 10, '-', true), "-----12345");
+		assertEquals(fixLength("12345", 3, '-', true), "123");
+
+		try {
+			assertEquals(fixLength("12345", 0, '-'), "123");
+			Assert.fail();
+		} catch (Exception e) {
+			//
+		}
 
 	}
 
