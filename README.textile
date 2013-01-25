@@ -65,28 +65,7 @@ class SomeClass {
 
 p. 
 
-h2. Cache configuration
-
-By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a @humanize.properties@ file, or specify the location of a properties file using the @humanize.config@ system property, with a CacheBuilderSpec string configuration like this:
-
-bc.. cache.builder.spec:expireAfterAccess=15m
-
-p. The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.
-
-* concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.
-* initialCapacity=[integer]: sets CacheBuilder.initialCapacity.
-* maximumSize=[long]: sets CacheBuilder.maximumSize.
-* maximumWeight=[long]: sets CacheBuilder.maximumWeight.
-* expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).
-* expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).
-* refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).
-* weakKeys: sets CacheBuilder.weakKeys().
-* softValues: sets CacheBuilder.softValues().
-* weakValues: sets CacheBuilder.weakValues().
-
-Durations are represented by an integer, followed by one of "d", "h", "m", or "s", representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.) 
-
-h2. Javadoc
+h2. Documentation
 
 * "Documentation for humanize-slim":http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
 * "Documentation for humanize-icu":http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
@@ -217,11 +196,44 @@ h3. Text
 | messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
 
+h2. Supported languages
+
+*humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.
+
+*humanize-icu*: all languages supported by the "ICU APIs":http://icu-project.org/.
+
+h3. Custom languages
+
+If you want to add support for other languages simply put a properties file named *Humanize_{your_locale}.properties* under the classpath: *i18n*.
+
 h2. Extensible Message Formats
 
 If you want to plug in your own formats then place a @META-INF/services/humanize.spi.FormatProvider@ file inside your jar. This file must contain a list of the full qualified class names of your @FormatProvider@ implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.
 
-h2. The Unified Code for Units of Measure (UCUM)
+h2. Cache configuration
+
+By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a @humanize.properties@ file, or specify the location of a properties file using the @humanize.config@ system property, with a CacheBuilderSpec string configuration like this:
+
+bc.. cache.builder.spec:expireAfterAccess=15m
+
+p. The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.
+
+* concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.
+* initialCapacity=[integer]: sets CacheBuilder.initialCapacity.
+* maximumSize=[long]: sets CacheBuilder.maximumSize.
+* maximumWeight=[long]: sets CacheBuilder.maximumWeight.
+* expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).
+* expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).
+* refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).
+* weakKeys: sets CacheBuilder.weakKeys().
+* softValues: sets CacheBuilder.softValues().
+* weakValues: sets CacheBuilder.weakValues().
+
+Durations are represented by an integer, followed by one of "d", "h", "m", or "s", representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.) 
+
+h2. Extensions
+
+h3. The Unified Code for Units of Measure (UCUM)
 
 Humanize provides a module called *humanize-ucum* that adds JSR-275* support.
 
@@ -270,7 +282,7 @@ Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateT
 
 p. Note that it supports almost any Joda format as subformat. See FormatNames for details.
 
-h2. Taglib
+h3. Taglib
 
 p. Humanize Tag library.
 
@@ -295,14 +307,6 @@ bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
 p. 
 * "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
 * See @humanize-taglib/src/integration/webapp@ for a complete example.
-
-
-
-h2. Supported languages
-
-*humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.
-
-*humanize-icu*: all languages supported by the "ICU APIs":http://icu-project.org/.
 
 
 h2. Epilog
