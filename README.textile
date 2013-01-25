@@ -308,6 +308,12 @@ p.
 * "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
 * See @humanize-taglib/src/integration/webapp@ for a complete example.
 
+h2. Integrations
+
+h3. Handlebars Helper
+
+Humanize is integrated in the awesome "Handlebars.java":https://github.com/jknack/handlebars.java project.
+
 
 h2. Epilog
 
