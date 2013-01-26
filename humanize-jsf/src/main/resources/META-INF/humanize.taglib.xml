@@ -13,5 +13,17 @@
       <converter-id>humanize.Duration</converter-id>
     </converter>
   </tag>
+  <tag>
+    <tag-name>naturalTime</tag-name>
+    <converter>
+      <converter-id>humanize.NaturalTime</converter-id>
+    </converter>
+  </tag>
+  <tag>
+    <tag-name>pluralize</tag-name>
+    <converter>
+      <converter-id>humanize.Pluralize</converter-id>
+    </converter>
+  </tag>
 
 </facelet-taglib>

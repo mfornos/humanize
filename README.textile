@@ -210,6 +210,17 @@ h2. Extensible Message Formats
 
 If you want to plug in your own formats then place a @META-INF/services/humanize.spi.FormatProvider@ file inside your jar. This file must contain a list of the full qualified class names of your @FormatProvider@ implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.
 
+h3. Built-in Humanize Extended Formats
+
+Create a file @META-INF/services/humanize.spi.FormatProvider@ with the following content:
+
+bc.. humanize.text.HumanizeFormatProvider
+humanize.text.MaskFormat
+
+p. Use it
+
+bc.. Humanize.format("{0,humanize,ordinal} greetings", 1); // == "1st greetings"
+
 h2. Cache configuration
 
 By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a @humanize.properties@ file, or specify the location of a properties file using the @humanize.config@ system property, with a CacheBuilderSpec string configuration like this:

@@ -5,6 +5,14 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
     http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     version="2.0">
+ 
+    <render-kit>
+            <renderer>
+            <component-family>javax.faces.Output</component-family>
+            <renderer-type>javax.faces.Format</renderer-type>
+            <renderer-class>humanize.faces.renderkit.html.HtmlFormatRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 
     <!-- XXX Some JSF 2.0 implementations doesn't scan FacesConverter annotations properly -->
     <converter>
@@ -19,5 +27,29 @@
         <converter-id>humanize.Duration</converter-id>
         <converter-class>humanize.faces.convert.DurationConverter</converter-class>
     </converter>
-
+    <converter>
+        <converter-id>humanize.Ordinal</converter-id>
+        <converter-class>humanize.faces.convert.OrdinalConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.NaturalDay</converter-id>
+        <converter-class>humanize.faces.convert.NaturalDayConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.NaturalTime</converter-id>
+        <converter-class>humanize.faces.convert.NaturalTimeConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.NanoTime</converter-id>
+        <converter-class>humanize.faces.convert.NanoTimeConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.Slugify</converter-id>
+        <converter-class>humanize.faces.convert.SlugifyConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.Pluralize</converter-id>
+        <converter-class>humanize.faces.convert.PluralizeConverter</converter-class>
+    </converter>
+        
 </faces-config>

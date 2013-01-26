@@ -6,15 +6,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = "humanize.MetricPrefix")
-public class MetricPrefixConverter extends NumberConverter {
+@FacesConverter(value = "humanize.Slugify")
+public class SlugifyConverter extends BaseConverter {
 
-	private static final long serialVersionUID = 789707697926582865L;
+    private static final long serialVersionUID = -446143597515448224L;
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 
-		return Humanize.metricPrefix(asNumber(value), getLocale(context));
+		return Humanize.slugify(value.toString());
 
 	}
 }

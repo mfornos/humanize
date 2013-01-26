@@ -11,23 +11,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "humanize.Duration")
-public class DurationConverter extends BaseConverter {
+public class DurationConverter extends NumberConverter {
 
 	private static final long serialVersionUID = -6598199651948023319L;
 
 	private String style;
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
-		return asLong(value);
-
-	}
-
-	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 
-		return Humanize.duration(asLong(value), getTimeStyle(), getLocale(context));
+		return Humanize.duration(asNumber(value), getTimeStyle(), getLocale(context));
 
 	}
 

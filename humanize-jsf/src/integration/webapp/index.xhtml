@@ -5,6 +5,8 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:hmnz="http://mfornos.github.com/jsf/humanize">
 
+<f:loadBundle basename="test.sample" var="msgs"/>
+
 <head id="www-sitename-com" data-template-set="html5-reset">
   <meta charset="utf-8" />
   
@@ -31,8 +33,110 @@
  <h1>Humanize JSF Example</h1>
  </header>
  <article id="body">
+  
+ <h2>Format</h2>
  
- <h2>Directive</h2>
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputFormat value="hi {0}!"&gt;
+ &lt;f:param value="ho" /&gt;
+&lt;/h:outputFormat&gt;<br/>
+&lt;h:outputFormat value="hi {0,humanize,binary.prefix}!"&gt;
+ &lt;f:param value="\#{10}" /&gt;
+&lt;/h:outputFormat&gt;</code></pre>
+ 
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputFormat value="hi {0}!">
+   <f:param value="ho" />
+ </h:outputFormat><br/>
+ <h:outputFormat value="hi {0,humanize,binary.prefix}!">
+   <f:param value="#{10}" />
+ </h:outputFormat></pre>
+  
+ <h2>Plurals</h2>
+ 
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText value="something::{0} things"&gt;
+   &lt;hmnz:pluralize value="1" /&gt;
+&lt;/h:outputText&gt;
+&lt;h:outputText value="no{1}::some{1}::{0} {1}s"&gt;
+  &lt;hmnz:pluralize value="2" args="thing" /&gt;
+&lt;/h:outputText&gt;
+&lt;h:outputText value="no{1}::some{1}::{0} {1}s"&gt;
+  &lt;hmnz:pluralize value="0" args="thing" /&gt;
+&lt;/h:outputText&gt;
+&lt;h:outputText value="\#{msgs['plural.template']}"&gt;
+  &lt;hmnz:pluralize value="100" /&gt;
+&lt;/h:outputText&gt;
+&lt;h:outputText value="\#{msgs['plural.template']}"&gt;
+  &lt;hmnz:pluralize value="\#{1}" /&gt;
+&lt;/h:outputText&gt;</code></pre>
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputText value="something::{0} things">
+   <hmnz:pluralize value="1" />
+ </h:outputText><br/>
+ <h:outputText value="no{1}::some{1}::{0} {1}s">
+   <hmnz:pluralize value="2" args="thing" />
+ </h:outputText><br/>
+ <h:outputText value="no{1}::some{1}::{0} {1}s">
+   <hmnz:pluralize value="0" args="thing" />
+ </h:outputText><br/>
+ <h:outputText value="#{msgs['plural.template']}">
+   <hmnz:pluralize value="100" />
+ </h:outputText><br/>
+ <h:outputText value="#{msgs['plural.template']}">
+   <hmnz:pluralize value="#{1}" />
+ </h:outputText></pre>
+ 
+ <h2>Date &amp; Time</h2>
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText value="\#{session.lastAccessedTime}" converter="humanize.NaturalDay" /&gt;
+&lt;h:outputText value="\#{session.lastAccessedTime}" converter="humanize.NaturalTime" /&gt;
+&lt;h:outputText value="\#{10000000}"&gt;
+  &lt;hmnz:naturalTime from="\#{0}" /&gt;
+&lt;/h:outputText&gt;<br/>
+&lt;h:outputText value="150000000" converter="humanize.Duration" /&gt;
+&lt;h:outputText value="150000000"&gt;
+  &lt;hmnz:duration style="french_decimal" /&gt;
+&lt;/h:outputText&gt;<br/>
+&lt;h:outputText value="#{5000}" converter="humanize.NanoTime" /&gt;</code></pre>
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputText value="#{session.lastAccessedTime}" converter="humanize.NaturalDay" /><br/>
+ <h:outputText value="#{session.lastAccessedTime}" converter="humanize.NaturalTime" /><br/>
+ <h:outputText value="#{10000000}">
+   <hmnz:naturalTime from="#{0}" />
+ </h:outputText><br/>
+ <h:outputText value="150000000" converter="humanize.Duration" /><br/>
+ <h:outputText value="150000000">
+   <hmnz:duration style="french_decimal" />
+ </h:outputText><br/>
+ <h:outputText value="#{5000}" converter="humanize.NanoTime" /></pre>
+ 
+ <h2>Text</h2>
+ 
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText 
+    value="Abdullah Ibrahim &amp; Ekaya - Water from an Ancient World (fragm.)" 
+    converter="humanize.Slugify" /&gt;</code></pre>
+ 
+ <h3>Output</h3>
+ <pre class="out">
+  <h:outputText value="Abdullah Ibrahim &amp; Ekaya - Water from an Ancient World (fragm.)" converter="humanize.Slugify" /></pre>
+ 
+ <h2>Number</h2>
+ 
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText value="150000" converter="humanize.MetricPrefix" /&gt;
+&lt;h:outputText value="\#{104857600}" converter="humanize.BinaryPrefix" /&gt;</code></pre>
+ 
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputText value="150000" converter="humanize.MetricPrefix" /><br/>
+ <h:outputText value="#{104857600}" converter="humanize.BinaryPrefix" /></pre>
+ 
+ <h2>Directives</h2>
  
  <h3>Facelet taglib</h3>   
  <pre><code class="javascript">&lt;html xmlns="http://www.w3.org/1999/xhtml"
@@ -40,31 +144,10 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:hmnz="http://mfornos.github.com/jsf/humanize"&gt;</code></pre>
  
- <h2>Number</h2>
- 
- <h3>Source</h3>
- <pre><code>&lt;h:outputText value="150000" converter="humanize.MetricPrefix" /&gt;
-&lt;h:outputText value="104857600" converter="humanize.BinaryPrefix" /&gt;</code></pre>
- 
- <h3>Output</h3>
- <pre class="out">
- <h:outputText value="150000" converter="humanize.MetricPrefix" /><br/>
- <h:outputText value="104857600" converter="humanize.BinaryPrefix" /></pre>
- 
- <h2>Date &amp; Time</h2>
- <h3>Source</h3>
- <pre><code>&lt;h:outputText value="150000000" converter="humanize.Duration" /&gt;
-&lt;h:outputText value="150000000"&gt;
-  &lt;hmnz:duration style="french_decimal" /&gt;
-&lt;/h:outputText&gt;</code></pre>
- <h3>Output</h3>
- <pre class="out">
- <h:outputText value="150000000" converter="humanize.Duration" /><br/>
- <h:outputText value="150000000">
-   <hmnz:duration style="french_decimal" />
- </h:outputText></pre>
- 
  </article>
+ <footer>
+   <p id="copyright">Humanize for Java. <a href="http://github.com/mfornos">Github</a>.</p>
+ </footer>
  </div>
 </h:body>
 </html>

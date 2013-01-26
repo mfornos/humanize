@@ -2,11 +2,13 @@ package humanize.faces.convert;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import javax.faces.component.PartialStateHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
@@ -26,6 +28,13 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 	public void clearInitialState() {
 
 		initialState = false;
+
+	}
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+
+		return value;
 
 	}
 
@@ -104,23 +113,28 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 
 	}
 
-	protected Double asDouble(Object value) {
+	protected Date asDate(Object value) {
 
-		if (Number.class.isAssignableFrom(value.getClass())) {
-			return ((Number) value).doubleValue();
+		if (Date.class.isAssignableFrom(value.getClass())) {
+			return (Date) value;
 		} else {
-			return Double.parseDouble(value.toString());
+			return new Date(Long.parseLong(value.toString()));
 		}
 
 	}
 
-	protected Long asLong(Object value) {
+	protected Number asNumber(Object input) {
 
-		if (Number.class.isAssignableFrom(value.getClass())) {
-			return ((Number) value).longValue();
-		} else {
-			return Long.parseLong(value.toString());
+		if (input instanceof String) {
+			try {
+				String istr = (String) input;
+				return (istr.indexOf('.') != -1) ? Double.valueOf(istr) : Long.valueOf(istr);
+			} catch (NumberFormatException nfe) {
+				throw new IllegalArgumentException(nfe);
+			}
 		}
+
+		return (Number) input;
 
 	}
 
