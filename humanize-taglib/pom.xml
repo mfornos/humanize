@@ -3,11 +3,11 @@
 	<parent>
 		<artifactId>humanize</artifactId>
 		<groupId>com.github.mfornos</groupId>
-		<version>1.1.1-SNAPSHOT</version>
+		<version>1.1.1</version>
 	</parent>
 	<groupId>com.github.mfornos</groupId>
 	<artifactId>humanize-taglib</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 	<name>Humanize for Java - Taglib</name>
 	<description>Humanize tag library.</description>
 
