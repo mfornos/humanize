@@ -319,6 +319,38 @@ p.
 * "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
 * See @humanize-taglib/src/integration/webapp@ for a complete example.
 
+h3. Java Server Faces
+
+p. Humanize JSF.
+
+Usage:
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-jsf</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. Use it in a page
+
+bc.. <html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:hmnz="http://mfornos.github.com/jsf/humanize">
+
+<h:outputText value="100000000" converter="humanize.MetricPrefix" />
+<h:outputText value="nothing::something::{0} things">
+  <hmnz:pluralize value="0" />
+</h:outputText>
+<h:outputFormat value="hi {0,humanize,binary.prefix}!">
+  <f:param value="#{10}" />
+</h:outputFormat>
+
+p. 
+* See @humanize-jsf/src/integration/webapp@ for a complete example.
+
 h2. Integrations
 
 h3. Handlebars Helper
