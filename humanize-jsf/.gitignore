@@ -1,6 +1,5 @@
 /target
 /test-output
-/node_modules
 .project
 .classpath
 .settings
