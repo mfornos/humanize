@@ -6,7 +6,7 @@
     http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     version="2.0">
 
-    <!-- Some JSF 2.0 implementations doesn't scan FacesConverter annotations properly -->
+    <!-- XXX Some JSF 2.0 implementations doesn't scan FacesConverter annotations properly -->
     <converter>
         <converter-id>humanize.MetricPrefix</converter-id>
         <converter-class>humanize.faces.convert.MetricPrefixConverter</converter-class>
@@ -18,10 +18,6 @@
     <converter>
         <converter-id>humanize.Duration</converter-id>
         <converter-class>humanize.faces.convert.DurationConverter</converter-class>
-        <property>
-          <property-name>durationStyle</property-name>
-          <suggested-value>french_decimal</suggested-value>
-        </property>
     </converter>
 
 </faces-config>
