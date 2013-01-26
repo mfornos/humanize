@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:hmnz="http://mfornos.github.com/jsf/humanize">
+
+<head id="www-sitename-com" data-template-set="html5-reset">
+  <meta charset="utf-8" />
+  
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Humanize JSF Example</title>
+  
+  <!-- CSS: screen, mobile & print are all in the same file -->
+  <link rel="stylesheet" href="_/css/style.css" />
+  <link rel="stylesheet" title="Default" href="_/css/highlight/zenburn.css" />
+  
+  <!-- all our JS is at the bottom of the page, except for Modernizr. -->
+  <script src="_/js/modernizr-1.7.min.js"></script>
+  <script src="_/js/highlight.pack.js"></script>
+  <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+  </script>
+</head>
+
+<h:body>
+ <div class="wrapper">
+ <header id="pageheader">
+ <h1>Humanize JSF Example</h1>
+ </header>
+ <article id="body">
+ 
+ <h2>Directive</h2>
+ 
+ <h3>Facelet taglib</h3>   
+ <pre><code class="javascript">&lt;html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:hmnz="http://mfornos.github.com/jsf/humanize"&gt;</code></pre>
+ 
+ <h2>Number</h2>
+ 
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText value="150000" converter="humanize.MetricPrefix" /&gt;
+&lt;h:outputText value="104857600" converter="humanize.BinaryPrefix" /&gt;</code></pre>
+ 
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputText value="150000" converter="humanize.MetricPrefix" /><br/>
+ <h:outputText value="104857600" converter="humanize.BinaryPrefix" /></pre>
+ 
+ <h2>Date &amp; Time</h2>
+ <h3>Source</h3>
+ <pre><code>&lt;h:outputText value="150000000" converter="humanize.Duration" /&gt;
+&lt;h:outputText value="150000000"&gt;
+  &lt;hmnz:duration style="french_decimal" /&gt;
+&lt;/h:outputText&gt;</code></pre>
+ <h3>Output</h3>
+ <pre class="out">
+ <h:outputText value="150000000" converter="humanize.Duration" /><br/>
+ <h:outputText value="150000000">
+   <hmnz:duration style="french_decimal" />
+ </h:outputText></pre>
+ 
+ </article>
+ </div>
+</h:body>
+</html>

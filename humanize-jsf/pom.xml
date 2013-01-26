@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>humanize</artifactId>
+    <groupId>com.github.mfornos</groupId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-jsf</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>Humanize - JSF</name>
+  <description>Humanize JSF converters</description>
+  <packaging>jar</packaging>
+  
+  <properties>
+    <jsf-api.version>2.1.2</jsf-api.version>
+    <standard.version>1.1.2</standard.version>
+    <jstl.version>1.1.2</jstl.version>
+    <jetty.version>8.1.7.v20120910</jetty.version>
+    <jsp-api.version>2.2</jsp-api.version>
+    <htmlunit.version>2.11</htmlunit.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+       <groupId>com.sun.faces</groupId>
+       <artifactId>jsf-api</artifactId>
+       <version>${jsf-api.version}</version>
+       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.mfornos</groupId>
+      <artifactId>humanize-slim</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-servlet</artifactId>
+      <version>${jetty.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-impl</artifactId>
+      <version>${jsf-api.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>${standard.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-jsp</artifactId>
+      <version>${jetty.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>${htmlunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*IT.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>

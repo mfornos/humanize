@@ -130,6 +130,7 @@
   	<module>humanize-ucum</module>
   	<module>humanize-joda</module>
   	<module>humanize-taglib</module>
+  	<module>humanize-jsf</module>
   </modules>
   
 </project>

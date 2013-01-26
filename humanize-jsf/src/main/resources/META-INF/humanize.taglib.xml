@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                 http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+
+  <namespace>http://mfornos.github.com/jsf/humanize</namespace>
+  
+  <tag>
+    <tag-name>duration</tag-name>
+    <converter>
+      <converter-id>humanize.Duration</converter-id>
+    </converter>
+  </tag>
+
+</facelet-taglib>

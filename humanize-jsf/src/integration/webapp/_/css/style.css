@@ -1,0 +1,835 @@
+/*
+	HTML5 Reset :: style.css
+	----------------------------------------------------------
+	We have learned much from/been inspired by/taken code where offered from:
+	
+	Eric Meyer					:: http://ericmeyer.com
+	HTML5 Doctor				:: http://html5doctor.com
+	and the HTML5 Boilerplate	:: http://html5boilerplate.com
+	
+-------------------------------------------------------------------------------*/
+
+/* Let's default this puppy out
+-------------------------------------------------------------------------------*/
+html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,figure,footer,header,hgroup,menu,nav,section,time,mark,audio,video
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+article,aside,figure,footer,header,hgroup,nav,section {
+	display: block;
+}
+
+/* Responsive images and other embedded objects
+   Note: keeping IMG here will cause problems if you're using foreground images as sprites.
+   If this default setting for images is causing issues, you might want to replace it with a .responsive class instead. */
+img,object,embed {
+	max-width: 100%;
+}
+
+/* force a vertical scrollbar to prevent a jumpy page */
+html {
+	overflow-y: scroll;
+}
+
+/* we use a lot of ULs that aren't bulleted. 
+	don't forget to restore the bullets within content. */
+ul {
+	list-style: none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: '';
+	content: none;
+}
+
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+abbr[title],dfn[title] {
+	border-bottom: 1px dotted #000;
+	cursor: help;
+}
+
+/* tables still need cellspacing="0" in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+th {
+	font-weight: bold;
+	vertical-align: bottom;
+}
+
+td {
+	font-weight: normal;
+	vertical-align: top;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+input,select {
+	vertical-align: middle;
+}
+
+input[type="radio"] {
+	vertical-align: text-bottom;
+}
+
+input[type="checkbox"] {
+	vertical-align: bottom;
+	*vertical-align: baseline;
+}
+
+.ie6 input {
+	vertical-align: text-bottom;
+}
+
+select,input,textarea {
+	font: 99% sans-serif;
+}
+
+table {
+	font-size: inherit;
+	font: 100%;
+}
+
+/* Accessible focus treatment
+	people.opera.com/patrickl/experiments/keyboard/test */
+a:hover,a:active {
+	outline: none;
+}
+
+small {
+	font-size: 85%;
+}
+
+strong,th {
+	font-weight: bold;
+}
+
+td,td img {
+	vertical-align: top;
+}
+
+/* Make sure sup and sub don't screw with your line-heights
+	gist.github.com/413930 */
+sub,sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+/* standardize any monospaced elements */
+pre,code,kbd,samp {
+	font-family: monospace, sans-serif;
+}
+
+/* hand cursor on clickable elements */
+.clickable,label,input[type=button],input[type=submit],button {
+	cursor: pointer;
+}
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+button,input,select,textarea {
+	margin: 0;
+}
+
+/* make buttons play nice in IE */
+button {
+	width: auto;
+	overflow: visible;
+}
+
+/* scale images in IE7 more attractively */
+.ie7 img {
+	-ms-interpolation-mode: bicubic;
+}
+
+/* prevent BG image flicker upon hover */
+.ie6 html {
+	filter: expression(document.execCommand (   "BackgroundImageCache", false, true)
+		);
+}
+
+/* let's clear some floats */
+.clearfix:before,.clearfix:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+/* Ok, this is where the fun starts.
+-------------------------------------------------------------------------------*/
+
+/* new Linux- and Windows-friendly sans-serif font stack: http://mky.be/fontstack */
+body {
+	font: 13px Helmet, Freesans, sans-serif;
+}
+
+/* using local fonts? make sure to read up on Paul Irish's 
+	Bulletproof @font-face syntax: http://mky.be/font-face/bulletproof/ */
+
+/* we like off-black for text */
+body,select,input,textarea {
+	color: #333;
+}
+
+a {
+	color: #03f;
+}
+
+a:hover {
+	color: #69f;
+}
+
+/* Custom text-selection colors (remove any text shadows: twitter.com/miketaylr/status/12228805301) */
+::-moz-selection {
+	background: #fcd700;
+	color: #fff;
+	text-shadow: none;
+}
+
+::selection {
+	background: #fcd700;
+	color: #fff;
+	text-shadow: none;
+}
+
+/*	j.mp/webkit-tap-highlight-color */
+a:link {
+	-webkit-tap-highlight-color: #fcd700;
+}
+
+ins {
+	background-color: #fcd700;
+	color: #000;
+	text-decoration: none;
+}
+
+mark {
+	background-color: #fcd700;
+	color: #000;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* Print styles!
+-------------------------------------------------------------------------------*/
+@media print {
+}
+
+/* Media queries!
+-------------------------------------------------------------------------------*/
+
+/* Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
+@media screen and (max-device-width: 480px) {
+}
+
+@media all and (orientation: portrait) {
+}
+
+@media all and (orientation: landscape) {
+}
+
+/* Ok, this is where the fun starts.
+-------------------------------------------------------------------------------*/
+body {
+	background-color: #f7f7f7;
+	color: #2B373D;
+	font: normal 14px/20px Helmet, Freesans, sans-serif;
+	/* new, Linux- and Windows-friendly font stack: http://mky.be/fontstack */
+	margin: 60px 0 36px;
+	padding: 0;
+}
+
+.ie body {
+	margin-top: 40px;
+}
+
+/* using local fonts? make sure to read up on Paul Irish's 
+  Bulletproof @font-face syntax: http://mky.be/font-face/bulletproof/ */
+a {
+	color: #009;
+}
+
+a:hover {
+	color: #66f;
+}
+
+/* Custom text-selection colors (remove any text shadows: twitter.com/miketaylr/status/12228805301) */
+::-moz-selection {
+	background: #ff6;
+}
+
+::selection {
+	background: #ff6;
+}
+
+/* I don't like it when images are highlighted */
+img::-moz-selection {
+	background: transparent;
+}
+
+img::selection {
+	background: transparent;
+}
+
+html {
+	-webkit-text-size-adjust: none;
+}
+
+/*  j.mp/webkit-tap-highlight-color */
+a:link {
+	-webkit-tap-highlight-color: rgba(255, 255, 102, 0.8);
+}
+
+ins {
+	background-color: #ff6;
+	color: #000;
+	text-decoration: none;
+}
+
+mark {
+	background-color: #ff6;
+	color: #000;
+	font-style: italic;
+	font-weight: bold;
+}
+
+time {
+	padding-right: 4px;
+	font-size: 12px;
+}
+
+time:after {
+	content: ":";
+}
+
+code, pre.out {
+	padding: 0 4px;
+	display: block;
+	clear: both;
+	margin: 10px 0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+}
+
+pre.out {
+	background-color: #C7C7C7;
+}
+
+a {
+	position: relative;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+a:active {
+	position: relative;
+	top: 1px;
+}
+
+div.wrapper {
+	width: 90%;
+	max-width: 720px;
+	margin: 0 auto;
+}
+
+.ie body {
+	text-align: center;
+}
+
+.ie div.wrapper {
+	text-align: left;
+	width: 580px;
+}
+
+h1 {
+	position: relative;
+	width: 224px;
+	margin: 0 0 18px;
+	font: normal 51px/40px "aurea-ultra-1", "aurea-ultra-2", georgia, times,
+		serif;
+	line-height: 1.05em;
+}
+
+h1 strong {
+	display: block;
+	font-size: 56px;
+}
+
+h1 a {
+	text-decoration: none;
+	color: #000;
+}
+
+.ie h1 {
+	font-family: georgia, times, serif;
+}
+
+nav {
+	margin: 0 0 30px;
+	padding-top: 12px;
+	border-top: 3px solid #cecece;
+	text-align: center;
+}
+
+nav ol li {
+	display: inline-block;
+	margin-bottom: 6px;
+	padding-right: 12px;
+}
+
+nav ol li:last-child {
+	padding-right: 0;
+}
+
+nav ol li a {
+	text-decoration: none;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #444;
+	font-family: palatino, georgia, times, serif;
+	white-space: nowrap;
+}
+
+nav ol li a:after {
+	content: "\2605";
+	position: absolute;
+	top: 100%;
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 10px;
+	line-height: 10px;
+	color: #f7f7f7;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+nav ol li a:hover:after {
+	color: #009;
+}
+
+hr {
+	display: none;
+	height: 0;
+	width: 25%;
+	margin: 50px auto 50px;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+article {
+	margin: 0 auto 50px;
+}
+
+article h1 {
+	width: auto;
+	margin-top: 5px;
+	padding-top: 10px;
+	font-size: 24px;
+	line-height: 24px;
+	color: #222;
+	font-family: palatino, georgia, times, serif;
+}
+
+article h2 {
+	margin-top: 15px;
+	margin-bottom: 12px;
+	padding-top: 15px;
+	font: normal 16px/16px palatino, georgia, times, serif;
+	color: #222;
+	text-transform: uppercase;
+}
+
+article p {
+	margin-bottom: 18px;
+}
+
+article ol {
+	margin: 0 0 18px 24px;
+}
+
+article ul {
+	margin: 0 0 18px 0;
+}
+
+article ul li {
+	padding-left: 73px;
+	text-indent: -73px;
+}
+
+article ul li time {
+	
+}
+
+article ul.links {
+	margin: 18px 0;
+}
+
+article ul.links li {
+	margin: 0 0 6px 0;
+	padding-left: 18px;
+	text-indent: -18px;
+}
+
+article ul.links li:before {
+	content: "\2605\0020";
+}
+
+article ul.links li.noStar {
+	margin-left: 44px;
+	font-size: 14px;
+	font-style: italic;
+}
+
+article ul.links li.noStar:before {
+	content: "";
+}
+
+.ie article ul.links li:before {
+	content: "&raquo; ";
+}
+
+.ie article ul.links li.noStar {
+	margin-left: 36px;
+}
+
+.ie article ul.links li.noStar:before {
+	content: "";
+}
+
+article ul.screenshots {
+	width: 100%;
+	margin: 6px 0 18px;
+}
+
+article ul.screenshots li {
+	float: left;
+	margin-right: 12px;
+}
+
+article ul.screenshots li:last-child {
+	margin-right: 0;
+}
+
+article ul.screenshots li a {
+	display: block;
+}
+
+article ul.screenshots li img {
+	display: block;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+article figure {
+	float: right;
+	position: relative;
+	margin: 0 -25% 12px 12px;
+}
+
+article figure img {
+	display: block;
+	background: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+@media screen and (max-width: 992px) {
+	article figure {
+		max-width: 50%;
+		margin-right: 0;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	article figure {
+		width: auto;
+		max-width: 100%;
+		float: none;
+		margin: 0 auto 18px;
+	}
+	article figure img {
+		width: 100%;
+	}
+}
+
+article figure:before,article figure:after {
+	content: "";
+	position: absolute;
+	z-index: -2;
+}
+
+/* Lifted corners */
+article figure:before,article figure:after {
+	bottom: 17px;
+	left: 5px;
+	width: 50%;
+	height: 10%;
+	-webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+	-moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+
+article figure:after {
+	right: 5px;
+	left: auto;
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+article ul.download {
+	margin: 18px 0 30px;
+}
+
+article ul.download li {
+	margin-bottom: 12px;
+}
+
+article ul.download li a {
+	display: inline-block;
+	padding: 12px 18px 12px 44px;
+	text-decoration: none;
+	background: rgba(102, 102, 153, .8) url(../img/down-trans.png) 12px 12px
+		no-repeat;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	-webkit-box-shadow: 1px 1px 12px #000;
+	-moz-box-shadow: 1px 1px 9px #000;
+	box-shadow: 1px 1px 9px #000;
+}
+
+article ul.download li a:hover {
+	background-color: rgba(102, 102, 153, 1);
+	-webkit-transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
+	transition: all 0.3s ease-in;
+}
+
+article ul.download li a:active {
+	position: relative;
+	top: 2px;
+}
+
+.ie article ul.download li a {
+	background: #525685 url(../../img/down-trans.png) 12px 10px no-repeat;
+}
+
+.ie article ul.download li a:hover {
+	background-color: #676a98;
+}
+
+div#overlay {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 51, .8);
+	cursor: pointer;
+}
+
+.ie div#overlay {
+	background: url(../../img/bg-trans.png);
+}
+
+div#inner {
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+span.twitterInfo {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	padding: 3px 9px 3px 6px;
+	text-indent: 0;
+	font-size: 12px;
+	font-family: palatino, georgia, times, serif;
+	text-shadow: none;
+	line-height: 12px;
+	color: #222;
+	background: #c0d6e2;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+}
+
+span.twitterInfo a {
+	color: #000;
+	text-decoration: none;
+	text-shadow: none;
+}
+
+span.twitterInfo a:hover {
+	text-decoration: underline;
+}
+
+footer {
+	position: relative;
+	margin: 60px 0 100px;
+	padding: 12px 0 20px;
+	font-size: 14px;
+	border-top: 3px solid #cecece;
+	color: #666;
+}
+
+footer a {
+	color: #666;
+}
+
+footer p img {
+	display: block;
+	float: left;
+	width: 32px;
+	height: 28px;
+	margin: 0 6px;
+	margin-top: -2px;
+	opacity: .8;
+	vertical-align: middle;
+	-webkit-transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
+	transition: all 0.3s ease-in;
+}
+
+footer p img:hover {
+	-webkit-transform: rotate(-10deg) scale(1.8);
+	opacity: 1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.ie footer p img {
+	display: none;
+}
+
+a.contactImg {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+}
+
+a.contactImg img {
+	display: block;
+}
+
+#updated {
+	width: 40px;
+	height: 22px;
+	color: #fff;
+	background: #000;
+	position: absolute;
+	top: 0;
+	left: 95%;
+	text-align: center;
+	font: normal 20px/22px "aurea-ultra-1", "aurea-ultra-2", georgia, times,
+		serif;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .7);
+	white-space: nowrap;
+}
+
+.ie #updated {
+	left: 85%;
+	color: #000;
+	background: transparent;
+	border-color: transparent;
+}
+
+#updated:before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #000;
+}
+
+#updated:after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 10px solid #000;
+}

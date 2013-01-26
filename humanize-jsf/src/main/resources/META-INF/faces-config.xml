@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+
+    <!-- Some JSF 2.0 implementations doesn't scan FacesConverter annotations properly -->
+    <converter>
+        <converter-id>humanize.MetricPrefix</converter-id>
+        <converter-class>humanize.faces.convert.MetricPrefixConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.BinaryPrefix</converter-id>
+        <converter-class>humanize.faces.convert.BinaryPrefixConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>humanize.Duration</converter-id>
+        <converter-class>humanize.faces.convert.DurationConverter</converter-class>
+        <property>
+          <property-name>durationStyle</property-name>
+          <suggested-value>french_decimal</suggested-value>
+        </property>
+    </converter>
+
+</faces-config>
