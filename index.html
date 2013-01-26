@@ -61,7 +61,7 @@ grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.da
 <h3>Maven</h3>
 
 <p>Current version:</p>
-<pre><code>&lt;humanize.version&gt;1.0.0&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;1.1.1&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -114,27 +114,12 @@ class SomeClass {
   
 }</code></pre>
 <p></p>
-<h2>Cache configuration</h2>
-<p>By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a <code>humanize.properties</code> file, or specify the location of a properties file using the <code>humanize.config</code> system property, with a CacheBuilderSpec string configuration like this:</p>
-<pre><code>cache.builder.spec:expireAfterAccess=15m</code></pre>
-<p>The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.</p>
-<ul>
-<li>concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.</li>
-	<li>initialCapacity=[integer]: sets CacheBuilder.initialCapacity.</li>
-	<li>maximumSize=[long]: sets CacheBuilder.maximumSize.</li>
-	<li>maximumWeight=[long]: sets CacheBuilder.maximumWeight.</li>
-	<li>expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).</li>
-	<li>expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).</li>
-	<li>refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).</li>
-	<li>weakKeys: sets CacheBuilder.weakKeys().</li>
-	<li>softValues: sets CacheBuilder.softValues().</li>
-	<li>weakValues: sets CacheBuilder.weakValues().</li>
-</ul><p>Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)</p>
-<h2>Javadoc</h2>
+<h2>Documentation</h2>
 <ul>
 <li><a href="http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html">Documentation for humanize-slim</a></li>
 	<li><a href="http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html">Documentation for humanize-icu</a></li>
-</ul><h2>Examples</h2>
+</ul>
+<h2>Examples</h2>
 <h3>Date&amp;Time</h3>
 <pre><code class="java">naturalTime(new Date()); // == "moments ago"
 naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
@@ -150,7 +135,6 @@ naturalTime(new Date(0), new Date(2629743830L * 3L));
 <p></p>
 <h3>Text</h3>
 <p><strong>Pluralize</strong></p>
-<!--
 <pre><code class="java">pluralize("one", "{0}", 1); // == "one"
 pluralize("one", "{0}", 2); // == "2"
 pluralize("one", "{0}", "none", 0); // == "none"
@@ -158,17 +142,16 @@ pluralize("one", "{0}", "none", 0); // == "none"
 <pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
 pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
 pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
--->
-<pre><code class="java">MessageFormat msg = pluralize("There {0} on {1}.::are no files::is one file::are {2} files");
+<pre><code class="java">MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
 msg.render(0, "disk");    // == "There are no files on disk."
 msg.render(1, "disk");    // == "There is one file on disk."
 msg.render(1000, "disk"); // == "There are 1,000 files on disk."</code></pre>
-<pre><code class="java">MessageFormat msg = pluralize("nothing::one thing::{0} things");
+<pre><code class="java">MessageFormat msg = pluralizeFormat("nothing::one thing::{0} things");
 msg.render(-1); // == "nothing"
 msg.render(0);  // == "nothing"
 msg.render(1);  // == "one thing"
 msg.render(2);  // == "2 things"</code></pre>
-<pre><code class="java">MessageFormat msg = pluralize("one thing::{0} things");
+<pre><code class="java">MessageFormat msg = pluralizeFormat("one thing::{0} things");
 msg.render(-1); // == "-1 things"
 msg.render(0);  // == "0 things"
 msg.render(1);  // == "one thing"
@@ -345,7 +328,14 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<th>ICU </th>
 	</tr>
 <tr>
-<td> pluralize </td>
+	<td>pluralize</td>
+	<td>Applies the proper format for a given plural state.</td>
+	<td> - </td>
+	<td class="tick"> ✔ </td>
+	<td> - </td>
+</tr>
+<tr>
+<td> pluralizeFormat </td>
 		<td> Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to <em>messageFormatInstance</em> for pluralization using CLDR Plural Rules. </td>
 		<td> – </td>
 		<td class="tick"> ✔ </td>
@@ -423,10 +413,49 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 	</tr>
 </table>
 
+<h2>Supported languages</h2>
+<p><strong>humanize-slim</strong>: <em>naturalTime</em> supports over 25 languages, see <a href="http://ocpsoft.org/prettytime">prettytime</a>. Rest of methods have support for english and spanish.</p>
+<p><strong>humanize-icu</strong>: all languages supported by the <a href="http://icu-project.org/">ICU APIs</a>.</p>
+<h3>Custom languages</h3>
+<p>
+If you want to add support for other languages simply put a properties file named <em>Humanize_{your_locale}.properties</em> under the classpath: <em>i18n</em>.
+</p>
+
 <h2>Extensible Message Formats</h2>
 <p>If you want to plug in your own formats then place a <em>META-INF/services/humanize.spi.FormatProvider</em> file inside your jar. This file must contain a list of the full qualified class names of your <em>FormatProvider</em> implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.</p>
 
-<h2>The Unified Code for Units of Measure (UCUM)</h2>
+<h3>Built-in Humanize Extended Formats</h3>
+<p>
+Create a file <em>META-INF/services/humanize.spi.FormatProvider</em> with the following content:
+</p>
+<pre><code class="java">humanize.text.HumanizeFormatProvider
+humanize.text.MaskFormat</code></pre>
+<p>
+Use it
+</p>
+<pre><code class="java">Humanize.format("{0,humanize,ordinal} greetings", 1); 
+// == "1st greetings"</code></pre>
+
+
+<h2>Cache configuration</h2>
+<p>By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a <code>humanize.properties</code> file, or specify the location of a properties file using the <code>humanize.config</code> system property, with a CacheBuilderSpec string configuration like this:</p>
+<pre><code>cache.builder.spec:expireAfterAccess=15m</code></pre>
+<p>The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.</p>
+<ul>
+<li>concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.</li>
+	<li>initialCapacity=[integer]: sets CacheBuilder.initialCapacity.</li>
+	<li>maximumSize=[long]: sets CacheBuilder.maximumSize.</li>
+	<li>maximumWeight=[long]: sets CacheBuilder.maximumWeight.</li>
+	<li>expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).</li>
+	<li>expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).</li>
+	<li>refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).</li>
+	<li>weakKeys: sets CacheBuilder.weakKeys().</li>
+	<li>softValues: sets CacheBuilder.softValues().</li>
+	<li>weakValues: sets CacheBuilder.weakValues().</li>
+</ul><p>Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)</p>
+
+<h2>Extensions</h2>
+<h3>The Unified Code for Units of Measure (UCUM)</h3>
 <p>Humanize provides a module called <strong>humanize-ucum</strong> that adds JSR-275* support.</p>
 <p>Usage:</p>
 <p>Declare the Maven dependency</p>
@@ -444,7 +473,8 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <p>
 * <em>This will be replaced by Units of Measurement API when it is available in Maven central repo.</em>
 </p>
-<h2>Joda Time</h2>
+
+<h3>Joda Time</h3>
 <p>Humanize provides a module called <strong>humanize-joda</strong> that adds support for Joda time formats.</p>
 <p>Usage:</p>
 <p>Declare the Maven dependency</p>
@@ -464,7 +494,8 @@ mf.render(new Period(0, 100000));
 Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
 // == "hello 1970W014T010000+0100!!"</code></pre>
 <p>Note that it supports almost any Joda format as subformat. See FormatNames for details.</p>
-<h2>Taglib</h2>
+
+<h3>Taglib</h3>
 <p>Humanize Tag library.</p>
 <p>Usage:</p>
 <p>Declare the Maven dependency</p>
@@ -476,16 +507,50 @@ Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateT
 <p>Use it in a page</p>
 <pre><code class="xml">&lt;%@taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %&gt;
 
-&lt;hmnz:pluralize value="0" template="nothing::something::{0} things" /&gt;
-&lt;hmnz:metricPrefix value="100000000" /&gt;</code></pre>
+&lt;hmnz:metricPrefix value="100000000" /&gt;
+&lt;hmnz:pluralize value="0" 
+  one="something" many="{0} things" none="nothing" /&gt;
+&lt;hmnz:pluralizeMessage value="0" 
+  template="nothing::something::{0} things" /&gt;</code></pre>
 <p></p>
 <ul>
 <li><a href="http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html">TLD documentation</a></li>
 	<li>See <code>humanize-taglib/src/integration/webapp</code> for a complete example.</li>
-</ul><h2>
-<a name="supported-languages" class="anchor" href="#supported-languages"><span class="mini-icon mini-icon-link"></span></a>Supported languages</h2>
-<p><strong>humanize-slim</strong>: <em>naturalTime</em> supports over 25 languages, see <a href="http://ocpsoft.org/prettytime">prettytime</a>. Rest of methods have support for english and spanish.</p>
-<p><strong>humanize-icu</strong>: all languages supported by the <a href="http://icu-project.org/">ICU APIs</a>.</p>
+</ul>
+
+<h3>Java Server Faces</h3>
+<p>Humanize JSF.</p>
+<p>Usage:</p>
+<p>Declare the Maven dependency</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
+  &lt;artifactId&gt;humanize-jsf&lt;/artifactId&gt;
+  &lt;version&gt;${humanize.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>Use it in a page</p>
+<pre><code class="xml">&lt;html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:hmnz="http://mfornos.github.com/jsf/humanize"&gt;
+
+&lt;h:outputText value="100000000" converter="humanize.MetricPrefix" /&gt;
+&lt;h:outputText value="nothing::something::{0} things"&gt;
+  &lt;hmnz:pluralize value="0" /&gt;
+&lt;/h:outputText&gt;
+&lt;h:outputFormat value="hi {0,humanize,binary.prefix}!"&gt;
+  &lt;f:param value="#{10}" /&gt;
+&lt;/h:outputFormat&gt;</code></pre>
+<p></p>
+<ul>
+	<li>See <code>humanize-jsf/src/integration/webapp</code> for a complete example.</li>
+</ul>
+
+<h2>Integrations</h2>
+<h3>Handlebars Helper</h3>
+<p>
+Humanize is integrated in the awesome <a href="https://github.com/jknack/handlebars.java">Handlebars.java</a> project.
+</p>
+
 <h2>Epilog</h2>
 
 <div style="display: block; overflow: hidden; margin-bottom: 10px;">
