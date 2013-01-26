@@ -10,7 +10,7 @@ h3. Maven
 
 Current version:
 
-bc.. <humanize.version>1.0.0</humanize.version>
+bc.. <humanize.version>1.1.0</humanize.version>
 
 p. For the *slim flavor* write the following in your _pom_:
 
