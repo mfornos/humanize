@@ -11,12 +11,13 @@
   <groupId>com.github.mfornos</groupId>
   <artifactId>humanize-jsf</artifactId>
   <version>1.0.1-SNAPSHOT</version>
-  <name>Humanize - JSF</name>
-  <description>Humanize JSF converters</description>
+  <name>Humanize for Java - JSF</name>
+  <description>Humanize Java Server Faces converters</description>
   <packaging>jar</packaging>
   
   <properties>
     <jsf-api.version>2.1.2</jsf-api.version>
+    <el-api.version>2.2</el-api.version>
     <standard.version>1.1.2</standard.version>
     <jstl.version>1.1.2</jstl.version>
     <jetty.version>8.1.7.v20120910</jetty.version>
@@ -29,6 +30,12 @@
        <groupId>com.sun.faces</groupId>
        <artifactId>jsf-api</artifactId>
        <version>${jsf-api.version}</version>
+       <scope>provided</scope>
+    </dependency>
+    <dependency>
+       <groupId>javax.el</groupId>
+       <artifactId>el-api</artifactId>
+       <version>${el-api.version}</version>
        <scope>provided</scope>
     </dependency>
     <dependency>
