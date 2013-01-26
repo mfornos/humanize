@@ -84,33 +84,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.version}</version>
-        <configuration>
-          <docletArtifact>
-            <groupId>com.google.doclava</groupId>
-            <artifactId>doclava</artifactId>
-            <version>${doclava.version}</version>
-          </docletArtifact>
-          <doclet>com.google.doclava.Doclava</doclet>
-          <!--
-            | bootclasspath required by Sun's JVM 
-          -->
-          <bootclasspath>${sun.boot.class.path}</bootclasspath>
-          <additionalparam>
-             -quiet
-             -federate JDK http://download.oracle.com/javase/6/docs/api/index.html?
-             -federationxml JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
-             -hdf project.name "${project.name}"
-             -d ${project.build.directory}/apidocs
-           </additionalparam>
-          <useStandardDocletOptions>false</useStandardDocletOptions>
-          <!--
-            | Apple's JVM sometimes requires more memory
-          -->
-          <additionalJOption>-J-Xmx1024m</additionalJOption>
-          <!-- Workaround for javadoc annotations bug -->
-          <failOnError>false</failOnError>
-        </configuration>
-       </plugin>
+      </plugin>
     </plugins>
   </build>
   
