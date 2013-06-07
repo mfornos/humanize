@@ -701,7 +701,9 @@ public final class Humanize {
 	public static String duration(final Number seconds, final TimeStyle style) {
 
 		int s = seconds.intValue();
-		return style.format(context.get(), (s / 3600) % 60, (s / 60) % 60, s % 60);
+		boolean neg = s < 0;
+		s = Math.abs(s);
+		return style.format(context.get(), neg, (s / 3600) % 60, (s / 60) % 60, s % 60);
 
 	}
 

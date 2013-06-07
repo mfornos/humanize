@@ -144,9 +144,11 @@ public class TestHumanize {
 		assertEquals(duration(7200, TimeStyle.FRENCH_DECIMAL), "2h");
 		assertEquals(duration(7214, TimeStyle.FRENCH_DECIMAL), "2h 14s");
 		assertEquals(duration(7261, TimeStyle.FRENCH_DECIMAL), "2h 1m 1s");
+		assertEquals(duration(-7261, TimeStyle.FRENCH_DECIMAL), "-2h 1m 1s");
 
 		assertEquals(duration(0, TimeStyle.FRENCH_DECIMAL), "0s");
 		assertEquals(duration(10, TimeStyle.FRENCH_DECIMAL), "10s");
+		assertEquals(duration(-10, TimeStyle.FRENCH_DECIMAL), "-10s");
 		assertEquals(duration(60, TimeStyle.FRENCH_DECIMAL), "1m");
 		assertEquals(duration(61, TimeStyle.FRENCH_DECIMAL), "1m 1s");
 		assertEquals(duration(120, TimeStyle.FRENCH_DECIMAL), "2m");
@@ -162,8 +164,11 @@ public class TestHumanize {
 		assertEquals(duration(3661), "1:01:01");
 
 		assertEquals(duration(-7200), "-2:00:00");
+		assertEquals(duration(-1799), "-0:29:59");
+		assertEquals(duration(1799), "0:29:59");
 		assertEquals(duration(7200), "2:00:00");
 		assertEquals(duration(7214), "2:00:14");
+		assertEquals(duration(-7214), "-2:00:14");
 		assertEquals(duration(7261), "2:01:01");
 
 		assertEquals(duration(0), "0:00:00");

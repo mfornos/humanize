@@ -15,21 +15,23 @@ public final class Constants {
 
 	public enum TimeStyle {
 		STANDARD {
-			public String format(DefaultContext ctx, int h, int m, int s) {
+			public String format(DefaultContext ctx, boolean neg, int h, int m, int s) {
 
-				return String.format("%d:%02d:%02d", h, m, s);
+				return String.format("%s%d:%02d:%02d", neg ? '-' : "", h, m, s);
 
 			}
 		},
 		FRENCH_DECIMAL {
-			public String format(DefaultContext ctx, int h, int m, int s) {
+			public String format(DefaultContext ctx, boolean neg, int h, int m, int s) {
+
+				String r;
 
 				if (h == 0) {
-					return (m == 0) ? String.format("%d%s", s, ctx.timeSuffix(2)) :
+					r = (m == 0) ? String.format("%d%s", s, ctx.timeSuffix(2)) :
 					        (s == 0) ? String.format("%d%s", m, ctx.timeSuffix(1)) :
 					                String.format("%d%s %d%s", m, ctx.timeSuffix(1), s, ctx.timeSuffix(2));
 				} else {
-					return (m == 0) ?
+					r = (m == 0) ?
 					        ((s == 0) ? String.format("%d%s", h, ctx.timeSuffix(0)) :
 					                String.format("%d%s %d%s", h, ctx.timeSuffix(0), s, ctx.timeSuffix(2))) :
 					        (s == 0) ?
@@ -38,10 +40,11 @@ public final class Constants {
 					                        ctx.timeSuffix(2));
 				}
 
+				return (neg ? '-' : "") + r;
 			}
 		};
 
-		public abstract String format(DefaultContext defaultContext, int h, int m, int s);
+		public abstract String format(DefaultContext defaultContext, boolean neg, int h, int m, int s);
 
 	}
 
