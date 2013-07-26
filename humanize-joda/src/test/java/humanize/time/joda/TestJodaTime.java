@@ -22,7 +22,7 @@ public class TestJodaTime {
 		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 day, 3 hours, 46 minutes and 40 seconds");
 
 		fmt = PeriodFormat.wordBased(new Locale("es"));
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 dia, 3 horas, 46 minutos y 40 segundos");
+		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 día, 3 horas, 46 minutos y 40 segundos");
 
 		fmt = ISOPeriodFormat.standard();
 		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P1DT3H46M40S");

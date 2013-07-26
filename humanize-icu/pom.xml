@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
   
   <properties>
-    <icu.version>50.1</icu.version>
+    <icu.version>51.1</icu.version>
   </properties>
   
   <dependencies>
