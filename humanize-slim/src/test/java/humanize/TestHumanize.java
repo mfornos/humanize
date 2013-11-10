@@ -427,21 +427,48 @@ public class TestHumanize
 	@Test(threadPoolSize = 5, invocationCount = 5)
 	public void paceCustomFormatTest()
 	{
-		assertEquals(paceFormat(2.5, 1000, "{1} {0} heartbeat per {2}.", "{1} {0} heartbeats per {2}.",
-		        "No heartbeats."), "Approximately 3 heartbeats per second.");
-		assertEquals(paceFormat(ES, 2.5, 1000, "{1} un latido por {2}.", "{1} {0} latidos por {2}.",
-		        "Sin latidos."), "Aproximadamente 3 latidos por segundo.");
+		String none = "No heartbeats.";
+		String one = "{1} {0} heartbeat per {2}.";
+		String many = "{1} {0} heartbeats per {2}.";
+
+		assertEquals(paceFormat(2.5, 1000, one, many, none),
+		        "Approximately 3 heartbeats per second.");
+
+		assertEquals(paceFormat(2.5, 10, one, many, none),
+		        "Approximately 300 heartbeats per second.");
+
+		assertEquals(paceFormat(50, 60000, one, many, none),
+		        "Approximately 50 heartbeats per minute.");
+
+		assertEquals(paceFormat(0.6, TimeMillis.MINUTE.millis(), one, many, none),
+		        "Approximately 1 heartbeat per minute.");
+
+		assertEquals(paceFormat(0.1, TimeMillis.MINUTE.millis(), one, many, none),
+		        "No heartbeats.");
+
+		String noneES = "Sin latidos por {2}.";
+		String oneES = "{1} un latido por {2}.";
+		String manyES = "{1} {0} latidos por {2}.";
+
+		assertEquals(paceFormat(ES, 2.5, 1000, oneES, manyES, noneES),
+		        "Aproximadamente 3 latidos por segundo.");
+		assertEquals(paceFormat(ES, 0, 1000, oneES, manyES, noneES),
+		        "Sin latidos por segundo.");
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void paceFormatTest()
 	{
+		assertEquals(paceFormat(0.1, 1000), "Never.");
 		assertEquals(paceFormat(2.5, 1000), "Approximately 3 times per second.");
+		assertEquals(paceFormat(1, 60000), "Approximately one time per minute.");
+		assertEquals(paceFormat(1.75, 3600000), "Approximately 2 times per hour.");
 		assertEquals(paceFormat(5, 86405000), "Approximately 5 times per day.");
 		assertEquals(paceFormat(2000.5, 1000), "Approximately 2,001 times per second.");
 		assertEquals(paceFormat(1, TimeMillis.WEEK.millis() * 10), "Less than one time per month.");
 		assertEquals(paceFormat(1, TimeMillis.WEEK.millis()), "Approximately one time per week.");
 
+		assertEquals(paceFormat(ES, 0, 86400000), "Nunca.");
 		assertEquals(paceFormat(ES, 1.5, 86400000), "Aproximadamente 2 veces por día.");
 		assertEquals(paceFormat(ES, 2000.5, 1000), "Aproximadamente 2.001 veces por segundo.");
 	}
