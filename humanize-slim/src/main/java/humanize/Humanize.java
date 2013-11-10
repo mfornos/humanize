@@ -2336,8 +2336,8 @@ public final class Humanize
 
     /**
      * <p>
-     * Sort of poor man's transliteration, i.e. normalizes and strips diacritic
-     * marks.
+     * Sort of poor man's transliteration, i.e. normalizes and strips
+     * diacritical marks.
      * </p>
      * 
      * <table border="0" cellspacing="0" cellpadding="3" width="100%">
