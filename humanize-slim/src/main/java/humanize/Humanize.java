@@ -22,8 +22,8 @@ import humanize.text.util.InterpolationHelper;
 import humanize.text.util.Replacer;
 import humanize.time.Pace;
 import humanize.time.Pace.Accuracy;
+import humanize.time.Pace.TimeMillis;
 import humanize.time.PrettyTimeFormat;
-import humanize.util.Constants.TimeMillis;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigDecimal;

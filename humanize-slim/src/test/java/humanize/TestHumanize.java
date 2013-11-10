@@ -35,8 +35,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
 import humanize.time.Pace;
+import humanize.time.Pace.TimeMillis;
 import humanize.time.PrettyTimeFormat;
-import humanize.util.Constants.TimeMillis;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigInteger;
