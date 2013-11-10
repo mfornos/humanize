@@ -6,24 +6,24 @@ import org.testng.annotations.BeforeSuite;
 public class BaseServerIT
 {
 
-	private RunServer server;
+    private RunServer server;
 
-	protected String baseUri = "http://127.0.0.1:7778";
+    protected String baseUri = "http://127.0.0.1:7778";
 
-	@BeforeSuite
-	void beforeSuite()
-	{
+    @AfterSuite
+    void afterSuite() throws Exception
+    {
 
-		server = new RunServer(7778);
+        server.stop();
 
-	}
+    }
 
-	@AfterSuite
-	void afterSuite() throws Exception
-	{
+    @BeforeSuite
+    void beforeSuite()
+    {
 
-		server.stop();
+        server = new RunServer(7778);
 
-	}
+    }
 
 }

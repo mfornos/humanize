@@ -47,284 +47,284 @@ import java.util.Locale;
 public class MaskFormat extends Format implements FormatProvider
 {
 
-	private static final long serialVersionUID = -2072270263539296713L;
+    private static final long serialVersionUID = -2072270263539296713L;
 
-	private static final char DEFAULT_PLACEHOLDER = '_';
+    private static final char DEFAULT_PLACEHOLDER = '_';
 
-	public static FormatFactory factory()
-	{
+    public static FormatFactory factory()
+    {
 
-		return new FormatFactory()
-		{
-			@Override
-			public Format getFormat(String name, String args, Locale locale)
-			{
+        return new FormatFactory()
+        {
+            @Override
+            public Format getFormat(String name, String args, Locale locale)
+            {
 
-				return new MaskFormat(args);
+                return new MaskFormat(args);
 
-			}
-		};
+            }
+        };
 
-	}
+    }
 
-	public static String format(String mask, String str)
-	{
+    public static String format(String mask, String str)
+    {
 
-		return format(mask, str, DEFAULT_PLACEHOLDER);
+        return format(mask, str, DEFAULT_PLACEHOLDER);
 
-	}
+    }
 
-	public static String format(String mask, String str, char placeholder)
-	{
+    public static String format(String mask, String str, char placeholder)
+    {
 
-		return new MaskFormat(mask, placeholder).format(str);
+        return new MaskFormat(mask, placeholder).format(str);
 
-	}
+    }
 
-	public static String parse(String mask, String source) throws ParseException
-	{
+    public static String parse(String mask, String source) throws ParseException
+    {
 
-		return parse(mask, source, DEFAULT_PLACEHOLDER);
+        return parse(mask, source, DEFAULT_PLACEHOLDER);
 
-	}
+    }
 
-	public static String parse(String mask, String source, char placeholder) throws ParseException
-	{
+    public static String parse(String mask, String source, char placeholder) throws ParseException
+    {
 
-		return new MaskFormat(mask, placeholder).parse(source);
+        return new MaskFormat(mask, placeholder).parse(source);
 
-	}
+    }
 
-	private String mask;
+    private String mask;
 
-	private char placeholder;
+    private char placeholder;
 
-	public MaskFormat()
-	{
+    public MaskFormat()
+    {
 
-		// Empty constructor for FormatProvider
+        // Empty constructor for FormatProvider
 
-	}
+    }
 
-	public MaskFormat(String mask)
-	{
+    public MaskFormat(String mask)
+    {
 
-		this(mask, DEFAULT_PLACEHOLDER);
+        this(mask, DEFAULT_PLACEHOLDER);
 
-	}
+    }
 
-	public MaskFormat(String mask, char placeholder)
-	{
+    public MaskFormat(String mask, char placeholder)
+    {
 
-		this.mask = mask;
-		this.placeholder = placeholder;
+        this.mask = mask;
+        this.placeholder = placeholder;
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.text.Format#format(java.lang.Object, java.lang.StringBuffer,
-	 * java.text.FieldPosition)
-	 */
-	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
-	{
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.text.Format#format(java.lang.Object, java.lang.StringBuffer,
+     * java.text.FieldPosition)
+     */
+    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
+    {
 
-		if (obj == null)
-			return null;
+        if (obj == null)
+            return null;
 
-		return toAppendTo.append(this.format(obj.toString()));
+        return toAppendTo.append(this.format(obj.toString()));
 
-	}
+    }
 
-	public String format(String str)
-	{
+    public String format(String str)
+    {
 
-		if (isEmptyInput(mask, str))
-		{
-			return str;
-		}
+        if (isEmptyInput(mask, str))
+        {
+            return str;
+        }
 
-		StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
-		int msgIndex = 0;
-		char maskChar;
-		boolean isPlaceHolder;
+        int msgIndex = 0;
+        char maskChar;
+        boolean isPlaceHolder;
 
-		int i = 0;
-		for (; i < mask.length(); i++)
-		{
+        int i = 0;
+        for (; i < mask.length(); i++)
+        {
 
-			maskChar = mask.charAt(i);
-			isPlaceHolder = isPlaceholder(maskChar);
+            maskChar = mask.charAt(i);
+            isPlaceHolder = isPlaceholder(maskChar);
 
-			if (!(isPlaceHolder || isDeleteholder(maskChar)))
-			{
-				result.append(isEscapeChar(maskChar) ? mask.charAt(++i) : maskChar);
-			} else
-			{
-				if (isPlaceHolder)
-				{
-					result.append(str.charAt(msgIndex));
-				}
-				if (++msgIndex == str.length())
-				{
-					break;
-				}
-			}
-
-		}
+            if (!(isPlaceHolder || isDeleteholder(maskChar)))
+            {
+                result.append(isEscapeChar(maskChar) ? mask.charAt(++i) : maskChar);
+            } else
+            {
+                if (isPlaceHolder)
+                {
+                    result.append(str.charAt(msgIndex));
+                }
+                if (++msgIndex == str.length())
+                {
+                    break;
+                }
+            }
+
+        }
 
-		// Append tail
-		while (++i < mask.length())
-		{
-			result.append(mask.charAt(i));
-		}
-
-		return result.toString();
-
-	}
-
-	@Override
-	public FormatFactory getFactory()
-	{
-
-		return factory();
-
-	}
-
-	@Override
-	public String getFormatName()
-	{
+        // Append tail
+        while (++i < mask.length())
+        {
+            result.append(mask.charAt(i));
+        }
+
+        return result.toString();
+
+    }
+
+    @Override
+    public FormatFactory getFactory()
+    {
+
+        return factory();
+
+    }
+
+    @Override
+    public String getFormatName()
+    {
 
-		return "mask";
+        return "mask";
 
-	}
+    }
 
-	public String getMask()
-	{
+    public String getMask()
+    {
 
-		return mask;
-	}
+        return mask;
+    }
 
-	public char getPlaceholder()
-	{
+    public char getPlaceholder()
+    {
 
-		return placeholder;
-	}
+        return placeholder;
+    }
 
-	public String parse(String source) throws ParseException
-	{
+    public String parse(String source) throws ParseException
+    {
 
-		return parse(source, (ParsePosition) null);
+        return parse(source, (ParsePosition) null);
 
-	}
+    }
 
-	public String parse(String source, ParsePosition pos) throws ParseException
-	{
+    public String parse(String source, ParsePosition pos) throws ParseException
+    {
 
-		if (isEmptyInput(mask, source))
-		{
-			return source;
-		}
+        if (isEmptyInput(mask, source))
+        {
+            return source;
+        }
 
-		StringBuilder sb = new StringBuilder(mask.length());
+        StringBuilder sb = new StringBuilder(mask.length());
 
-		for (int i = 0; i < mask.length() && i < source.length(); i++)
-		{
+        for (int i = 0; i < mask.length() && i < source.length(); i++)
+        {
 
-			char maskChar = mask.charAt(i);
-			if (isPlaceholder(maskChar))
-			{
-				sb.append(source.charAt(i));
-			} else if (!isEscapeChar(maskChar) && maskChar != source.charAt(i))
-			{
-				throw new ParseException(String.format("Error parsing String: '%s' at %d", source, i), i);
-			}
+            char maskChar = mask.charAt(i);
+            if (isPlaceholder(maskChar))
+            {
+                sb.append(source.charAt(i));
+            } else if (!isEscapeChar(maskChar) && maskChar != source.charAt(i))
+            {
+                throw new ParseException(String.format("Error parsing String: '%s' at %d", source, i), i);
+            }
 
-		}
+        }
 
-		return sb.toString();
+        return sb.toString();
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.text.Format#parseObject(java.lang.String)
-	 */
-	public Object parseObject(String source) throws ParseException
-	{
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.text.Format#parseObject(java.lang.String)
+     */
+    public Object parseObject(String source) throws ParseException
+    {
 
-		ParsePosition pos = new ParsePosition(0);
-		Object result = parseObject(source, pos);
-		if (pos.getErrorIndex() >= 0)
-		{
-			throw new ParseException("Format.parseObject(String) failed", pos.getErrorIndex());
-		}
-		return result;
-	}
+        ParsePosition pos = new ParsePosition(0);
+        Object result = parseObject(source, pos);
+        if (pos.getErrorIndex() >= 0)
+        {
+            throw new ParseException("Format.parseObject(String) failed", pos.getErrorIndex());
+        }
+        return result;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.text.Format#parseObject(java.lang.String,
-	 * java.text.ParsePosition)
-	 */
-	public Object parseObject(String source, ParsePosition pos)
-	{
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.text.Format#parseObject(java.lang.String,
+     * java.text.ParsePosition)
+     */
+    public Object parseObject(String source, ParsePosition pos)
+    {
 
-		try
-		{
-			return parse(source, pos);
-		} catch (ParseException e)
-		{
-			pos.setIndex(0);
-			pos.setErrorIndex(e.getErrorOffset());
-		}
-		return null;
+        try
+        {
+            return parse(source, pos);
+        } catch (ParseException e)
+        {
+            pos.setIndex(0);
+            pos.setErrorIndex(e.getErrorOffset());
+        }
+        return null;
 
-	}
+    }
 
-	public void setMask(String mask)
-	{
+    public void setMask(String mask)
+    {
 
-		this.mask = mask;
+        this.mask = mask;
 
-	}
+    }
 
-	public void setPlaceholder(char placeholder)
-	{
+    public void setPlaceholder(char placeholder)
+    {
 
-		this.placeholder = placeholder;
-	}
+        this.placeholder = placeholder;
+    }
 
-	private boolean isDeleteholder(char c)
-	{
+    private boolean isDeleteholder(char c)
+    {
 
-		return c == '#';
+        return c == '#';
 
-	}
+    }
 
-	private boolean isEmptyInput(String mask, String str)
-	{
+    private boolean isEmptyInput(String mask, String str)
+    {
 
-		return (mask == null || mask.length() == 0 || str == null || str.length() == 0);
+        return (mask == null || mask.length() == 0 || str == null || str.length() == 0);
 
-	}
+    }
 
-	private boolean isEscapeChar(char c)
-	{
+    private boolean isEscapeChar(char c)
+    {
 
-		return c == '\\';
+        return c == '\\';
 
-	}
+    }
 
-	private boolean isPlaceholder(char c)
-	{
+    private boolean isPlaceholder(char c)
+    {
 
-		return c == this.placeholder;
+        return c == this.placeholder;
 
-	}
+    }
 
 }

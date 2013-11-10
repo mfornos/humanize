@@ -40,142 +40,142 @@ import com.google.common.base.Preconditions;
 public class DurationHelper
 {
 
-	public static class DurationDB
-	{
+    public static class DurationDB
+    {
 
-		// TODO reuse PrettyTime cached instances from DefaultContext?
-		private final Map<TimeUnit, TimeFormat> units = new LinkedHashMap<TimeUnit, TimeFormat>();
+        // TODO reuse PrettyTime cached instances from DefaultContext?
+        private final Map<TimeUnit, TimeFormat> units = new LinkedHashMap<TimeUnit, TimeFormat>();
 
-		private final Locale locale;
+        private final Locale locale;
 
-		public DurationDB(Locale locale)
-		{
+        public DurationDB(Locale locale)
+        {
 
-			this.locale = locale;
-			addUnit(new JustNow());
-			addUnit(new Millisecond());
-			addUnit(new Second());
-			addUnit(new Minute());
-			addUnit(new Hour());
-			addUnit(new Day());
-			addUnit(new Week());
-			addUnit(new Month());
-			addUnit(new Year());
-			addUnit(new Decade());
-			addUnit(new Century());
-			addUnit(new Millennium());
+            this.locale = locale;
+            addUnit(new JustNow());
+            addUnit(new Millisecond());
+            addUnit(new Second());
+            addUnit(new Minute());
+            addUnit(new Hour());
+            addUnit(new Day());
+            addUnit(new Week());
+            addUnit(new Month());
+            addUnit(new Year());
+            addUnit(new Decade());
+            addUnit(new Century());
+            addUnit(new Millennium());
 
-		}
+        }
 
-		public void addUnit(ResourcesTimeUnit unit)
-		{
+        public void addUnit(ResourcesTimeUnit unit)
+        {
 
-			registerUnit(unit, new ResourcesTimeFormat(unit));
+            registerUnit(unit, new ResourcesTimeFormat(unit));
 
-		}
+        }
 
-		public List<TimeUnit> clearUnits()
-		{
+        public List<TimeUnit> clearUnits()
+        {
 
-			List<TimeUnit> result = getUnits();
-			this.units.clear();
-			return result;
-		}
+            List<TimeUnit> result = getUnits();
+            this.units.clear();
+            return result;
+        }
 
-		public List<TimeUnit> getUnits()
-		{
+        public List<TimeUnit> getUnits()
+        {
 
-			List<TimeUnit> result = new ArrayList<TimeUnit>(this.units.keySet());
-			Collections.sort(result, new TimeUnitComparator());
-			return Collections.unmodifiableList(result);
+            List<TimeUnit> result = new ArrayList<TimeUnit>(this.units.keySet());
+            Collections.sort(result, new TimeUnitComparator());
+            return Collections.unmodifiableList(result);
 
-		}
+        }
 
-		public void registerUnit(TimeUnit unit, TimeFormat format)
-		{
+        public void registerUnit(TimeUnit unit, TimeFormat format)
+        {
 
-			Preconditions.checkArgument(unit != null, "Unit to register must not be null.");
-			Preconditions.checkArgument(format != null, "Format to register must not be null.");
+            Preconditions.checkArgument(unit != null, "Unit to register must not be null.");
+            Preconditions.checkArgument(format != null, "Format to register must not be null.");
 
-			units.put(unit, format);
+            units.put(unit, format);
 
-			if (unit instanceof LocaleAware)
-				((LocaleAware<?>) unit).setLocale(this.locale);
-			if (format instanceof LocaleAware)
-				((LocaleAware<?>) format).setLocale(this.locale);
+            if (unit instanceof LocaleAware)
+                ((LocaleAware<?>) unit).setLocale(this.locale);
+            if (format instanceof LocaleAware)
+                ((LocaleAware<?>) format).setLocale(this.locale);
 
-		}
+        }
 
-	}
+    }
 
-	private static final Map<Locale, DurationDB> dbs = new HashMap<Locale, DurationDB>();
+    private static final Map<Locale, DurationDB> dbs = new HashMap<Locale, DurationDB>();
 
-	public static Duration calculateDurantion(Date ref, Date then)
-	{
+    public static Duration calculateDurantion(Date ref, Date then)
+    {
 
-		return calculateDurantion(ref, then, Locale.getDefault());
+        return calculateDurantion(ref, then, Locale.getDefault());
 
-	}
+    }
 
-	public static Duration calculateDurantion(Date ref, Date then, List<TimeUnit> timeUnits)
-	{
+    public static Duration calculateDurantion(Date ref, Date then, List<TimeUnit> timeUnits)
+    {
 
-		long difference = then.getTime() - ref.getTime();
-		long absoluteDifference = Math.abs(difference);
+        long difference = then.getTime() - ref.getTime();
+        long absoluteDifference = Math.abs(difference);
 
-		List<TimeUnit> units = new ArrayList<TimeUnit>(timeUnits);
+        List<TimeUnit> units = new ArrayList<TimeUnit>(timeUnits);
 
-		DurationImpl result = new DurationImpl();
+        DurationImpl result = new DurationImpl();
 
-		for (int i = 0; i < units.size(); ++i)
-		{
-			TimeUnit unit = (TimeUnit) units.get(i);
-			long millisPerUnit = Math.abs(unit.getMillisPerUnit());
-			long quantity = Math.abs(unit.getMaxQuantity());
+        for (int i = 0; i < units.size(); ++i)
+        {
+            TimeUnit unit = (TimeUnit) units.get(i);
+            long millisPerUnit = Math.abs(unit.getMillisPerUnit());
+            long quantity = Math.abs(unit.getMaxQuantity());
 
-			boolean isLastUnit = i == units.size() - 1;
+            boolean isLastUnit = i == units.size() - 1;
 
-			if ((0L == quantity) && (!(isLastUnit)))
-			{
-				quantity = ((TimeUnit) units.get(i + 1)).getMillisPerUnit() / unit.getMillisPerUnit();
-			}
+            if ((0L == quantity) && (!(isLastUnit)))
+            {
+                quantity = ((TimeUnit) units.get(i + 1)).getMillisPerUnit() / unit.getMillisPerUnit();
+            }
 
-			if ((millisPerUnit * quantity <= absoluteDifference) && (!(isLastUnit)))
-				continue;
-			result.setUnit(unit);
-			if (millisPerUnit > absoluteDifference)
-			{
-				result.setQuantity(0L > difference ? -1L : 1L);
-			} else
-			{
-				result.setQuantity(difference / millisPerUnit);
-			}
-			result.setDelta(difference - (result.getQuantity() * millisPerUnit));
-			break;
-		}
+            if ((millisPerUnit * quantity <= absoluteDifference) && (!(isLastUnit)))
+                continue;
+            result.setUnit(unit);
+            if (millisPerUnit > absoluteDifference)
+            {
+                result.setQuantity(0L > difference ? -1L : 1L);
+            } else
+            {
+                result.setQuantity(difference / millisPerUnit);
+            }
+            result.setDelta(difference - (result.getQuantity() * millisPerUnit));
+            break;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static Duration calculateDurantion(Date ref, Date then, Locale locale)
-	{
+    public static Duration calculateDurantion(Date ref, Date then, Locale locale)
+    {
 
-		return calculateDurantion(ref, then, getDB(locale).getUnits());
+        return calculateDurantion(ref, then, getDB(locale).getUnits());
 
-	}
+    }
 
-	public static DurationDB getDB(Locale locale)
-	{
+    public static DurationDB getDB(Locale locale)
+    {
 
-		if (!dbs.containsKey(locale))
-		{
-			synchronized (dbs)
-			{
-				dbs.put(locale, new DurationDB(locale));
-			}
-		}
-		return dbs.get(locale);
+        if (!dbs.containsKey(locale))
+        {
+            synchronized (dbs)
+            {
+                dbs.put(locale, new DurationDB(locale));
+            }
+        }
+        return dbs.get(locale);
 
-	}
+    }
 
 }

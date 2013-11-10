@@ -15,89 +15,89 @@ import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 public class PluralizeMessageTag extends HumanizeSupport
 {
 
-	private static final long serialVersionUID = -3406725990318696579L;
+    private static final long serialVersionUID = -3406725990318696579L;
 
-	private String template;
+    private String template;
 
-	private Object value;
+    private Object value;
 
-	private String args;
+    private String args;
 
-	private String input;
+    private String input;
 
-	private Object[] argsArray;
+    private Object[] argsArray;
 
-	public void setTemplate(String template)
-	{
+    public void setArgs(String args)
+    {
 
-		this.template = template;
+        this.args = args;
 
-	}
+    }
 
-	public void setValue(Object value)
-	{
+    public void setTemplate(String template)
+    {
 
-		this.value = value;
+        this.template = template;
 
-	}
+    }
 
-	public void setArgs(String args)
-	{
+    public void setValue(Object value)
+    {
 
-		this.args = args;
+        this.value = value;
 
-	}
+    }
 
-	@Override
-	protected void begin() throws JspException
-	{
+    @Override
+    protected void begin() throws JspException
+    {
 
-		this.input = template == null || template.length() < 1 ? inputFromBody() : template;
+        this.input = template == null || template.length() < 1 ? inputFromBody() : template;
 
-		List<Object> tmpArr = new ArrayList<Object>();
-		tmpArr.add(asNumber(value));
-		if (args != null)
-		{
-			tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
-		}
+        List<Object> tmpArr = new ArrayList<Object>();
+        tmpArr.add(asNumber(value));
+        if (args != null)
+        {
+            tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
+        }
 
-		this.argsArray = tmpArr.toArray(new Object[tmpArr.size()]);
+        this.argsArray = tmpArr.toArray(new Object[tmpArr.size()]);
 
-	}
+    }
 
-	protected void clean()
-	{
+    protected void clean()
+    {
 
-		this.template = null;
-		this.value = null;
-		this.input = null;
-		this.args = null;
-		this.argsArray = null;
+        this.template = null;
+        this.value = null;
+        this.input = null;
+        this.args = null;
+        this.argsArray = null;
 
-	}
+    }
 
-	@Override
-	protected boolean isContextRemoveNeeded()
-	{
+    @Override
+    protected boolean isContextRemoveNeeded()
+    {
 
-		return (input == null || input.length() < 1) || (argsArray == null || argsArray.length == 0);
+        return (input == null || input.length() < 1) || (argsArray == null || argsArray.length == 0);
 
-	}
+    }
 
-	@Override
-	protected String render() throws JspException
-	{
+    @Override
+    protected String render() throws JspException
+    {
 
-		return Humanize.pluralizeFormat(input).render(argsArray);
+        return Humanize.pluralizeFormat(input).render(argsArray);
 
-	}
+    }
 
-	@Override
-	protected String render(Locale locale) throws JspException
-	{
+    @Override
+    protected String render(Locale locale) throws JspException
+    {
 
-		return Humanize.pluralizeFormat(input, locale).render(argsArray);
+        return Humanize.pluralizeFormat(input, locale).render(argsArray);
 
-	}
+    }
 
 }

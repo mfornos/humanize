@@ -14,54 +14,54 @@ import javax.faces.convert.FacesConverter;
 public class DurationConverter extends NumberConverter
 {
 
-	private static final long serialVersionUID = -6598199651948023319L;
+    private static final long serialVersionUID = -6598199651948023319L;
 
-	private String style;
+    private String style;
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value)
-	{
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value)
+    {
 
-		return Humanize.duration(asNumber(value), getTimeStyle(), getLocale(context));
+        return Humanize.duration(asNumber(value), getTimeStyle(), getLocale(context));
 
-	}
+    }
 
-	public String getStyle()
-	{
+    public String getStyle()
+    {
 
-		return style;
+        return style;
 
-	}
+    }
 
-	public void setStyle(String style)
-	{
+    public void setStyle(String style)
+    {
 
-		clearInitialState();
-		this.style = style;
+        clearInitialState();
+        this.style = style;
 
-	}
+    }
 
-	@Override
-	protected void restore(Iterator<Object> iterator)
-	{
+    @Override
+    protected void restore(Iterator<Object> iterator)
+    {
 
-		this.style = (String) iterator.next();
+        this.style = (String) iterator.next();
 
-	}
+    }
 
-	@Override
-	protected void save(List<Object> states)
-	{
+    @Override
+    protected void save(List<Object> states)
+    {
 
-		states.add(style);
+        states.add(style);
 
-	}
+    }
 
-	private TimeStyle getTimeStyle()
-	{
+    private TimeStyle getTimeStyle()
+    {
 
-		return style == null ? TimeStyle.STANDARD : TimeStyle.valueOf(style.toUpperCase());
+        return style == null ? TimeStyle.STANDARD : TimeStyle.valueOf(style.toUpperCase());
 
-	}
+    }
 
 }

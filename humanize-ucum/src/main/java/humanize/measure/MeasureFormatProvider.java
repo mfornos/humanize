@@ -35,35 +35,35 @@ import javax.measure.unit.UnitFormat;
 public class MeasureFormatProvider implements FormatProvider
 {
 
-	@Override
-	public FormatFactory getFactory()
-	{
+    @Override
+    public FormatFactory getFactory()
+    {
 
-		return new FormatFactory()
-		{
-			@Override
-			public Format getFormat(String name, String args, Locale locale)
-			{
+        return new FormatFactory()
+        {
+            @Override
+            public Format getFormat(String name, String args, Locale locale)
+            {
 
-				if (args != null && "standard".equalsIgnoreCase(args))
-				{
-					return MeasureFormat.getStandard();
-				} else
-				{
-					return MeasureFormat.getInstance(NumberFormat.getInstance(locale), UnitFormat.getInstance(locale));
-				}
+                if (args != null && "standard".equalsIgnoreCase(args))
+                {
+                    return MeasureFormat.getStandard();
+                } else
+                {
+                    return MeasureFormat.getInstance(NumberFormat.getInstance(locale), UnitFormat.getInstance(locale));
+                }
 
-			}
-		};
+            }
+        };
 
-	}
+    }
 
-	@Override
-	public String getFormatName()
-	{
+    @Override
+    public String getFormatName()
+    {
 
-		return "measure";
+        return "measure";
 
-	}
+    }
 
 }

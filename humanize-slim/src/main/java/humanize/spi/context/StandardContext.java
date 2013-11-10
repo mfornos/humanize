@@ -11,32 +11,32 @@ import java.util.Date;
 public interface StandardContext
 {
 
-	String formatRelativeDate(Date duration);
+    String formatRelativeDate(Date duration);
 
-	String formatRelativeDate(Date reference, Date duration);
+    String formatRelativeDate(Date reference, Date duration);
 
-	DecimalFormat getCurrencyFormat();
+    DecimalFormat getCurrencyFormat();
 
-	DateFormat getDateFormat(int style);
+    DateFormat getDateFormat(int style);
 
-	DateFormat getDateFormat(String pattern);
+    DateFormat getDateFormat(String pattern);
 
-	DateFormat getDateTimeFormat();
+    DateFormat getDateTimeFormat();
 
-	DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
+    DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
 
-	DecimalFormat getDecimalFormat();
+    DecimalFormat getDecimalFormat();
 
-	MessageFormat getMessageFormat();
+    MessageFormat getMessageFormat();
 
-	NumberFormat getNumberFormat();
+    NumberFormat getNumberFormat();
 
-	DecimalFormat getPercentFormat();
+    DecimalFormat getPercentFormat();
 
-	PrettyTimeFormat getPrettyTimeFormat();
+    PrettyTimeFormat getPrettyTimeFormat();
 
-	String ordinalSuffix(int index);
+    String ordinalSuffix(int index);
 
-	String timeSuffix(int index);
+    String timeSuffix(int index);
 
 }

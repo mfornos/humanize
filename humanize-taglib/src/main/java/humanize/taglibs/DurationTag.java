@@ -12,54 +12,54 @@ import org.apache.taglibs.standard.tag.common.fmt.NumberCallSupport;
 public class DurationTag extends NumberCallSupport
 {
 
-	private static final long serialVersionUID = 1003775990876323736L;
+    private static final long serialVersionUID = 1003775990876323736L;
 
-	private String style;
+    private String style;
 
-	private TimeStyle timeStyle;
+    private TimeStyle timeStyle;
 
-	public void setStyle(String style)
-	{
+    public void setStyle(String style)
+    {
 
-		this.style = style;
+        this.style = style;
 
-	}
+    }
 
-	@Override
-	protected void begin() throws JspException
-	{
+    @Override
+    protected void begin() throws JspException
+    {
 
-		super.begin();
+        super.begin();
 
-		timeStyle = style == null ? TimeStyle.STANDARD : TimeStyle.valueOf(style.toUpperCase());
+        timeStyle = style == null ? TimeStyle.STANDARD : TimeStyle.valueOf(style.toUpperCase());
 
-	}
+    }
 
-	@Override
-	protected void clean()
-	{
+    @Override
+    protected void clean()
+    {
 
-		super.clean();
+        super.clean();
 
-		this.style = null;
-		this.timeStyle = null;
+        this.style = null;
+        this.timeStyle = null;
 
-	}
+    }
 
-	@Override
-	protected String render() throws JspException
-	{
+    @Override
+    protected String render() throws JspException
+    {
 
-		return Humanize.duration(input, timeStyle);
+        return Humanize.duration(input, timeStyle);
 
-	}
+    }
 
-	@Override
-	protected String render(Locale locale) throws JspException
-	{
+    @Override
+    protected String render(Locale locale) throws JspException
+    {
 
-		return Humanize.duration(input, timeStyle, locale);
+        return Humanize.duration(input, timeStyle, locale);
 
-	}
+    }
 
 }

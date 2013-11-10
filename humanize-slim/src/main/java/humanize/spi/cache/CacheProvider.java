@@ -14,22 +14,22 @@ import java.util.concurrent.Callable;
 public interface CacheProvider
 {
 
-	boolean containsBundle(Locale locale);
+    boolean containsBundle(Locale locale);
 
-	boolean containsFormat(String cache, Locale locale);
+    boolean containsFormat(String cache, Locale locale);
 
-	boolean containsStrings(String cache, Locale locale);
+    boolean containsStrings(String cache, Locale locale);
 
-	ResourceBundle getBundle(Locale locale, Callable<ResourceBundle> getCall);
+    ResourceBundle getBundle(Locale locale, Callable<ResourceBundle> getCall);
 
-	<T> T getFormat(String cache, Locale locale, Callable<T> getCall);
+    <T> T getFormat(String cache, Locale locale, Callable<T> getCall);
 
-	String[] getStrings(String cache, Locale locale, Callable<String[]> getCall);
+    String[] getStrings(String cache, Locale locale, Callable<String[]> getCall);
 
-	ResourceBundle putBundle(Locale locale, ResourceBundle bundle);
+    ResourceBundle putBundle(Locale locale, ResourceBundle bundle);
 
-	<T> T putFormat(String cache, Locale locale, T format);
+    <T> T putFormat(String cache, Locale locale, T format);
 
-	String[] putStrings(String cache, Locale locale, String[] split);
+    String[] putStrings(String cache, Locale locale, String[] split);
 
 }

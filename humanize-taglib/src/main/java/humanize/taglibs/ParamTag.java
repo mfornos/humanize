@@ -20,73 +20,73 @@ import org.apache.taglibs.standard.tag.common.fmt.HumanizeMessageSupport;
 public class ParamTag extends BodyTagSupport
 {
 
-	private static final long serialVersionUID = -4456345915979081598L;
+    private static final long serialVersionUID = -4456345915979081598L;
 
-	// for tag attribute
-	public void setValue(Object value) throws JspTagException
-	{
+    // XXX ParamSupport
+    protected Object value;
 
-		this.value = value;
-		this.valueSpecified = true;
+    /*    */protected boolean valueSpecified;
+    /*    */
+    /*    */public ParamTag()
+    /*    */
+    {
 
-	}
+        /* 49 */init();
+        /*    */}
 
-	// XXX ParamSupport
-	protected Object value;
-	/*    */protected boolean valueSpecified;
+    /*    */
+    /*    */public int doEndTag()
+            /*    */throws JspException
+    /*    */
+    {
 
-	/*    */
-	/*    */public ParamTag()
-	/*    */
-	{
+        /* 63 */Tag t = findAncestorWithClass(this, HumanizeMessageSupport.class);
+        /* 64 */if (t == null)
+        {
+            /* 65 */throw new JspTagException(Resources.getMessage("PARAM_OUTSIDE_MESSAGE"));
+            /*    */}
+        /*    */
+        /* 68 */HumanizeMessageSupport parent = (HumanizeMessageSupport) t;
+        /*    */
+        /* 75 */Object input = null;
+        /*    */
+        /* 77 */if (this.valueSpecified)
+        /*    */
+        {
+            /* 79 */input = this.value;
+            /*    */}
+        /*    */else
+        /*    */{
+            /* 83 */input = this.bodyContent.getString().trim();
+            /*    */}
+        /* 85 */parent.addParam(input);
+        /*    */
+        /* 87 */return EVAL_PAGE;
+        /*    */}
 
-		/* 49 */init();
-		/*    */}
+    /*    */
+    /*    */public void release()
+    /*    */
+    {
 
-	/*    */
-	/*    */private void init()
-	{
+        /* 92 */init();
+        /*    */}
 
-		/* 53 */this.value = null;
-		/* 54 */this.valueSpecified = false;
-		/*    */}
+    // for tag attribute
+    public void setValue(Object value) throws JspTagException
+    {
 
-	/*    */
-	/*    */public int doEndTag()
-	        /*    */throws JspException
-	/*    */
-	{
+        this.value = value;
+        this.valueSpecified = true;
 
-		/* 63 */Tag t = findAncestorWithClass(this, HumanizeMessageSupport.class);
-		/* 64 */if (t == null)
-		{
-			/* 65 */throw new JspTagException(Resources.getMessage("PARAM_OUTSIDE_MESSAGE"));
-			/*    */}
-		/*    */
-		/* 68 */HumanizeMessageSupport parent = (HumanizeMessageSupport) t;
-		/*    */
-		/* 75 */Object input = null;
-		/*    */
-		/* 77 */if (this.valueSpecified)
-		/*    */
-		{
-			/* 79 */input = this.value;
-			/*    */}
-		/*    */else
-		/*    */{
-			/* 83 */input = this.bodyContent.getString().trim();
-			/*    */}
-		/* 85 */parent.addParam(input);
-		/*    */
-		/* 87 */return EVAL_PAGE;
-		/*    */}
+    }
 
-	/*    */
-	/*    */public void release()
-	/*    */
-	{
+    /*    */
+    /*    */private void init()
+    {
 
-		/* 92 */init();
-		/*    */}
+        /* 53 */this.value = null;
+        /* 54 */this.valueSpecified = false;
+        /*    */}
 
 }

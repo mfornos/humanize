@@ -24,215 +24,215 @@ import org.ocpsoft.prettytime.TimeUnit;
 public class PrettyTimeFormat extends Format implements FormatProvider
 {
 
-	private static final long serialVersionUID = -1398312177396430967L;
+    private static final long serialVersionUID = -1398312177396430967L;
 
-	public static FormatFactory factory()
-	{
+    public static FormatFactory factory()
+    {
 
-		return new FormatFactory()
-		{
-			@Override
-			public Format getFormat(String name, String args, Locale locale)
-			{
+        return new FormatFactory()
+        {
+            @Override
+            public Format getFormat(String name, String args, Locale locale)
+            {
 
-				// TODO support unrounded in args?
-				return new PrettyTimeFormat(locale);
+                // TODO support unrounded in args?
+                return new PrettyTimeFormat(locale);
 
-			}
-		};
+            }
+        };
 
-	}
+    }
 
-	public static PrettyTimeFormat getInstance()
-	{
+    public static PrettyTimeFormat getInstance()
+    {
 
-		return getInstance(Locale.getDefault());
+        return getInstance(Locale.getDefault());
 
-	}
+    }
 
-	public static PrettyTimeFormat getInstance(Locale locale)
-	{
+    public static PrettyTimeFormat getInstance(Locale locale)
+    {
 
-		return new PrettyTimeFormat(locale);
+        return new PrettyTimeFormat(locale);
 
-	}
+    }
 
-	private transient PrettyTime prettyTime;
+    private transient PrettyTime prettyTime;
 
-	private final Locale locale;
+    private final Locale locale;
 
-	public PrettyTimeFormat()
-	{
+    public PrettyTimeFormat()
+    {
 
-		this(Locale.getDefault());
+        this(Locale.getDefault());
 
-	}
+    }
 
-	public PrettyTimeFormat(Locale locale)
-	{
+    public PrettyTimeFormat(Locale locale)
+    {
 
-		this.prettyTime = new PrettyTime(locale);
-		this.locale = locale;
+        this.prettyTime = new PrettyTime(locale);
+        this.locale = locale;
 
-	}
+    }
 
-	public Duration approximateDuration(Date then)
-	{
+    public Duration approximateDuration(Date then)
+    {
 
-		return prettyTime.approximateDuration(then);
-	}
+        return prettyTime.approximateDuration(then);
+    }
 
-	public List<Duration> calculatePreciseDuration(Date then)
-	{
+    public List<Duration> calculatePreciseDuration(Date then)
+    {
 
-		return prettyTime.calculatePreciseDuration(then);
-	}
+        return prettyTime.calculatePreciseDuration(then);
+    }
 
-	public List<TimeUnit> clearUnits()
-	{
+    public List<TimeUnit> clearUnits()
+    {
 
-		return prettyTime.clearUnits();
-	}
+        return prettyTime.clearUnits();
+    }
 
-	/**
-	 * Convenience format method.
-	 * 
-	 * @param then
-	 *            The future date.
-	 * @return a relative format date as text representation
-	 */
-	public String format(Date then)
-	{
+    /**
+     * Convenience format method.
+     * 
+     * @param then
+     *            The future date.
+     * @return a relative format date as text representation
+     */
+    public String format(Date then)
+    {
 
-		return prettyTime.format(DurationHelper.calculateDurantion(new Date(), then, prettyTime.getUnits()));
+        return prettyTime.format(DurationHelper.calculateDurantion(new Date(), then, prettyTime.getUnits()));
 
-	}
+    }
 
-	/**
-	 * Convenience format method.
-	 * 
-	 * @param ref
-	 *            The date of reference.
-	 * @param then
-	 *            The future date.
-	 * @return a relative format date as text representation
-	 */
-	public String format(Date ref, Date then)
-	{
+    /**
+     * Convenience format method.
+     * 
+     * @param ref
+     *            The date of reference.
+     * @param then
+     *            The future date.
+     * @return a relative format date as text representation
+     */
+    public String format(Date ref, Date then)
+    {
 
-		return prettyTime.format(DurationHelper.calculateDurantion(ref, then, prettyTime.getUnits()));
+        return prettyTime.format(DurationHelper.calculateDurantion(ref, then, prettyTime.getUnits()));
 
-	}
+    }
 
-	public String format(Duration duration)
-	{
+    public String format(Duration duration)
+    {
 
-		return prettyTime.format(duration);
-	}
+        return prettyTime.format(duration);
+    }
 
-	public String format(List<Duration> durations)
-	{
+    public String format(List<Duration> durations)
+    {
 
-		return prettyTime.format(durations);
-	}
+        return prettyTime.format(durations);
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
-	{
+    @Override
+    @SuppressWarnings("unchecked")
+    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
+    {
 
-		if (Duration.class.isAssignableFrom(obj.getClass()))
-		{
-			return toAppendTo.append(prettyTime.format((Duration) obj));
-		}
+        if (Duration.class.isAssignableFrom(obj.getClass()))
+        {
+            return toAppendTo.append(prettyTime.format((Duration) obj));
+        }
 
-		if (Date.class.isAssignableFrom(obj.getClass()))
-		{
-			return toAppendTo.append(prettyTime.format((Date) obj));
-		}
+        if (Date.class.isAssignableFrom(obj.getClass()))
+        {
+            return toAppendTo.append(prettyTime.format((Date) obj));
+        }
 
-		if (List.class.isAssignableFrom(obj.getClass()))
-		{
-			return toAppendTo.append(prettyTime.format((List<Duration>) obj));
-		}
+        if (List.class.isAssignableFrom(obj.getClass()))
+        {
+            return toAppendTo.append(prettyTime.format((List<Duration>) obj));
+        }
 
-		throw new IllegalArgumentException(String.format("Class %s is not suitable for PrettyTimeFormat",
-		        obj.getClass()));
+        throw new IllegalArgumentException(String.format("Class %s is not suitable for PrettyTimeFormat",
+                obj.getClass()));
 
-	}
+    }
 
-	public String formatUnrounded(Date then)
-	{
+    public String formatUnrounded(Date then)
+    {
 
-		return prettyTime.formatUnrounded(then);
-	}
+        return prettyTime.formatUnrounded(then);
+    }
 
-	public String formatUnrounded(Duration duration)
-	{
+    public String formatUnrounded(Duration duration)
+    {
 
-		return prettyTime.formatUnrounded(duration);
-	}
+        return prettyTime.formatUnrounded(duration);
+    }
 
-	@Override
-	public FormatFactory getFactory()
-	{
+    @Override
+    public FormatFactory getFactory()
+    {
 
-		return factory();
+        return factory();
 
-	}
+    }
 
-	public TimeFormat getFormat(TimeUnit unit)
-	{
+    public TimeFormat getFormat(TimeUnit unit)
+    {
 
-		return prettyTime.getFormat(unit);
-	}
+        return prettyTime.getFormat(unit);
+    }
 
-	@Override
-	public String getFormatName()
-	{
+    @Override
+    public String getFormatName()
+    {
 
-		return "prettytime";
+        return "prettytime";
 
-	}
+    }
 
-	/**
-	 * Gets the underlying {@link PrettyTime} instance.
-	 * 
-	 * @return the underlying {@link PrettyTime} instance.
-	 */
-	public PrettyTime getPrettyTime()
-	{
+    /**
+     * Gets the underlying {@link PrettyTime} instance.
+     * 
+     * @return the underlying {@link PrettyTime} instance.
+     */
+    public PrettyTime getPrettyTime()
+    {
 
-		return prettyTime;
+        return prettyTime;
 
-	}
+    }
 
-	public List<TimeUnit> getUnits()
-	{
+    public List<TimeUnit> getUnits()
+    {
 
-		return prettyTime.getUnits();
-	}
+        return prettyTime.getUnits();
+    }
 
-	@Override
-	public Object parseObject(String source, ParsePosition pos)
-	{
+    @Override
+    public Object parseObject(String source, ParsePosition pos)
+    {
 
-		throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
 
-	}
+    }
 
-	public PrettyTime registerUnit(TimeUnit unit, TimeFormat format)
-	{
+    public PrettyTime registerUnit(TimeUnit unit, TimeFormat format)
+    {
 
-		return prettyTime.registerUnit(unit, format);
-	}
+        return prettyTime.registerUnit(unit, format);
+    }
 
-	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
-	{
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
+    {
 
-		ois.defaultReadObject();
-		this.prettyTime = new PrettyTime(locale);
+        ois.defaultReadObject();
+        this.prettyTime = new PrettyTime(locale);
 
-	}
+    }
 
 }

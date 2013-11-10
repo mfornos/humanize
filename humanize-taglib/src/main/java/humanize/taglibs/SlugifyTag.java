@@ -11,58 +11,58 @@ import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 public class SlugifyTag extends HumanizeSupport
 {
 
-	private static final long serialVersionUID = 1259741260968346374L;
+    private static final long serialVersionUID = 1259741260968346374L;
 
-	private String value;
+    private String value;
 
-	private String input;
+    private String input;
 
-	public void setValue(String value)
-	{
+    public void setValue(String value)
+    {
 
-		this.value = value;
+        this.value = value;
 
-	}
+    }
 
-	@Override
-	protected void begin() throws JspException
-	{
+    @Override
+    protected void begin() throws JspException
+    {
 
-		this.input = value == null || value.length() < 1 ? inputFromBody() : value;
+        this.input = value == null || value.length() < 1 ? inputFromBody() : value;
 
-	}
+    }
 
-	protected void clean()
-	{
+    protected void clean()
+    {
 
-		this.value = null;
-		this.input = null;
-		this.resolveLocale = false;
+        this.value = null;
+        this.input = null;
+        this.resolveLocale = false;
 
-	}
+    }
 
-	@Override
-	protected boolean isContextRemoveNeeded()
-	{
+    @Override
+    protected boolean isContextRemoveNeeded()
+    {
 
-		return input == null || input.length() < 1;
+        return input == null || input.length() < 1;
 
-	}
+    }
 
-	@Override
-	protected String render() throws JspException
-	{
+    @Override
+    protected String render() throws JspException
+    {
 
-		return Humanize.slugify(input);
+        return Humanize.slugify(input);
 
-	}
+    }
 
-	@Override
-	protected String render(Locale locale) throws JspException
-	{
+    @Override
+    protected String render(Locale locale) throws JspException
+    {
 
-		return render();
+        return render();
 
-	}
+    }
 
 }

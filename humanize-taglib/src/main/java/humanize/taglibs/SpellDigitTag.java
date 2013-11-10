@@ -11,22 +11,22 @@ import org.apache.taglibs.standard.tag.common.fmt.NumberCallSupport;
 public class SpellDigitTag extends NumberCallSupport
 {
 
-	private static final long serialVersionUID = -3650935972940093910L;
+    private static final long serialVersionUID = -3650935972940093910L;
 
-	@Override
-	protected String render() throws JspException
-	{
+    @Override
+    protected String render() throws JspException
+    {
 
-		return Humanize.spellDigit(input);
+        return Humanize.spellDigit(input);
 
-	}
+    }
 
-	@Override
-	protected String render(Locale locale) throws JspException
-	{
+    @Override
+    protected String render(Locale locale) throws JspException
+    {
 
-		return Humanize.spellDigit(input, locale);
+        return Humanize.spellDigit(input, locale);
 
-	}
+    }
 
 }

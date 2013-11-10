@@ -15,80 +15,80 @@ import javax.faces.convert.FacesConverter;
 public class PluralizeConverter extends BaseConverter
 {
 
-	private static final long serialVersionUID = 9005174100459127996L;
+    private static final long serialVersionUID = 9005174100459127996L;
 
-	private Object value;
+    private Object value;
 
-	private String args;
+    private String args;
 
-	public String getArgs()
-	{
+    public String getArgs()
+    {
 
-		return args;
+        return args;
 
-	}
+    }
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value)
-	{
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value)
+    {
 
-		return Humanize.pluralizeFormat(value.toString(), getLocale()).render(getArgsArray());
+        return Humanize.pluralizeFormat(value.toString(), getLocale()).render(getArgsArray());
 
-	}
+    }
 
-	public Object getValue()
-	{
+    public Object getValue()
+    {
 
-		return value;
+        return value;
 
-	}
+    }
 
-	public void setArgs(String args)
-	{
+    public void setArgs(String args)
+    {
 
-		clearInitialState();
-		this.args = args;
+        clearInitialState();
+        this.args = args;
 
-	}
+    }
 
-	public void setValue(Object value)
-	{
+    public void setValue(Object value)
+    {
 
-		clearInitialState();
-		this.value = value;
+        clearInitialState();
+        this.value = value;
 
-	}
+    }
 
-	@Override
-	protected void restore(Iterator<Object> iterator)
-	{
+    @Override
+    protected void restore(Iterator<Object> iterator)
+    {
 
-		this.value = iterator.next();
-		this.args = (String) iterator.next();
+        this.value = iterator.next();
+        this.args = (String) iterator.next();
 
-	}
+    }
 
-	@Override
-	protected void save(List<Object> states)
-	{
+    @Override
+    protected void save(List<Object> states)
+    {
 
-		states.add(value);
-		states.add(args);
+        states.add(value);
+        states.add(args);
 
-	}
+    }
 
-	private Object[] getArgsArray()
-	{
+    private Object[] getArgsArray()
+    {
 
-		List<Object> tmpArr = new ArrayList<Object>();
-		tmpArr.add(asNumber(value));
-		if (args != null)
-		{
-			tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
-		}
+        List<Object> tmpArr = new ArrayList<Object>();
+        tmpArr.add(asNumber(value));
+        if (args != null)
+        {
+            tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
+        }
 
-		return tmpArr.toArray(new Object[tmpArr.size()]);
+        return tmpArr.toArray(new Object[tmpArr.size()]);
 
-	}
+    }
 
 }

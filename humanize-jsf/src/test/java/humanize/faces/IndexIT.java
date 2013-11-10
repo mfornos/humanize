@@ -10,25 +10,25 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class IndexIT extends BaseServerIT
 {
 
-	@Test
-	public void homePage() throws Exception
-	{
+    @Test
+    public void homePage() throws Exception
+    {
 
-		final WebClient webClient = new WebClient();
-		WebClientOptions options = webClient.getOptions();
-		options.setJavaScriptEnabled(false);
-		options.setCssEnabled(false);
+        final WebClient webClient = new WebClient();
+        WebClientOptions options = webClient.getOptions();
+        options.setJavaScriptEnabled(false);
+        options.setCssEnabled(false);
 
-		final HtmlPage page = webClient.getPage(baseUri);
-		Assert.assertEquals(page.getTitleText(), "Humanize JSF Example");
+        final HtmlPage page = webClient.getPage(baseUri);
+        Assert.assertEquals(page.getTitleText(), "Humanize JSF Example");
 
-		final String pageAsXml = page.asXml();
-		Assert.assertTrue(pageAsXml.contains("<div class=\"wrapper\">"));
+        final String pageAsXml = page.asXml();
+        Assert.assertTrue(pageAsXml.contains("<div class=\"wrapper\">"));
 
-		final String pageAsText = page.asText();
-		Assert.assertTrue(pageAsText.contains("hmnz:duration"));
+        final String pageAsText = page.asText();
+        Assert.assertTrue(pageAsText.contains("hmnz:duration"));
 
-		webClient.closeAllWindows();
+        webClient.closeAllWindows();
 
-	}
+    }
 }

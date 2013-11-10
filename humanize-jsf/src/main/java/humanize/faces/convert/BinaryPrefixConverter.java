@@ -10,14 +10,14 @@ import javax.faces.convert.FacesConverter;
 public class BinaryPrefixConverter extends NumberConverter
 {
 
-	private static final long serialVersionUID = 1942567170903039630L;
+    private static final long serialVersionUID = 1942567170903039630L;
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value)
-	{
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value)
+    {
 
-		return Humanize.binaryPrefix(asNumber(value), getLocale(context));
+        return Humanize.binaryPrefix(asNumber(value), getLocale(context));
 
-	}
+    }
 
 }

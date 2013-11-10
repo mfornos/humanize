@@ -11,34 +11,34 @@ import java.util.Locale;
 public class MessageFormat extends com.ibm.icu.text.MessageFormat
 {
 
-	private static final long serialVersionUID = -5384364921909539710L;
+    private static final long serialVersionUID = -5384364921909539710L;
 
-	public MessageFormat(String pattern)
-	{
+    public MessageFormat(String pattern)
+    {
 
-		super(pattern);
+        super(pattern);
 
-	}
+    }
 
-	public MessageFormat(String pattern, Locale locale)
-	{
+    public MessageFormat(String pattern, Locale locale)
+    {
 
-		super(pattern, locale);
+        super(pattern, locale);
 
-	}
+    }
 
-	public String render(Object... arguments)
-	{
+    public String render(Object... arguments)
+    {
 
-		return format(arguments);
+        return format(arguments);
 
-	}
+    }
 
-	public StringBuffer render(StringBuffer buffer, Object... arguments)
-	{
+    public StringBuffer render(StringBuffer buffer, Object... arguments)
+    {
 
-		return format(arguments, buffer, null);
+        return format(arguments, buffer, null);
 
-	}
+    }
 
 }

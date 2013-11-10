@@ -12,73 +12,73 @@ import com.sun.faces.config.ConfigureListener;
 class RunServer
 {
 
-	public static void main(String args[])
-	{
+    public static void main(String args[])
+    {
 
-		new RunServer(8080);
+        new RunServer(8080);
 
-	}
+    }
 
-	private final Server server;
+    private final Server server;
 
-	public RunServer(int port)
-	{
+    public RunServer(int port)
+    {
 
-		System.out.println("Initializing server...");
-		final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
-		context.setResourceBase("src/integration/webapp");
+        System.out.println("Initializing server...");
+        final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.setResourceBase("src/integration/webapp");
 
-		context.setClassLoader(Thread.currentThread().getContextClassLoader());
+        context.setClassLoader(Thread.currentThread().getContextClassLoader());
 
-		context.addServlet(DefaultServlet.class, "/");
-		context.addEventListener(new ConfigureListener());
-		context.setWelcomeFiles(new String[] { "index.xhtml" });
+        context.addServlet(DefaultServlet.class, "/");
+        context.addEventListener(new ConfigureListener());
+        context.setWelcomeFiles(new String[] { "index.xhtml" });
 
-		final ServletHolder faces = context.addServlet(FacesServlet.class, "*.xhtml");
-		faces.setInitParameter("classpath", context.getClassPath());
+        final ServletHolder faces = context.addServlet(FacesServlet.class, "*.xhtml");
+        faces.setInitParameter("classpath", context.getClassPath());
 
-		// add your own additional servlets like this:
-		// context.addServlet(JSONServlet.class, "/json");
+        // add your own additional servlets like this:
+        // context.addServlet(JSONServlet.class, "/json");
 
-		server = new Server(port);
-		server.setHandler(context);
+        server = new Server(port);
+        server.setHandler(context);
 
-		System.out.println("Starting server...");
-		new Thread()
-		{
-			public void run()
-			{
+        System.out.println("Starting server...");
+        new Thread()
+        {
+            public void run()
+            {
 
-				try
-				{
-					server.start();
-				} catch (Exception e)
-				{
-					System.out.println("Failed to start server!");
-					return;
-				}
+                try
+                {
+                    server.start();
+                } catch (Exception e)
+                {
+                    System.out.println("Failed to start server!");
+                    return;
+                }
 
-				System.out.println("Server running...");
-				while (true)
-				{
-					try
-					{
-						server.join();
-					} catch (InterruptedException e)
-					{
-						System.out.println("Server interrupted!");
-					}
-				}
-			};
-		}.start();
+                System.out.println("Server running...");
+                while (true)
+                {
+                    try
+                    {
+                        server.join();
+                    } catch (InterruptedException e)
+                    {
+                        System.out.println("Server interrupted!");
+                    }
+                }
+            };
+        }.start();
 
-	}
+    }
 
-	public void stop() throws Exception
-	{
+    public void stop() throws Exception
+    {
 
-		server.stop();
+        server.stop();
 
-	}
+    }
 }

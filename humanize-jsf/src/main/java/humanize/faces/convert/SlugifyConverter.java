@@ -10,13 +10,13 @@ import javax.faces.convert.FacesConverter;
 public class SlugifyConverter extends BaseConverter
 {
 
-	private static final long serialVersionUID = -446143597515448224L;
+    private static final long serialVersionUID = -446143597515448224L;
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value)
-	{
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value)
+    {
 
-		return Humanize.slugify(value.toString());
+        return Humanize.slugify(value.toString());
 
-	}
+    }
 }

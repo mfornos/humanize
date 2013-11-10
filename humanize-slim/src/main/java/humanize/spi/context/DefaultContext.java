@@ -27,369 +27,369 @@ import java.util.concurrent.Callable;
 public class DefaultContext implements Context, StandardContext
 {
 
-	private static final String BUNDLE_LOCATION = "i18n.Humanize";
+    private static final String BUNDLE_LOCATION = "i18n.Humanize";
 
-	private static final String ORDINAL_SUFFIXES = "ordinal.suffixes";
+    private static final String ORDINAL_SUFFIXES = "ordinal.suffixes";
 
-	private static final String TIME_SUFFIXES = "time.suffixes";
+    private static final String TIME_SUFFIXES = "time.suffixes";
 
-	private static final String CURRENCY = "currency";
+    private static final String CURRENCY = "currency";
 
-	private static final String DECIMAL = "decimal";
+    private static final String DECIMAL = "decimal";
 
-	private static final String NUMBER = "number";
+    private static final String NUMBER = "number";
 
-	private static final String DIGITS = "digits";
+    private static final String DIGITS = "digits";
 
-	private static final String PERCENT = "percent";
+    private static final String PERCENT = "percent";
 
-	private static final String DATE_FORMAT = "date";
+    private static final String DATE_FORMAT = "date";
 
-	private static final String DATE_TIME_FORMAT = "date.time";
+    private static final String DATE_TIME_FORMAT = "date.time";
 
-	private static final String SIMPLE_DATE = "simple.date";
+    private static final String SIMPLE_DATE = "simple.date";
 
-	private static final String PRETTY_TIME = "pretty.time";
+    private static final String PRETTY_TIME = "pretty.time";
 
-	private static final String MASK = "mask";
+    private static final String MASK = "mask";
 
-	private final static CacheProvider sharedCache = loadCacheProvider();
+    private final static CacheProvider sharedCache = loadCacheProvider();
 
-	private static CacheProvider loadCacheProvider()
-	{
+    private static CacheProvider loadCacheProvider()
+    {
 
-		ServiceLoader<CacheProvider> ldr = ServiceLoader.load(CacheProvider.class);
-		for (CacheProvider provider : ldr)
-		{
-			return provider;
-		}
-		throw new RuntimeException("No CacheProvider was found");
+        ServiceLoader<CacheProvider> ldr = ServiceLoader.load(CacheProvider.class);
+        for (CacheProvider provider : ldr)
+        {
+            return provider;
+        }
+        throw new RuntimeException("No CacheProvider was found");
 
-	}
+    }
 
-	private final CacheProvider localCache = loadCacheProvider();
+    private final CacheProvider localCache = loadCacheProvider();
 
-	private final MessageFormat messageFormat;
+    private final MessageFormat messageFormat;
 
-	private Locale locale;
+    private Locale locale;
 
-	public DefaultContext()
-	{
+    public DefaultContext()
+    {
 
-		this(Locale.getDefault());
+        this(Locale.getDefault());
 
-	}
+    }
 
-	public DefaultContext(Locale locale)
-	{
+    public DefaultContext(Locale locale)
+    {
 
-		this.messageFormat = new MessageFormat(EMPTY, locale);
+        this.messageFormat = new MessageFormat(EMPTY, locale);
 
-		setLocale(locale);
+        setLocale(locale);
 
-	}
+    }
 
-	@Override
-	public String digitStrings(int index)
-	{
+    @Override
+    public String digitStrings(int index)
+    {
 
-		return resolveStringArray(DIGITS, index);
+        return resolveStringArray(DIGITS, index);
 
-	}
+    }
 
-	@Override
-	public String formatDate(int style, Date value)
-	{
+    @Override
+    public String formatDate(int style, Date value)
+    {
 
-		return getDateFormat(style).format(value);
+        return getDateFormat(style).format(value);
 
-	}
+    }
 
-	@Override
-	public String formatDateTime(Date date)
-	{
+    @Override
+    public String formatDateTime(Date date)
+    {
 
-		return getDateTimeFormat().format(date);
+        return getDateTimeFormat().format(date);
 
-	}
+    }
 
-	@Override
-	public String formatDateTime(int dateStyle, int timeStyle, Date date)
-	{
+    @Override
+    public String formatDateTime(int dateStyle, int timeStyle, Date date)
+    {
 
-		return getDateTimeFormat(dateStyle, timeStyle).format(date);
-	}
+        return getDateTimeFormat(dateStyle, timeStyle).format(date);
+    }
 
-	@Override
-	public String formatDecimal(Number value)
-	{
+    @Override
+    public String formatDecimal(Number value)
+    {
 
-		return getNumberFormat().format(value);
+        return getNumberFormat().format(value);
 
-	}
+    }
 
-	@Override
-	public String formatMessage(String key, Object... args)
-	{
+    @Override
+    public String formatMessage(String key, Object... args)
+    {
 
-		MessageFormat fmt = getMessageFormat();
-		fmt.applyPattern(getBundle().getString(key));
-		return fmt.render(args);
+        MessageFormat fmt = getMessageFormat();
+        fmt.applyPattern(getBundle().getString(key));
+        return fmt.render(args);
 
-	}
+    }
 
-	@Override
-	public String formatRelativeDate(Date duration)
-	{
+    @Override
+    public String formatRelativeDate(Date duration)
+    {
 
-		return getPrettyTimeFormat().format(duration);
-	}
+        return getPrettyTimeFormat().format(duration);
+    }
 
-	@Override
-	public String formatRelativeDate(Date reference, Date duration)
-	{
+    @Override
+    public String formatRelativeDate(Date reference, Date duration)
+    {
 
-		return getPrettyTimeFormat().format(reference, duration);
-	}
+        return getPrettyTimeFormat().format(reference, duration);
+    }
 
-	@Override
-	public ResourceBundle getBundle()
-	{
+    @Override
+    public ResourceBundle getBundle()
+    {
 
-		return sharedCache.getBundle(locale, new Callable<ResourceBundle>()
-		{
-			@Override
-			public ResourceBundle call() throws Exception
-			{
+        return sharedCache.getBundle(locale, new Callable<ResourceBundle>()
+        {
+            @Override
+            public ResourceBundle call() throws Exception
+            {
 
-				return ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control());
+                return ResourceBundle.getBundle(BUNDLE_LOCATION, locale, new UTF8Control());
 
-			}
-		});
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DecimalFormat getCurrencyFormat()
-	{
+    @Override
+    public DecimalFormat getCurrencyFormat()
+    {
 
-		return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+        return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-				return (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
-			}
-		});
+                return (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DateFormat getDateFormat(final int style)
-	{
+    @Override
+    public DateFormat getDateFormat(final int style)
+    {
 
-		String name = DATE_FORMAT + style;
+        String name = DATE_FORMAT + style;
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>()
-		{
-			@Override
-			public DateFormat call() throws Exception
-			{
+        return localCache.getFormat(name, locale, new Callable<DateFormat>()
+        {
+            @Override
+            public DateFormat call() throws Exception
+            {
 
-				return DateFormat.getDateInstance(style, locale);
-			}
-		});
+                return DateFormat.getDateInstance(style, locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DateFormat getDateFormat(final String pattern)
-	{
+    @Override
+    public DateFormat getDateFormat(final String pattern)
+    {
 
-		return localCache.getFormat(SIMPLE_DATE + pattern.hashCode(), locale, new Callable<DateFormat>()
-		{
-			@Override
-			public DateFormat call() throws Exception
-			{
+        return localCache.getFormat(SIMPLE_DATE + pattern.hashCode(), locale, new Callable<DateFormat>()
+        {
+            @Override
+            public DateFormat call() throws Exception
+            {
 
-				return new SimpleDateFormat(pattern, locale);
+                return new SimpleDateFormat(pattern, locale);
 
-			}
-		});
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DateFormat getDateTimeFormat()
-	{
+    @Override
+    public DateFormat getDateTimeFormat()
+    {
 
-		return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
+        return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
 
-	}
+    }
 
-	@Override
-	public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle)
-	{
+    @Override
+    public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle)
+    {
 
-		String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
+        String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>()
-		{
-			@Override
-			public DateFormat call() throws Exception
-			{
+        return localCache.getFormat(name, locale, new Callable<DateFormat>()
+        {
+            @Override
+            public DateFormat call() throws Exception
+            {
 
-				return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
-			}
-		});
+                return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DecimalFormat getDecimalFormat()
-	{
+    @Override
+    public DecimalFormat getDecimalFormat()
+    {
 
-		return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+        return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-				return (DecimalFormat) DecimalFormat.getInstance(locale);
-			}
-		});
+                return (DecimalFormat) DecimalFormat.getInstance(locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public Locale getLocale()
-	{
+    @Override
+    public Locale getLocale()
+    {
 
-		return locale;
+        return locale;
 
-	}
+    }
 
-	@Override
-	public MaskFormat getMaskFormat()
-	{
+    @Override
+    public MaskFormat getMaskFormat()
+    {
 
-		return localCache.getFormat(MASK, Locale.ROOT, new Callable<MaskFormat>()
-		{
-			@Override
-			public MaskFormat call() throws Exception
-			{
+        return localCache.getFormat(MASK, Locale.ROOT, new Callable<MaskFormat>()
+        {
+            @Override
+            public MaskFormat call() throws Exception
+            {
 
-				return new MaskFormat("");
-			}
-		});
+                return new MaskFormat("");
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public String getMessage(String key)
-	{
+    @Override
+    public String getMessage(String key)
+    {
 
-		return getBundle().getString(key);
+        return getBundle().getString(key);
 
-	}
+    }
 
-	@Override
-	public MessageFormat getMessageFormat()
-	{
+    @Override
+    public MessageFormat getMessageFormat()
+    {
 
-		messageFormat.setLocale(locale);
-		return messageFormat;
+        messageFormat.setLocale(locale);
+        return messageFormat;
 
-	}
+    }
 
-	@Override
-	public NumberFormat getNumberFormat()
-	{
+    @Override
+    public NumberFormat getNumberFormat()
+    {
 
-		return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>()
-		{
-			@Override
-			public NumberFormat call() throws Exception
-			{
+        return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>()
+        {
+            @Override
+            public NumberFormat call() throws Exception
+            {
 
-				return NumberFormat.getInstance(locale);
-			}
-		});
+                return NumberFormat.getInstance(locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public DecimalFormat getPercentFormat()
-	{
+    @Override
+    public DecimalFormat getPercentFormat()
+    {
 
-		return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+        return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-				return (DecimalFormat) NumberFormat.getPercentInstance(locale);
-			}
-		});
+                return (DecimalFormat) NumberFormat.getPercentInstance(locale);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public PrettyTimeFormat getPrettyTimeFormat()
-	{
+    @Override
+    public PrettyTimeFormat getPrettyTimeFormat()
+    {
 
-		return sharedCache.getFormat(PRETTY_TIME, locale, new Callable<PrettyTimeFormat>()
-		{
-			@Override
-			public PrettyTimeFormat call() throws Exception
-			{
+        return sharedCache.getFormat(PRETTY_TIME, locale, new Callable<PrettyTimeFormat>()
+        {
+            @Override
+            public PrettyTimeFormat call() throws Exception
+            {
 
-				return PrettyTimeFormat.getInstance(locale);
+                return PrettyTimeFormat.getInstance(locale);
 
-			}
-		});
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public String ordinalSuffix(int index)
-	{
+    @Override
+    public String ordinalSuffix(int index)
+    {
 
-		return resolveStringArray(ORDINAL_SUFFIXES, index);
+        return resolveStringArray(ORDINAL_SUFFIXES, index);
 
-	}
+    }
 
-	@Override
-	public void setLocale(Locale locale)
-	{
+    @Override
+    public void setLocale(Locale locale)
+    {
 
-		this.locale = locale;
+        this.locale = locale;
 
-	}
+    }
 
-	@Override
-	public String timeSuffix(int index)
-	{
+    @Override
+    public String timeSuffix(int index)
+    {
 
-		return resolveStringArray(TIME_SUFFIXES, index);
+        return resolveStringArray(TIME_SUFFIXES, index);
 
-	}
+    }
 
-	private String resolveStringArray(final String cacheName, final int index)
-	{
+    private String resolveStringArray(final String cacheName, final int index)
+    {
 
-		return sharedCache.getStrings(cacheName, locale, new Callable<String[]>()
-		{
-			@Override
-			public String[] call() throws Exception
-			{
+        return sharedCache.getStrings(cacheName, locale, new Callable<String[]>()
+        {
+            @Override
+            public String[] call() throws Exception
+            {
 
-				return getBundle().getString(cacheName).split(SPACE);
+                return getBundle().getString(cacheName).split(SPACE);
 
-			}
-		})[index];
+            }
+        })[index];
 
-	}
+    }
 
 }

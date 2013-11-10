@@ -16,46 +16,46 @@ import org.testng.annotations.Test;
 public class TestJodaTime
 {
 
-	@Test
-	public void periodFormat()
-	{
+    @Test
+    public void dateFormat()
+    {
 
-		PeriodFormatter fmt = PeriodFormat.getDefault();
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 day, 3 hours, 46 minutes and 40 seconds");
+        DateTime zero = new DateTime(0).millisOfDay().setCopy(0).secondOfDay().setCopy(0);
+        DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
 
-		fmt = PeriodFormat.wordBased(new Locale("es"));
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 día, 3 horas, 46 minutos y 40 segundos");
+        // Assert.assertEquals(zero.toString(fmt),
+        // "1970-01-01T00:00:00.000+01:00");
 
-		fmt = ISOPeriodFormat.standard();
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P1DT3H46M40S");
+        fmt = ISODateTimeFormat.basicDate();
+        Assert.assertEquals(zero.toString(fmt), "19700101");
 
-		fmt = ISOPeriodFormat.alternate();
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P00000001T034640");
+        fmt = ISODateTimeFormat.basicOrdinalDate();
+        Assert.assertEquals(zero.toString(fmt), "1970001");
 
-		fmt = ISOPeriodFormat.alternateWithWeeks();
-		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P0000W0001T034640");
+        fmt = DateTimeFormat.fullDate().withLocale(Locale.ENGLISH);
+        Assert.assertEquals(zero.toString(fmt), "Thursday, January 1, 1970");
 
-	}
+    }
 
-	@Test
-	public void dateFormat()
-	{
+    @Test
+    public void periodFormat()
+    {
 
-		DateTime zero = new DateTime(0).millisOfDay().setCopy(0).secondOfDay().setCopy(0);
-		DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+        PeriodFormatter fmt = PeriodFormat.getDefault();
+        Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 day, 3 hours, 46 minutes and 40 seconds");
 
-		// Assert.assertEquals(zero.toString(fmt),
-		// "1970-01-01T00:00:00.000+01:00");
+        fmt = PeriodFormat.wordBased(new Locale("es"));
+        Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 día, 3 horas, 46 minutos y 40 segundos");
 
-		fmt = ISODateTimeFormat.basicDate();
-		Assert.assertEquals(zero.toString(fmt), "19700101");
+        fmt = ISOPeriodFormat.standard();
+        Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P1DT3H46M40S");
 
-		fmt = ISODateTimeFormat.basicOrdinalDate();
-		Assert.assertEquals(zero.toString(fmt), "1970001");
+        fmt = ISOPeriodFormat.alternate();
+        Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P00000001T034640");
 
-		fmt = DateTimeFormat.fullDate().withLocale(Locale.ENGLISH);
-		Assert.assertEquals(zero.toString(fmt), "Thursday, January 1, 1970");
+        fmt = ISOPeriodFormat.alternateWithWeeks();
+        Assert.assertEquals(new Period(0, 100000000).toString(fmt), "P0000W0001T034640");
 
-	}
+    }
 
 }

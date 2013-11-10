@@ -12,62 +12,62 @@ import org.testng.annotations.Test;
 public class TestHumanizeFormat
 {
 
-	@Test
-	public void basic()
-	{
+    @Test
+    public void basic()
+    {
 
-		Assert.assertEquals(Humanize.ordinal(10, Locale.ENGLISH), "10th");
+        Assert.assertEquals(Humanize.ordinal(10, Locale.ENGLISH), "10th");
 
-		FormatFactory factory = HumanizeFormatProvider.factory();
+        FormatFactory factory = HumanizeFormatProvider.factory();
 
-		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
-		Assert.assertEquals(f.format(10), "10th");
+        Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
+        Assert.assertEquals(f.format(10), "10th");
 
-		f = factory.getFormat("humanize", "binaryPrefix", Locale.UK);
-		Assert.assertEquals(f.format(0), "0 bytes");
+        f = factory.getFormat("humanize", "binaryPrefix", Locale.UK);
+        Assert.assertEquals(f.format(0), "0 bytes");
 
-		f = factory.getFormat("humanize", "binary.prefix", Locale.UK);
-		Assert.assertEquals(f.format(0), "0 bytes");
+        f = factory.getFormat("humanize", "binary.prefix", Locale.UK);
+        Assert.assertEquals(f.format(0), "0 bytes");
 
-		f = factory.getFormat("humanize", "binary-prefix", Locale.UK);
-		Assert.assertEquals(f.format(0), "0 bytes");
+        f = factory.getFormat("humanize", "binary-prefix", Locale.UK);
+        Assert.assertEquals(f.format(0), "0 bytes");
 
-		f = factory.getFormat("humanize", "binary_prefix", Locale.UK);
-		Assert.assertEquals(f.format(0), "0 bytes");
+        f = factory.getFormat("humanize", "binary_prefix", Locale.UK);
+        Assert.assertEquals(f.format(0), "0 bytes");
 
-		f = factory.getFormat("humanize", "binary prefix", Locale.UK);
-		Assert.assertEquals(f.format(0), "0 bytes");
+        f = factory.getFormat("humanize", "binary prefix", Locale.UK);
+        Assert.assertEquals(f.format(0), "0 bytes");
 
-		f = factory.getFormat("humanize", "camelize", Locale.UK);
-		Assert.assertEquals(f.format("hello world"), "helloWorld");
+        f = factory.getFormat("humanize", "camelize", Locale.UK);
+        Assert.assertEquals(f.format("hello world"), "helloWorld");
 
-		f = factory.getFormat("humanize", "metricPrefix", Locale.UK);
-		Assert.assertEquals(f.format(10000000), "10M");
+        f = factory.getFormat("humanize", "metricPrefix", Locale.UK);
+        Assert.assertEquals(f.format(10000000), "10M");
 
-		Assert.assertNull(factory.getFormat("humanize", "none", Locale.UK));
+        Assert.assertNull(factory.getFormat("humanize", "none", Locale.UK));
 
-	}
+    }
 
-	@Test
-	public void invalidCall()
-	{
+    @Test
+    public void invalidCall()
+    {
 
-		FormatFactory factory = HumanizeFormatProvider.factory();
+        FormatFactory factory = HumanizeFormatProvider.factory();
 
-		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
-		Assert.assertEquals(f.format(new Object[] { "juidui" }), "[invalid call: 'argument type mismatch']");
+        Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
+        Assert.assertEquals(f.format(new Object[] { "juidui" }), "[invalid call: 'argument type mismatch']");
 
-	}
+    }
 
-	@Test(expectedExceptions = UnsupportedOperationException.class)
-	public void parse() throws ParseException
-	{
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void parse() throws ParseException
+    {
 
-		FormatFactory factory = HumanizeFormatProvider.factory();
+        FormatFactory factory = HumanizeFormatProvider.factory();
 
-		Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
-		f.parseObject("any");
+        Format f = factory.getFormat("humanize", "ordinal", Locale.UK);
+        f.parseObject("any");
 
-	}
+    }
 
 }

@@ -12,27 +12,27 @@ import java.util.regex.Pattern;
 public class InterpolationHelper
 {
 
-	public static String interpolate(String text, Pattern pattern, Replacer replacer)
-	{
+    public static String interpolate(String text, Pattern pattern, Replacer replacer)
+    {
 
-		Matcher matcher = pattern.matcher(text);
-		StringBuffer sb = new StringBuffer();
+        Matcher matcher = pattern.matcher(text);
+        StringBuffer sb = new StringBuffer();
 
-		while (matcher.find())
-		{
-			matcher.appendReplacement(sb, replacer.replace(matcher.group(1)));
-		}
+        while (matcher.find())
+        {
+            matcher.appendReplacement(sb, replacer.replace(matcher.group(1)));
+        }
 
-		matcher.appendTail(sb);
+        matcher.appendTail(sb);
 
-		return (sb.length() > 0) ? sb.toString() : text;
-	}
+        return (sb.length() > 0) ? sb.toString() : text;
+    }
 
-	public static String replaceSupplementary(String text, Replacer replacer)
-	{
+    public static String replaceSupplementary(String text, Replacer replacer)
+    {
 
-		return interpolate(text, Constants.NOT_IN_BMP, replacer);
+        return interpolate(text, Constants.NOT_IN_BMP, replacer);
 
-	}
+    }
 
 }

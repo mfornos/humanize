@@ -10,13 +10,13 @@ import javax.faces.convert.FacesConverter;
 public class OrdinalConverter extends NumberConverter
 {
 
-	private static final long serialVersionUID = -5459230181583940999L;
+    private static final long serialVersionUID = -5459230181583940999L;
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value)
-	{
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value)
+    {
 
-		return Humanize.ordinal(asNumber(value), getLocale(context));
+        return Humanize.ordinal(asNumber(value), getLocale(context));
 
-	}
+    }
 }

@@ -29,329 +29,329 @@ import com.ibm.icu.util.ULocale;
 public class DefaultICUContext implements Context, ICUContext
 {
 
-	private static final String DURATION_FORMAT = "icu.duration.format";
+    private static final String DURATION_FORMAT = "icu.duration.format";
 
-	private static final String CURRENCY = "icu.currency";
+    private static final String CURRENCY = "icu.currency";
 
-	private static final String DECIMAL = "icu.decimal";
+    private static final String DECIMAL = "icu.decimal";
 
-	private static final String NUMBER = "icu.number";
+    private static final String NUMBER = "icu.number";
 
-	private static final String PERCENT = "icu.percent";
+    private static final String PERCENT = "icu.percent";
 
-	private static final String RULE_BASED = "icu.rule.based";
+    private static final String RULE_BASED = "icu.rule.based";
 
-	private static final String DATE_FORMAT = "icu.date";
+    private static final String DATE_FORMAT = "icu.date";
 
-	private static final String CURRENCY_PL = "icu.currency.pl";
+    private static final String CURRENCY_PL = "icu.currency.pl";
 
-	private static final String DATE_TIME_FORMAT = "icu.date.time";
+    private static final String DATE_TIME_FORMAT = "icu.date.time";
 
-	private final static CacheProvider sharedCache = loadCacheProvider();
+    private final static CacheProvider sharedCache = loadCacheProvider();
 
-	private static CacheProvider loadCacheProvider()
-	{
+    private static CacheProvider loadCacheProvider()
+    {
 
-		ServiceLoader<CacheProvider> ldr = ServiceLoader.load(CacheProvider.class);
-		for (CacheProvider provider : ldr)
-		{
-			return provider;
-		}
-		throw new RuntimeException("No CacheProvider was found");
+        ServiceLoader<CacheProvider> ldr = ServiceLoader.load(CacheProvider.class);
+        for (CacheProvider provider : ldr)
+        {
+            return provider;
+        }
+        throw new RuntimeException("No CacheProvider was found");
 
-	}
+    }
 
-	private final CacheProvider localCache = loadCacheProvider();
+    private final CacheProvider localCache = loadCacheProvider();
 
-	private Locale locale;
+    private Locale locale;
 
-	private ULocale ulocale;
+    private ULocale ulocale;
 
-	private MessageFormat messageFormat;
+    private MessageFormat messageFormat;
 
-	public DefaultICUContext()
-	{
+    public DefaultICUContext()
+    {
 
-		this(Locale.getDefault());
+        this(Locale.getDefault());
 
-	}
+    }
 
-	public DefaultICUContext(Locale locale)
-	{
+    public DefaultICUContext(Locale locale)
+    {
 
-		setLocale(locale);
-		this.messageFormat = new MessageFormat(EMPTY, locale);
+        setLocale(locale);
+        this.messageFormat = new MessageFormat(EMPTY, locale);
 
-	}
+    }
 
-	@Override
-	public MessageFormat getMessageFormat()
-	{
+    @Override
+    public String digitStrings(int index)
+    {
 
-		messageFormat.setLocale(locale);
-		return messageFormat;
+        throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-	}
+    }
 
-	@Override
-	public String formatDate(int style, Date value)
-	{
+    @Override
+    public String formatDate(int style, Date value)
+    {
 
-		return getDateFormat(style).format(value);
+        return getDateFormat(style).format(value);
 
-	}
+    }
 
-	@Override
-	public String formatDateTime(Date date)
-	{
+    @Override
+    public String formatDateTime(Date date)
+    {
 
-		return getDateTimeFormat().format(date);
+        return getDateTimeFormat().format(date);
 
-	}
+    }
 
-	@Override
-	public String formatDateTime(int dateStyle, int timeStyle, Date date)
-	{
+    @Override
+    public String formatDateTime(int dateStyle, int timeStyle, Date date)
+    {
 
-		return getDateTimeFormat(dateStyle, timeStyle).format(date);
-	}
+        return getDateTimeFormat(dateStyle, timeStyle).format(date);
+    }
 
-	@Override
-	public String formatDecimal(Number value)
-	{
+    @Override
+    public String formatDecimal(Number value)
+    {
 
-		return getNumberFormat().format(value);
+        return getNumberFormat().format(value);
 
-	}
+    }
 
-	@Override
-	public String getBestPattern(String skeleton)
-	{
+    @Override
+    public String formatMessage(String key, Object... args)
+    {
 
-		DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(getULocale());
-		return generator.getBestPattern(skeleton);
+        throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-	}
+    }
 
-	@Override
-	public DecimalFormat getCurrencyFormat()
-	{
+    @Override
+    public String getBestPattern(String skeleton)
+    {
 
-		return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+        DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(getULocale());
+        return generator.getBestPattern(skeleton);
 
-				return (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
-			}
-		});
+    }
 
-	}
+    @Override
+    public ResourceBundle getBundle()
+    {
 
-	@Override
-	public DateFormat getDateFormat(final int style)
-	{
+        throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-		String name = DATE_FORMAT + style;
+    }
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>()
-		{
-			@Override
-			public DateFormat call() throws Exception
-			{
+    @Override
+    public DecimalFormat getCurrencyFormat()
+    {
 
-				return DateFormat.getDateInstance(style, locale);
-			}
-		});
+        return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-	}
+                return (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
+            }
+        });
 
-	@Override
-	public DateFormat getDateTimeFormat()
-	{
+    }
 
-		return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
+    @Override
+    public DateFormat getDateFormat(final int style)
+    {
 
-	}
+        String name = DATE_FORMAT + style;
 
-	@Override
-	public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle)
-	{
+        return localCache.getFormat(name, locale, new Callable<DateFormat>()
+        {
+            @Override
+            public DateFormat call() throws Exception
+            {
 
-		String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
+                return DateFormat.getDateInstance(style, locale);
+            }
+        });
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>()
-		{
-			@Override
-			public DateFormat call() throws Exception
-			{
+    }
 
-				return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
-			}
-		});
+    @Override
+    public DateFormat getDateTimeFormat()
+    {
 
-	}
+        return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
 
-	@Override
-	public DecimalFormat getDecimalFormat()
-	{
+    }
 
-		return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+    @Override
+    public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle)
+    {
 
-				return (DecimalFormat) DecimalFormat.getInstance(locale);
-			}
-		});
+        String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
 
-	}
+        return localCache.getFormat(name, locale, new Callable<DateFormat>()
+        {
+            @Override
+            public DateFormat call() throws Exception
+            {
 
-	@Override
-	public DurationFormat getDurationFormat()
-	{
+                return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+            }
+        });
 
-		return sharedCache.getFormat(DURATION_FORMAT, locale, new Callable<DurationFormat>()
-		{
-			@Override
-			public DurationFormat call() throws Exception
-			{
+    }
 
-				return DurationFormat.getInstance(ulocale);
-			}
-		});
+    @Override
+    public DecimalFormat getDecimalFormat()
+    {
 
-	}
+        return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-	@Override
-	public Locale getLocale()
-	{
+                return (DecimalFormat) DecimalFormat.getInstance(locale);
+            }
+        });
 
-		return locale;
+    }
 
-	}
+    @Override
+    public DurationFormat getDurationFormat()
+    {
 
-	@Override
-	public NumberFormat getNumberFormat()
-	{
+        return sharedCache.getFormat(DURATION_FORMAT, locale, new Callable<DurationFormat>()
+        {
+            @Override
+            public DurationFormat call() throws Exception
+            {
 
-		return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>()
-		{
-			@Override
-			public NumberFormat call() throws Exception
-			{
+                return DurationFormat.getInstance(ulocale);
+            }
+        });
 
-				return NumberFormat.getInstance(locale);
-			}
-		});
+    }
 
-	}
+    @Override
+    public Locale getLocale()
+    {
 
-	@Override
-	public DecimalFormat getPercentFormat()
-	{
+        return locale;
 
-		return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+    }
 
-				return (DecimalFormat) NumberFormat.getPercentInstance(locale);
-			}
-		});
+    @Override
+    public MaskFormat getMaskFormat()
+    {
 
-	}
+        throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-	@Override
-	public DecimalFormat getPluralCurrencyFormat()
-	{
+    }
 
-		return sharedCache.getFormat(CURRENCY_PL, locale, new Callable<DecimalFormat>()
-		{
-			@Override
-			public DecimalFormat call() throws Exception
-			{
+    @Override
+    public String getMessage(String key)
+    {
 
-				return (DecimalFormat) NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE);
-			}
-		});
+        throw new UnsupportedOperationException("Use humanize-slim instead.");
 
-	}
+    }
 
-	@Override
-	public NumberFormat getRuleBasedNumberFormat(final int type)
-	{
+    @Override
+    public MessageFormat getMessageFormat()
+    {
 
-		String ruleBasedName = RULE_BASED + type;
-		return sharedCache.getFormat(ruleBasedName, locale, new Callable<NumberFormat>()
-		{
-			@Override
-			public NumberFormat call() throws Exception
-			{
+        messageFormat.setLocale(locale);
+        return messageFormat;
 
-				return new RuleBasedNumberFormat(locale, type);
-			}
-		});
-	}
+    }
 
-	@Override
-	public ULocale getULocale()
-	{
+    @Override
+    public NumberFormat getNumberFormat()
+    {
 
-		return ulocale;
+        return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>()
+        {
+            @Override
+            public NumberFormat call() throws Exception
+            {
 
-	}
+                return NumberFormat.getInstance(locale);
+            }
+        });
 
-	@Override
-	public void setLocale(Locale locale)
-	{
+    }
 
-		this.locale = locale;
-		this.ulocale = ULocale.forLocale(locale);
+    @Override
+    public DecimalFormat getPercentFormat()
+    {
 
-	}
+        return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-	@Override
-	public String digitStrings(int index)
-	{
+                return (DecimalFormat) NumberFormat.getPercentInstance(locale);
+            }
+        });
 
-		throw new UnsupportedOperationException("Use humanize-slim instead.");
+    }
 
-	}
+    @Override
+    public DecimalFormat getPluralCurrencyFormat()
+    {
 
-	@Override
-	public String formatMessage(String key, Object... args)
-	{
+        return sharedCache.getFormat(CURRENCY_PL, locale, new Callable<DecimalFormat>()
+        {
+            @Override
+            public DecimalFormat call() throws Exception
+            {
 
-		throw new UnsupportedOperationException("Use humanize-slim instead.");
+                return (DecimalFormat) NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	public ResourceBundle getBundle()
-	{
+    @Override
+    public NumberFormat getRuleBasedNumberFormat(final int type)
+    {
 
-		throw new UnsupportedOperationException("Use humanize-slim instead.");
+        String ruleBasedName = RULE_BASED + type;
+        return sharedCache.getFormat(ruleBasedName, locale, new Callable<NumberFormat>()
+        {
+            @Override
+            public NumberFormat call() throws Exception
+            {
 
-	}
+                return new RuleBasedNumberFormat(locale, type);
+            }
+        });
+    }
 
-	@Override
-	public MaskFormat getMaskFormat()
-	{
+    @Override
+    public ULocale getULocale()
+    {
 
-		throw new UnsupportedOperationException("Use humanize-slim instead.");
+        return ulocale;
 
-	}
+    }
 
-	@Override
-	public String getMessage(String key)
-	{
+    @Override
+    public void setLocale(Locale locale)
+    {
 
-		throw new UnsupportedOperationException("Use humanize-slim instead.");
+        this.locale = locale;
+        this.ulocale = ULocale.forLocale(locale);
 
-	}
+    }
 
 }

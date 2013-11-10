@@ -11,30 +11,30 @@ import com.ibm.icu.util.ULocale;
 public interface ICUContext
 {
 
-	String getBestPattern(String skeleton);
+    String getBestPattern(String skeleton);
 
-	DecimalFormat getCurrencyFormat();
+    DecimalFormat getCurrencyFormat();
 
-	DateFormat getDateFormat(int style);
+    DateFormat getDateFormat(int style);
 
-	DateFormat getDateTimeFormat();
+    DateFormat getDateTimeFormat();
 
-	DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
+    DateFormat getDateTimeFormat(int dateStyle, int timeStyle);
 
-	DecimalFormat getDecimalFormat();
+    DecimalFormat getDecimalFormat();
 
-	DurationFormat getDurationFormat();
+    DurationFormat getDurationFormat();
 
-	NumberFormat getNumberFormat();
+    NumberFormat getNumberFormat();
 
-	DecimalFormat getPercentFormat();
+    DecimalFormat getPercentFormat();
 
-	DecimalFormat getPluralCurrencyFormat();
+    DecimalFormat getPluralCurrencyFormat();
 
-	NumberFormat getRuleBasedNumberFormat(int type);
+    NumberFormat getRuleBasedNumberFormat(int type);
 
-	ULocale getULocale();
+    ULocale getULocale();
 
-	MessageFormat getMessageFormat();
+    MessageFormat getMessageFormat();
 
 }
