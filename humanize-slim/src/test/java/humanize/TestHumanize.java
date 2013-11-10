@@ -17,6 +17,8 @@ import static humanize.Humanize.nanoTime;
 import static humanize.Humanize.naturalDay;
 import static humanize.Humanize.naturalTime;
 import static humanize.Humanize.ordinal;
+import static humanize.Humanize.pace;
+import static humanize.Humanize.paceFormat;
 import static humanize.Humanize.pluralize;
 import static humanize.Humanize.pluralizeFormat;
 import static humanize.Humanize.prettyTimeFormat;
@@ -425,66 +427,37 @@ public class TestHumanize
 	@Test(threadPoolSize = 5, invocationCount = 5)
 	public void paceCustomFormatTest()
 	{
-		assertEquals(Humanize.paceFormat(2.5, 1000, "{1} {0} heartbeat per {2}.", "{1} {0} heartbeats per {2}.",
+		assertEquals(paceFormat(2.5, 1000, "{1} {0} heartbeat per {2}.", "{1} {0} heartbeats per {2}.",
 		        "No heartbeats."), "Approximately 3 heartbeats per second.");
-		assertEquals(Humanize.paceFormat(ES, 2.5, 1000, "{1} un latido por {2}.", "{1} {0} latidos por {2}.",
+		assertEquals(paceFormat(ES, 2.5, 1000, "{1} un latido por {2}.", "{1} {0} latidos por {2}.",
 		        "Sin latidos."), "Aproximadamente 3 latidos por segundo.");
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
 	public void paceFormatTest()
 	{
-		assertEquals(Humanize.paceFormat(2.5, 1000), "Approximately 3 times per second.");
-		assertEquals(Humanize.paceFormat(5, 86405000), "Approximately 5 times per day.");
-		assertEquals(Humanize.paceFormat(2000.5, 1000), "Approximately 2,001 times per second.");
-		assertEquals(Humanize.paceFormat(1, TimeMillis.WEEK.millis() * 10), "Less than one time per month.");
-		assertEquals(Humanize.paceFormat(1, TimeMillis.WEEK.millis()), "Approximately one time per week.");
+		assertEquals(paceFormat(2.5, 1000), "Approximately 3 times per second.");
+		assertEquals(paceFormat(5, 86405000), "Approximately 5 times per day.");
+		assertEquals(paceFormat(2000.5, 1000), "Approximately 2,001 times per second.");
+		assertEquals(paceFormat(1, TimeMillis.WEEK.millis() * 10), "Less than one time per month.");
+		assertEquals(paceFormat(1, TimeMillis.WEEK.millis()), "Approximately one time per week.");
 
-		assertEquals(Humanize.paceFormat(ES, 1.5, 86400000), "Aproximadamente 2 veces por día.");
-		assertEquals(Humanize.paceFormat(ES, 2000.5, 1000), "Aproximadamente 2.001 veces por segundo.");
+		assertEquals(paceFormat(ES, 1.5, 86400000), "Aproximadamente 2 veces por día.");
+		assertEquals(paceFormat(ES, 2000.5, 1000), "Aproximadamente 2.001 veces por segundo.");
 	}
 
 	@Test
 	public void paceTest()
 	{
-
-		Pace args = Humanize.pace(1.5, 1000);
-
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 2 second");
-
-		args = Humanize.pace(1, 1000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 1 second");
-		
-		args = Humanize.pace(-1, -1000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 1 second");
-
-		args = Humanize.pace(1, 60000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 1 minute");
-
-		args = Humanize.pace(0.5, 60000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 1 minute");
-
-		args = Humanize.pace(0, 1000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "none 0 second");
-
-		args = Humanize.pace(0.2, 1000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "none 0 second");
-
-		args = Humanize.pace(-7.6, 1000);
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 8 second");
-
-		args = Humanize.pace(7.6, TimeMillis.DAY.millis());
-		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
-		        "aprox 8 day");
-
+		assertEquals(paceAsString(pace(1.5, 1000)), "aprox 2 second");
+		assertEquals(paceAsString(pace(1, 1000)), "aprox 1 second");
+		assertEquals(paceAsString(pace(-1, -1000)), "aprox 1 second");
+		assertEquals(paceAsString(pace(1, 60000)), "aprox 1 minute");
+		assertEquals(paceAsString(pace(0.5, 60000)), "aprox 1 minute");
+		assertEquals(paceAsString(pace(0, 1000)), "none 0 second");
+		assertEquals(paceAsString(pace(0.2, 1000)), "none 0 second");
+		assertEquals(paceAsString(pace(-7.6, 1000)), "aprox 8 second");
+		assertEquals(paceAsString(pace(7.6, TimeMillis.DAY.millis())), "aprox 8 day");
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
@@ -797,6 +770,11 @@ public class TestHumanize
 		cal.set(Calendar.SECOND, s);
 		return cal.getTime();
 
+	}
+
+	private String paceAsString(Pace args)
+	{
+		return String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit());
 	}
 
 }
