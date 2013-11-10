@@ -14,10 +14,13 @@ import static humanize.ICUHumanize.naturalDay;
 import static humanize.ICUHumanize.naturalTime;
 import static humanize.ICUHumanize.ordinalize;
 import static humanize.ICUHumanize.parseNumber;
+import static humanize.ICUHumanize.pluralize;
 import static humanize.ICUHumanize.replaceSupplementary;
 import static humanize.ICUHumanize.smartDateFormat;
 import static humanize.ICUHumanize.spellNumber;
+import static humanize.ICUHumanize.transliterate;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 import humanize.icu.spi.MessageFormat;
 
@@ -277,6 +280,26 @@ public class TestICUHumanize
 
     }
 
+    @Test(threadPoolSize = 10, invocationCount = 10)
+    public void pluralRulesTest()
+    {
+        String pt1 = "Hi {0, plural, one{man}other{men}}!";
+        assertEquals(pluralize(pt1, 1), "Hi man!");
+        assertEquals(pluralize(pt1, 20), "Hi men!");
+
+        String pt2 = "Hi {1} {2} {0, plural, one{man}other{men}}!";
+        assertEquals(pluralize(pt2, 1, "a", "b"), "Hi a b man!");
+        assertEquals(pluralize(pt2, 20, "c", "d"), "Hi c d men!");
+
+        String pt3 = "{0, plural, one{el niño}other{los niños}}!";
+        assertEquals(pluralize(ES, pt3, 1), "el niño!");
+        assertEquals(pluralize(ES, pt3, 20), "los niños!");
+
+        String pt4 = "{0, plural, one{el niño}other{los niños}} en {1}!";
+        assertEquals(pluralize(ES, pt4, 1, "su casa"), "el niño en su casa!");
+        assertEquals(pluralize(ES, pt4, 20, "el parque"), "los niños en el parque!");
+    }
+
     @Test
     public void replaceSupplementaryTest()
     {
@@ -320,6 +343,16 @@ public class TestICUHumanize
         assertEquals(spellNumber(23, ES), "veintitrés");
         assertEquals(spellNumber(201256, ES), "doscientos un mil doscientos cincuenta y seis");
 
+    }
+
+    @Test
+    public void transliterateTest()
+    {
+        assertEquals(transliterate("김, 국삼"), "gim, gugsam");
+        assertEquals(transliterate("キャンパス"), "kyanpasu");
+        assertEquals(transliterate("Θεοδωράτου, Ελένη"), "Theodōrátou, Elénē");
+
+        assertNotEquals(transliterate("김, 국삼"), "michael, gugsam");
     }
 
     @BeforeClass

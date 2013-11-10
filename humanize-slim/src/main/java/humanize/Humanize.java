@@ -29,6 +29,7 @@ import humanize.util.Constants.TimeStyle;
 import java.math.BigDecimal;
 import java.text.BreakIterator;
 import java.text.ChoiceFormat;
+import java.text.Collator;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -1238,6 +1239,60 @@ public final class Humanize
 
     /**
      * <p>
+     * Same as {@link #lossyEquals(String, String)} for the specified locale.
+     * </p>
+     * 
+     * @param locale
+     *            The target locale
+     * @param source
+     *            The source string to be compared
+     * @param target
+     *            The target string to be compared
+     * @return true if the two strings are equals according to primary
+     *         differences only, false otherwise
+     */
+    public static boolean lossyEquals(final Locale locale, final String source, final String target)
+    {
+        return withinLocale(new Callable<Boolean>()
+        {
+
+            @Override
+            public Boolean call() throws Exception
+            {
+                return lossyEquals(source, target);
+            }
+
+        }, locale);
+    }
+
+    /**
+     * <p>
+     * Locale-sensitive string comparison for primary differences.
+     * </p>
+     * 
+     * <pre>
+     * <code>
+     * loosyEquals("Aáà-aa", "aaaaa") // == true 
+     * loosyEquals("abc", "cba") // == false
+     * </code>
+     * </pre>
+     * 
+     * @param source
+     *            The source string to be compared
+     * @param target
+     *            The target string to be compared
+     * @return true if the two strings are equals according to primary
+     *         differences only, false otherwise
+     */
+    public static boolean lossyEquals(final String source, final String target)
+    {
+        Collator c = Collator.getInstance(context.get().getLocale());
+        c.setStrength(Collator.PRIMARY);
+        return c.equals(source, target);
+    }
+
+    /**
+     * <p>
      * Formats the given text with the mask specified.
      * </p>
      * 
@@ -2281,6 +2336,38 @@ public final class Humanize
 
     /**
      * <p>
+     * Sort of poor man's transliteration, i.e. normalizes and strips diacritic
+     * marks.
+     * </p>
+     * 
+     * <table border="0" cellspacing="0" cellpadding="3" width="100%">
+     * <tr>
+     * <th class="colFirst">Input</th>
+     * <th class="colLast">Output</th>
+     * </tr>
+     * <tr>
+     * <td>"J'étudie le français"</td>
+     * <td>"J'etudie le francais"</td>
+     * </tr>
+     * <tr>
+     * <td>"Lo siento, no hablo español."</td>
+     * <td>"Lo siento, no hablo espanol."</td>
+     * </tr>
+     * </table>
+     * 
+     * @param text
+     *            The text to be simplified.
+     * @return simplified text.
+     */
+    @Expose
+    public static String simplify(final String text)
+    {
+        String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    /**
+     * <p>
      * Transforms a text into a representation suitable to be used in an URL.
      * </p>
      * 
@@ -2307,7 +2394,7 @@ public final class Humanize
     public static String slugify(final String text)
     {
 
-        String result = transliterate(text);
+        String result = simplify(text);
         result = ONLY_SLUG_CHARS.matcher(result).replaceAll("");
         result = CharMatcher.WHITESPACE.trimFrom(result);
         result = HYPEN_SPACE.matcher(result).replaceAll("-");
@@ -2495,41 +2582,6 @@ public final class Humanize
         return sb.toString();
 
     }
-
-    /**
-     * <p>
-     * Strips diacritic marks.
-     * </p>
-     * 
-     * <table border="0" cellspacing="0" cellpadding="3" width="100%">
-     * <tr>
-     * <th class="colFirst">Input</th>
-     * <th class="colLast">Output</th>
-     * </tr>
-     * <tr>
-     * <td>"J'étudie le français"</td>
-     * <td>"J'etudie le francais"</td>
-     * </tr>
-     * <tr>
-     * <td>"Lo siento, no hablo español."</td>
-     * <td>"Lo siento, no hablo espanol."</td>
-     * </tr>
-     * </table>
-     * 
-     * @param text
-     *            The text to be transliterated.
-     * @return String without diacritic marks.
-     */
-    @Expose
-    public static String transliterate(final String text)
-    {
-
-        String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
-        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-
-    }
-
-    // ( private methods )------------------------------------------------------
 
     /**
      * <p>

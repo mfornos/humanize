@@ -11,6 +11,7 @@ import static humanize.Humanize.formatDate;
 import static humanize.Humanize.formatDateTime;
 import static humanize.Humanize.formatDecimal;
 import static humanize.Humanize.formatPercent;
+import static humanize.Humanize.lossyEquals;
 import static humanize.Humanize.mask;
 import static humanize.Humanize.metricPrefix;
 import static humanize.Humanize.nanoTime;
@@ -23,15 +24,18 @@ import static humanize.Humanize.pluralize;
 import static humanize.Humanize.pluralizeFormat;
 import static humanize.Humanize.prettyTimeFormat;
 import static humanize.Humanize.replaceSupplementary;
+import static humanize.Humanize.simplify;
 import static humanize.Humanize.slugify;
 import static humanize.Humanize.spellBigNumber;
 import static humanize.Humanize.spellDigit;
 import static humanize.Humanize.titleize;
-import static humanize.Humanize.transliterate;
 import static humanize.Humanize.underscore;
 import static humanize.Humanize.unmask;
 import static humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
 import humanize.time.Pace;
@@ -297,6 +301,19 @@ public class TestHumanize
         assertEquals(formatPercent(0.564, ES), "56%");
         assertEquals(formatPercent(1000.564, ES), "100.056%");
 
+    }
+
+    @Test
+    public void lossyEqualsTest()
+    {
+        assertTrue(lossyEquals("Aaa aa", "aaaaa"));
+        assertTrue(lossyEquals("Aáà-aa", "aaaaa"));
+        assertTrue(lossyEquals("Läldàña 123", "laldana123"));
+
+        assertTrue(lossyEquals(ES, "alöâ-mrc", "aloamrc"));
+
+        assertFalse(lossyEquals(ES, "Läldàña 123", "laldana123"));
+        assertFalse(lossyEquals("abc", "cba"));
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
@@ -678,6 +695,16 @@ public class TestHumanize
     }
 
     @Test
+    public void simplifyTest()
+    {
+        assertEquals(simplify("J'étudie le français"), "J'etudie le francais");
+        assertEquals(simplify("Lo siento, no hablo español."), "Lo siento, no hablo espanol.");
+        assertEquals(simplify("ïúàôéÏÚÀÔÉĆężĶŠűa͠a̸"), "iuaoeIUAOECezKSuaa");
+        // Really does not transliterate at all...
+        assertNotEquals(simplify("キャンパス"), "kyanpasu");
+    }
+
+    @Test
     public void slugifyTest()
     {
 
@@ -737,16 +764,6 @@ public class TestHumanize
 
         assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
         assertEquals(titleize("first annual report (CD) 2001"), "First Annual Report (CD) 2001");
-
-    }
-
-    @Test
-    public void transliterateTest()
-    {
-
-        assertEquals(transliterate("J'étudie le français"), "J'etudie le francais");
-        assertEquals(transliterate("Lo siento, no hablo español."), "Lo siento, no hablo espanol.");
-        assertEquals(transliterate("ïúàôéÏÚÀÔÉĆężĶŠűa͠a̸"), "iuaoeIUAOECezKSuaa");
 
     }
 

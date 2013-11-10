@@ -14,11 +14,13 @@ import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
+import com.google.common.collect.ObjectArrays;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
+import com.ibm.icu.text.Transliterator;
 
 /**
  * <p>
@@ -1492,6 +1494,70 @@ public final class ICUHumanize
 
     /**
      * <p>
+     * Same as {@link #pluralize(String, Number, Object...)} for the target
+     * locale.
+     * </p>
+     * 
+     * @param locale
+     *            The target locale
+     * @param pattern
+     *            The formatting pattern with plural rules
+     * @param value
+     *            The number that will trigger plural category
+     * @param args
+     *            Optional arguments for the formatting pattern
+     * @return a properly formatted message
+     */
+    public static String pluralize(final Locale locale, final String pattern, final Number value,
+            final Object... args)
+    {
+        return withinLocale(new Callable<String>()
+        {
+
+            @Override
+            public String call() throws Exception
+            {
+                return pluralize(pattern, value, args);
+            }
+
+        }, locale);
+    }
+
+    /**
+     * <p>
+     * Helper method to use ICU message patterns with Language Plural Rules
+     * logic. For categories available by language, please see:
+     * http://www.unicode.org/cldr/charts/latest/supplemental/
+     * language_plural_rules.html
+     * </p>
+     * 
+     * <p>
+     * Examples:
+     * </p>
+     * 
+     * <pre>
+     * <code>
+     * pluralize("Hi {0, plural, one{man}other{men}}!", 1) // == "Hi man!"
+     * pluralize("Hi {0, plural, one{man}other{men}}!", 25) // == "Hi men!"
+     * </code>
+     * </pre>
+     * 
+     * @param pattern
+     *            The formatting pattern with plural rules
+     * @param value
+     *            The number that will trigger plural category
+     * @param args
+     *            Optional arguments for the formatting pattern
+     * @return a properly formatted message
+     */
+    public static String pluralize(final String pattern, final Number value, final Object... args)
+    {
+        Object[] params = ObjectArrays.concat(value, args);
+        return messageFormatInstance(pattern).render(params);
+    }
+
+    /**
+     * <p>
      * Replaces characters outside the Basic Multilingual Plane with their name.
      * </p>
      * 
@@ -1632,6 +1698,74 @@ public final class ICUHumanize
             }
         }, locale);
 
+    }
+
+    /**
+     * Converts the characters of the given text to latin.
+     * 
+     * @param text
+     *            The text to be transformed
+     * @return transliterated text
+     */
+    public static String transliterate(final String text)
+    {
+        return transliterate(text, "Latin");
+    }
+
+    /**
+     * Converts the characters of the given text to the specified script.
+     * 
+     * <p>
+     * The simplest identifier is a 'basic ID'.
+     * </p>
+     * 
+     * <pre>
+     * basicID := (&lt;source&gt; "-")? &lt;target&gt; ("/" &lt;variant&gt;)?
+     * </pre>
+     * 
+     * <p>
+     * A basic ID typically names a source and target. In "Katakana-Latin",
+     * "Katakana" is the source and "Latin" is the target. The source specifier
+     * describes the characters or strings that the transform will modify. The
+     * target specifier describes the result of the modification. If the source
+     * is not given, then the source is "Any", the set of all characters. Source
+     * and Target specifiers can be Script IDs (long like "Latin" or short like
+     * "Latn"), Unicode language Identifiers (like fr, en_US, or zh_Hant), or
+     * special tags (like Any or Hex). For example:
+     * </p>
+     * 
+     * <pre>
+     * Katakana-Latin
+     * Null
+     * Hex-Any/Perl
+     * Latin-el
+     * Greek-en_US/UNGEGN
+     * </pre>
+     * 
+     * <p>
+     * Some basic IDs contain a further specifier following a forward slash.
+     * This is the variant, and it further specifies the transform when several
+     * versions of a single transformation are possible. For example, ICU
+     * provides several transforms that convert from Unicode characters to
+     * escaped representations. These include standard Unicode syntax "U+4E01",
+     * Perl syntax "\x{4E01}", XML syntax "&#x4E01;", and others. The transforms
+     * for these operations are named "Any-Hex/Unicode", "Any-Hex/Perl", and
+     * "Any-Hex/XML", respectively. If no variant is specified, then the default
+     * variant is selected. In the example of "Any-Hex", this is the Java
+     * variant (for historical reasons), so "Any-Hex" is equivalent to
+     * "Any-Hex/Java".
+     * </p>
+     * 
+     * @param text
+     *            The text to be transformed
+     * @param id
+     *            The transliterator identifier
+     * @return transliterated text
+     */
+    public static String transliterate(final String text, final String id)
+    {
+        Transliterator transliterator = Transliterator.getInstance(id);
+        return transliterator.transform(text);
     }
 
     // ( private methods )------------------------------------------------------
