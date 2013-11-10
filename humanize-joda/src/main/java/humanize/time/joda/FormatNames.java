@@ -4,7 +4,8 @@ package humanize.time.joda;
  * Joda time format and variant name constants.
  * 
  */
-public interface FormatNames {
+public interface FormatNames
+{
 
 	static final String JODA_ISO_BASIC_TIME_NO = "basic.time.no";
 	static final String JODA_ISO_BASIC_TIME = "basic.time";

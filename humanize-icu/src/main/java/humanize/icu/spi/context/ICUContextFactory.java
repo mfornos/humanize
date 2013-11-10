@@ -10,10 +10,12 @@ import humanize.spi.context.ContextFactory;
  * @author michaux
  * 
  */
-public class ICUContextFactory implements ContextFactory {
+public class ICUContextFactory implements ContextFactory
+{
 
 	@Override
-	public Context createContext() {
+	public Context createContext()
+	{
 
 		return new DefaultICUContext();
 	}

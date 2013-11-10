@@ -1,10 +1,11 @@
 package org.apache.taglibs.standard.tag.common.fmt;
 
-import javax.servlet.jsp.JspException;
-
 import static humanize.taglibs.util.Convert.asNumber;
 
-public abstract class NumberCallSupport extends HumanizeSupport {
+import javax.servlet.jsp.JspException;
+
+public abstract class NumberCallSupport extends HumanizeSupport
+{
 
 	private static final long serialVersionUID = 4926940370084394075L;
 
@@ -12,14 +13,16 @@ public abstract class NumberCallSupport extends HumanizeSupport {
 
 	protected Number input;
 
-	public void setValue(Object value) {
+	public void setValue(Object value)
+	{
 
 		this.value = value;
 
 	}
 
 	@Override
-	protected void begin() throws JspException {
+	protected void begin() throws JspException
+	{
 
 		Object tmp = value == null ? inputFromBody() : value;
 		this.input = asNumber(tmp);
@@ -27,7 +30,8 @@ public abstract class NumberCallSupport extends HumanizeSupport {
 	}
 
 	@Override
-	protected void clean() {
+	protected void clean()
+	{
 
 		this.value = null;
 		this.input = null;
@@ -35,7 +39,8 @@ public abstract class NumberCallSupport extends HumanizeSupport {
 	}
 
 	@Override
-	protected boolean isContextRemoveNeeded() {
+	protected boolean isContextRemoveNeeded()
+	{
 
 		return input == null;
 

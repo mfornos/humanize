@@ -1,6 +1,5 @@
 package humanize.faces;
 
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -8,10 +7,12 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebClientOptions;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-public class IndexIT extends BaseServerIT {
+public class IndexIT extends BaseServerIT
+{
 
 	@Test
-	public void homePage() throws Exception {
+	public void homePage() throws Exception
+	{
 
 		final WebClient webClient = new WebClient();
 		WebClientOptions options = webClient.getOptions();

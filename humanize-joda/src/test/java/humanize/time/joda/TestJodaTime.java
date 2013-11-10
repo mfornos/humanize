@@ -13,10 +13,12 @@ import org.joda.time.format.PeriodFormatter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestJodaTime {
+public class TestJodaTime
+{
 
 	@Test
-	public void periodFormat() {
+	public void periodFormat()
+	{
 
 		PeriodFormatter fmt = PeriodFormat.getDefault();
 		Assert.assertEquals(new Period(0, 100000000).toString(fmt), "1 day, 3 hours, 46 minutes and 40 seconds");
@@ -36,12 +38,14 @@ public class TestJodaTime {
 	}
 
 	@Test
-	public void dateFormat() {
-		
+	public void dateFormat()
+	{
+
 		DateTime zero = new DateTime(0).millisOfDay().setCopy(0).secondOfDay().setCopy(0);
 		DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-		
-//		Assert.assertEquals(zero.toString(fmt), "1970-01-01T00:00:00.000+01:00");
+
+		// Assert.assertEquals(zero.toString(fmt),
+		// "1970-01-01T00:00:00.000+01:00");
 
 		fmt = ISODateTimeFormat.basicDate();
 		Assert.assertEquals(zero.toString(fmt), "19700101");

@@ -8,7 +8,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
-public interface StandardContext {
+public interface StandardContext
+{
 
 	String formatRelativeDate(Date duration);
 

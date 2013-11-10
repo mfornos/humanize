@@ -21,15 +21,19 @@ import org.ocpsoft.prettytime.TimeUnit;
  * {@link Format} implementation for {@link PrettyTime}.
  * 
  */
-public class PrettyTimeFormat extends Format implements FormatProvider {
+public class PrettyTimeFormat extends Format implements FormatProvider
+{
 
 	private static final long serialVersionUID = -1398312177396430967L;
 
-	public static FormatFactory factory() {
+	public static FormatFactory factory()
+	{
 
-		return new FormatFactory() {
+		return new FormatFactory()
+		{
 			@Override
-			public Format getFormat(String name, String args, Locale locale) {
+			public Format getFormat(String name, String args, Locale locale)
+			{
 
 				// TODO support unrounded in args?
 				return new PrettyTimeFormat(locale);
@@ -39,13 +43,15 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 
 	}
 
-	public static PrettyTimeFormat getInstance() {
+	public static PrettyTimeFormat getInstance()
+	{
 
 		return getInstance(Locale.getDefault());
 
 	}
 
-	public static PrettyTimeFormat getInstance(Locale locale) {
+	public static PrettyTimeFormat getInstance(Locale locale)
+	{
 
 		return new PrettyTimeFormat(locale);
 
@@ -55,30 +61,35 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 
 	private final Locale locale;
 
-	public PrettyTimeFormat() {
+	public PrettyTimeFormat()
+	{
 
 		this(Locale.getDefault());
 
 	}
 
-	public PrettyTimeFormat(Locale locale) {
+	public PrettyTimeFormat(Locale locale)
+	{
 
 		this.prettyTime = new PrettyTime(locale);
 		this.locale = locale;
 
 	}
 
-	public Duration approximateDuration(Date then) {
+	public Duration approximateDuration(Date then)
+	{
 
 		return prettyTime.approximateDuration(then);
 	}
 
-	public List<Duration> calculatePreciseDuration(Date then) {
+	public List<Duration> calculatePreciseDuration(Date then)
+	{
 
 		return prettyTime.calculatePreciseDuration(then);
 	}
 
-	public List<TimeUnit> clearUnits() {
+	public List<TimeUnit> clearUnits()
+	{
 
 		return prettyTime.clearUnits();
 	}
@@ -90,7 +101,8 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 	 *            The future date.
 	 * @return a relative format date as text representation
 	 */
-	public String format(Date then) {
+	public String format(Date then)
+	{
 
 		return prettyTime.format(DurationHelper.calculateDurantion(new Date(), then, prettyTime.getUnits()));
 
@@ -105,35 +117,42 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 	 *            The future date.
 	 * @return a relative format date as text representation
 	 */
-	public String format(Date ref, Date then) {
+	public String format(Date ref, Date then)
+	{
 
 		return prettyTime.format(DurationHelper.calculateDurantion(ref, then, prettyTime.getUnits()));
 
 	}
 
-	public String format(Duration duration) {
+	public String format(Duration duration)
+	{
 
 		return prettyTime.format(duration);
 	}
 
-	public String format(List<Duration> durations) {
+	public String format(List<Duration> durations)
+	{
 
 		return prettyTime.format(durations);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
+	{
 
-		if (Duration.class.isAssignableFrom(obj.getClass())) {
+		if (Duration.class.isAssignableFrom(obj.getClass()))
+		{
 			return toAppendTo.append(prettyTime.format((Duration) obj));
 		}
 
-		if (Date.class.isAssignableFrom(obj.getClass())) {
+		if (Date.class.isAssignableFrom(obj.getClass()))
+		{
 			return toAppendTo.append(prettyTime.format((Date) obj));
 		}
 
-		if (List.class.isAssignableFrom(obj.getClass())) {
+		if (List.class.isAssignableFrom(obj.getClass()))
+		{
 			return toAppendTo.append(prettyTime.format((List<Duration>) obj));
 		}
 
@@ -142,30 +161,35 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 
 	}
 
-	public String formatUnrounded(Date then) {
+	public String formatUnrounded(Date then)
+	{
 
 		return prettyTime.formatUnrounded(then);
 	}
 
-	public String formatUnrounded(Duration duration) {
+	public String formatUnrounded(Duration duration)
+	{
 
 		return prettyTime.formatUnrounded(duration);
 	}
 
 	@Override
-	public FormatFactory getFactory() {
+	public FormatFactory getFactory()
+	{
 
 		return factory();
 
 	}
 
-	public TimeFormat getFormat(TimeUnit unit) {
+	public TimeFormat getFormat(TimeUnit unit)
+	{
 
 		return prettyTime.getFormat(unit);
 	}
 
 	@Override
-	public String getFormatName() {
+	public String getFormatName()
+	{
 
 		return "prettytime";
 
@@ -176,30 +200,35 @@ public class PrettyTimeFormat extends Format implements FormatProvider {
 	 * 
 	 * @return the underlying {@link PrettyTime} instance.
 	 */
-	public PrettyTime getPrettyTime() {
+	public PrettyTime getPrettyTime()
+	{
 
 		return prettyTime;
 
 	}
 
-	public List<TimeUnit> getUnits() {
+	public List<TimeUnit> getUnits()
+	{
 
 		return prettyTime.getUnits();
 	}
 
 	@Override
-	public Object parseObject(String source, ParsePosition pos) {
+	public Object parseObject(String source, ParsePosition pos)
+	{
 
 		throw new UnsupportedOperationException();
 
 	}
 
-	public PrettyTime registerUnit(TimeUnit unit, TimeFormat format) {
+	public PrettyTime registerUnit(TimeUnit unit, TimeFormat format)
+	{
 
 		return prettyTime.registerUnit(unit, format);
 	}
 
-	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
+	{
 
 		ois.defaultReadObject();
 		this.prettyTime = new PrettyTime(locale);

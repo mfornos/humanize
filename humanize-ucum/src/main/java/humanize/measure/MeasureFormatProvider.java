@@ -32,18 +32,24 @@ import javax.measure.unit.UnitFormat;
  * </pre>
  * 
  */
-public class MeasureFormatProvider implements FormatProvider {
+public class MeasureFormatProvider implements FormatProvider
+{
 
 	@Override
-	public FormatFactory getFactory() {
+	public FormatFactory getFactory()
+	{
 
-		return new FormatFactory() {
+		return new FormatFactory()
+		{
 			@Override
-			public Format getFormat(String name, String args, Locale locale) {
+			public Format getFormat(String name, String args, Locale locale)
+			{
 
-				if (args != null && "standard".equalsIgnoreCase(args)) {
+				if (args != null && "standard".equalsIgnoreCase(args))
+				{
 					return MeasureFormat.getStandard();
-				} else {
+				} else
+				{
 					return MeasureFormat.getInstance(NumberFormat.getInstance(locale), UnitFormat.getInstance(locale));
 				}
 
@@ -53,7 +59,8 @@ public class MeasureFormatProvider implements FormatProvider {
 	}
 
 	@Override
-	public String getFormatName() {
+	public String getFormatName()
+	{
 
 		return "measure";
 

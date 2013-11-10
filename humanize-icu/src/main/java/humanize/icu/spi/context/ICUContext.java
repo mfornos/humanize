@@ -8,10 +8,11 @@ import com.ibm.icu.text.DurationFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.util.ULocale;
 
-public interface ICUContext {
-	
+public interface ICUContext
+{
+
 	String getBestPattern(String skeleton);
-	
+
 	DecimalFormat getCurrencyFormat();
 
 	DateFormat getDateFormat(int style);
@@ -33,7 +34,7 @@ public interface ICUContext {
 	NumberFormat getRuleBasedNumberFormat(int type);
 
 	ULocale getULocale();
-	
+
 	MessageFormat getMessageFormat();
-	
+
 }

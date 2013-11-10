@@ -22,10 +22,12 @@ import java.util.ResourceBundle.Control;
  * @author balusc / balusc.blogspot.com
  * 
  */
-public class UTF8Control extends Control {
+public class UTF8Control extends Control
+{
 
 	public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-	        throws IllegalAccessException, InstantiationException, IOException {
+	        throws IllegalAccessException, InstantiationException, IOException
+	{
 
 		// The below is a copy of the default implementation.
 		String bundleName = toBundleName(baseName, locale);
@@ -34,12 +36,15 @@ public class UTF8Control extends Control {
 		InputStream stream = (reload) ? reload(loader.getResource(resourceName)) : loader
 		        .getResourceAsStream(resourceName);
 
-		if (stream != null) {
-			try {
+		if (stream != null)
+		{
+			try
+			{
 				// Only this line is changed to make it to read properties files
 				// as UTF-8.
 				bundle = new PropertyResourceBundle(new InputStreamReader(stream, "UTF-8"));
-			} finally {
+			} finally
+			{
 				stream.close();
 			}
 		}
@@ -47,11 +52,14 @@ public class UTF8Control extends Control {
 
 	}
 
-	private InputStream reload(URL url) throws IOException {
+	private InputStream reload(URL url) throws IOException
+	{
 
-		if (url != null) {
+		if (url != null)
+		{
 			URLConnection connection = url.openConnection();
-			if (connection != null) {
+			if (connection != null)
+			{
 				connection.setUseCaches(false);
 				return connection.getInputStream();
 			}

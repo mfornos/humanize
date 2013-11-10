@@ -32,7 +32,9 @@ import static humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import humanize.spi.MessageFormat;
+import humanize.time.Pace;
 import humanize.time.PrettyTimeFormat;
+import humanize.util.Constants.TimeMillis;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigInteger;
@@ -48,7 +50,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestHumanize {
+public class TestHumanize
+{
 
 	private static final Locale ES = new Locale("es", "ES");
 
@@ -57,7 +60,8 @@ public class TestHumanize {
 	private Locale defaultLocale;
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void binPrefixTest() {
+	public void binPrefixTest()
+	{
 
 		assertEquals(binaryPrefix(-1), "-1");
 		assertEquals(binaryPrefix(0), "0 bytes");
@@ -76,7 +80,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void camelizeTest() {
+	public void camelizeTest()
+	{
 
 		assertEquals(camelize("bla bla_bla "), "blaBlaBla");
 		assertEquals(camelize("  blA_blA  Bla", true), "BlaBlaBla");
@@ -91,17 +96,20 @@ public class TestHumanize {
 		assertEquals(camelize("xxx", true), "Xxx");
 		assertEquals(camelize("alreadyCamelized"), "alreadyCamelized");
 
-		try {
+		try
+		{
 			camelize(null);
 			fail("handles null?");
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ex)
+		{
 
 		}
 
 	}
 
 	@Test
-	public void capitalizeTest() {
+	public void capitalizeTest()
+	{
 
 		assertEquals(capitalize("hola mundo abc"), "Hola mundo abc");
 		assertEquals(capitalize("HOLA mundO AbC"), "Hola mundo abc");
@@ -111,17 +119,20 @@ public class TestHumanize {
 
 		assertEquals(capitalize("iyi akşamlar", new Locale("tr")), "İyi akşamlar");
 
-		try {
+		try
+		{
 			capitalize(null);
 			fail("handles null?");
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ex)
+		{
 
 		}
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void decamelizeTest() {
+	public void decamelizeTest()
+	{
 
 		assertEquals(decamelize("lowercase"), "lowercase");
 		assertEquals(decamelize("Class"), "Class");
@@ -135,7 +146,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void durationFrenchTest() {
+	public void durationFrenchTest()
+	{
 
 		assertEquals(duration(3600, TimeStyle.FRENCH_DECIMAL), "1h");
 		assertEquals(duration(3661, TimeStyle.FRENCH_DECIMAL), "1h 1m 1s");
@@ -158,7 +170,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void durationStandardTest() {
+	public void durationStandardTest()
+	{
 
 		assertEquals(duration(3600), "1:00:00");
 		assertEquals(duration(3661), "1:01:01");
@@ -182,7 +195,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void fixLengthTest() {
+	public void fixLengthTest()
+	{
 
 		assertEquals(fixLength("", 5, '-'), "-----");
 		assertEquals(fixLength(null, 1, '-'), "-");
@@ -192,17 +206,20 @@ public class TestHumanize {
 		assertEquals(fixLength("12345", 10, '-', true), "-----12345");
 		assertEquals(fixLength("12345", 3, '-', true), "123");
 
-		try {
+		try
+		{
 			assertEquals(fixLength("12345", 0, '-'), "123");
 			Assert.fail();
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			//
 		}
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatCurrencyTest() {
+	public void formatCurrencyTest()
+	{
 
 		int df = rand.nextInt(9);
 		assertEquals(formatCurrency(34), "£34");
@@ -215,7 +232,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDateTest() {
+	public void formatDateTest()
+	{
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015);
@@ -232,7 +250,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDateTimeTest() {
+	public void formatDateTimeTest()
+	{
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015, 22, 10, 0);
@@ -248,7 +267,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDecimalTest() {
+	public void formatDecimalTest()
+	{
 
 		int df = rand.nextInt(9);
 		assertEquals(formatDecimal(1000 + df), "1,00" + df);
@@ -258,7 +278,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatPercentTest() {
+	public void formatPercentTest()
+	{
 
 		assertEquals(formatPercent(0), "0%");
 		assertEquals(formatPercent(-1), "-100%");
@@ -277,7 +298,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void maskFormatTest() throws ParseException {
+	public void maskFormatTest() throws ParseException
+	{
 
 		int r = rand.nextInt(9);
 		assertEquals(mask("_-__-_____/_", "A5881850" + r), "A-58-81850/" + r);
@@ -288,7 +310,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void metricPrefixTest() {
+	public void metricPrefixTest()
+	{
 
 		assertEquals(metricPrefix(-1), "-1");
 		assertEquals(metricPrefix(0), "0");
@@ -303,7 +326,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void nanoTimeTest() {
+	public void nanoTimeTest()
+	{
 
 		assertEquals(nanoTime(0), "0ns");
 		assertEquals(nanoTime(1500), "1.5µs");
@@ -320,7 +344,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void naturalDayTest() {
+	public void naturalDayTest()
+	{
 
 		Calendar cal = Calendar.getInstance();
 		assertEquals(naturalDay(cal.getTime()), "today");
@@ -337,7 +362,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void naturalTimeTest() {
+	public void naturalTimeTest()
+	{
 
 		assertEquals(naturalTime(new Date(0), new Date(1)), "moments from now");
 
@@ -371,7 +397,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void ordinalTest() {
+	public void ordinalTest()
+	{
 
 		assertEquals(ordinal(0), "0th");
 		assertEquals(ordinal(1), "1st");
@@ -395,8 +422,74 @@ public class TestHumanize {
 
 	}
 
+	@Test(threadPoolSize = 5, invocationCount = 5)
+	public void paceCustomFormatTest()
+	{
+		assertEquals(Humanize.paceFormat(2.5, 1000, "{1} {0} heartbeat per {2}.", "{1} {0} heartbeats per {2}.",
+		        "No heartbeats."), "Approximately 3 heartbeats per second.");
+		assertEquals(Humanize.paceFormat(ES, 2.5, 1000, "{1} un latido por {2}.", "{1} {0} latidos por {2}.",
+		        "Sin latidos."), "Aproximadamente 3 latidos por segundo.");
+	}
+
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeFormatSimpleTest() {
+	public void paceFormatTest()
+	{
+		assertEquals(Humanize.paceFormat(2.5, 1000), "Approximately 3 times per second.");
+		assertEquals(Humanize.paceFormat(5, 86405000), "Approximately 5 times per day.");
+		assertEquals(Humanize.paceFormat(2000.5, 1000), "Approximately 2,001 times per second.");
+		assertEquals(Humanize.paceFormat(1, TimeMillis.WEEK.millis() * 10), "Less than one time per month.");
+		assertEquals(Humanize.paceFormat(1, TimeMillis.WEEK.millis()), "Approximately one time per week.");
+
+		assertEquals(Humanize.paceFormat(ES, 1.5, 86400000), "Aproximadamente 2 veces por día.");
+		assertEquals(Humanize.paceFormat(ES, 2000.5, 1000), "Aproximadamente 2.001 veces por segundo.");
+	}
+
+	@Test
+	public void paceTest()
+	{
+
+		Pace args = Humanize.pace(1.5, 1000);
+
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 2 second");
+
+		args = Humanize.pace(1, 1000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 1 second");
+		
+		args = Humanize.pace(-1, -1000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 1 second");
+
+		args = Humanize.pace(1, 60000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 1 minute");
+
+		args = Humanize.pace(0.5, 60000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 1 minute");
+
+		args = Humanize.pace(0, 1000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "none 0 second");
+
+		args = Humanize.pace(0.2, 1000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "none 0 second");
+
+		args = Humanize.pace(-7.6, 1000);
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 8 second");
+
+		args = Humanize.pace(7.6, TimeMillis.DAY.millis());
+		assertEquals(String.format("%s %s %s", args.getAccuracy(), args.getValue(), args.getTimeUnit()),
+		        "aprox 8 day");
+
+	}
+
+	@Test(threadPoolSize = 10, invocationCount = 10)
+	public void pluralizeFormatSimpleTest()
+	{
 
 		String pattern = "{0}";
 		String none = "{0} things";
@@ -413,7 +506,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeFormatTest() {
+	public void pluralizeFormatTest()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -433,7 +527,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeFormatWithSimpleTemplate() {
+	public void pluralizeFormatWithSimpleTemplate()
+	{
 
 		MessageFormat f = pluralizeFormat("{0}::nothing::one thing::{0} things");
 
@@ -459,7 +554,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeFormatWithTemplate() {
+	public void pluralizeFormatWithTemplate()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -476,17 +572,20 @@ public class TestHumanize {
 		assertEquals(f.render(1), "Hay un fichero.");
 		assertEquals(f.render(2000), "Hay 2.000 ficheros.");
 
-		try {
+		try
+		{
 			pluralizeFormat("---");
 			fail("incorrect number of tokens");
-		} catch (IllegalArgumentException ex) {
+		} catch (IllegalArgumentException ex)
+		{
 
 		}
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeNoExtTest() {
+	public void pluralizeNoExtTest()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -508,7 +607,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeTest() {
+	public void pluralizeTest()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -526,7 +626,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void prettyTimeFormatTest() {
+	public void prettyTimeFormatTest()
+	{
 
 		PrettyTimeFormat prettyTime = prettyTimeFormat();
 		assertEquals(prettyTime.format(new Date(0), new Date(1000 * 60 * 12)), "12 minutes from now");
@@ -546,7 +647,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void replaceSupplementaryTest() {
+	public void replaceSupplementaryTest()
+	{
 
 		assertEquals(
 		        replaceSupplementary("The first three letters of the Gothic alphabet are: \uD800\uDF30 \uD800\uDF31 \uD800\uDF32 and not"),
@@ -560,7 +662,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void slugifyTest() {
+	public void slugifyTest()
+	{
 
 		assertEquals(slugify("J'étudie le français"), "jetudie-le-francais");
 		assertEquals(slugify("Cet été, j’en ai rien à coder"), "cet-ete-jen-ai-rien-a-coder");
@@ -570,7 +673,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void spellBigNumberTest() {
+	public void spellBigNumberTest()
+	{
 
 		assertEquals(spellBigNumber(100), "100");
 		assertEquals(spellBigNumber(2300), "2.3 thousand");
@@ -596,7 +700,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void spellDigitTest() {
+	public void spellDigitTest()
+	{
 
 		assertEquals(spellDigit(1), "one");
 		assertEquals(spellDigit(3), "three");
@@ -611,7 +716,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void titleizeTest() {
+	public void titleizeTest()
+	{
 
 		assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
 		assertEquals(titleize("first annual report (CD) 2001"), "First Annual Report (CD) 2001");
@@ -619,7 +725,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void transliterateTest() {
+	public void transliterateTest()
+	{
 
 		assertEquals(transliterate("J'étudie le français"), "J'etudie le francais");
 		assertEquals(transliterate("Lo siento, no hablo español."), "Lo siento, no hablo espanol.");
@@ -628,7 +735,8 @@ public class TestHumanize {
 	}
 
 	@Test
-	public void undescoreTest() {
+	public void undescoreTest()
+	{
 
 		assertEquals(underscore("a bunch of  macarios"), "a_bunch_of_macarios");
 		assertEquals(underscore(" "), "_");
@@ -638,7 +746,8 @@ public class TestHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void wordWrapTest() {
+	public void wordWrapTest()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -653,7 +762,8 @@ public class TestHumanize {
 	}
 
 	@BeforeClass
-	void setUp() {
+	void setUp()
+	{
 
 		defaultLocale = Locale.getDefault();
 		Locale.setDefault(Locale.UK);
@@ -662,18 +772,21 @@ public class TestHumanize {
 	}
 
 	@AfterClass
-	void tearDown() {
+	void tearDown()
+	{
 
 		Locale.setDefault(defaultLocale);
 	}
 
-	private Date newTestDate(int day, int month, int year) {
+	private Date newTestDate(int day, int month, int year)
+	{
 
 		return newTestDate(day, month, year, 0, 0, 0);
 
 	}
 
-	private Date newTestDate(int day, int month, int year, int h, int m, int s) {
+	private Date newTestDate(int day, int month, int year, int h, int m, int s)
+	{
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DATE, day);

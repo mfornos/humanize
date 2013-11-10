@@ -9,10 +9,12 @@ import java.text.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestMaskFormat {
+public class TestMaskFormat
+{
 
 	@Test
-	public void instanceTest() throws ParseException {
+	public void instanceTest() throws ParseException
+	{
 
 		MaskFormat mf = new MaskFormat("_# __ _____#-_");
 		Assert.assertEquals(mf.getPlaceholder(), '_');
@@ -36,10 +38,12 @@ public class TestMaskFormat {
 		Assert.assertEquals(mf.parseObject("10 01 0", null), "10010");
 
 		Assert.assertEquals(mf.parse("99 99 A"), "9999A");
-		try {
+		try
+		{
 			mf.parse("90890");
 			Assert.fail();
-		} catch (ParseException e) {
+		} catch (ParseException e)
+		{
 			//
 		}
 
@@ -49,7 +53,8 @@ public class TestMaskFormat {
 	}
 
 	@Test
-	public void maskFormatTest() {
+	public void maskFormatTest()
+	{
 
 		Assert.assertEquals(MaskFormat.format("helo", "123"), "helo");
 		Assert.assertEquals(MaskFormat.format("", "hi"), "hi");
@@ -65,7 +70,8 @@ public class TestMaskFormat {
 	}
 
 	@Test
-	public void maskParseTest() throws ParseException {
+	public void maskParseTest() throws ParseException
+	{
 
 		Assert.assertEquals(MaskFormat.parse("", "hi"), "hi");
 		Assert.assertEquals(MaskFormat.parse((String) null, (String) null), null);
@@ -75,17 +81,20 @@ public class TestMaskFormat {
 		Assert.assertEquals(MaskFormat.parse("$$_$$", "10_10", '$'), "1010");
 		Assert.assertEquals(MaskFormat.parse("1bla_bla__bla bla bla 12", "1bla0bla10bla bla bla 12"), "010");
 
-		try {
+		try
+		{
 			MaskFormat.parse("helo", "123");
 			Assert.fail();
-		} catch (ParseException ex) {
+		} catch (ParseException ex)
+		{
 			//
 		}
 
 	}
 
 	@Test
-	public void messageFmtTest() {
+	public void messageFmtTest()
+	{
 
 		MessageFormat msg = new MessageFormat("Hello {0}");
 		msg.setFormat(0, new MaskFormat("__ ____|_"));

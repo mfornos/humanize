@@ -1,6 +1,7 @@
 package humanize.faces.renderkit.html;
 
-public interface HTML {
+public interface HTML
+{
 	// universal attributes
 	String DIR_ATTR = "dir";
 	String LANG_ATTR = "lang";

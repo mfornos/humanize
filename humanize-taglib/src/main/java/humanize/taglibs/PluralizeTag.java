@@ -12,7 +12,8 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 
-public class PluralizeTag extends HumanizeSupport {
+public class PluralizeTag extends HumanizeSupport
+{
 
 	private static final long serialVersionUID = -8952205534935694612L;
 
@@ -30,33 +31,39 @@ public class PluralizeTag extends HumanizeSupport {
 
 	private Object[] argsArray;
 
-	public void setValue(String value) {
+	public void setValue(String value)
+	{
 
 		this.value = value;
 
 	}
 
-	public void setNone(String none) {
+	public void setNone(String none)
+	{
 
 		this.none = none;
 	}
 
-	public void setOne(String one) {
+	public void setOne(String one)
+	{
 
 		this.one = one;
 	}
 
-	public void setMany(String many) {
+	public void setMany(String many)
+	{
 
 		this.many = many;
 	}
 
-	public void setArgs(String args) {
+	public void setArgs(String args)
+	{
 
 		this.args = args;
 	}
 
-	protected void clean() {
+	protected void clean()
+	{
 
 		this.value = null;
 		this.none = null;
@@ -67,14 +74,16 @@ public class PluralizeTag extends HumanizeSupport {
 	}
 
 	@Override
-	protected boolean isContextRemoveNeeded() {
+	protected boolean isContextRemoveNeeded()
+	{
 
 		return value == null;
 
 	}
 
 	@Override
-	protected String render() throws JspException {
+	protected String render() throws JspException
+	{
 
 		return isEmpty(none) ? Humanize.pluralize(one, many, num, argsArray) : Humanize.pluralize(one, many, none, num,
 		        argsArray);
@@ -82,7 +91,8 @@ public class PluralizeTag extends HumanizeSupport {
 	}
 
 	@Override
-	protected String render(Locale locale) throws JspException {
+	protected String render(Locale locale) throws JspException
+	{
 
 		return isEmpty(none) ? Humanize.pluralize(locale, one, many, num, argsArray) : Humanize.pluralize(locale, one,
 		        many, none, num, argsArray);
@@ -90,12 +100,14 @@ public class PluralizeTag extends HumanizeSupport {
 	}
 
 	@Override
-	protected void begin() throws JspException {
+	protected void begin() throws JspException
+	{
 
 		num = asNumber(value);
 
 		List<Object> tmpArr = new ArrayList<Object>();
-		if (args != null) {
+		if (args != null)
+		{
 			tmpArr.addAll(Arrays.asList(args.split("\\s*,\\s*")));
 		}
 

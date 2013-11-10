@@ -18,7 +18,8 @@ import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 
 @FacesRenderer(renderKitId = "HTML_BASIC", componentFamily = "javax.faces.Output", rendererType = "javax.faces.Format")
-public class HtmlFormatRenderer extends Renderer {
+public class HtmlFormatRenderer extends Renderer
+{
 
 	private static final Logger log = Logger.getLogger(HtmlFormatRenderer.class.getName());
 

@@ -17,12 +17,14 @@ import org.apache.taglibs.standard.tag.common.fmt.HumanizeMessageSupport;
  * @author Jan Luehe
  */
 
-public class ParamTag extends BodyTagSupport {
+public class ParamTag extends BodyTagSupport
+{
 
 	private static final long serialVersionUID = -4456345915979081598L;
 
 	// for tag attribute
-	public void setValue(Object value) throws JspTagException {
+	public void setValue(Object value) throws JspTagException
+	{
 
 		this.value = value;
 		this.valueSpecified = true;
@@ -35,13 +37,15 @@ public class ParamTag extends BodyTagSupport {
 
 	/*    */
 	/*    */public ParamTag()
-	/*    */{
+	/*    */
+	{
 
 		/* 49 */init();
 		/*    */}
 
 	/*    */
-	/*    */private void init() {
+	/*    */private void init()
+	{
 
 		/* 53 */this.value = null;
 		/* 54 */this.valueSpecified = false;
@@ -49,11 +53,13 @@ public class ParamTag extends BodyTagSupport {
 
 	/*    */
 	/*    */public int doEndTag()
-	/*    */throws JspException
-	/*    */{
+	        /*    */throws JspException
+	/*    */
+	{
 
 		/* 63 */Tag t = findAncestorWithClass(this, HumanizeMessageSupport.class);
-		/* 64 */if (t == null) {
+		/* 64 */if (t == null)
+		{
 			/* 65 */throw new JspTagException(Resources.getMessage("PARAM_OUTSIDE_MESSAGE"));
 			/*    */}
 		/*    */
@@ -62,7 +68,8 @@ public class ParamTag extends BodyTagSupport {
 		/* 75 */Object input = null;
 		/*    */
 		/* 77 */if (this.valueSpecified)
-		/*    */{
+		/*    */
+		{
 			/* 79 */input = this.value;
 			/*    */}
 		/*    */else
@@ -76,7 +83,8 @@ public class ParamTag extends BodyTagSupport {
 
 	/*    */
 	/*    */public void release()
-	/*    */{
+	/*    */
+	{
 
 		/* 92 */init();
 		/*    */}

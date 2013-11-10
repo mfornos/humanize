@@ -26,7 +26,8 @@ import com.ibm.icu.util.ULocale;
  * @author mfornos
  * 
  */
-public class DefaultICUContext implements Context, ICUContext {
+public class DefaultICUContext implements Context, ICUContext
+{
 
 	private static final String DURATION_FORMAT = "icu.duration.format";
 
@@ -48,10 +49,12 @@ public class DefaultICUContext implements Context, ICUContext {
 
 	private final static CacheProvider sharedCache = loadCacheProvider();
 
-	private static CacheProvider loadCacheProvider() {
+	private static CacheProvider loadCacheProvider()
+	{
 
 		ServiceLoader<CacheProvider> ldr = ServiceLoader.load(CacheProvider.class);
-		for (CacheProvider provider : ldr) {
+		for (CacheProvider provider : ldr)
+		{
 			return provider;
 		}
 		throw new RuntimeException("No CacheProvider was found");
@@ -66,13 +69,15 @@ public class DefaultICUContext implements Context, ICUContext {
 
 	private MessageFormat messageFormat;
 
-	public DefaultICUContext() {
+	public DefaultICUContext()
+	{
 
 		this(Locale.getDefault());
 
 	}
 
-	public DefaultICUContext(Locale locale) {
+	public DefaultICUContext(Locale locale)
+	{
 
 		setLocale(locale);
 		this.messageFormat = new MessageFormat(EMPTY, locale);
@@ -80,7 +85,8 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public MessageFormat getMessageFormat() {
+	public MessageFormat getMessageFormat()
+	{
 
 		messageFormat.setLocale(locale);
 		return messageFormat;
@@ -88,34 +94,39 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public String formatDate(int style, Date value) {
+	public String formatDate(int style, Date value)
+	{
 
 		return getDateFormat(style).format(value);
 
 	}
 
 	@Override
-	public String formatDateTime(Date date) {
+	public String formatDateTime(Date date)
+	{
 
 		return getDateTimeFormat().format(date);
 
 	}
 
 	@Override
-	public String formatDateTime(int dateStyle, int timeStyle, Date date) {
+	public String formatDateTime(int dateStyle, int timeStyle, Date date)
+	{
 
 		return getDateTimeFormat(dateStyle, timeStyle).format(date);
 	}
 
 	@Override
-	public String formatDecimal(Number value) {
+	public String formatDecimal(Number value)
+	{
 
 		return getNumberFormat().format(value);
 
 	}
 
 	@Override
-	public String getBestPattern(String skeleton) {
+	public String getBestPattern(String skeleton)
+	{
 
 		DateTimePatternGenerator generator = DateTimePatternGenerator.getInstance(getULocale());
 		return generator.getBestPattern(skeleton);
@@ -123,11 +134,14 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DecimalFormat getCurrencyFormat() {
+	public DecimalFormat getCurrencyFormat()
+	{
 
-		return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>() {
+		return sharedCache.getFormat(CURRENCY, locale, new Callable<DecimalFormat>()
+		{
 			@Override
-			public DecimalFormat call() throws Exception {
+			public DecimalFormat call() throws Exception
+			{
 
 				return (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
 			}
@@ -136,13 +150,16 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DateFormat getDateFormat(final int style) {
+	public DateFormat getDateFormat(final int style)
+	{
 
 		String name = DATE_FORMAT + style;
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>() {
+		return localCache.getFormat(name, locale, new Callable<DateFormat>()
+		{
 			@Override
-			public DateFormat call() throws Exception {
+			public DateFormat call() throws Exception
+			{
 
 				return DateFormat.getDateInstance(style, locale);
 			}
@@ -151,20 +168,24 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DateFormat getDateTimeFormat() {
+	public DateFormat getDateTimeFormat()
+	{
 
 		return getDateTimeFormat(DateFormat.SHORT, DateFormat.SHORT);
 
 	}
 
 	@Override
-	public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle) {
+	public DateFormat getDateTimeFormat(final int dateStyle, final int timeStyle)
+	{
 
 		String name = DATE_TIME_FORMAT + dateStyle + timeStyle;
 
-		return localCache.getFormat(name, locale, new Callable<DateFormat>() {
+		return localCache.getFormat(name, locale, new Callable<DateFormat>()
+		{
 			@Override
-			public DateFormat call() throws Exception {
+			public DateFormat call() throws Exception
+			{
 
 				return DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
 			}
@@ -173,11 +194,14 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DecimalFormat getDecimalFormat() {
+	public DecimalFormat getDecimalFormat()
+	{
 
-		return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>() {
+		return localCache.getFormat(DECIMAL, locale, new Callable<DecimalFormat>()
+		{
 			@Override
-			public DecimalFormat call() throws Exception {
+			public DecimalFormat call() throws Exception
+			{
 
 				return (DecimalFormat) DecimalFormat.getInstance(locale);
 			}
@@ -186,11 +210,14 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DurationFormat getDurationFormat() {
+	public DurationFormat getDurationFormat()
+	{
 
-		return sharedCache.getFormat(DURATION_FORMAT, locale, new Callable<DurationFormat>() {
+		return sharedCache.getFormat(DURATION_FORMAT, locale, new Callable<DurationFormat>()
+		{
 			@Override
-			public DurationFormat call() throws Exception {
+			public DurationFormat call() throws Exception
+			{
 
 				return DurationFormat.getInstance(ulocale);
 			}
@@ -199,18 +226,22 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public Locale getLocale() {
+	public Locale getLocale()
+	{
 
 		return locale;
 
 	}
 
 	@Override
-	public NumberFormat getNumberFormat() {
+	public NumberFormat getNumberFormat()
+	{
 
-		return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>() {
+		return sharedCache.getFormat(NUMBER, locale, new Callable<NumberFormat>()
+		{
 			@Override
-			public NumberFormat call() throws Exception {
+			public NumberFormat call() throws Exception
+			{
 
 				return NumberFormat.getInstance(locale);
 			}
@@ -219,11 +250,14 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DecimalFormat getPercentFormat() {
+	public DecimalFormat getPercentFormat()
+	{
 
-		return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>() {
+		return sharedCache.getFormat(PERCENT, locale, new Callable<DecimalFormat>()
+		{
 			@Override
-			public DecimalFormat call() throws Exception {
+			public DecimalFormat call() throws Exception
+			{
 
 				return (DecimalFormat) NumberFormat.getPercentInstance(locale);
 			}
@@ -232,11 +266,14 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public DecimalFormat getPluralCurrencyFormat() {
+	public DecimalFormat getPluralCurrencyFormat()
+	{
 
-		return sharedCache.getFormat(CURRENCY_PL, locale, new Callable<DecimalFormat>() {
+		return sharedCache.getFormat(CURRENCY_PL, locale, new Callable<DecimalFormat>()
+		{
 			@Override
-			public DecimalFormat call() throws Exception {
+			public DecimalFormat call() throws Exception
+			{
 
 				return (DecimalFormat) NumberFormat.getInstance(locale, NumberFormat.PLURALCURRENCYSTYLE);
 			}
@@ -245,12 +282,15 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public NumberFormat getRuleBasedNumberFormat(final int type) {
+	public NumberFormat getRuleBasedNumberFormat(final int type)
+	{
 
 		String ruleBasedName = RULE_BASED + type;
-		return sharedCache.getFormat(ruleBasedName, locale, new Callable<NumberFormat>() {
+		return sharedCache.getFormat(ruleBasedName, locale, new Callable<NumberFormat>()
+		{
 			@Override
-			public NumberFormat call() throws Exception {
+			public NumberFormat call() throws Exception
+			{
 
 				return new RuleBasedNumberFormat(locale, type);
 			}
@@ -258,14 +298,16 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public ULocale getULocale() {
+	public ULocale getULocale()
+	{
 
 		return ulocale;
 
 	}
 
 	@Override
-	public void setLocale(Locale locale) {
+	public void setLocale(Locale locale)
+	{
 
 		this.locale = locale;
 		this.ulocale = ULocale.forLocale(locale);
@@ -273,35 +315,40 @@ public class DefaultICUContext implements Context, ICUContext {
 	}
 
 	@Override
-	public String digitStrings(int index) {
+	public String digitStrings(int index)
+	{
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
 	}
 
 	@Override
-	public String formatMessage(String key, Object... args) {
+	public String formatMessage(String key, Object... args)
+	{
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
 	}
 
 	@Override
-	public ResourceBundle getBundle() {
+	public ResourceBundle getBundle()
+	{
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
 	}
 
 	@Override
-	public MaskFormat getMaskFormat() {
+	public MaskFormat getMaskFormat()
+	{
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 
 	}
 
 	@Override
-	public String getMessage(String key) {
+	public String getMessage(String key)
+	{
 
 		throw new UnsupportedOperationException("Use humanize-slim instead.");
 

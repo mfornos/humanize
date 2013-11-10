@@ -90,7 +90,8 @@ public final class Utils
 
 		Object value = getObjectValue(component);
 		// Try to convert to Boolean if it is a String
-		if (value instanceof String) {
+		if (value instanceof String)
+		{
 			value = Boolean.valueOf((String) value);
 		}
 
@@ -199,7 +200,8 @@ public final class Utils
 
 		buf.insert(0, "{Component-Path : ");
 		Object location = component.getAttributes().get(UIComponent.VIEW_LOCATION_KEY);
-		if (location != null) {
+		if (location != null)
+		{
 			buf.append(" Location: ").append(location);
 		}
 		buf.append("}");
@@ -229,17 +231,21 @@ public final class Utils
 
 		Object value;
 
-		if (component instanceof EditableValueHolder) {
+		if (component instanceof EditableValueHolder)
+		{
 
 			EditableValueHolder holder = (EditableValueHolder) component;
 
-			if (holder.isLocalValueSet()) {
+			if (holder.isLocalValueSet())
+			{
 				value = holder.getLocalValue();
-			} else {
+			} else
+			{
 				value = getValue(component);
 			}
 		}
-		else {
+		else
+		{
 			value = getValue(component);
 		}
 
@@ -559,7 +565,8 @@ public final class Utils
 		getPathToComponent(component.getParent(), buf);
 	}
 
-	private static Object getValue(UIComponent component) {
+	private static Object getValue(UIComponent component)
+	{
 
 		Object value;
 		try
@@ -573,7 +580,8 @@ public final class Utils
 		return value;
 	}
 
-	private Utils() {
+	private Utils()
+	{
 
 		// nope
 	}

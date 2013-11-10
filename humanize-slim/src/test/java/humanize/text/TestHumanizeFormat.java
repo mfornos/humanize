@@ -9,10 +9,12 @@ import java.util.Locale;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestHumanizeFormat {
+public class TestHumanizeFormat
+{
 
 	@Test
-	public void basic() {
+	public void basic()
+	{
 
 		Assert.assertEquals(Humanize.ordinal(10, Locale.ENGLISH), "10th");
 
@@ -47,7 +49,8 @@ public class TestHumanizeFormat {
 	}
 
 	@Test
-	public void invalidCall() {
+	public void invalidCall()
+	{
 
 		FormatFactory factory = HumanizeFormatProvider.factory();
 
@@ -57,7 +60,8 @@ public class TestHumanizeFormat {
 	}
 
 	@Test(expectedExceptions = UnsupportedOperationException.class)
-	public void parse() throws ParseException {
+	public void parse() throws ParseException
+	{
 
 		FormatFactory factory = HumanizeFormatProvider.factory();
 

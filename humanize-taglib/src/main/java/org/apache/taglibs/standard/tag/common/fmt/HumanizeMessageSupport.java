@@ -43,8 +43,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.taglibs.standard.tag.common.core.Util;
-import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
-import org.apache.taglibs.standard.tag.common.fmt.SetLocaleSupport;
 
 /**
  * Support for tag handlers for &lt;message&gt;, the message formatting tag in
@@ -53,7 +51,8 @@ import org.apache.taglibs.standard.tag.common.fmt.SetLocaleSupport;
  * @author Jan Luehe
  */
 
-public abstract class HumanizeMessageSupport extends BodyTagSupport {
+public abstract class HumanizeMessageSupport extends BodyTagSupport
+{
 
 	private static final long serialVersionUID = -8279839743465404094L;
 
@@ -77,14 +76,16 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 	// *********************************************************************
 	// Constructor and initialization
 
-	public HumanizeMessageSupport() {
+	public HumanizeMessageSupport()
+	{
 
 		super();
 		params = new ArrayList<Object>();
 		init();
 	}
 
-	private void init() {
+	private void init()
+	{
 
 		var = null;
 		scope = PageContext.PAGE_SCOPE;
@@ -97,12 +98,14 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 	// *********************************************************************
 	// Tag attributes known at translation time
 
-	public void setVar(String var) {
+	public void setVar(String var)
+	{
 
 		this.var = var;
 	}
 
-	public void setScope(String scope) {
+	public void setScope(String scope)
+	{
 
 		this.scope = Util.getScope(scope);
 	}
@@ -115,7 +118,8 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 	 * 
 	 * @see ParamSupport
 	 */
-	public void addParam(Object arg) {
+	public void addParam(Object arg)
+	{
 
 		params.add(arg);
 
@@ -124,71 +128,89 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 	// *********************************************************************
 	// Tag logic
 
-	public int doStartTag() throws JspException {
+	public int doStartTag() throws JspException
+	{
 
 		params.clear();
 		return EVAL_BODY_BUFFERED;
 	}
 
-	public int doEndTag() throws JspException {
+	public int doEndTag() throws JspException
+	{
 
 		String key = null;
 		LocalizationContext locCtxt = null;
 
 		// determine the message key by...
-		if (keySpecified) {
+		if (keySpecified)
+		{
 			// ... reading 'key' attribute
 			key = keyAttrValue;
-		} else {
+		} else
+		{
 			// ... retrieving and trimming our body
 			if (bodyContent != null && bodyContent.getString() != null)
 				key = bodyContent.getString().trim();
 		}
 
-		if ((key == null) || key.equals("")) {
-			try {
+		if ((key == null) || key.equals(""))
+		{
+			try
+			{
 				pageContext.getOut().print("??????");
-			} catch (IOException ioe) {
+			} catch (IOException ioe)
+			{
 				throw new JspTagException(ioe.toString(), ioe);
 			}
 			return EVAL_PAGE;
 		}
 
 		String prefix = null;
-		if (!bundleSpecified) {
+		if (!bundleSpecified)
+		{
 			Tag t = findAncestorWithClass(this, BundleSupport.class);
-			if (t != null) {
+			if (t != null)
+			{
 				// use resource bundle from parent <bundle> tag
 				BundleSupport parent = (BundleSupport) t;
 				locCtxt = parent.getLocalizationContext();
 				prefix = parent.getPrefix();
-			} else {
+			} else
+			{
 				locCtxt = BundleSupport.getLocalizationContext(pageContext);
 			}
-		} else {
+		} else
+		{
 			// localization context taken from 'bundle' attribute
 			locCtxt = bundleAttrValue;
-			if (locCtxt.getLocale() != null) {
+			if (locCtxt.getLocale() != null)
+			{
 				SetLocaleSupport.setResponseLocale(pageContext, locCtxt.getLocale());
 			}
 		}
 
 		String message = UNDEFINED_KEY + key + UNDEFINED_KEY;
-		if (locCtxt != null) {
+		if (locCtxt != null)
+		{
 			ResourceBundle bundle = locCtxt.getResourceBundle();
-			if (bundle != null) {
-				try {
+			if (bundle != null)
+			{
+				try
+				{
 					// prepend 'prefix' attribute from parent bundle
 					if (prefix != null)
 						key = prefix + key;
 					message = bundle.getString(key);
 					// Perform parametric replacement if required
-					if (!params.isEmpty()) {
+					if (!params.isEmpty())
+					{
 						Object[] messageArgs = params.toArray();
 						Locale locale;
-						if (locCtxt.getLocale() != null) {
+						if (locCtxt.getLocale() != null)
+						{
 							locale = locCtxt.getLocale();
-						} else {
+						} else
+						{
 							// For consistency with the <fmt:formatXXX> actions,
 							// we try to get a locale that matches the user's
 							// preferences
@@ -202,18 +224,23 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 						        : Humanize.messageFormat(message);
 						message = formatter.format(messageArgs);
 					}
-				} catch (MissingResourceException mre) {
+				} catch (MissingResourceException mre)
+				{
 					message = UNDEFINED_KEY + key + UNDEFINED_KEY;
 				}
 			}
 		}
 
-		if (var != null) {
+		if (var != null)
+		{
 			pageContext.setAttribute(var, message, scope);
-		} else {
-			try {
+		} else
+		{
+			try
+			{
 				pageContext.getOut().print(message);
-			} catch (IOException ioe) {
+			} catch (IOException ioe)
+			{
 				throw new JspTagException(ioe.toString(), ioe);
 			}
 		}
@@ -222,9 +249,10 @@ public abstract class HumanizeMessageSupport extends BodyTagSupport {
 	}
 
 	// Releases any resources we may have (or inherit)
-	public void release() {
+	public void release()
+	{
 
 		init();
-		
+
 	}
 }

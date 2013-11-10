@@ -12,23 +12,26 @@ import org.apache.taglibs.standard.tag.common.fmt.HumanizeMessageSupport;
  * 
  * @author Jan Luehe
  */
-public class MessageTag extends HumanizeMessageSupport {
+public class MessageTag extends HumanizeMessageSupport
+{
 
 	private static final long serialVersionUID = -7333452590563574360L;
 
 	// for tag attribute
-	public void setKey(String key) throws JspTagException {
+	public void setKey(String key) throws JspTagException
+	{
 
 		this.keyAttrValue = key;
 		this.keySpecified = true;
-		
+
 	}
 
 	// for tag attribute
-	public void setBundle(LocalizationContext locCtxt) throws JspTagException {
+	public void setBundle(LocalizationContext locCtxt) throws JspTagException
+	{
 
 		this.bundleAttrValue = locCtxt;
 		this.bundleSpecified = true;
-		
+
 	}
 }

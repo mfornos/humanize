@@ -32,7 +32,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestICUHumanize {
+public class TestICUHumanize
+{
 
 	private static final Locale ES = new Locale("es", "ES");
 
@@ -41,7 +42,8 @@ public class TestICUHumanize {
 	private Locale defaultLocale;
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void durationTest() {
+	public void durationTest()
+	{
 
 		assertEquals(duration(1), "1 sec.");
 		assertEquals(duration(3730), "1:02:10");
@@ -49,7 +51,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatCurrencyTest() {
+	public void formatCurrencyTest()
+	{
 
 		int df = rand.nextInt(9);
 		assertEquals(formatCurrency(34), "£34");
@@ -57,12 +60,13 @@ public class TestICUHumanize {
 		assertEquals(formatCurrency(10000.55 + df), "£10,00" + df + ".55");
 
 		assertEquals(formatCurrency(100, ES), "100 €");
-		assertEquals(formatCurrency(1000.55, ES), "1.000,55 €");
+		assertEquals(formatCurrency(1000.55, ES), "1 000,55 €");
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDateTest() {
+	public void formatDateTest()
+	{
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015);
@@ -70,8 +74,8 @@ public class TestICUHumanize {
 		assertEquals(formatDate(DateFormat.MEDIUM, date), String.format("%d Dec 2015", day));
 		assertEquals(formatDate(date), String.format("%02d/12/2015", day));
 
-		assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%02d/12/2015", day));
-		assertEquals(formatDate(date, ES), String.format("%02d/12/15", day));
+		assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%d/12/2015", day));
+		assertEquals(formatDate(date, ES), String.format("%d/12/15", day));
 
 		assertEquals(formatDate(date, "dd/MM/yy"), String.format("%02d/12/15", day));
 		assertEquals(formatDate(date, "dd/MM/yy", ES), String.format("%02d/12/15", day));
@@ -79,7 +83,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDateTimeTest() {
+	public void formatDateTimeTest()
+	{
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015, 22, 10, 0);
@@ -89,23 +94,25 @@ public class TestICUHumanize {
 		assertEquals(formatDateTime(date), String.format("%02d/12/2015 22:10", day));
 
 		assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date, ES),
-		        String.format("%02d/12/2015 22:10:00", day));
-		assertEquals(formatDateTime(date, ES), String.format("%02d/12/15 22:10", day));
+		        String.format("%d/12/2015 22:10:00", day));
+		assertEquals(formatDateTime(date, ES), String.format("%d/12/15 22:10", day));
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatDecimalTest() {
+	public void formatDecimalTest()
+	{
 
 		int df = rand.nextInt(9);
 		assertEquals(formatDecimal(1000 + df), "1,00" + df);
 		assertEquals(formatDecimal(10000.55 + df), "10,00" + df + ".55");
-		assertEquals(formatDecimal(1000 + df, ES), "1.00" + df);
+		assertEquals(formatDecimal(1000 + df, ES), "1 00" + df);
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatPercentTest() {
+	public void formatPercentTest()
+	{
 
 		assertEquals(formatPercent(0), "0%");
 		assertEquals(formatPercent(-1), "-100%");
@@ -119,12 +126,13 @@ public class TestICUHumanize {
 		assertEquals(formatPercent(0.5, ES), "50%");
 		assertEquals(formatPercent(1.5, ES), "150%");
 		assertEquals(formatPercent(0.564, ES), "56%");
-		assertEquals(formatPercent(1000.564, ES), "100.056%");
+		assertEquals(formatPercent(1000.564, ES), "100 056%");
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formatPluralCurrencyTest() {
+	public void formatPluralCurrencyTest()
+	{
 
 		int df = rand.nextInt(9);
 		assertEquals(formatPluralCurrency(34), "34 British pounds");
@@ -133,14 +141,16 @@ public class TestICUHumanize {
 
 		assertEquals(formatPluralCurrency(1, ES), "1 euro");
 		assertEquals(formatPluralCurrency(100, ES), "100 euros");
-		assertEquals(formatPluralCurrency(1000.55, ES), "1.000,55 euros");
+		assertEquals(formatPluralCurrency(1000.55, ES), "1 000,55 euros");
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void formattersTest() {
+	public void formattersTest()
+	{
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++)
+		{
 			assertEquals(decimalFormatInstance("@@##").format(i + 1.14159), String.format("%d.142", (i + 1)));
 			assertEquals(decimalFormatInstance("@@##", ES).format(i + 1.14159), String.format("%d,142", (i + 1)));
 		}
@@ -153,7 +163,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void naturalDayTest() {
+	public void naturalDayTest()
+	{
 
 		Calendar cal = Calendar.getInstance();
 		assertEquals(naturalDay(cal.getTime()), "today");
@@ -174,7 +185,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void naturalTimeTest() {
+	public void naturalTimeTest()
+	{
 
 		assertTrue(naturalTime(new Date(0), new Date(10)).endsWith(" from now"));
 
@@ -209,7 +221,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void ordinalizeTest() {
+	public void ordinalizeTest()
+	{
 
 		assertEquals(ordinalize(0), "0th");
 		assertEquals(ordinalize(1), "1st");
@@ -235,7 +248,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void parseNumberTest() throws ParseException {
+	public void parseNumberTest() throws ParseException
+	{
 
 		assertEquals(parseNumber("one hundred twenty-three").intValue(), 123);
 		assertEquals(parseNumber("doscientos un mil doscientos cincuenta y seis", ES).intValue(), 201256);
@@ -243,7 +257,8 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void pluralizeWithFormatInstance() {
+	public void pluralizeWithFormatInstance()
+	{
 
 		int df = rand.nextInt(9);
 
@@ -257,13 +272,14 @@ public class TestICUHumanize {
 
 		f = messageFormatInstance("Hay {0, plural, one{un fichero}other{{0} ficheros}} en {1}.", ES);
 
-		assertEquals(f.render(1000 + df, "disco"), "Hay 1.00" + df + " ficheros en disco.");
+		assertEquals(f.render(1000 + df, "disco"), "Hay 1 00" + df + " ficheros en disco.");
 		assertEquals(f.render(1, "disco"), "Hay un fichero en disco.");
 
 	}
 
 	@Test
-	public void replaceSupplementaryTest() {
+	public void replaceSupplementaryTest()
+	{
 
 		assertEquals(
 		        replaceSupplementary("The first three letters of the Gothic alphabet are: \uD800\uDF30 \uD800\uDF31 \uD800\uDF32 and not"),
@@ -278,18 +294,20 @@ public class TestICUHumanize {
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void smartDateFormatTest() {
+	public void smartDateFormatTest()
+	{
 
 		int day = rand.nextInt(20) + 1;
 		Date date = newTestDate(day, 11, 2015);
 
 		assertEquals(smartDateFormat(date, "MMMd"), day + " Dec");
-		assertEquals(smartDateFormat(date, "MMMd", ES), day + " dic");
+		assertEquals(smartDateFormat(date, "MMMd", ES), day + " de dic.");
 
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)
-	public void spellNumberTest() {
+	public void spellNumberTest()
+	{
 
 		assertEquals(spellNumber(123), "one hundred twenty-three");
 		assertEquals(spellNumber(2840), "two thousand eight hundred forty");
@@ -305,7 +323,8 @@ public class TestICUHumanize {
 	}
 
 	@BeforeClass
-	protected void setUp() {
+	protected void setUp()
+	{
 
 		defaultLocale = Locale.getDefault();
 		Locale.setDefault(Locale.UK);
@@ -314,19 +333,22 @@ public class TestICUHumanize {
 	}
 
 	@AfterClass
-	protected void tearDown() {
+	protected void tearDown()
+	{
 
 		Locale.setDefault(defaultLocale);
 
 	}
 
-	private Date newTestDate(int day, int month, int year) {
+	private Date newTestDate(int day, int month, int year)
+	{
 
 		return newTestDate(day, month, year, 0, 0, 0);
 
 	}
 
-	private Date newTestDate(int day, int month, int year, int h, int m, int s) {
+	private Date newTestDate(int day, int month, int year, int h, int m, int s)
+	{
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DATE, day);

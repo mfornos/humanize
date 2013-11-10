@@ -13,12 +13,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestExtendedMessageFormat {
+public class TestExtendedMessageFormat
+{
 
 	private Locale defaultLocale;
 
 	@Test
-	public void basicFormats() {
+	public void basicFormats()
+	{
 
 		ExtendedMessageFormat extformat = new ExtendedMessageFormat("hello {0, number} xxx {1, date, ddmmyyy}",
 		        Locale.ENGLISH);
@@ -41,14 +43,16 @@ public class TestExtendedMessageFormat {
 	}
 
 	@Test
-	public void bypass() {
+	public void bypass()
+	{
 
 		MessageFormat extformat = new MessageFormat("ok-ay");
 		Assert.assertEquals(extformat.render(), "ok-ay");
 	}
 
 	@Test
-	public void customFormats() {
+	public void customFormats()
+	{
 
 		HashMap<String, FormatFactory> registry = new HashMap<String, FormatFactory>();
 		registry.put("mask", MaskFormat.factory());
@@ -62,7 +66,8 @@ public class TestExtendedMessageFormat {
 	}
 
 	@Test
-	public void customFormatsAutoLoading() {
+	public void customFormatsAutoLoading()
+	{
 
 		MessageFormat extformat = new MessageFormat(
 		        "hello {0, number}{1, mask, __ ____}xxx {2, date, ddmmyyy} abc {3, mask, ___ ___}");
@@ -75,14 +80,16 @@ public class TestExtendedMessageFormat {
 	}
 
 	@Test
-	public void humanizeFormats() {
+	public void humanizeFormats()
+	{
 
 		MessageFormat extformat = new MessageFormat("{0, humanize, binaryPrefix}");
 		Assert.assertEquals(extformat.render(10000), "9.8 kB");
 	}
 
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void unknownFormat() {
+	public void unknownFormat()
+	{
 
 		MessageFormat extformat = new MessageFormat("ok {0, unknown} test");
 		extformat.render(1);
@@ -90,7 +97,8 @@ public class TestExtendedMessageFormat {
 	}
 
 	@BeforeClass
-	protected void setUp() {
+	protected void setUp()
+	{
 
 		defaultLocale = Locale.getDefault();
 		Locale.setDefault(Locale.ENGLISH);
@@ -98,7 +106,8 @@ public class TestExtendedMessageFormat {
 	}
 
 	@AfterClass
-	protected void tearDown() {
+	protected void tearDown()
+	{
 
 		Locale.setDefault(defaultLocale);
 

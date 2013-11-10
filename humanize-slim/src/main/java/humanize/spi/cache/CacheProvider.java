@@ -11,7 +11,8 @@ import java.util.concurrent.Callable;
  * @author mfornos
  * 
  */
-public interface CacheProvider {
+public interface CacheProvider
+{
 
 	boolean containsBundle(Locale locale);
 

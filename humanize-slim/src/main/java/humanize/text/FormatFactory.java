@@ -9,7 +9,8 @@ import java.util.Locale;
  * Format factory interface.
  * 
  */
-public interface FormatFactory {
+public interface FormatFactory
+{
 
 	/**
 	 * Creates a {@link Format} instance for the given parameters. The format

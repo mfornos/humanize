@@ -14,7 +14,8 @@ import javax.faces.convert.Converter;
 
 import com.google.common.base.Preconditions;
 
-public abstract class BaseConverter implements Converter, Serializable, PartialStateHolder {
+public abstract class BaseConverter implements Converter, Serializable, PartialStateHolder
+{
 
 	private static final long serialVersionUID = -7333204612599724969L;
 
@@ -25,22 +26,26 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 	private boolean transientFlag = false;
 
 	@Override
-	public void clearInitialState() {
+	public void clearInitialState()
+	{
 
 		initialState = false;
 
 	}
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+	public Object getAsObject(FacesContext context, UIComponent component, String value)
+	{
 
 		return value;
 
 	}
 
-	public Locale getLocale() {
+	public Locale getLocale()
+	{
 
-		if (locale == null) {
+		if (locale == null)
+		{
 			locale = getLocale(FacesContext.getCurrentInstance());
 		}
 
@@ -49,32 +54,37 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 	}
 
 	@Override
-	public boolean initialStateMarked() {
+	public boolean initialStateMarked()
+	{
 
 		return initialState;
 
 	}
 
 	@Override
-	public boolean isTransient() {
+	public boolean isTransient()
+	{
 
 		return transientFlag;
 
 	}
 
 	@Override
-	public void markInitialState() {
+	public void markInitialState()
+	{
 
 		initialState = true;
 
 	}
 
 	@Override
-	public void restoreState(FacesContext context, Object state) {
+	public void restoreState(FacesContext context, Object state)
+	{
 
 		Preconditions.checkNotNull(context);
 
-		if (state != null) {
+		if (state != null)
+		{
 			@SuppressWarnings("unchecked")
 			List<Object> values = (List<Object>) state;
 			Iterator<Object> iterator = values.iterator();
@@ -85,11 +95,13 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 	}
 
 	@Override
-	public Object saveState(FacesContext context) {
+	public Object saveState(FacesContext context)
+	{
 
 		Preconditions.checkNotNull(context);
 
-		if (!initialStateMarked()) {
+		if (!initialStateMarked())
+		{
 			List<Object> states = new ArrayList<Object>();
 			states.add(locale);
 			save(states);
@@ -99,7 +111,8 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 		return null;
 	}
 
-	public void setLocale(Locale locale) {
+	public void setLocale(Locale locale)
+	{
 
 		clearInitialState();
 		this.locale = locale;
@@ -107,29 +120,37 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 	}
 
 	@Override
-	public void setTransient(boolean transientFlag) {
+	public void setTransient(boolean transientFlag)
+	{
 
 		this.transientFlag = transientFlag;
 
 	}
 
-	protected Date asDate(Object value) {
+	protected Date asDate(Object value)
+	{
 
-		if (Date.class.isAssignableFrom(value.getClass())) {
+		if (Date.class.isAssignableFrom(value.getClass()))
+		{
 			return (Date) value;
-		} else {
+		} else
+		{
 			return new Date(Long.parseLong(value.toString()));
 		}
 
 	}
 
-	protected Number asNumber(Object input) {
+	protected Number asNumber(Object input)
+	{
 
-		if (input instanceof String) {
-			try {
+		if (input instanceof String)
+		{
+			try
+			{
 				String istr = (String) input;
 				return (istr.indexOf('.') != -1) ? Double.valueOf(istr) : Long.valueOf(istr);
-			} catch (NumberFormatException nfe) {
+			} catch (NumberFormatException nfe)
+			{
 				throw new IllegalArgumentException(nfe);
 			}
 		}
@@ -138,19 +159,22 @@ public abstract class BaseConverter implements Converter, Serializable, PartialS
 
 	}
 
-	protected Locale getLocale(FacesContext context) {
+	protected Locale getLocale(FacesContext context)
+	{
 
 		return locale == null ? context.getViewRoot().getLocale() : locale;
 
 	}
 
-	protected void restore(Iterator<Object> iterator) {
+	protected void restore(Iterator<Object> iterator)
+	{
 
 		//
 
 	}
 
-	protected void save(List<Object> states) {
+	protected void save(List<Object> states)
+	{
 
 		//
 

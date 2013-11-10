@@ -26,41 +26,49 @@ import java.util.regex.Pattern;
  * @author mfornos
  * 
  */
-public final class EmojiInterpolator {
+public final class EmojiInterpolator
+{
 
-	static class EmojiAliasInterpolator implements Replacer {
+	static class EmojiAliasInterpolator implements Replacer
+	{
 
 		private final MessageFormat msgFormat;
 
-		public EmojiAliasInterpolator(String pattern) {
+		public EmojiAliasInterpolator(String pattern)
+		{
 
 			this.msgFormat = new MessageFormat(pattern);
 
 		}
 
 		@Override
-		public String replace(String text) {
+		public String replace(String text)
+		{
 
 			return msgFormat.render(text);
 
 		}
 	}
 
-	static class EmojiCharInterpolator implements Replacer {
+	static class EmojiCharInterpolator implements Replacer
+	{
 
 		private final MessageFormat msgFormat;
 
-		public EmojiCharInterpolator(String pattern) {
+		public EmojiCharInterpolator(String pattern)
+		{
 
 			this.msgFormat = new MessageFormat(pattern);
 
 		}
 
 		@Override
-		public String replace(String in) {
+		public String replace(String in)
+		{
 
 			StringBuilder uc = new StringBuilder();
-			for (char c : in.toCharArray()) {
+			for (char c : in.toCharArray())
+			{
 				uc.append('u');
 				uc.append(Integer.toHexString(c).toUpperCase());
 			}
@@ -174,19 +182,22 @@ public final class EmojiInterpolator {
 	        + "\uE02F|" + "\uE024|" + "\uE025|" + "\uE026|" + "\uE027|" + "\uE028|" + "\uE029|" + "\uE02A|" + "\uE02B|"
 	        + "\uE02C|" + "\uE02D|" + "\uE02E|" + "\uE332|" + "\uE333|" + "\uE24E|" + "\uE24F|" + "\uE537)");
 
-	public static String interpolateAlias(String pattern, String text) {
+	public static String interpolateAlias(String pattern, String text)
+	{
 
 		return interpolate(text, EmojiInterpolator.EMOJI_ALIAS, new EmojiAliasInterpolator(pattern));
 
 	}
 
-	public static String interpolateChars(String pattern, String text) {
+	public static String interpolateChars(String pattern, String text)
+	{
 
 		return interpolate(text, EmojiInterpolator.EMOJI_UCHARS, new EmojiCharInterpolator(pattern));
 
 	}
 
-	private EmojiInterpolator() {
+	private EmojiInterpolator()
+	{
 
 	}
 

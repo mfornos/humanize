@@ -7,12 +7,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "humanize.BinaryPrefix")
-public class BinaryPrefixConverter extends NumberConverter {
+public class BinaryPrefixConverter extends NumberConverter
+{
 
 	private static final long serialVersionUID = 1942567170903039630L;
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Object value)
+	{
 
 		return Humanize.binaryPrefix(asNumber(value), getLocale(context));
 

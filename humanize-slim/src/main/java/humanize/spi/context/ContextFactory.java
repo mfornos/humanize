@@ -1,6 +1,7 @@
 package humanize.spi.context;
 
-public interface ContextFactory {
+public interface ContextFactory
+{
 
 	Context createContext();
 

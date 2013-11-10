@@ -7,10 +7,12 @@ package humanize.spi.context;
  * @author michaux
  * 
  */
-public class DefaultContextFactory implements ContextFactory {
+public class DefaultContextFactory implements ContextFactory
+{
 
 	@Override
-	public Context createContext() {
+	public Context createContext()
+	{
 
 		return new DefaultContext();
 	}

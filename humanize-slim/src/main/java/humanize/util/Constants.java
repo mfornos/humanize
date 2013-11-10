@@ -11,26 +11,62 @@ import java.util.regex.Pattern;
  * Humanize constants
  * 
  */
-public final class Constants {
+public final class Constants
+{
 
-	public enum TimeStyle {
-		STANDARD {
-			public String format(DefaultContext ctx, boolean neg, int h, int m, int s) {
+	public enum TimeMillis
+	{
+		SECOND(1000L),
+		MINUTE(60000L),
+		HOUR(3600000L),
+		DAY(86400000L),
+		WEEK(604800000L),
+		// ideal months
+		MONTH(2628000000L);
+
+		private long millis;
+
+		TimeMillis(long millis)
+		{
+			this.millis = millis;
+		}
+
+		public String key()
+		{
+			return this.name().toLowerCase();
+		}
+
+		public long millis()
+		{
+			return this.millis;
+		}
+	}
+
+	public enum TimeStyle
+	{
+		STANDARD
+		{
+			public String format(DefaultContext ctx, boolean neg, int h, int m, int s)
+			{
 
 				return String.format("%s%d:%02d:%02d", neg ? '-' : "", h, m, s);
 
 			}
 		},
-		FRENCH_DECIMAL {
-			public String format(DefaultContext ctx, boolean neg, int h, int m, int s) {
+		FRENCH_DECIMAL
+		{
+			public String format(DefaultContext ctx, boolean neg, int h, int m, int s)
+			{
 
 				String r;
 
-				if (h == 0) {
+				if (h == 0)
+				{
 					r = (m == 0) ? String.format("%d%s", s, ctx.timeSuffix(2)) :
 					        (s == 0) ? String.format("%d%s", m, ctx.timeSuffix(1)) :
 					                String.format("%d%s %d%s", m, ctx.timeSuffix(1), s, ctx.timeSuffix(2));
-				} else {
+				} else
+				{
 					r = (m == 0) ?
 					        ((s == 0) ? String.format("%d%s", h, ctx.timeSuffix(0)) :
 					                String.format("%d%s %d%s", h, ctx.timeSuffix(0), s, ctx.timeSuffix(2))) :
@@ -70,7 +106,8 @@ public final class Constants {
 
 	public static final Map<BigDecimal, String> bigDecExponents = new LinkedHashMap<BigDecimal, String>();
 
-	static {
+	static
+	{
 		bigDecExponents.put(BigDecimal.TEN.pow(3), "thousand");
 		bigDecExponents.put(BigDecimal.TEN.pow(6), "million");
 		bigDecExponents.put(BigDecimal.TEN.pow(9), "billion");
@@ -89,7 +126,8 @@ public final class Constants {
 
 	public static final Map<Long, String> binPrefixes = new LinkedHashMap<Long, String>();
 
-	static {
+	static
+	{
 		binPrefixes.put(1125899906842624L, "#.## PB");
 		binPrefixes.put(1099511627776L, "#.## TB");
 		binPrefixes.put(1073741824L, "#.## GB");
@@ -100,7 +138,8 @@ public final class Constants {
 
 	public static final Map<Long, String> metricPrefixes = new LinkedHashMap<Long, String>();
 
-	static {
+	static
+	{
 		metricPrefixes.put(1000000000000000L, "#.##P");
 		metricPrefixes.put(1000000000000L, "#.##T");
 		metricPrefixes.put(1000000000L, "#.##G");
@@ -111,11 +150,12 @@ public final class Constants {
 
 	public static final Map<Long, String> nanoTimePrefixes = new LinkedHashMap<Long, String>();
 
-	static {
+	static
+	{
 		nanoTimePrefixes.put(1000000000L, "#.##s");
 		nanoTimePrefixes.put(1000000L, "#.###ms");
 		nanoTimePrefixes.put(1000L, "#.####µs");
 		nanoTimePrefixes.put(0L, "#.####ns");
-	}
+	};
 
 }

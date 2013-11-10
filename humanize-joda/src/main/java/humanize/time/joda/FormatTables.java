@@ -16,7 +16,8 @@ import org.joda.time.format.PeriodFormat;
 /**
  *
  */
-public final class FormatTables implements FormatNames {
+public final class FormatTables implements FormatNames
+{
 
 	private static FormatTables instance;
 
@@ -27,26 +28,30 @@ public final class FormatTables implements FormatNames {
 	 *            The format name
 	 * @return a mutable map of variants
 	 */
-	public static Map<String, Format> get(String name) {
+	public static Map<String, Format> get(String name)
+	{
 
 		return instance().methods.get(name);
 
 	}
 
-	public static synchronized FormatTables instance() {
+	public static synchronized FormatTables instance()
+	{
 
 		return instance == null ? new FormatTables() : instance;
 	}
 
 	private final Map<String, Map<String, Format>> methods = new HashMap<String, Map<String, Format>>();
 
-	private FormatTables() {
+	private FormatTables()
+	{
 
 		initialize();
 
 	}
 
-	private void initialize() {
+	private void initialize()
+	{
 
 		Map<String, Format> jtm = new HashMap<String, Format>();
 
@@ -126,45 +131,55 @@ public final class FormatTables implements FormatNames {
 
 	}
 
-	private JodaDateTimeFormat newDateTimeFormat(Class<?> clazz, String name) {
+	private JodaDateTimeFormat newDateTimeFormat(Class<?> clazz, String name)
+	{
 
-		try {
+		try
+		{
 			return new JodaDateTimeFormat(clazz.getMethod(name));
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			throw new RuntimeException(e);
 		}
 
 	}
 
-	private JodaDateTimeFormat newDateTimeFormat(String name) {
+	private JodaDateTimeFormat newDateTimeFormat(String name)
+	{
 
 		return newDateTimeFormat(DateTimeFormat.class, name);
 
 	}
 
-	private JodaDateTimeFormat newISODateTimeFormat(String name) {
+	private JodaDateTimeFormat newISODateTimeFormat(String name)
+	{
 
 		return newDateTimeFormat(ISODateTimeFormat.class, name);
 
 	}
 
-	private JodaPeriodFormat newISOPeriodFormat(String name) {
+	private JodaPeriodFormat newISOPeriodFormat(String name)
+	{
 
 		return newPeriodFormat(ISOPeriodFormat.class, name);
 
 	}
 
-	private JodaPeriodFormat newPeriodFormat(Class<?> clazz, String name, Class<?>... args) {
+	private JodaPeriodFormat newPeriodFormat(Class<?> clazz, String name, Class<?>... args)
+	{
 
-		try {
+		try
+		{
 			return new JodaPeriodFormat(clazz.getMethod(name, args));
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			throw new RuntimeException(e);
 		}
 
 	}
 
-	private JodaPeriodFormat newPeriodFormat(String name, Class<?>... args) {
+	private JodaPeriodFormat newPeriodFormat(String name, Class<?>... args)
+	{
 
 		return newPeriodFormat(PeriodFormat.class, name, args);
 

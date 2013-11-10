@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public interface Context {
+public interface Context
+{
 
 	String digitStrings(int index);
 

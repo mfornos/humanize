@@ -8,10 +8,12 @@ import org.testng.annotations.Test;
 
 import com.google.common.cache.CacheBuilderSpec;
 
-public class TestConfigLoader {
+public class TestConfigLoader
+{
 
 	@Test
-	public void defaultsTests() {
+	public void defaultsTests()
+	{
 
 		Properties p = ConfigLoader.loadProperties("inexistent.properties");
 		Assert.assertNotNull(p);
@@ -24,7 +26,8 @@ public class TestConfigLoader {
 	}
 
 	@Test
-	public void loadTest() {
+	public void loadTest()
+	{
 
 		Properties p = ConfigLoader.loadProperties();
 		Assert.assertNotNull(p);
@@ -37,16 +40,18 @@ public class TestConfigLoader {
 	}
 
 	@Test
-	public void locateTest() {
+	public void locateTest()
+	{
 
 		URL url = ConfigLoader.locateConfig("humanize.properties");
 		Assert.assertNotNull(url);
 		Assert.assertTrue(url.toExternalForm().endsWith("humanize.properties"));
-		
+
 	}
 
 	@Test
-	public void systemPropertyTest() {
+	public void systemPropertyTest()
+	{
 
 		System.setProperty("humanize.config", "humanize.alt.properties");
 		Properties p = ConfigLoader.loadProperties();
@@ -60,12 +65,15 @@ public class TestConfigLoader {
 	}
 
 	@Test
-	public void unparseableSpecTest() {
+	public void unparseableSpecTest()
+	{
 
-		try {
+		try
+		{
 			CacheBuilderSpec.parse("bla blablaba !");
 			Assert.fail("Exception not thrown");
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e)
+		{
 
 		}
 

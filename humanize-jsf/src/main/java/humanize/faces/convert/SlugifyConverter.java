@@ -7,12 +7,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "humanize.Slugify")
-public class SlugifyConverter extends BaseConverter {
+public class SlugifyConverter extends BaseConverter
+{
 
-    private static final long serialVersionUID = -446143597515448224L;
+	private static final long serialVersionUID = -446143597515448224L;
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Object value)
+	{
 
 		return Humanize.slugify(value.toString());
 

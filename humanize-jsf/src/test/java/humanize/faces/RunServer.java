@@ -9,9 +9,11 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.sun.faces.config.ConfigureListener;
 
-class RunServer {
+class RunServer
+{
 
-	public static void main(String args[]) {
+	public static void main(String args[])
+	{
 
 		new RunServer(8080);
 
@@ -19,7 +21,8 @@ class RunServer {
 
 	private final Server server;
 
-	public RunServer(int port) {
+	public RunServer(int port)
+	{
 
 		System.out.println("Initializing server...");
 		final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -42,21 +45,28 @@ class RunServer {
 		server.setHandler(context);
 
 		System.out.println("Starting server...");
-		new Thread() {
-			public void run() {
+		new Thread()
+		{
+			public void run()
+			{
 
-				try {
+				try
+				{
 					server.start();
-				} catch (Exception e) {
+				} catch (Exception e)
+				{
 					System.out.println("Failed to start server!");
 					return;
 				}
 
 				System.out.println("Server running...");
-				while (true) {
-					try {
+				while (true)
+				{
+					try
+					{
 						server.join();
-					} catch (InterruptedException e) {
+					} catch (InterruptedException e)
+					{
 						System.out.println("Server interrupted!");
 					}
 				}
@@ -65,7 +75,8 @@ class RunServer {
 
 	}
 
-	public void stop() throws Exception {
+	public void stop() throws Exception
+	{
 
 		server.stop();
 

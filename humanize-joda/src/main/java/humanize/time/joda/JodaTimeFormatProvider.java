@@ -21,9 +21,11 @@ import org.joda.time.format.PeriodFormatter;
  * {@link FormatProvider} for Joda time.
  * 
  */
-public class JodaTimeFormatProvider implements FormatProvider {
+public class JodaTimeFormatProvider implements FormatProvider
+{
 
-	public interface ConfigurableFormat {
+	public interface ConfigurableFormat
+	{
 
 		Format withLocale(Locale locale);
 
@@ -35,7 +37,8 @@ public class JodaTimeFormatProvider implements FormatProvider {
 	 * @param <T>
 	 *            Formatter type
 	 */
-	public abstract static class JodaBaseFormat<T> extends Format implements ConfigurableFormat {
+	public abstract static class JodaBaseFormat<T> extends Format implements ConfigurableFormat
+	{
 
 		private static final long serialVersionUID = 9053371900269483473L;
 
@@ -43,19 +46,25 @@ public class JodaTimeFormatProvider implements FormatProvider {
 
 		protected T format;
 
-		public JodaBaseFormat(Method method) {
+		public JodaBaseFormat(Method method)
+		{
 
 			this.method = method;
 
 		}
 
-		public T get() {
+		public T get()
+		{
 
-			if (format == null) {
-				synchronized (method) {
-					try {
+			if (format == null)
+			{
+				synchronized (method)
+				{
+					try
+					{
 						format = invoke();
-					} catch (Exception e) {
+					} catch (Exception e)
+					{
 						throw new RuntimeException(e);
 					}
 				}
@@ -66,14 +75,17 @@ public class JodaTimeFormatProvider implements FormatProvider {
 		}
 
 		@Override
-		public Object parseObject(String source, ParsePosition pos) {
+		public Object parseObject(String source, ParsePosition pos)
+		{
 
-			try {
+			try
+			{
 				int begin = pos.getIndex();
 				pos.setIndex(source.length());
 				String text = source.substring(begin);
 				return (text == null || text.length() < 1) ? text : parse(text);
-			} catch (ParseException e) {
+			} catch (ParseException e)
+			{
 				pos.setIndex(0);
 				pos.setErrorIndex(e.getErrorOffset());
 			}
@@ -81,7 +93,8 @@ public class JodaTimeFormatProvider implements FormatProvider {
 		}
 
 		@SuppressWarnings("unchecked")
-		protected T invoke() throws IllegalAccessException, InvocationTargetException {
+		protected T invoke() throws IllegalAccessException, InvocationTargetException
+		{
 
 			return (T) method.invoke(null);
 
@@ -95,30 +108,35 @@ public class JodaTimeFormatProvider implements FormatProvider {
 	 * {@link Format} for Joda {@link DateTime}.
 	 * 
 	 */
-	public static class JodaDateTimeFormat extends JodaBaseFormat<DateTimeFormatter> {
+	public static class JodaDateTimeFormat extends JodaBaseFormat<DateTimeFormatter>
+	{
 
 		private static final long serialVersionUID = -7080564879531103796L;
 
-		public JodaDateTimeFormat(Method method) {
+		public JodaDateTimeFormat(Method method)
+		{
 
 			super(method);
 
 		}
 
 		@Override
-		public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos) {
+		public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos)
+		{
 
 			return appendTo.append(((DateTime) param).toString(get()));
 
 		}
 
-		public Object parse(String source) throws ParseException {
+		public Object parse(String source) throws ParseException
+		{
 
 			return format.parseDateTime(source);
 
 		}
 
-		public Format withLocale(Locale locale) {
+		public Format withLocale(Locale locale)
+		{
 
 			format = get().withLocale(locale);
 			return this;
@@ -131,32 +149,37 @@ public class JodaTimeFormatProvider implements FormatProvider {
 	 * {@link Format} for Joda {@link Period}.
 	 * 
 	 */
-	public static class JodaPeriodFormat extends JodaBaseFormat<PeriodFormatter> {
+	public static class JodaPeriodFormat extends JodaBaseFormat<PeriodFormatter>
+	{
 
 		private static final long serialVersionUID = 7075580918316147610L;
 
 		private Locale locale;
 
-		public JodaPeriodFormat(Method method) {
+		public JodaPeriodFormat(Method method)
+		{
 
 			super(method);
 
 		}
 
 		@Override
-		public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos) {
+		public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos)
+		{
 
 			return appendTo.append(((Period) param).toString(get()));
 
 		}
 
-		public Object parse(String source) throws ParseException {
+		public Object parse(String source) throws ParseException
+		{
 
 			return format.parsePeriod(source);
 
 		}
 
-		public Format withLocale(Locale locale) {
+		public Format withLocale(Locale locale)
+		{
 
 			this.locale = locale;
 			this.format = get();
@@ -165,7 +188,8 @@ public class JodaTimeFormatProvider implements FormatProvider {
 		}
 
 		@Override
-		protected PeriodFormatter invoke() throws IllegalAccessException, InvocationTargetException {
+		protected PeriodFormatter invoke() throws IllegalAccessException, InvocationTargetException
+		{
 
 			return (PeriodFormatter) method.invoke(null, locale);
 
@@ -178,11 +202,14 @@ public class JodaTimeFormatProvider implements FormatProvider {
 	 * 
 	 * @return FormatFactory instance
 	 */
-	public static FormatFactory factory() {
+	public static FormatFactory factory()
+	{
 
-		return new FormatFactory() {
+		return new FormatFactory()
+		{
 			@Override
-			public Format getFormat(String name, String args, Locale locale) {
+			public Format getFormat(String name, String args, Locale locale)
+			{
 
 				Map<String, Format> mt = FormatTables.get(name);
 				Format m = mt.get((args == null || args.length() < 1) ? FormatNames.DEFAULT : args);
@@ -194,14 +221,16 @@ public class JodaTimeFormatProvider implements FormatProvider {
 	}
 
 	@Override
-	public FormatFactory getFactory() {
+	public FormatFactory getFactory()
+	{
 
 		return factory();
 
 	}
 
 	@Override
-	public String getFormatName() {
+	public String getFormatName()
+	{
 
 		return String.format("%s|%s|%s|%s", FormatNames.FORMAT_JODA_TIME, FormatNames.FORMAT_JODA_PERIOD,
 		        FormatNames.FORMAT_JODA_ISO_TIME, FormatNames.FORMAT_JODA_ISO_PERIOD);

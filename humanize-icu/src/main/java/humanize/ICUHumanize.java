@@ -1,19 +1,18 @@
 package humanize;
 
 import static humanize.util.Constants.EMPTY;
+import humanize.icu.spi.MessageFormat;
 import humanize.icu.spi.context.DefaultICUContext;
 import humanize.icu.spi.context.ICUContextFactory;
-import humanize.icu.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
+import humanize.text.util.InterpolationHelper;
+import humanize.text.util.Replacer;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
-
-import humanize.text.util.Replacer;
-import humanize.text.util.InterpolationHelper;
 
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;
@@ -32,12 +31,15 @@ import com.ibm.icu.text.SimpleDateFormat;
  * @author mfornos
  * 
  */
-public final class ICUHumanize {
+public final class ICUHumanize
+{
 
 	private static final ContextFactory contextFactory = loadContextFactory();
 
-	private static final ThreadLocal<DefaultICUContext> context = new ThreadLocal<DefaultICUContext>() {
-		protected DefaultICUContext initialValue() {
+	private static final ThreadLocal<DefaultICUContext> context = new ThreadLocal<DefaultICUContext>()
+	{
+		protected DefaultICUContext initialValue()
+		{
 
 			return (DefaultICUContext) contextFactory.createContext();
 
@@ -156,7 +158,8 @@ public final class ICUHumanize {
 	 *            {@link com.ibm.icu.text.DateFormat DateFormat}
 	 * @return a DateFormat instance for the current thread
 	 */
-	public static DateFormat dateFormatInstance(final String pattern) {
+	public static DateFormat dateFormatInstance(final String pattern)
+	{
 
 		return DateFormat.getPatternInstance(pattern, context.get().getLocale());
 
@@ -175,10 +178,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return a DateFormat instance for the current thread
 	 */
-	public static DateFormat dateFormatInstance(final String pattern, final Locale locale) {
+	public static DateFormat dateFormatInstance(final String pattern, final Locale locale)
+	{
 
-		return withinLocale(new Callable<DateFormat>() {
-			public DateFormat call() throws Exception {
+		return withinLocale(new Callable<DateFormat>()
+		{
+			public DateFormat call() throws Exception
+			{
 
 				return dateFormatInstance(pattern);
 
@@ -427,7 +433,8 @@ public final class ICUHumanize {
 	 *            {@link com.ibm.icu.text.DecimalFormat DecimalFormat}
 	 * @return a DecimalFormat instance for the current thread
 	 */
-	public static DecimalFormat decimalFormatInstance(final String pattern) {
+	public static DecimalFormat decimalFormatInstance(final String pattern)
+	{
 
 		DecimalFormat decFmt = context.get().getDecimalFormat();
 		decFmt.applyPattern(pattern);
@@ -448,10 +455,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return a DecimalFormat instance for the current thread
 	 */
-	public static DecimalFormat decimalFormatInstance(final String pattern, final Locale locale) {
+	public static DecimalFormat decimalFormatInstance(final String pattern, final Locale locale)
+	{
 
-		return withinLocale(new Callable<DecimalFormat>() {
-			public DecimalFormat call() throws Exception {
+		return withinLocale(new Callable<DecimalFormat>()
+		{
+			public DecimalFormat call() throws Exception
+			{
 
 				return decimalFormatInstance(pattern);
 
@@ -469,11 +479,14 @@ public final class ICUHumanize {
 	 *            Number of seconds
 	 * @return Number of seconds as hours, minutes and seconds
 	 */
-	public static String duration(final Number value) {
+	public static String duration(final Number value)
+	{
 
 		// NOTE: does not support any other locale
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.DURATION).format(value);
 
@@ -495,7 +508,8 @@ public final class ICUHumanize {
 	 *            Arguments
 	 * @return The formatted String
 	 */
-	public static String format(final String pattern, final Object... args) {
+	public static String format(final String pattern, final Object... args)
+	{
 
 		return messageFormatInstance(pattern).render(args);
 
@@ -532,7 +546,8 @@ public final class ICUHumanize {
 	 *            Number to be formatted
 	 * @return String representing the monetary amount
 	 */
-	public static String formatCurrency(final Number value) {
+	public static String formatCurrency(final Number value)
+	{
 
 		DecimalFormat decf = context.get().getCurrencyFormat();
 		return stripZeros(decf, decf.format(value));
@@ -551,10 +566,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the monetary amount
 	 */
-	public static String formatCurrency(final Number value, final Locale locale) {
+	public static String formatCurrency(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() {
+		return withinLocale(new Callable<String>()
+		{
+			public String call()
+			{
 
 				return formatCurrency(value);
 
@@ -572,7 +590,8 @@ public final class ICUHumanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDate(final Date value) {
+	public static String formatDate(final Date value)
+	{
 
 		return formatDate(DateFormat.SHORT, value);
 
@@ -589,10 +608,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representation of the date
 	 */
-	public static String formatDate(final Date value, final Locale locale) {
+	public static String formatDate(final Date value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatDate(value);
 
@@ -612,7 +634,8 @@ public final class ICUHumanize {
 	 *            The pattern. See {@link dateFormatInstance(String)}
 	 * @return a formatted date/time string
 	 */
-	public static String formatDate(final Date value, final String pattern) {
+	public static String formatDate(final Date value, final String pattern)
+	{
 
 		return new SimpleDateFormat(pattern, context.get().getLocale()).format(value);
 
@@ -632,10 +655,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return a formatted date/time string
 	 */
-	public static String formatDate(final Date value, final String pattern, final Locale locale) {
+	public static String formatDate(final Date value, final String pattern, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatDate(value, pattern);
 
@@ -655,7 +681,8 @@ public final class ICUHumanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDate(final int style, final Date value) {
+	public static String formatDate(final int style, final Date value)
+	{
 
 		return context.get().formatDate(style, value);
 
@@ -675,10 +702,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representation of the date
 	 */
-	public static String formatDate(final int style, final Date value, final Locale locale) {
+	public static String formatDate(final int style, final Date value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatDate(style, value);
 
@@ -696,7 +726,8 @@ public final class ICUHumanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(final Date value) {
+	public static String formatDateTime(final Date value)
+	{
 
 		return context.get().formatDateTime(value);
 
@@ -714,10 +745,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(final Date value, final Locale locale) {
+	public static String formatDateTime(final Date value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatDateTime(value);
 
@@ -739,7 +773,8 @@ public final class ICUHumanize {
 	 *            Date to be formatted
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value) {
+	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value)
+	{
 
 		return context.get().formatDateTime(dateStyle, timeStyle, value);
 
@@ -761,10 +796,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representation of the date
 	 */
-	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale) {
+	public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatDateTime(dateStyle, timeStyle, value);
 
@@ -783,7 +821,8 @@ public final class ICUHumanize {
 	 *            Number to be formatted
 	 * @return Standard localized format representation
 	 */
-	public static String formatDecimal(final Number value) {
+	public static String formatDecimal(final Number value)
+	{
 
 		return context.get().formatDecimal(value);
 
@@ -801,10 +840,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return Standard localized format representation
 	 */
-	public static String formatDecimal(final Number value, final Locale locale) {
+	public static String formatDecimal(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() {
+		return withinLocale(new Callable<String>()
+		{
+			public String call()
+			{
 
 				return formatDecimal(value);
 
@@ -841,7 +883,8 @@ public final class ICUHumanize {
 	 *            Ratio to be converted
 	 * @return String representing the percentage
 	 */
-	public static String formatPercent(final Number value) {
+	public static String formatPercent(final Number value)
+	{
 
 		return context.get().getPercentFormat().format(value);
 
@@ -859,10 +902,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the percentage
 	 */
-	public static String formatPercent(final Number value, final Locale locale) {
+	public static String formatPercent(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatPercent(value);
 
@@ -881,7 +927,8 @@ public final class ICUHumanize {
 	 *            Number to be formatted
 	 * @return String representing the monetary amount
 	 */
-	public static String formatPluralCurrency(final Number value) {
+	public static String formatPluralCurrency(final Number value)
+	{
 
 		DecimalFormat decf = context.get().getPluralCurrencyFormat();
 		return stripZeros(decf, decf.format(value));
@@ -900,10 +947,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the monetary amount
 	 */
-	public static String formatPluralCurrency(final Number value, final Locale locale) {
+	public static String formatPluralCurrency(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return formatPluralCurrency(value);
 
@@ -1130,7 +1180,8 @@ public final class ICUHumanize {
 	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
-	public static MessageFormat messageFormatInstance(final String pattern) {
+	public static MessageFormat messageFormatInstance(final String pattern)
+	{
 
 		MessageFormat msg = context.get().getMessageFormat();
 		msg.applyPattern(pattern);
@@ -1151,10 +1202,13 @@ public final class ICUHumanize {
 	 *            {@link com.ibm.icu.text.MessageFormat MessageFormat}
 	 * @return a MessageFormat instance for the current thread
 	 */
-	public static MessageFormat messageFormatInstance(final String pattern, final Locale locale) {
+	public static MessageFormat messageFormatInstance(final String pattern, final Locale locale)
+	{
 
-		return withinLocale(new Callable<MessageFormat>() {
-			public MessageFormat call() throws Exception {
+		return withinLocale(new Callable<MessageFormat>()
+		{
+			public MessageFormat call() throws Exception
+			{
 
 				return messageFormatInstance(pattern);
 
@@ -1175,7 +1229,8 @@ public final class ICUHumanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
-	public static String naturalDay(final Date value) {
+	public static String naturalDay(final Date value)
+	{
 
 		return naturalDay(DateFormat.RELATIVE_SHORT, value);
 
@@ -1194,10 +1249,13 @@ public final class ICUHumanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
-	public static String naturalDay(final Date value, final Locale locale) {
+	public static String naturalDay(final Date value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return naturalDay(value);
 
@@ -1222,7 +1280,8 @@ public final class ICUHumanize {
 	 *         current day. Otherwise, returns a string formatted according to a
 	 *         locale sensitive DateFormat.
 	 */
-	public static String naturalDay(final int style, final Date value) {
+	public static String naturalDay(final int style, final Date value)
+	{
 
 		return formatDate(style, value).toLowerCase();
 
@@ -1238,7 +1297,8 @@ public final class ICUHumanize {
 	 *            Date to be used as duration from current date
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(final Date duration) {
+	public static String naturalTime(final Date duration)
+	{
 
 		return context.get().getDurationFormat().formatDurationFromNowTo(duration);
 
@@ -1260,7 +1320,8 @@ public final class ICUHumanize {
 	 *            Date to be used as duration from reference
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(final Date reference, final Date duration) {
+	public static String naturalTime(final Date reference, final Date duration)
+	{
 
 		long diff = duration.getTime() - reference.getTime();
 		return context.get().getDurationFormat().formatDurationFrom(diff, reference.getTime());
@@ -1281,10 +1342,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(final Date reference, final Date duration, final Locale locale) {
+	public static String naturalTime(final Date reference, final Date duration, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() {
+		return withinLocale(new Callable<String>()
+		{
+			public String call()
+			{
 
 				return naturalTime(reference, duration);
 
@@ -1302,7 +1366,8 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the relative date
 	 */
-	public static String naturalTime(final Date duration, final Locale locale) {
+	public static String naturalTime(final Date duration, final Locale locale)
+	{
 
 		return naturalTime(new Date(), duration, locale);
 
@@ -1348,7 +1413,8 @@ public final class ICUHumanize {
 	 *            Number to be converted
 	 * @return String representing the number as ordinal
 	 */
-	public static String ordinalize(final Number value) {
+	public static String ordinalize(final Number value)
+	{
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.ORDINAL).format(value);
 
@@ -1365,10 +1431,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return String representing the number as ordinal
 	 */
-	public static String ordinalize(final Number value, final Locale locale) {
+	public static String ordinalize(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() {
+		return withinLocale(new Callable<String>()
+		{
+			public String call()
+			{
 
 				return ordinalize(value);
 
@@ -1386,7 +1455,8 @@ public final class ICUHumanize {
 	 * @return Text converted to Number
 	 * @throws ParseException
 	 */
-	public static Number parseNumber(final String text) throws ParseException {
+	public static Number parseNumber(final String text) throws ParseException
+	{
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).parse(text);
 
@@ -1405,10 +1475,13 @@ public final class ICUHumanize {
 	 * @return Text converted to Number
 	 * @throws ParseException
 	 */
-	public static Number parseNumber(final String text, final Locale locale) throws ParseException {
+	public static Number parseNumber(final String text, final Locale locale) throws ParseException
+	{
 
-		return withinLocale(new Callable<Number>() {
-			public Number call() throws Exception {
+		return withinLocale(new Callable<Number>()
+		{
+			public Number call() throws Exception
+			{
 
 				return parseNumber(text);
 
@@ -1427,10 +1500,13 @@ public final class ICUHumanize {
 	 * @return text with characters outside BMP replaced by their name or the
 	 *         given text unaltered
 	 */
-	public static String replaceSupplementary(final String value) {
+	public static String replaceSupplementary(final String value)
+	{
 
-		return InterpolationHelper.replaceSupplementary(value, new Replacer() {
-			public String replace(String in) {
+		return InterpolationHelper.replaceSupplementary(value, new Replacer()
+		{
+			public String replace(String in)
+			{
 
 				return UCharacter.getName(in, ", ");
 
@@ -1452,7 +1528,8 @@ public final class ICUHumanize {
 	 *            "MMMdd" and "mmhh" are skeletons.
 	 * @return A string with a text representation of the date
 	 */
-	public static String smartDateFormat(final Date value, final String skeleton) {
+	public static String smartDateFormat(final Date value, final String skeleton)
+	{
 
 		return formatDate(value, context.get().getBestPattern(skeleton));
 
@@ -1473,10 +1550,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return A string with a text representation of the date
 	 */
-	public static String smartDateFormat(final Date value, final String skeleton, final Locale locale) {
+	public static String smartDateFormat(final Date value, final String skeleton, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return smartDateFormat(value, skeleton);
 
@@ -1520,7 +1600,8 @@ public final class ICUHumanize {
 	 *            Number to be converted
 	 * @return the number converted to words
 	 */
-	public static String spellNumber(final Number value) {
+	public static String spellNumber(final Number value)
+	{
 
 		return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).format(value);
 
@@ -1538,10 +1619,13 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return the number converted to words
 	 */
-	public static String spellNumber(final Number value, final Locale locale) {
+	public static String spellNumber(final Number value, final Locale locale)
+	{
 
-		return withinLocale(new Callable<String>() {
-			public String call() throws Exception {
+		return withinLocale(new Callable<String>()
+		{
+			public String call() throws Exception
+			{
 
 				return spellNumber(value);
 
@@ -1552,10 +1636,12 @@ public final class ICUHumanize {
 
 	// ( private methods )------------------------------------------------------
 
-	private static ContextFactory loadContextFactory() {
+	private static ContextFactory loadContextFactory()
+	{
 
 		ServiceLoader<ContextFactory> ldr = ServiceLoader.load(ContextFactory.class);
-		for (ContextFactory factory : ldr) {
+		for (ContextFactory factory : ldr)
+		{
 			if (ICUContextFactory.class.isAssignableFrom(factory.getClass()))
 				return factory;
 		}
@@ -1563,7 +1649,8 @@ public final class ICUHumanize {
 
 	}
 
-	private static String stripZeros(final DecimalFormat decf, final String fmtd) {
+	private static String stripZeros(final DecimalFormat decf, final String fmtd)
+	{
 
 		char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
 		return fmtd.replaceAll("\\" + decsep + "00", EMPTY);
@@ -1581,24 +1668,29 @@ public final class ICUHumanize {
 	 *            Target locale
 	 * @return Result of the operation
 	 */
-	private static <T> T withinLocale(final Callable<T> operation, final Locale locale) {
+	private static <T> T withinLocale(final Callable<T> operation, final Locale locale)
+	{
 
 		DefaultICUContext ctx = context.get();
 		Locale oldLocale = ctx.getLocale();
 
-		try {
+		try
+		{
 			ctx.setLocale(locale);
 			return operation.call();
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			throw new RuntimeException(e);
-		} finally {
+		} finally
+		{
 			ctx.setLocale(oldLocale);
 			context.set(ctx);
 		}
 
 	}
 
-	private ICUHumanize() {
+	private ICUHumanize()
+	{
 		//
 	}
 

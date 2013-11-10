@@ -7,32 +7,39 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
 
-public class ConfigLoader {
+public class ConfigLoader
+{
 
 	private static final Properties DEFAULTS = new Properties();
 	public static final String CACHE_BUILDER_SPEC = "cache.builder.spec";
 
-	static {
+	static
+	{
 		DEFAULTS.setProperty(CACHE_BUILDER_SPEC, "expireAfterAccess=1h");
 	}
 
-	public static Properties loadProperties() {
+	public static Properties loadProperties()
+	{
 
 		String path = System.getProperty("humanize.config");
 		return loadProperties(path == null ? "humanize.properties" : path);
 
 	}
 
-	public static Properties loadProperties(final String path) {
+	public static Properties loadProperties(final String path)
+	{
 
 		Properties properties = new Properties(DEFAULTS);
 
 		URL url = locateConfig(path);
-		if (url != null) {
-			try {
+		if (url != null)
+		{
+			try
+			{
 				URLConnection connection = url.openConnection();
 				properties.load(connection.getInputStream());
-			} catch (IOException e) {
+			} catch (IOException e)
+			{
 				throw new RuntimeException(e);
 			}
 		}
@@ -41,57 +48,71 @@ public class ConfigLoader {
 
 	}
 
-	public static URL locateConfig(final String path) {
+	public static URL locateConfig(final String path)
+	{
 
 		URL url = asFile(path);
-		if (url == null) {
+		if (url == null)
+		{
 			url = asURL(path);
 		}
-		if (url == null) {
+		if (url == null)
+		{
 			url = asResource(path);
 		}
 		return url;
 
 	}
 
-	private static URL asFile(final String path) {
+	private static URL asFile(final String path)
+	{
 
 		File file = new File(path);
-		if (file.exists()) {
-			try {
+		if (file.exists())
+		{
+			try
+			{
 				return file.toURI().toURL();
-			} catch (MalformedURLException e) {
+			} catch (MalformedURLException e)
+			{
 			}
 		}
 		return null;
 
 	}
 
-	private static final URL asResource(final String path) {
+	private static final URL asResource(final String path)
+	{
 
 		URL url = null;
 		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-		if (contextClassLoader != null) {
+		if (contextClassLoader != null)
+		{
 			url = contextClassLoader.getResource(path);
 		}
-		if (url == null) {
+		if (url == null)
+		{
 			url = ConfigLoader.class.getClassLoader().getResource(path);
 		}
-		if (url == null) {
+		if (url == null)
+		{
 			url = ClassLoader.getSystemClassLoader().getResource(path);
 		}
 		return url;
 
 	}
 
-	private static URL asURL(final String path) {
+	private static URL asURL(final String path)
+	{
 
-		try {
+		try
+		{
 			return new URL(path);
-		} catch (MalformedURLException e) {
+		} catch (MalformedURLException e)
+		{
 		}
 		return null;
 
 	}
-	
+
 }

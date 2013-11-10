@@ -5,10 +5,12 @@ import java.util.Locale;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestMessageFormat {
+public class TestMessageFormat
+{
 
 	@Test
-	public void MessageLocale() {
+	public void MessageLocale()
+	{
 
 		MessageFormat msg = new MessageFormat("hello {0} {1}", Locale.CANADA);
 		Assert.assertNotNull(msg);
@@ -19,6 +21,6 @@ public class TestMessageFormat {
 		Assert.assertEquals(buffer.toString(), "hello one two");
 
 		Assert.assertEquals(new MessageFormat("hi {0}").render("ho"), "hi ho");
-		
+
 	}
 }

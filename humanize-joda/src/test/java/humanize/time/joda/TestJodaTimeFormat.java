@@ -15,10 +15,12 @@ import org.joda.time.Period;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TestJodaTimeFormat {
+public class TestJodaTimeFormat
+{
 
 	@Test
-	public void instance() throws ParseException {
+	public void instance() throws ParseException
+	{
 
 		Format fmt = JodaTimeFormatProvider.factory().getFormat(FORMAT_JODA_TIME, JODA_FULL_DATE, Locale.ENGLISH);
 		DateTime begin = new DateTime(0).hourOfDay().setCopy(0);

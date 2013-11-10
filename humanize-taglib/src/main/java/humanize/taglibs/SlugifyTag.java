@@ -8,7 +8,8 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.taglibs.standard.tag.common.fmt.HumanizeSupport;
 
-public class SlugifyTag extends HumanizeSupport {
+public class SlugifyTag extends HumanizeSupport
+{
 
 	private static final long serialVersionUID = 1259741260968346374L;
 
@@ -16,20 +17,23 @@ public class SlugifyTag extends HumanizeSupport {
 
 	private String input;
 
-	public void setValue(String value) {
+	public void setValue(String value)
+	{
 
 		this.value = value;
 
 	}
 
 	@Override
-	protected void begin() throws JspException {
+	protected void begin() throws JspException
+	{
 
 		this.input = value == null || value.length() < 1 ? inputFromBody() : value;
 
 	}
 
-	protected void clean() {
+	protected void clean()
+	{
 
 		this.value = null;
 		this.input = null;
@@ -38,21 +42,24 @@ public class SlugifyTag extends HumanizeSupport {
 	}
 
 	@Override
-	protected boolean isContextRemoveNeeded() {
+	protected boolean isContextRemoveNeeded()
+	{
 
 		return input == null || input.length() < 1;
 
 	}
 
 	@Override
-	protected String render() throws JspException {
+	protected String render() throws JspException
+	{
 
 		return Humanize.slugify(input);
 
 	}
 
 	@Override
-	protected String render(Locale locale) throws JspException {
+	protected String render(Locale locale) throws JspException
+	{
 
 		return render();
 

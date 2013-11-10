@@ -29,9 +29,11 @@ import com.google.common.base.Preconditions;
  * // == &quot;size 8 bytes&quot;
  * </pre>
  */
-public class HumanizeFormatProvider implements FormatProvider {
+public class HumanizeFormatProvider implements FormatProvider
+{
 
-	public static class HumanizeFormat extends Format {
+	public static class HumanizeFormat extends Format
+	{
 
 		private static final long serialVersionUID = -3261072590121741805L;
 
@@ -39,7 +41,8 @@ public class HumanizeFormatProvider implements FormatProvider {
 
 		private final Method method;
 
-		public HumanizeFormat(Method method, Locale locale) {
+		public HumanizeFormat(Method method, Locale locale)
+		{
 
 			this.method = method;
 			this.locale = locale;
@@ -47,7 +50,8 @@ public class HumanizeFormatProvider implements FormatProvider {
 		}
 
 		@Override
-		public StringBuffer format(Object paramObject, StringBuffer toAppendTo, FieldPosition position) {
+		public StringBuffer format(Object paramObject, StringBuffer toAppendTo, FieldPosition position)
+		{
 
 			Preconditions.checkNotNull(method);
 
@@ -55,18 +59,22 @@ public class HumanizeFormatProvider implements FormatProvider {
 			boolean withLocale = false;
 			Object retval = null;
 
-			for (Class<?> type : paramTypes) {
-				if (Locale.class.equals(type)) {
+			for (Class<?> type : paramTypes)
+			{
+				if (Locale.class.equals(type))
+				{
 					withLocale = true;
 					break;
 				}
 			}
 
-			try {
+			try
+			{
 
 				retval = withLocale ? method.invoke(null, paramObject, locale) : method.invoke(null, paramObject);
 
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 
 				retval = String.format("[invalid call: '%s']", e.getMessage());
 
@@ -76,7 +84,8 @@ public class HumanizeFormatProvider implements FormatProvider {
 		}
 
 		@Override
-		public Object parseObject(String paramString, ParsePosition paramParsePosition) {
+		public Object parseObject(String paramString, ParsePosition paramParsePosition)
+		{
 
 			throw new UnsupportedOperationException();
 
@@ -86,14 +95,18 @@ public class HumanizeFormatProvider implements FormatProvider {
 
 	private static final Map<String, Method> humanizeMethods = getStaticMethods(Humanize.class);
 
-	public static FormatFactory factory() {
+	public static FormatFactory factory()
+	{
 
-		return new FormatFactory() {
+		return new FormatFactory()
+		{
 			@Override
-			public Format getFormat(String name, String args, Locale locale) {
+			public Format getFormat(String name, String args, Locale locale)
+			{
 
 				String camelized = Humanize.camelize(args);
-				if (humanizeMethods.containsKey(camelized)) {
+				if (humanizeMethods.containsKey(camelized))
+				{
 					Method method = humanizeMethods.get(camelized);
 					return new HumanizeFormat(method, locale);
 				}
@@ -105,12 +118,15 @@ public class HumanizeFormatProvider implements FormatProvider {
 
 	}
 
-	private static Map<String, Method> getStaticMethods(Class<?> clazz) {
+	private static Map<String, Method> getStaticMethods(Class<?> clazz)
+	{
 
 		Map<String, Method> methods = new HashMap<String, Method>();
 
-		for (Method method : clazz.getMethods()) {
-			if (Modifier.isStatic(method.getModifiers()) && method.getAnnotation(Expose.class) != null) {
+		for (Method method : clazz.getMethods())
+		{
+			if (Modifier.isStatic(method.getModifiers()) && method.getAnnotation(Expose.class) != null)
+			{
 				methods.put(method.getName(), method);
 			}
 		}
@@ -120,14 +136,16 @@ public class HumanizeFormatProvider implements FormatProvider {
 	}
 
 	@Override
-	public FormatFactory getFactory() {
+	public FormatFactory getFactory()
+	{
 
 		return factory();
 
 	}
 
 	@Override
-	public String getFormatName() {
+	public String getFormatName()
+	{
 
 		return "humanize";
 

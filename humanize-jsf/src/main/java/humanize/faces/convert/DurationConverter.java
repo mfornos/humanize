@@ -11,26 +11,30 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "humanize.Duration")
-public class DurationConverter extends NumberConverter {
+public class DurationConverter extends NumberConverter
+{
 
 	private static final long serialVersionUID = -6598199651948023319L;
 
 	private String style;
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Object value)
+	{
 
 		return Humanize.duration(asNumber(value), getTimeStyle(), getLocale(context));
 
 	}
 
-	public String getStyle() {
+	public String getStyle()
+	{
 
 		return style;
 
 	}
 
-	public void setStyle(String style) {
+	public void setStyle(String style)
+	{
 
 		clearInitialState();
 		this.style = style;
@@ -38,20 +42,23 @@ public class DurationConverter extends NumberConverter {
 	}
 
 	@Override
-	protected void restore(Iterator<Object> iterator) {
+	protected void restore(Iterator<Object> iterator)
+	{
 
 		this.style = (String) iterator.next();
 
 	}
 
 	@Override
-	protected void save(List<Object> states) {
+	protected void save(List<Object> states)
+	{
 
 		states.add(style);
 
 	}
 
-	private TimeStyle getTimeStyle() {
+	private TimeStyle getTimeStyle()
+	{
 
 		return style == null ? TimeStyle.STANDARD : TimeStyle.valueOf(style.toUpperCase());
 

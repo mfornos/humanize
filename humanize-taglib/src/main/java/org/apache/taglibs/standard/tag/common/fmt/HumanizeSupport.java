@@ -10,7 +10,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.taglibs.standard.tag.common.core.Util;
 
-public abstract class HumanizeSupport extends BodyTagSupport {
+public abstract class HumanizeSupport extends BodyTagSupport
+{
 
 	private static final long serialVersionUID = 106589551951164935L;
 
@@ -18,7 +19,8 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 	private int scope; // 'scope' attribute
 	protected boolean resolveLocale;
 
-	public HumanizeSupport() {
+	public HumanizeSupport()
+	{
 
 		super();
 		init();
@@ -26,15 +28,18 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 	}
 
 	@Override
-	public int doEndTag() throws JspException {
+	public int doEndTag() throws JspException
+	{
 
 		begin();
 
-		if (isContextRemoveNeeded()) {
+		if (isContextRemoveNeeded())
+		{
 			// Spec says:
 			// If value is null or empty, remove the scoped variable
 			// if it is specified (see attributes var and scope).
-			if (var != null) {
+			if (var != null)
+			{
 				pageContext.removeAttribute(var, scope);
 			}
 			return EVAL_PAGE;
@@ -46,12 +51,16 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 		// Render
 		String formatted = loc == null ? render() : render(loc);
 
-		if (var != null) {
+		if (var != null)
+		{
 			pageContext.setAttribute(var, formatted, scope);
-		} else {
-			try {
+		} else
+		{
+			try
+			{
 				pageContext.getOut().print(formatted);
-			} catch (IOException ioe) {
+			} catch (IOException ioe)
+			{
 				throw new JspTagException(ioe.toString(), ioe);
 			}
 		}
@@ -60,18 +69,21 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 	}
 
 	@Override
-	public void release() {
+	public void release()
+	{
 
 		init();
 
 	}
 
-	public void setScope(String scope) {
+	public void setScope(String scope)
+	{
 
 		this.scope = Util.getScope(scope);
 	}
 
-	public void setVar(String var) {
+	public void setVar(String var)
+	{
 
 		this.var = var;
 	}
@@ -80,13 +92,15 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 
 	abstract protected void clean();
 
-	protected int end() {
+	protected int end()
+	{
 
 		return EVAL_PAGE;
 
 	}
 
-	protected void init() {
+	protected void init()
+	{
 
 		this.resolveLocale = true;
 		this.var = null;
@@ -96,16 +110,18 @@ public abstract class HumanizeSupport extends BodyTagSupport {
 
 	}
 
-	protected String inputFromBody() {
+	protected String inputFromBody()
+	{
 
 		return (bodyContent != null && bodyContent.getString() != null) ? bodyContent.getString().trim() : null;
 
 	}
 
-	protected boolean isEmpty(String str) {
+	protected boolean isEmpty(String str)
+	{
 
 		return str == null || str.length() < 1;
-		
+
 	}
 
 	abstract protected boolean isContextRemoveNeeded();
