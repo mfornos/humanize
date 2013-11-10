@@ -1656,28 +1656,28 @@ public final class Humanize
 	 * 
 	 * <pre>
 	 * <code>
-	 *   // 3 occurrences in a 3000ms interval
+	 *   // 3 occurrences within a 3000ms interval
 	 *   pace(3, 3000); // => ~1/sec.
 	 *   
-	 *   // 200 occurrences in a 70000ms interval
+	 *   // 200 occurrences within a 70000ms interval
 	 *   pace(200, 70000); // => ~3/sec.
 	 *   
-	 *   // 10 occurrences in a 70000ms interval
+	 *   // 10 occurrences within a 70000ms interval
 	 *   pace(10, 70000); // => ~9/min.
 	 *   
-	 *   // 14 occurrences in a 31557600000ms interval (just a year)
+	 *   // 14 occurrences within a 31557600000ms interval (a year)
 	 *   pace(14, 31557600000L); // => ~1/month
 	 *   
-	 *   // 25 occurrences in a 31557600000ms interval (just a year)
+	 *   // 25 occurrences within a 31557600000ms interval
 	 *   pace(25, 31557600000L); // => ~2/month
 	 *   
-	 *   // 9 occurrences in a 31557600000ms interval (just a year)
-	 *   pace(9, 31557600000L); // => >1/month (less than one time per month)
+	 *   // 9 occurrences within a 31557600000ms interval
+	 *   pace(9, 31557600000L); // => >1/month (less than one per month)
 	 * </code>
 	 * </pre>
 	 * 
 	 * @param value
-	 *            The value to be matched
+	 *            The number of occurrences within the specified interval
 	 * @param interval
 	 *            The interval in milliseconds
 	 * @return a PaceArguments instance with the pace data for a given value and
@@ -1720,7 +1720,7 @@ public final class Humanize
 	 * @param locale
 	 *            The target locale
 	 * @param value
-	 *            The value to be matched
+	 *            The number of occurrences within the specified interval
 	 * @param interval
 	 *            The interval in milliseconds
 	 * @return an human readable textual representation of the pace
@@ -1744,7 +1744,7 @@ public final class Humanize
 	 * @param locale
 	 *            The target locale
 	 * @param value
-	 *            The value to be matched
+	 *            The number of occurrences within the specified interval
 	 * @param interval
 	 *            The interval in milliseconds
 	 * @param one
@@ -1774,7 +1774,7 @@ public final class Humanize
 	 * crises.
 	 * 
 	 * @param value
-	 *            The value to be matched
+	 *            The number of occurrences within the specified interval
 	 * @param interval
 	 *            The interval in milliseconds
 	 * @return an human readable textual representation of the pace
@@ -1797,7 +1797,7 @@ public final class Humanize
 	 * useful for slow paces.
 	 * 
 	 * @param value
-	 *            The value to be matched
+	 *            The number of occurrences within the specified interval
 	 * @param interval
 	 *            The interval in milliseconds
 	 * @param one
