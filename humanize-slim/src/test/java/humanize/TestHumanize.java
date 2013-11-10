@@ -461,12 +461,24 @@ public class TestHumanize
 	{
 		assertEquals(paceFormat(0.1, 1000), "Never.");
 		assertEquals(paceFormat(2.5, 1000), "Approximately 3 times per second.");
+		assertEquals(paceFormat(2.5, 2000), "Approximately 2 times per second.");
+		assertEquals(paceFormat(3, 3000), "Approximately one time per second.");
 		assertEquals(paceFormat(1, 60000), "Approximately one time per minute.");
+		assertEquals(paceFormat(35, 60000), "Approximately 35 times per minute.");
+		assertEquals(paceFormat(10, 70000), "Approximately 9 times per minute.");
+		assertEquals(paceFormat(200, 70000), "Approximately 3 times per second.");
+		assertEquals(paceFormat(3501, 60000), "Approximately 58 times per second.");
 		assertEquals(paceFormat(1.75, 3600000), "Approximately 2 times per hour.");
-		assertEquals(paceFormat(5, 86405000), "Approximately 5 times per day.");
+		assertEquals(paceFormat(7, 86390000), "Approximately 7 times per day.");
+		assertEquals(paceFormat(16, 86390000L * 7), "Approximately 2 times per day.");
+		assertEquals(paceFormat(11, TimeMillis.MONTH.millis() - 9000), "Approximately 3 times per week.");
+
 		assertEquals(paceFormat(2000.5, 1000), "Approximately 2,001 times per second.");
 		assertEquals(paceFormat(1, TimeMillis.WEEK.millis() * 10), "Less than one time per month.");
 		assertEquals(paceFormat(1, TimeMillis.WEEK.millis()), "Approximately one time per week.");
+		assertEquals(paceFormat(9, 31557600000L), "Less than one time per month.");
+		assertEquals(paceFormat(14, 31557600000L), "Approximately one time per month.");
+		assertEquals(paceFormat(25, 31557600000L), "Approximately 2 times per month.");
 
 		assertEquals(paceFormat(ES, 0, 86400000), "Nunca.");
 		assertEquals(paceFormat(ES, 1.5, 86400000), "Aproximadamente 2 veces por día.");
@@ -484,7 +496,11 @@ public class TestHumanize
 		assertEquals(paceAsString(pace(0, 1000)), "none 0 second");
 		assertEquals(paceAsString(pace(0.2, 1000)), "none 0 second");
 		assertEquals(paceAsString(pace(-7.6, 1000)), "aprox 8 second");
+		assertEquals(paceAsString(pace(2000, 60000)), "aprox 33 second");
 		assertEquals(paceAsString(pace(7.6, TimeMillis.DAY.millis())), "aprox 8 day");
+		assertEquals(paceAsString(pace(9, 31557600000L)), "less_than 1 month");
+		assertEquals(paceAsString(pace(14, 31557600000L)), "aprox 1 month");
+		assertEquals(paceAsString(pace(25, 31557600000L)), "aprox 2 month");
 	}
 
 	@Test(threadPoolSize = 10, invocationCount = 10)

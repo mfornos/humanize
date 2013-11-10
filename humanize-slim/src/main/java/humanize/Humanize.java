@@ -1650,6 +1650,32 @@ public final class Humanize
 	 * Matches a pace (value and interval) with a logical time frame. Very
 	 * useful for slow paces.
 	 * 
+	 * <p>
+	 * Examples:
+	 * </p>
+	 * 
+	 * <pre>
+	 * <code>
+	 *   // 3 occurrences in a 3000ms interval
+	 *   pace(3, 3000); // => ~1/sec.
+	 *   
+	 *   // 200 occurrences in a 70000ms interval
+	 *   pace(200, 70000); // => ~3/sec.
+	 *   
+	 *   // 10 occurrences in a 70000ms interval
+	 *   pace(10, 70000); // => ~9/min.
+	 *   
+	 *   // 14 occurrences in a 31557600000ms interval (just a year)
+	 *   pace(14, 31557600000L); // => ~1/month
+	 *   
+	 *   // 25 occurrences in a 31557600000ms interval (just a year)
+	 *   pace(25, 31557600000L); // => ~2/month
+	 *   
+	 *   // 9 occurrences in a 31557600000ms interval (just a year)
+	 *   pace(9, 31557600000L); // => >1/month (less than one time per month)
+	 * </code>
+	 * </pre>
+	 * 
 	 * @param value
 	 *            The value to be matched
 	 * @param interval
