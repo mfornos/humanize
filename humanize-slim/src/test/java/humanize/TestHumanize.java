@@ -24,6 +24,7 @@ import static humanize.Humanize.pluralize;
 import static humanize.Humanize.pluralizeFormat;
 import static humanize.Humanize.prettyTimeFormat;
 import static humanize.Humanize.replaceSupplementary;
+import static humanize.Humanize.roundToSignificantFigures;
 import static humanize.Humanize.simplify;
 import static humanize.Humanize.slugify;
 import static humanize.Humanize.spellBigNumber;
@@ -46,6 +47,7 @@ import humanize.util.Constants.TimeStyle;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -65,10 +67,23 @@ public class TestHumanize
 
     private Locale defaultLocale;
 
+    @Test
+    public void bigOxfordTest()
+    {
+        int num = 150;
+        Integer[] big = new Integer[num];
+
+        for (int i = 0; i < num; i++)
+        {
+            big[i] = i;
+        }
+
+        assertEquals(Humanize.oxford(big, 3, "{0,number} numbers"), "0, 1, 2, and 147 numbers");
+    }
+
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void binPrefixTest()
     {
-
         assertEquals(binaryPrefix(-1), "-1");
         assertEquals(binaryPrefix(0), "0 bytes");
         assertEquals(binaryPrefix(1), "1 bytes");
@@ -82,7 +97,6 @@ public class TestHumanize
         assertEquals(binaryPrefix(1325899906842624L), "1.18 PB");
 
         assertEquals(binaryPrefix(1325899906842624L, ES), "1,18 PB");
-
     }
 
     @Test
@@ -441,6 +455,25 @@ public class TestHumanize
 
     }
 
+    @Test
+    public void oxfordTest()
+    {
+        String[] fruits = new String[] {
+                "Oranges", "Pears", "Bananas", "Apples", "Carrots"
+        };
+
+        assertEquals(Humanize.oxford(fruits), "Oranges, Pears, Bananas, Apples, and Carrots");
+        assertEquals(Humanize.oxford(Arrays.copyOf(fruits, 2)), "Oranges and Pears");
+        assertEquals(Humanize.oxford(Arrays.copyOf(fruits, 1)), "Oranges");
+        assertEquals(Humanize.oxford(new String[] {}), "");
+        assertEquals(Humanize.oxford(fruits, 3, null), "Oranges, Pears, Bananas, and 2 others");
+        assertEquals(Humanize.oxford(fruits, 3, "{0,number} fruits more"), "Oranges, Pears, Bananas, and 2 fruits more");
+
+        assertEquals(Humanize.oxford(fruits, ES), "Oranges, Pears, Bananas, Apples y Carrots");
+        assertEquals(Humanize.oxford(Arrays.copyOf(fruits, 2), ES), "Oranges y Pears");
+        assertEquals(Humanize.oxford(fruits, 3, null, ES), "Oranges, Pears, Bananas y 2 más");
+    }
+
     @Test(threadPoolSize = 5, invocationCount = 5)
     public void paceCustomFormatTest()
     {
@@ -692,6 +725,25 @@ public class TestHumanize
         // Emoji face
         assertEquals(replaceSupplementary(new StringBuilder().appendCodePoint(0x1F60A).toString()), "\\uD83D\\uDE0A");
 
+    }
+
+    @Test
+    public void roundToSignificantFigureTest()
+    {
+        assertEquals(roundToSignificantFigures(8.14301, 4).doubleValue(), 8.143);
+        assertEquals(roundToSignificantFigures(1203, 3).intValue(), 1200);
+        assertEquals(roundToSignificantFigures(1206555, 4).intValue(), 1207000);
+        assertEquals(roundToSignificantFigures(4080, 2).intValue(), 4100);
+        assertEquals(roundToSignificantFigures(9.99, 1).intValue(), 10);
+        assertEquals(roundToSignificantFigures(408012, 3).intValue(), 408000);
+        assertEquals(roundToSignificantFigures(-408012, 3).intValue(), -408000);
+        assertEquals(roundToSignificantFigures(-8.14091, 4).doubleValue(), -8.141);
+        assertEquals(roundToSignificantFigures(0, 3).intValue(), 0);
+        assertEquals(roundToSignificantFigures(814, 0).intValue(), 814);
+        assertEquals(roundToSignificantFigures(814, 1).intValue(), 800);
+        assertEquals(roundToSignificantFigures(814, 2).intValue(), 810);
+        assertEquals(roundToSignificantFigures(814, 3).intValue(), 814);
+        assertEquals(roundToSignificantFigures(814, 5).intValue(), 814);
     }
 
     @Test

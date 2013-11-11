@@ -69,8 +69,6 @@ public class DefaultContext implements Context, StandardContext
 
     private final CacheProvider localCache = loadCacheProvider();
 
-    private final MessageFormat messageFormat;
-
     private Locale locale;
 
     public DefaultContext()
@@ -82,8 +80,6 @@ public class DefaultContext implements Context, StandardContext
 
     public DefaultContext(Locale locale)
     {
-
-        this.messageFormat = new MessageFormat(EMPTY, locale);
 
         setLocale(locale);
 
@@ -297,10 +293,7 @@ public class DefaultContext implements Context, StandardContext
     @Override
     public MessageFormat getMessageFormat()
     {
-
-        messageFormat.setLocale(locale);
-        return messageFormat;
-
+        return new MessageFormat(EMPTY, locale);
     }
 
     @Override
@@ -312,7 +305,6 @@ public class DefaultContext implements Context, StandardContext
             @Override
             public NumberFormat call() throws Exception
             {
-
                 return NumberFormat.getInstance(locale);
             }
         });

@@ -27,6 +27,8 @@ import humanize.time.PrettyTimeFormat;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.BreakIterator;
 import java.text.ChoiceFormat;
 import java.text.Collator;
@@ -36,6 +38,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -46,7 +49,9 @@ import java.util.concurrent.Callable;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.ObjectArrays;
 
 /**
@@ -73,6 +78,8 @@ public final class Humanize
 
         };
     };
+
+    private static final Joiner joiner = Joiner.on(", ").skipNulls();
 
     /**
      * <p>
@@ -822,13 +829,42 @@ public final class Humanize
 
     /**
      * <p>
-     * Gets a DecimalFormat instance for the current thread with the given
-     * pattern and uses it to format the given arguments.
+     * Same as {@link #format(String, Object...)} for the specified locale.
+     * </p>
+     * 
+     * @param locale
+     *            The target locale
+     * @param pattern
+     *            Format pattern that follows the conventions of
+     *            {@link humanize.text.ExtendedMessageFormat MessageFormat}
+     * @param args
+     *            Arguments
+     * @return The formatted String
+     */
+    public static String format(final Locale locale, final String pattern, final Object... args)
+    {
+
+        return withinLocale(new Callable<String>()
+        {
+            @Override
+            public String call() throws Exception
+            {
+                return format(pattern, args);
+            }
+        }, locale);
+
+    }
+
+    /**
+     * <p>
+     * Gets an ExtendedMessageFormat instance for the current thread with the
+     * given pattern and uses it to format a message with the specified
+     * arguments.
      * </p>
      * 
      * @param pattern
      *            Format pattern that follows the conventions of
-     *            {@link java.text.MessageFormat MessageFormat}
+     *            {@link humanize.text.ExtendedMessageFormat MessageFormat}
      * @param args
      *            Arguments
      * @return The formatted String
@@ -1693,12 +1729,132 @@ public final class Humanize
         {
             public String call()
             {
-
                 return ordinal(value);
-
             }
         }, locale);
 
+    }
+
+    /**
+     * @param items
+     * @return
+     */
+    public static String oxford(Collection<?> items)
+    {
+        return oxford(items.toArray());
+    }
+
+    /**
+     * @param items
+     * @param limit
+     * @param limitStr
+     * @return
+     */
+    public static String oxford(Collection<?> items, int limit, String limitStr)
+    {
+        return oxford(items.toArray(), limit, limitStr);
+    }
+
+    /**
+     * @param items
+     * @param locale
+     * @return
+     */
+    @Expose
+    public static String oxford(Collection<?> items, Locale locale)
+    {
+        return oxford(items.toArray(), locale);
+    }
+
+    /**
+     * @param items
+     * @return
+     */
+    public static String oxford(Object[] items)
+    {
+        return oxford(items, -1, null);
+    }
+
+    /**
+     * <p>
+     * Converts a list of items to a human readable string with an optional
+     * limit.
+     * </p>
+     * 
+     * @param items
+     * @param limit
+     * @param limitStr
+     * @return
+     */
+    public static String oxford(final Object[] items, final int limit, final String limitStr)
+    {
+
+        if (items == null || items.length == 0)
+        {
+            return "";
+        }
+
+        int itemsNum = items.length;
+
+        if (itemsNum == 1)
+        {
+            return items[0].toString();
+        }
+
+        ResourceBundle bundle = context.get().getBundle();
+
+        if (itemsNum == 2)
+        {
+            return format(bundle.getString("oxford.pair"), items[0], items[1]);
+        }
+
+        int limitIndex;
+        String append;
+        int extra = itemsNum - limit;
+
+        if (limit > 0 && extra > 1)
+        {
+            limitIndex = limit;
+            String pattern = Strings.isNullOrEmpty(limitStr) ? bundle.getString("oxford.extra") : limitStr;
+            append = format(pattern, extra);
+        } else
+        {
+            limitIndex = itemsNum - 1;
+            append = items[limitIndex].toString();
+        }
+
+        String pattern = bundle.getString("oxford");
+        return format(pattern, joiner.join(Arrays.copyOf(items, limitIndex)), append);
+
+    }
+
+    /**
+     * @param items
+     * @param limit
+     * @param limitStr
+     * @param locale
+     * @return
+     */
+    public static String oxford(final Object[] items, final int limit, final String limitStr, final Locale locale)
+    {
+        return withinLocale(new Callable<String>()
+        {
+            @Override
+            public String call() throws Exception
+            {
+                return oxford(items, limit, limitStr);
+            }
+        }, locale);
+    }
+
+    /**
+     * @param items
+     * @param locale
+     * @return
+     */
+    public static String oxford(Object[] items, Locale locale)
+    {
+        return oxford(items, -1, null, locale);
     }
 
     /**
@@ -2332,6 +2488,23 @@ public final class Humanize
             }
         });
 
+    }
+
+    /**
+     * <p>
+     * Rounds a number to significant figures.
+     * </p>
+     * 
+     * @param num
+     *            The number to be rounded
+     * @param precision
+     *            The number of significant digits
+     * @return The number rounded to significant figures
+     */
+    public static Number roundToSignificantFigures(Number num, int precision)
+    {
+        return new BigDecimal(num.doubleValue())
+                .round(new MathContext(precision, RoundingMode.HALF_EVEN));
     }
 
     /**

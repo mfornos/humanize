@@ -9,6 +9,7 @@ import com.google.common.base.Objects;
  */
 public class Pace
 {
+
     public enum Accuracy
     {
         NONE, APROX, LESS_THAN
@@ -44,7 +45,6 @@ public class Pace
 
     private final long value;
     private final String accuracy;
-
     private final String timeUnit;
 
     public static final Pace EMPTY = new Pace(0, Accuracy.NONE, TimeMillis.SECOND);
@@ -79,4 +79,5 @@ public class Pace
                 .add("timeUnit", timeUnit)
                 .toString();
     }
+
 }
