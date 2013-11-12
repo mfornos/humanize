@@ -24,6 +24,7 @@ import humanize.time.Pace;
 import humanize.time.Pace.Accuracy;
 import humanize.time.Pace.TimeMillis;
 import humanize.time.PrettyTimeFormat;
+import humanize.util.Constants;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigDecimal;
@@ -49,7 +50,6 @@ import java.util.concurrent.Callable;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ObjectArrays;
@@ -78,8 +78,6 @@ public final class Humanize
 
         };
     };
-
-    private static final Joiner joiner = Joiner.on(", ").skipNulls();
 
     /**
      * <p>
@@ -1736,8 +1734,13 @@ public final class Humanize
     }
 
     /**
+     * <p>
+     * Converts a list of items to a human readable string.
+     * </p>
+     * 
      * @param items
-     * @return
+     *            The items collection
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(Collection<?> items)
     {
@@ -1745,10 +1748,19 @@ public final class Humanize
     }
 
     /**
+     * <p>
+     * Converts a list of items to a human readable string with an optional
+     * limit.
+     * </p>
+     * 
      * @param items
+     *            The items collection
      * @param limit
+     *            The number of items to print. -1 for unbounded.
      * @param limitStr
-     * @return
+     *            The string to be appended after extra items. Null or "" for
+     *            default.
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(Collection<?> items, int limit, String limitStr)
     {
@@ -1756,9 +1768,13 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #oxford(Object[])} for the specified locale.
+     * 
      * @param items
+     *            The items collection
      * @param locale
-     * @return
+     *            Target locale
+     * @return human readable representation of a bounded list of items
      */
     @Expose
     public static String oxford(Collection<?> items, Locale locale)
@@ -1767,8 +1783,13 @@ public final class Humanize
     }
 
     /**
+     * <p>
+     * Converts a list of items to a human readable string.
+     * </p>
+     * 
      * @param items
-     * @return
+     *            The items array
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(Object[] items)
     {
@@ -1782,9 +1803,13 @@ public final class Humanize
      * </p>
      * 
      * @param items
+     *            The items array
      * @param limit
+     *            The number of items to print. -1 for unbounded.
      * @param limitStr
-     * @return
+     *            The string to be appended after extra items. Null or "" for
+     *            default.
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(final Object[] items, final int limit, final String limitStr)
     {
@@ -1824,16 +1849,23 @@ public final class Humanize
         }
 
         String pattern = bundle.getString("oxford");
-        return format(pattern, joiner.join(Arrays.copyOf(items, limitIndex)), append);
+        return format(pattern, Constants.commaJoiner.join(Arrays.copyOf(items, limitIndex)), append);
 
     }
 
     /**
+     * Same as {@link #oxford(Object[], int, String)} for the specified locale.
+     * 
      * @param items
+     *            The items array
      * @param limit
+     *            The number of items to print. -1 for unbounded.
      * @param limitStr
+     *            The string to be appended after extra items. Null or "" for
+     *            default.
      * @param locale
-     * @return
+     *            Target locale
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(final Object[] items, final int limit, final String limitStr, final Locale locale)
     {
@@ -1848,9 +1880,13 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #oxford(Object[])} for the specified locale.
+     * 
      * @param items
+     *            The items array
      * @param locale
-     * @return
+     *            Target locale
+     * @return human readable representation of a bounded list of items
      */
     public static String oxford(Object[] items, Locale locale)
     {
@@ -2698,6 +2734,44 @@ public final class Humanize
             }
         }, locale);
 
+    }
+
+    /**
+     * Interprets numbers as occurrences.
+     * 
+     * @param num
+     *            The number of occurrences
+     * @return textual representation of the number as occurrences
+     */
+    public static String times(final Number num)
+    {
+        java.text.MessageFormat f = new java.text.MessageFormat(
+                context.get().getBundle().getString("times.choice"),
+                context.get().getLocale()
+                );
+        return f.format(new Object[] { Math.abs(num.intValue()) });
+    }
+
+    /**
+     * Same as {@link #times(Number)} for the specified locale.
+     * 
+     * @param num
+     *            The number of occurrences
+     * @param locale
+     *            Target locale
+     * @return textual representation of the number as occurrences
+     */
+    @Expose
+    public static String times(final Number num, final Locale locale)
+    {
+        return withinLocale(new Callable<String>()
+        {
+            @Override
+            public String call() throws Exception
+            {
+                return times(num);
+            }
+        }, locale);
     }
 
     /**

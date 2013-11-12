@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Joiner;
+
 /**
  * Humanize constants
  * 
@@ -128,6 +130,8 @@ public final class Constants
         nanoTimePrefixes.put(1000000L, "#.###ms");
         nanoTimePrefixes.put(1000L, "#.####µs");
         nanoTimePrefixes.put(0L, "#.####ns");
-    };
+    }
+
+    public static final Joiner commaJoiner = Joiner.on(", ").skipNulls();
 
 }

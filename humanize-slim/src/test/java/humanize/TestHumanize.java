@@ -29,6 +29,7 @@ import static humanize.Humanize.simplify;
 import static humanize.Humanize.slugify;
 import static humanize.Humanize.spellBigNumber;
 import static humanize.Humanize.spellDigit;
+import static humanize.Humanize.times;
 import static humanize.Humanize.titleize;
 import static humanize.Humanize.underscore;
 import static humanize.Humanize.unmask;
@@ -66,20 +67,6 @@ public class TestHumanize
     private Random rand;
 
     private Locale defaultLocale;
-
-    @Test
-    public void bigOxfordTest()
-    {
-        int num = 150;
-        Integer[] big = new Integer[num];
-
-        for (int i = 0; i < num; i++)
-        {
-            big[i] = i;
-        }
-
-        assertEquals(Humanize.oxford(big, 3, "{0,number} numbers"), "0, 1, 2, and 147 numbers");
-    }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void binPrefixTest()
@@ -456,6 +443,20 @@ public class TestHumanize
     }
 
     @Test
+    public void oxfordBigTest()
+    {
+        int num = 150;
+        Integer[] big = new Integer[num];
+
+        for (int i = 0; i < num; i++)
+        {
+            big[i] = i;
+        }
+
+        assertEquals(Humanize.oxford(big, 3, "{0,number} numbers"), "0, 1, 2, and 147 numbers");
+    }
+
+    @Test
     public void oxfordTest()
     {
         String[] fruits = new String[] {
@@ -808,6 +809,23 @@ public class TestHumanize
         assertEquals(spellDigit(1, ES), "uno");
         assertEquals(spellDigit(9, ES), "nueve");
 
+    }
+
+    @Test(threadPoolSize = 5, invocationCount = 5)
+    public void timesTest()
+    {
+        assertEquals(times(0), "never");
+        assertEquals(times(1), "once");
+        assertEquals(times(-1), "once");
+        assertEquals(times(2), "twice");
+        assertEquals(times(3), "3 times");
+        assertEquals(times(10000.5), "10,000 times");
+        assertEquals(times(-10), "10 times");
+
+        assertEquals(times(30, ES), "30 veces");
+        assertEquals(times(3000, ES), "3.000 veces");
+        assertEquals(times(1, ES), "una vez");
+        assertEquals(times(0, ES), "nunca");
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
