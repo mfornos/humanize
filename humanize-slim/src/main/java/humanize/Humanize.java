@@ -239,19 +239,19 @@ public final class Humanize
 
     /**
      * <p>
-     * Makes the first letter uppercase and the rest lowercase.
+     * Capitalizes the given text smartly.
      * </p>
      * 
-     * @param word
+     * @param text
      *            String to be capitalized
      * @return capitalized string
      */
-    public static String capitalize(final String word)
+    public static String capitalize(final String text)
     {
-        String tmp = word.trim();
+        String tmp = text.trim();
 
         if (tmp.length() == 0)
-            return word;
+            return text;
 
         StringBuilder sb = new StringBuilder(tmp.length());
 
@@ -282,14 +282,14 @@ public final class Humanize
      * Same as {@link #capitalize(String)} for the specified locale.
      * </p>
      * 
-     * @param word
+     * @param text
      *            String to be capitalized
      * @param locale
      *            Target locale
      * @return capitalized string
      */
     @Expose
-    public static String capitalize(final String word, final Locale locale)
+    public static String capitalize(final String text, final Locale locale)
     {
 
         return withinLocale(new Callable<String>()
@@ -297,7 +297,7 @@ public final class Humanize
             public String call() throws Exception
             {
 
-                return capitalize(word);
+                return capitalize(text);
 
             }
         }, locale);
