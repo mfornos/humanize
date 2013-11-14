@@ -10,6 +10,8 @@ import static humanize.util.Constants.SPLIT_CAMEL;
 import static humanize.util.Constants.THOUSAND;
 import static humanize.util.Constants.bigDecExponents;
 import static humanize.util.Constants.binPrefixes;
+import static humanize.util.Constants.commaJoiner;
+import static humanize.util.Constants.ignoreWordsInTitle_EN;
 import static humanize.util.Constants.metricPrefixes;
 import static humanize.util.Constants.nanoTimePrefixes;
 import humanize.spi.Expose;
@@ -24,7 +26,6 @@ import humanize.time.Pace;
 import humanize.time.Pace.Accuracy;
 import humanize.time.Pace.TimeMillis;
 import humanize.time.PrettyTimeFormat;
-import humanize.util.Constants;
 import humanize.util.Constants.TimeStyle;
 
 import java.math.BigDecimal;
@@ -247,12 +248,33 @@ public final class Humanize
      */
     public static String capitalize(final String word)
     {
+        String tmp = word.trim();
 
-        if (word.length() == 0)
+        if (tmp.length() == 0)
             return word;
-        Locale locale = context.get().getLocale();
-        return word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale);
 
+        StringBuilder sb = new StringBuilder(tmp.length());
+
+        for (int i = 0; i < tmp.length(); i++)
+        {
+            if (Character.isLetter(tmp.charAt(i)))
+            {
+                Locale locale = context.get().getLocale();
+                int lc = i + 1;
+
+                if (i > 0)
+                {
+                    sb.append(tmp.substring(0, i));
+                }
+
+                sb.append(tmp.substring(i, lc).toUpperCase(locale));
+                sb.append(tmp.substring(lc).toLowerCase(locale));
+
+                break;
+            }
+        }
+
+        return sb.length() == 0 ? tmp : sb.toString();
     }
 
     /**
@@ -1849,7 +1871,7 @@ public final class Humanize
         }
 
         String pattern = bundle.getString("oxford");
-        return format(pattern, Constants.commaJoiner.join(Arrays.copyOf(items, limitIndex)), append);
+        return format(pattern, commaJoiner.join(Arrays.copyOf(items, limitIndex)), append);
 
     }
 
@@ -2776,8 +2798,7 @@ public final class Humanize
 
     /**
      * <p>
-     * Capitalize all the words, and replace some characters in the string to
-     * create a nice looking title.
+     * Converts the given text to title case smartly.
      * </p>
      * 
      * <table border="0" cellspacing="0" cellpadding="3" width="100%">
@@ -2793,41 +2814,42 @@ public final class Humanize
      * <td>"first annual report (CD) 2001"</td>
      * <td>"First Annual Report (CD) 2001"</td>
      * </tr>
+     * <tr>
+     * <td>the_jackie_gleason/improVed show</td>
+     * <td>The Jackie Gleason/Improved Show</td>
+     * </tr>
+     * <tr>
+     * <td>this seems a test</td>
+     * <td>This Seems a Test</td>
+     * </tr>
      * </table>
      * 
      * @param text
      *            Text to be converted
      * 
-     * @return Nice looking title
+     * @return a nice styled title
      */
     @Expose
     public static String titleize(final String text)
     {
+        return titleize(text, null);
+    }
 
-        StringBuilder sb = new StringBuilder(text.length());
-        boolean capitalize = true; // To get the first character right
-        for (int i = 0; i < text.length(); i++)
-        {
-            char ch = text.charAt(i);
-            if (Character.isWhitespace(ch))
-            {
-                sb.append(' ');
-                capitalize = true;
-            } else if (ch == '_')
-            {
-                sb.append(' ');
-                capitalize = true;
-            } else if (capitalize)
-            {
-                sb.append(Character.toUpperCase(ch));
-                capitalize = false;
-            } else
-            {
-                sb.append(ch);
-            }
-        }
-        return sb.toString();
-
+    /**
+     * <p>
+     * Converts the given text to title case smartly.
+     * </p>
+     * 
+     * @param text
+     *            Text to be converted
+     * @param intCaps
+     *            An internal capitalized word list
+     * @return a nice styled title
+     */
+    public static String titleize(final String text, String[] intCaps)
+    {
+        String str = text.toLowerCase(context.get().getLocale()).replaceAll("[\\s_]+", SPACE).trim();
+        return titleize(str, SPACE, intCaps);
     }
 
     /**
@@ -2956,12 +2978,56 @@ public final class Humanize
         return stripZeros(df, df.format(value.toString()));
     }
 
+    private static String resolveInternalCapsWord(String word, String[] internalCaps)
+    {
+        for (String ic : internalCaps)
+        {
+            if (word.matches(String.format("(?i)[\\(\\[-]*%s[\\)\\]-]*", ic)))
+            {
+                return word.replace(ic.toLowerCase(), ic);
+            }
+        }
+        return capitalize(word);
+    }
+
     private static String stripZeros(final DecimalFormat decf, final String fmtd)
     {
 
         char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
         return fmtd.replaceAll("\\" + decsep + "00", EMPTY);
 
+    }
+
+    private static String titleize(String str, String separator, String[] intCaps)
+    {
+        StringBuilder sb = new StringBuilder(str.length());
+        String[] parts = str.split(separator);
+
+        for (int i = 0; i < parts.length; i++)
+        {
+            String word = parts[i];
+            boolean notLastWord = i < parts.length - 1;
+
+            if (i > 0 && notLastWord && ignoreWordsInTitle_EN.contains(word))
+            {
+                sb.append(word);
+            }
+            else if (str.indexOf('/') > -1)
+            {
+                sb.append(titleize(word, "/", intCaps));
+            }
+            else
+            {
+                sb.append(intCaps == null ? capitalize(word) : resolveInternalCapsWord(word, intCaps));
+            }
+
+            if (notLastWord)
+            {
+                sb.append(separator);
+            }
+        }
+
+        return sb.toString();
     }
 
     /**

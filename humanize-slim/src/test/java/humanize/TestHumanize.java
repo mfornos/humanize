@@ -121,8 +121,14 @@ public class TestHumanize
         assertEquals(capitalize("hola mundo abc"), "Hola mundo abc");
         assertEquals(capitalize("HOLA mundO AbC"), "Hola mundo abc");
         assertEquals(capitalize("Hola Mundo abC"), "Hola mundo abc");
+        assertEquals(capitalize(" Hola Mundo abC  "), "Hola mundo abc");
+        assertEquals(capitalize(" (hola Mundo abC)  "), "(Hola mundo abc)");
+        assertEquals(capitalize("[HOLA Mundo abC]"), "[Hola mundo abc]");
+        assertEquals(capitalize("-HOLA Mundo abC-"), "-Hola mundo abc-");
+        assertEquals(capitalize(" ~.-(HOLA Mundo abC)-.~"), "~.-(Hola mundo abc)-.~");
         assertEquals(capitalize(""), "");
-        assertEquals(capitalize("* Hola Mundo aBC"), "* hola mundo abc");
+        assertEquals(capitalize("* Hola Mundo aBC"), "* Hola mundo abc");
+        assertEquals(capitalize("2020"), "2020");
 
         assertEquals(capitalize("iyi akşamlar", new Locale("tr")), "İyi akşamlar");
 
@@ -828,12 +834,19 @@ public class TestHumanize
         assertEquals(times(0, ES), "nunca");
     }
 
-    @Test(threadPoolSize = 10, invocationCount = 10)
+    @Test
     public void titleizeTest()
     {
 
         assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
-        assertEquals(titleize("first annual report (CD) 2001"), "First Annual Report (CD) 2001");
+        assertEquals(titleize("first annual report (CD) 2001", new String[] { "CD" }), "First Annual Report (CD) 2001");
+        assertEquals(titleize("this is an indesign test", new String[] { "InDesign" }), "This Is an InDesign Test");
+        assertEquals(titleize("is a test"), "Is a Test");
+        assertEquals(titleize("last word a"), "Last Word A");
+        assertEquals(titleize("OK title (dO_something)"), "Ok Title (Do Something)");
+        assertEquals(titleize("OK title/title"), "Ok Title/Title");
+        assertEquals(titleize("the_jackie_gleason/improVed show"), "The Jackie Gleason/Improved Show");
+        assertEquals(titleize("this seems a test"), "This Seems a Test");
 
     }
 
