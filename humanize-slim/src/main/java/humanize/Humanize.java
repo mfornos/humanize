@@ -249,13 +249,14 @@ public final class Humanize
     public static String capitalize(final String text)
     {
         String tmp = text.trim();
+        int len = tmp.length();
 
-        if (tmp.length() == 0)
+        if (len == 0)
             return text;
 
-        StringBuilder sb = new StringBuilder(tmp.length());
+        StringBuilder sb = new StringBuilder(len);
 
-        for (int i = 0; i < tmp.length(); i++)
+        for (int i = 0; i < len; i++)
         {
             if (Character.isLetter(tmp.charAt(i)))
             {
