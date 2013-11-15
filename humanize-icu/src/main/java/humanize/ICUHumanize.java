@@ -1,3 +1,27 @@
+/*
+   
+    _   _ _   _ __  __  ___  _   _ ___ __________ 
+   | | | | | | |  \/  |  _  | \ | |_ _|__  / ____|
+   | |_| | | | | |\/| | |_| |  \| || |  / /|  _|  
+   |  _  | |_| | |  | |  _  | |\  || | / /_| |___ 
+   |_| |_|\___/|_|  |_|_| |_|_| \_|___/____|_____|
+   
+ 
+   Copyright 2013 mfornos
+   
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+                          
+ */
 package humanize;
 
 import static humanize.util.Constants.EMPTY;
@@ -30,8 +54,6 @@ import com.ibm.icu.text.Transliterator;
  * Unicode</a> (ICU) Java APIs.
  * </p>
  * 
- * @author mfornos
- * 
  */
 public final class ICUHumanize
 {
@@ -42,9 +64,7 @@ public final class ICUHumanize
     {
         protected DefaultICUContext initialValue()
         {
-
             return (DefaultICUContext) contextFactory.createContext();
-
         };
     };
 
@@ -162,9 +182,7 @@ public final class ICUHumanize
      */
     public static DateFormat dateFormatInstance(final String pattern)
     {
-
         return DateFormat.getPatternInstance(pattern, context.get().getLocale());
-
     }
 
     /**
@@ -182,17 +200,13 @@ public final class ICUHumanize
      */
     public static DateFormat dateFormatInstance(final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<DateFormat>()
         {
             public DateFormat call() throws Exception
             {
-
                 return dateFormatInstance(pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -437,11 +451,9 @@ public final class ICUHumanize
      */
     public static DecimalFormat decimalFormatInstance(final String pattern)
     {
-
         DecimalFormat decFmt = context.get().getDecimalFormat();
         decFmt.applyPattern(pattern);
         return decFmt;
-
     }
 
     /**
@@ -459,17 +471,13 @@ public final class ICUHumanize
      */
     public static DecimalFormat decimalFormatInstance(final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<DecimalFormat>()
         {
             public DecimalFormat call() throws Exception
             {
-
                 return decimalFormatInstance(pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -483,18 +491,14 @@ public final class ICUHumanize
      */
     public static String duration(final Number value)
     {
-
         // NOTE: does not support any other locale
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.DURATION).format(value);
-
             }
         }, Locale.ENGLISH);
-
     }
 
     /**
@@ -512,9 +516,7 @@ public final class ICUHumanize
      */
     public static String format(final String pattern, final Object... args)
     {
-
         return messageFormatInstance(pattern).render(args);
-
     }
 
     /**
@@ -550,10 +552,8 @@ public final class ICUHumanize
      */
     public static String formatCurrency(final Number value)
     {
-
         DecimalFormat decf = context.get().getCurrencyFormat();
         return stripZeros(decf, decf.format(value));
-
     }
 
     /**
@@ -570,17 +570,13 @@ public final class ICUHumanize
      */
     public static String formatCurrency(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return formatCurrency(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -594,9 +590,7 @@ public final class ICUHumanize
      */
     public static String formatDate(final Date value)
     {
-
         return formatDate(DateFormat.SHORT, value);
-
     }
 
     /**
@@ -612,17 +606,13 @@ public final class ICUHumanize
      */
     public static String formatDate(final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -638,9 +628,7 @@ public final class ICUHumanize
      */
     public static String formatDate(final Date value, final String pattern)
     {
-
         return new SimpleDateFormat(pattern, context.get().getLocale()).format(value);
-
     }
 
     /**
@@ -659,17 +647,13 @@ public final class ICUHumanize
      */
     public static String formatDate(final Date value, final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(value, pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -706,17 +690,13 @@ public final class ICUHumanize
      */
     public static String formatDate(final int style, final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(style, value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -777,9 +757,7 @@ public final class ICUHumanize
      */
     public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value)
     {
-
         return context.get().formatDateTime(dateStyle, timeStyle, value);
-
     }
 
     /**
@@ -800,17 +778,13 @@ public final class ICUHumanize
      */
     public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDateTime(dateStyle, timeStyle, value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -825,9 +799,7 @@ public final class ICUHumanize
      */
     public static String formatDecimal(final Number value)
     {
-
         return context.get().formatDecimal(value);
-
     }
 
     /**
@@ -844,17 +816,13 @@ public final class ICUHumanize
      */
     public static String formatDecimal(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return formatDecimal(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -887,9 +855,7 @@ public final class ICUHumanize
      */
     public static String formatPercent(final Number value)
     {
-
         return context.get().getPercentFormat().format(value);
-
     }
 
     /**
@@ -906,17 +872,13 @@ public final class ICUHumanize
      */
     public static String formatPercent(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatPercent(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -931,10 +893,8 @@ public final class ICUHumanize
      */
     public static String formatPluralCurrency(final Number value)
     {
-
         DecimalFormat decf = context.get().getPluralCurrencyFormat();
         return stripZeros(decf, decf.format(value));
-
     }
 
     /**
@@ -951,17 +911,13 @@ public final class ICUHumanize
      */
     public static String formatPluralCurrency(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatPluralCurrency(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1184,11 +1140,9 @@ public final class ICUHumanize
      */
     public static MessageFormat messageFormatInstance(final String pattern)
     {
-
         MessageFormat msg = context.get().getMessageFormat();
         msg.applyPattern(pattern);
         return msg;
-
     }
 
     /**
@@ -1206,17 +1160,13 @@ public final class ICUHumanize
      */
     public static MessageFormat messageFormatInstance(final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<MessageFormat>()
         {
             public MessageFormat call() throws Exception
             {
-
                 return messageFormatInstance(pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1233,9 +1183,7 @@ public final class ICUHumanize
      */
     public static String naturalDay(final Date value)
     {
-
         return naturalDay(DateFormat.RELATIVE_SHORT, value);
-
     }
 
     /**
@@ -1253,17 +1201,13 @@ public final class ICUHumanize
      */
     public static String naturalDay(final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return naturalDay(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1284,9 +1228,7 @@ public final class ICUHumanize
      */
     public static String naturalDay(final int style, final Date value)
     {
-
         return formatDate(style, value).toLowerCase();
-
     }
 
     /**
@@ -1301,9 +1243,7 @@ public final class ICUHumanize
      */
     public static String naturalTime(final Date duration)
     {
-
         return context.get().getDurationFormat().formatDurationFromNowTo(duration);
-
     }
 
     /**
@@ -1324,10 +1264,8 @@ public final class ICUHumanize
      */
     public static String naturalTime(final Date reference, final Date duration)
     {
-
         long diff = duration.getTime() - reference.getTime();
         return context.get().getDurationFormat().formatDurationFrom(diff, reference.getTime());
-
     }
 
     /**
@@ -1346,17 +1284,13 @@ public final class ICUHumanize
      */
     public static String naturalTime(final Date reference, final Date duration, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return naturalTime(reference, duration);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1370,9 +1304,7 @@ public final class ICUHumanize
      */
     public static String naturalTime(final Date duration, final Locale locale)
     {
-
         return naturalTime(new Date(), duration, locale);
-
     }
 
     /**
@@ -1417,9 +1349,7 @@ public final class ICUHumanize
      */
     public static String ordinalize(final Number value)
     {
-
         return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.ORDINAL).format(value);
-
     }
 
     /**
@@ -1435,14 +1365,11 @@ public final class ICUHumanize
      */
     public static String ordinalize(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return ordinalize(value);
-
             }
         }, locale);
     }
@@ -1459,9 +1386,7 @@ public final class ICUHumanize
      */
     public static Number parseNumber(final String text) throws ParseException
     {
-
         return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).parse(text);
-
     }
 
     /**
@@ -1479,17 +1404,13 @@ public final class ICUHumanize
      */
     public static Number parseNumber(final String text, final Locale locale) throws ParseException
     {
-
         return withinLocale(new Callable<Number>()
         {
             public Number call() throws Exception
             {
-
                 return parseNumber(text);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1513,7 +1434,6 @@ public final class ICUHumanize
     {
         return withinLocale(new Callable<String>()
         {
-
             @Override
             public String call() throws Exception
             {
@@ -1568,17 +1488,13 @@ public final class ICUHumanize
      */
     public static String replaceSupplementary(final String value)
     {
-
         return InterpolationHelper.replaceSupplementary(value, new Replacer()
         {
             public String replace(String in)
             {
-
                 return UCharacter.getName(in, ", ");
-
             }
         });
-
     }
 
     /**
@@ -1596,9 +1512,7 @@ public final class ICUHumanize
      */
     public static String smartDateFormat(final Date value, final String skeleton)
     {
-
         return formatDate(value, context.get().getBestPattern(skeleton));
-
     }
 
     /**
@@ -1618,17 +1532,13 @@ public final class ICUHumanize
      */
     public static String smartDateFormat(final Date value, final String skeleton, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return smartDateFormat(value, skeleton);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1668,9 +1578,7 @@ public final class ICUHumanize
      */
     public static String spellNumber(final Number value)
     {
-
         return context.get().getRuleBasedNumberFormat(RuleBasedNumberFormat.SPELLOUT).format(value);
-
     }
 
     /**
@@ -1687,17 +1595,13 @@ public final class ICUHumanize
      */
     public static String spellNumber(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return spellNumber(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1772,23 +1676,20 @@ public final class ICUHumanize
 
     private static ContextFactory loadContextFactory()
     {
-
         ServiceLoader<ContextFactory> ldr = ServiceLoader.load(ContextFactory.class);
         for (ContextFactory factory : ldr)
         {
             if (ICUContextFactory.class.isAssignableFrom(factory.getClass()))
                 return factory;
         }
-        throw new RuntimeException("No ContextFactory was found");
 
+        throw new RuntimeException("No ContextFactory was found");
     }
 
     private static String stripZeros(final DecimalFormat decf, final String fmtd)
     {
-
         char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
         return fmtd.replaceAll("\\" + decsep + "00", EMPTY);
-
     }
 
     /**
@@ -1804,7 +1705,6 @@ public final class ICUHumanize
      */
     private static <T> T withinLocale(final Callable<T> operation, final Locale locale)
     {
-
         DefaultICUContext ctx = context.get();
         Locale oldLocale = ctx.getLocale();
 
@@ -1820,7 +1720,6 @@ public final class ICUHumanize
             ctx.setLocale(oldLocale);
             context.set(ctx);
         }
-
     }
 
     private ICUHumanize()
