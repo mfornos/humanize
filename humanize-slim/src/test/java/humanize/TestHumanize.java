@@ -838,6 +838,8 @@ public class TestHumanize
     public void titleizeTest()
     {
 
+        assertEquals(titleize("songs of faith and devotion"), "Songs of Faith and Devotion");
+        assertEquals(titleize("‘til kIngDoM comE"), "‘Til Kingdom Come");
         assertEquals(titleize("the_jackie_gleason show"), "The Jackie Gleason Show");
         assertEquals(titleize("first annual report (CD) 2001", new String[] { "CD" }), "First Annual Report (CD) 2001");
         assertEquals(titleize("this is an indesign test", new String[] { "InDesign" }), "This Is an InDesign Test");
@@ -845,8 +847,9 @@ public class TestHumanize
         assertEquals(titleize("last word a"), "Last Word A");
         assertEquals(titleize("OK title (dO_something)"), "Ok Title (Do Something)");
         assertEquals(titleize("OK title/title"), "Ok Title/Title");
+        assertEquals(titleize("OK title/title-title/title"), "Ok Title/Title-Title/Title");
         assertEquals(titleize("the_jackie_gleason/improVed show"), "The Jackie Gleason/Improved Show");
-        assertEquals(titleize("this seems a test"), "This Seems a Test");
+        assertEquals(titleize("- this seems a test 1234"), "- This Seems a Test 1234");
 
     }
 

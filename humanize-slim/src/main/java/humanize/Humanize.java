@@ -1,3 +1,27 @@
+/*
+   
+    _   _ _   _ __  __  ___  _   _ ___ __________ 
+   | | | | | | |  \/  |  _  | \ | |_ _|__  / ____|
+   | |_| | | | | |\/| | |_| |  \| || |  / /|  _|  
+   |  _  | |_| | |  | |  _  | |\  || | / /_| |___ 
+   |_| |_|\___/|_|  |_|_| |_|_| \_|___/____|_____|
+   
+ 
+   Copyright 2013 mfornos
+   
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+                          
+ */
 package humanize;
 
 import static humanize.util.Constants.EMPTY;
@@ -11,9 +35,10 @@ import static humanize.util.Constants.THOUSAND;
 import static humanize.util.Constants.bigDecExponents;
 import static humanize.util.Constants.binPrefixes;
 import static humanize.util.Constants.commaJoiner;
-import static humanize.util.Constants.ignoreWordsInTitle_EN;
 import static humanize.util.Constants.metricPrefixes;
 import static humanize.util.Constants.nanoTimePrefixes;
+import static humanize.util.Constants.titleIgnoredWords;
+import static humanize.util.Constants.titleWordSperator;
 import humanize.spi.Expose;
 import humanize.spi.MessageFormat;
 import humanize.spi.context.ContextFactory;
@@ -47,6 +72,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -74,9 +100,7 @@ public final class Humanize
     {
         protected DefaultContext initialValue()
         {
-
             return (DefaultContext) contextFactory.createContext();
-
         };
     };
 
@@ -115,9 +139,7 @@ public final class Humanize
      */
     public static String binaryPrefix(final Number value)
     {
-
         return prefix(value, 1024, binPrefixes);
-
     }
 
     /**
@@ -134,17 +156,13 @@ public final class Humanize
     @Expose
     public static String binaryPrefix(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return binaryPrefix(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -158,9 +176,7 @@ public final class Humanize
      */
     public static String camelize(final String text)
     {
-
         return camelize(text, false);
-
     }
 
     /**
@@ -177,7 +193,6 @@ public final class Humanize
      */
     public static String camelize(final String text, final boolean capitalizeFirstChar)
     {
-
         StringBuilder sb = new StringBuilder();
         String[] tokens = text.split("[\\.\\s_-]+");
 
@@ -187,9 +202,8 @@ public final class Humanize
         for (String token : tokens)
             sb.append(capitalize(token));
 
-        return capitalizeFirstChar ? sb.toString() : sb.substring(0, 1).toLowerCase(context.get().getLocale())
+        return capitalizeFirstChar ? sb.toString() : sb.substring(0, 1).toLowerCase(currentLocale())
                 + sb.substring(1);
-
     }
 
     /**
@@ -205,17 +219,13 @@ public final class Humanize
      */
     public static String camelize(final String text, final boolean capitalizeFirstChar, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return camelize(text, capitalizeFirstChar);
-
             }
         }, locale);
-
     }
 
     /**
@@ -232,9 +242,7 @@ public final class Humanize
     @Expose
     public static String camelize(final String text, final Locale locale)
     {
-
         return camelize(text, false, locale);
-
     }
 
     /**
@@ -260,7 +268,7 @@ public final class Humanize
         {
             if (Character.isLetter(tmp.charAt(i)))
             {
-                Locale locale = context.get().getLocale();
+                Locale locale = currentLocale();
                 int lc = i + 1;
 
                 if (i > 0)
@@ -292,17 +300,13 @@ public final class Humanize
     @Expose
     public static String capitalize(final String text, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return capitalize(text);
-
             }
         }, locale);
-
     }
 
     /**
@@ -567,9 +571,7 @@ public final class Humanize
      */
     public static DateFormat dateFormat(final String pattern)
     {
-
         return context.get().getDateFormat(pattern);
-
     }
 
     /**
@@ -586,17 +588,13 @@ public final class Humanize
      */
     public static DateFormat dateFormat(final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<DateFormat>()
         {
             public DateFormat call() throws Exception
             {
-
                 return dateFormat(pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -612,9 +610,7 @@ public final class Humanize
     @Expose
     public static String decamelize(final String words)
     {
-
         return SPLIT_CAMEL.matcher(words).replaceAll(SPACE);
-
     }
 
     /**
@@ -657,9 +653,7 @@ public final class Humanize
      */
     public static String decamelize(final String words, final String replacement)
     {
-
         return SPLIT_CAMEL.matcher(words).replaceAll(replacement);
-
     }
 
     /**
@@ -673,11 +667,9 @@ public final class Humanize
      */
     public static DecimalFormat decimalFormat(final String pattern)
     {
-
         DecimalFormat decFmt = context.get().getDecimalFormat();
         decFmt.applyPattern(pattern);
         return decFmt;
-
     }
 
     /**
@@ -719,9 +711,7 @@ public final class Humanize
      */
     public static String duration(final Number seconds)
     {
-
         return duration(seconds, TimeStyle.STANDARD);
-
     }
 
     /**
@@ -737,18 +727,14 @@ public final class Humanize
      */
     public static String duration(final Number seconds, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-
                 return duration(seconds);
-
             }
         }, locale);
-
     }
 
     /**
@@ -764,12 +750,10 @@ public final class Humanize
      */
     public static String duration(final Number seconds, final TimeStyle style)
     {
-
         int s = seconds.intValue();
         boolean neg = s < 0;
         s = Math.abs(s);
         return style.format(context.get(), neg, (s / 3600) % 60, (s / 60) % 60, s % 60);
-
     }
 
     /**
@@ -787,18 +771,14 @@ public final class Humanize
      */
     public static String duration(final Number seconds, final TimeStyle style, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-
                 return duration(seconds, style);
-
             }
         }, locale);
-
     }
 
     /**
@@ -816,9 +796,7 @@ public final class Humanize
      */
     public static String fixLength(final String text, final int charsNum, final char paddingChar)
     {
-
         return fixLength(text, charsNum, paddingChar, false);
-
     }
 
     /**
@@ -838,14 +816,12 @@ public final class Humanize
      */
     public static String fixLength(final String text, final int charsNum, final char paddingChar, final boolean left)
     {
-
         Preconditions.checkArgument(charsNum > 0, "The number of characters must be greater than zero.");
 
         String str = text == null ? "" : text;
         String fmt = String.format("%%%ss", left ? charsNum : -charsNum);
 
         return String.format(fmt, str).substring(0, charsNum).replace(' ', paddingChar);
-
     }
 
     /**
@@ -864,7 +840,6 @@ public final class Humanize
      */
     public static String format(final Locale locale, final String pattern, final Object... args)
     {
-
         return withinLocale(new Callable<String>()
         {
             @Override
@@ -873,7 +848,6 @@ public final class Humanize
                 return format(pattern, args);
             }
         }, locale);
-
     }
 
     /**
@@ -930,10 +904,8 @@ public final class Humanize
      */
     public static String formatCurrency(final Number value)
     {
-
         DecimalFormat decf = context.get().getCurrencyFormat();
         return stripZeros(decf, decf.format(value));
-
     }
 
     /**
@@ -949,17 +921,13 @@ public final class Humanize
      */
     public static String formatCurrency(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return formatCurrency(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -973,9 +941,7 @@ public final class Humanize
      */
     public static String formatDate(final Date value)
     {
-
         return formatDate(DateFormat.SHORT, value);
-
     }
 
     /**
@@ -991,17 +957,13 @@ public final class Humanize
      */
     public static String formatDate(final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1018,9 +980,7 @@ public final class Humanize
      */
     public static String formatDate(final Date value, final String pattern)
     {
-
-        return new SimpleDateFormat(pattern, context.get().getLocale()).format(value);
-
+        return new SimpleDateFormat(pattern, currentLocale()).format(value);
     }
 
     /**
@@ -1039,17 +999,13 @@ public final class Humanize
      */
     public static String formatDate(final Date value, final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(value, pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1065,9 +1021,7 @@ public final class Humanize
      */
     public static String formatDate(final int style, final Date value)
     {
-
         return context.get().formatDate(style, value);
-
     }
 
     /**
@@ -1085,17 +1039,13 @@ public final class Humanize
      */
     public static String formatDate(final int style, final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDate(style, value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1109,9 +1059,7 @@ public final class Humanize
      */
     public static String formatDateTime(final Date value)
     {
-
         return context.get().formatDateTime(value);
-
     }
 
     /**
@@ -1343,7 +1291,7 @@ public final class Humanize
      */
     public static boolean lossyEquals(final String source, final String target)
     {
-        Collator c = Collator.getInstance(context.get().getLocale());
+        Collator c = Collator.getInstance(currentLocale());
         c.setStrength(Collator.PRIMARY);
         return c.equals(source, target);
     }
@@ -1362,9 +1310,7 @@ public final class Humanize
      */
     public static String mask(final String mask, final String value)
     {
-
         return maskFormat(mask).format(value);
-
     }
 
     /**
@@ -1378,11 +1324,9 @@ public final class Humanize
      */
     public static MaskFormat maskFormat(final String mask)
     {
-
         MaskFormat maskFmt = context.get().getMaskFormat();
         maskFmt.setMask(mask);
         return maskFmt;
-
     }
 
     /**
@@ -1397,11 +1341,9 @@ public final class Humanize
      */
     public static MessageFormat messageFormat(final String pattern)
     {
-
         MessageFormat msg = context.get().getMessageFormat();
         msg.applyPattern(pattern);
         return msg;
-
     }
 
     /**
@@ -1462,9 +1404,7 @@ public final class Humanize
      */
     public static String metricPrefix(final Number value)
     {
-
         return prefix(value, 1000, metricPrefixes);
-
     }
 
     /**
@@ -1481,17 +1421,13 @@ public final class Humanize
     @Expose
     public static String metricPrefix(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return metricPrefix(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1505,9 +1441,7 @@ public final class Humanize
      */
     public static String nanoTime(final Number value)
     {
-
         return prefix(value, 1000, nanoTimePrefixes);
-
     }
 
     /**
@@ -1548,9 +1482,7 @@ public final class Humanize
      */
     public static String naturalDay(Date value)
     {
-
         return naturalDay(DateFormat.SHORT, value);
-
     }
 
     /**
@@ -1567,9 +1499,7 @@ public final class Humanize
     @Expose
     public static String naturalDay(Date value, Locale locale)
     {
-
         return naturalDay(DateFormat.SHORT, value, locale);
-
     }
 
     /**
@@ -1587,7 +1517,6 @@ public final class Humanize
      */
     public static String naturalDay(int style, Date value)
     {
-
         Date today = new Date();
         long delta = value.getTime() - today.getTime();
         long days = delta / ND_FACTOR;
@@ -1600,7 +1529,6 @@ public final class Humanize
             return context.get().getMessage("yesterday");
 
         return formatDate(style, value);
-
     }
 
     /**
@@ -1618,17 +1546,13 @@ public final class Humanize
      */
     public static String naturalDay(final int style, final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return naturalDay(style, value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1661,9 +1585,7 @@ public final class Humanize
      */
     public static String naturalTime(Date reference, Date duration)
     {
-
         return context.get().formatRelativeDate(reference, duration);
-
     }
 
     /**
@@ -1679,17 +1601,13 @@ public final class Humanize
      */
     public static String naturalTime(final Date reference, final Date duration, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return naturalTime(reference, duration);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1704,9 +1622,7 @@ public final class Humanize
     @Expose
     public static String naturalTime(final Date duration, final Locale locale)
     {
-
         return naturalTime(new Date(), duration, locale);
-
     }
 
     /**
@@ -1722,7 +1638,6 @@ public final class Humanize
      */
     public static String ordinal(Number value)
     {
-
         int v = value.intValue();
         int vc = v % 100;
 
@@ -1730,7 +1645,6 @@ public final class Humanize
             return String.format(ORDINAL_FMT, v, context.get().ordinalSuffix(0));
 
         return String.format(ORDINAL_FMT, v, context.get().ordinalSuffix(v % 10));
-
     }
 
     /**
@@ -1745,7 +1659,6 @@ public final class Humanize
     @Expose
     public static String ordinal(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
@@ -1753,7 +1666,6 @@ public final class Humanize
                 return ordinal(value);
             }
         }, locale);
-
     }
 
     /**
@@ -2529,12 +2441,10 @@ public final class Humanize
     @Expose
     public static String replaceSupplementary(final String value)
     {
-
         return InterpolationHelper.replaceSupplementary(value, new Replacer()
         {
             public String replace(String in)
             {
-
                 StringBuilder uc = new StringBuilder();
                 for (char c : in.toCharArray())
                 {
@@ -2543,10 +2453,8 @@ public final class Humanize
                 }
 
                 return uc.toString();
-
             }
         });
-
     }
 
     /**
@@ -2625,14 +2533,11 @@ public final class Humanize
     @Expose
     public static String slugify(final String text)
     {
-
         String result = simplify(text);
         result = ONLY_SLUG_CHARS.matcher(result).replaceAll("");
         result = CharMatcher.WHITESPACE.trimFrom(result);
         result = HYPEN_SPACE.matcher(result).replaceAll("-");
-
         return result.toLowerCase();
-
     }
 
     /**
@@ -2647,7 +2552,6 @@ public final class Humanize
      */
     public static String spellBigNumber(final Number value)
     {
-
         BigDecimal v = new BigDecimal(value.toString());
 
         if (THOUSAND.compareTo(v.abs()) > 0)
@@ -2662,7 +2566,6 @@ public final class Humanize
                         v.divide(bigNum));
 
         return value.toString();
-
     }
 
     /**
@@ -2679,17 +2582,13 @@ public final class Humanize
     @Expose
     public static String spellBigNumber(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return spellBigNumber(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -2723,13 +2622,12 @@ public final class Humanize
      */
     public static String spellDigit(final Number value)
     {
-
         int v = value.intValue();
+
         if (v < 0 || v > 9)
             return value.toString();
 
         return context.get().digitStrings(v);
-
     }
 
     /**
@@ -2746,17 +2644,13 @@ public final class Humanize
     @Expose
     public static String spellDigit(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return spellDigit(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -2770,7 +2664,7 @@ public final class Humanize
     {
         java.text.MessageFormat f = new java.text.MessageFormat(
                 context.get().getBundle().getString("times.choice"),
-                context.get().getLocale()
+                currentLocale()
                 );
         return f.format(new Object[] { Math.abs(num.intValue()) });
     }
@@ -2802,28 +2696,48 @@ public final class Humanize
      * Converts the given text to title case smartly.
      * </p>
      * 
-     * <table border="0" cellspacing="0" cellpadding="3" width="100%">
-     * <tr>
-     * <th class="colFirst">Input</th>
-     * <th class="colLast">Output</th>
-     * </tr>
-     * <tr>
-     * <td>"the_jackie_gleason show"</td>
-     * <td>"The Jackie Gleason Show"</td>
-     * </tr>
-     * <tr>
-     * <td>"first annual report (CD) 2001"</td>
-     * <td>"First Annual Report (CD) 2001"</td>
-     * </tr>
-     * <tr>
-     * <td>the_jackie_gleason/improVed show</td>
-     * <td>The Jackie Gleason/Improved Show</td>
-     * </tr>
-     * <tr>
-     * <td>this seems a test</td>
-     * <td>This Seems a Test</td>
-     * </tr>
-     * </table>
+     * Known limitations:
+     * <ul>
+     * <li>Phrasal verb detection</li>
+     * </ul>
+     * 
+     * Applies Quick Guide to Capitalization in English at SAP.
+     * 
+     * <h3>Capitalize</h3>
+     * <ul>
+     * <li>Nouns</li>
+     * <li>Verbs (including <i>is</i> and other forms of <i>be</i>)</li>
+     * <li>Participles</li>
+     * <li>Adverbs (including <i>than</i> and <i>when</i>)</li>
+     * <li>Adjectives (including <i>this</i>, <i>that</i>, and <i>each</i>)</li>
+     * <li>Pronouns (including <i>its</i>)</li>
+     * <li>Subordinating conjunctions (<i>if</i>, <i>because</i>, <i>as</i>,
+     * <i>that</i>)</li>
+     * <li>Prepositions and conjunctions with five or more letters
+     * (<i>between</i>, <i>without</i>, <i>during, about</i>,<i> because,
+     * through</i>)</li>
+     * <li>First and last words, no matter what part of speech they are</li>
+     * <li>Prepositions that are part of a verb phrase (<i>Logging On</i>,
+     * <i>Setting Up</i>)</li>
+     * <li>Both elements of hyphenated words (<i>How-To,</i>
+     * <i>Country-Specific</i>)</li>
+     * <li>Words and phrases in parentheses as you would capitalize them if they
+     * did not appear in parentheses</li>
+     * <li>Any words, phrases, fragments, or sentences after a colon or
+     * semicolon</li>
+     * </ul>
+     * <h3>Do Not Capitalize</h3>
+     * <ul>
+     * <li>Coordinating conjunctions (<i>and</i>, <i>but</i>, <i>or</i>,
+     * <i>nor</i>, <i>for</i>)</li>
+     * <li>Prepositions of four or fewer letters (<i>with</i>, <i>to</i>,
+     * <i>for</i>, <i>at</i>, and so on)</li>
+     * <li>Articles (<i>a</i>, <i>an</i>, <i>the, some</i>) unless the article
+     * is the first or last word in the title</li>
+     * <li>The word<i> to</i> in an infinitive phrase</li>
+     * <li>Case-specific product names, words, or phrases (<i>mySAP.com</i>,
+     * <i>README </i>file, <i>e-Business</i>, and so on)</li>
+     * </ul>
      * 
      * @param text
      *            Text to be converted
@@ -2847,9 +2761,9 @@ public final class Humanize
      *            An internal capitalized word list
      * @return a nice styled title
      */
-    public static String titleize(final String text, String[] intCaps)
+    public static String titleize(final String text, final String[] intCaps)
     {
-        String str = text.toLowerCase(context.get().getLocale()).replaceAll("[\\s_]+", SPACE).trim();
+        String str = text.toLowerCase(Locale.ENGLISH).replaceAll("[\\s_]+", SPACE).trim();
         return titleize(str, SPACE, intCaps);
     }
 
@@ -2865,9 +2779,7 @@ public final class Humanize
     @Expose
     public static String underscore(final String text)
     {
-
         return text.replaceAll("\\s+", "_");
-
     }
 
     /**
@@ -2885,9 +2797,7 @@ public final class Humanize
      */
     public static String unmask(final String mask, final String value) throws ParseException
     {
-
         return maskFormat(mask).parse(value);
-
     }
 
     /**
@@ -2904,27 +2814,31 @@ public final class Humanize
      */
     public static String wordWrap(final String value, final int len)
     {
-
         if (len < 0 || value.length() <= len)
             return value;
 
-        BreakIterator bi = BreakIterator.getWordInstance(context.get().getLocale());
+        BreakIterator bi = BreakIterator.getWordInstance(currentLocale());
         bi.setText(value);
-        return value.substring(0, bi.following(len));
 
+        return value.substring(0, bi.following(len));
+    }
+
+    private static Locale currentLocale()
+    {
+        return context.get().getLocale();
     }
 
     private static ContextFactory loadContextFactory()
     {
-
         ServiceLoader<ContextFactory> ldr = ServiceLoader.load(ContextFactory.class);
+
         for (ContextFactory factory : ldr)
         {
             if (DefaultContextFactory.class.isAssignableFrom(factory.getClass()))
                 return factory;
         }
-        throw new RuntimeException("No ContextFactory was found");
 
+        throw new RuntimeException("No ContextFactory was found");
     }
 
     /**
@@ -2939,25 +2853,26 @@ public final class Humanize
      */
     private static boolean needPlural(final int n)
     {
-
         int tmp = 0;
         int an = Math.abs(n);
 
         while (an > 0)
         {
             tmp = an % 10;
+
             if (tmp > 1)
+            {
                 return true;
+            }
+
             an /= 10;
         }
 
         return false;
-
     }
 
     private static String prefix(final Number value, final int min, final Map<Long, String> prefixes)
     {
-
         DecimalFormat df = context.get().getDecimalFormat();
 
         long v = value.longValue();
@@ -2993,29 +2908,33 @@ public final class Humanize
 
     private static String stripZeros(final DecimalFormat decf, final String fmtd)
     {
-
         char decsep = decf.getDecimalFormatSymbols().getDecimalSeparator();
         return fmtd.replaceAll("\\" + decsep + "00", EMPTY);
-
     }
 
     private static String titleize(String str, String separator, String[] intCaps)
     {
         StringBuilder sb = new StringBuilder(str.length());
         String[] parts = str.split(separator);
+        Matcher m;
 
         for (int i = 0; i < parts.length; i++)
         {
             String word = parts[i];
             boolean notLastWord = i < parts.length - 1;
 
-            if (i > 0 && notLastWord && ignoreWordsInTitle_EN.contains(word))
+            if (i > 0 && notLastWord && titleIgnoredWords.contains(word))
             {
                 sb.append(word);
             }
-            else if (str.indexOf('/') > -1)
+            else if ((m = titleWordSperator.matcher(word)).find())
             {
-                sb.append(titleize(word, "/", intCaps));
+                sb.append(titleize(word, m.group(1), intCaps));
+
+                while (m.find())
+                {
+                    sb.append(titleize(word, m.group(1), intCaps));
+                }
             }
             else
             {
@@ -3044,7 +2963,6 @@ public final class Humanize
      */
     private static <T> T withinLocale(final Callable<T> operation, final Locale locale)
     {
-
         DefaultContext ctx = context.get();
         Locale oldLocale = ctx.getLocale();
 
@@ -3060,12 +2978,11 @@ public final class Humanize
             ctx.setLocale(oldLocale);
             context.set(ctx);
         }
-
     }
 
     private Humanize()
     {
-
+        //
     }
 
 }

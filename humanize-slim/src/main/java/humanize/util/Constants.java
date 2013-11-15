@@ -136,14 +136,11 @@ public final class Constants
 
     public static final Joiner commaJoiner = Joiner.on(", ").skipNulls();
 
-    // TODO extract to an i18n file
-    // The U.S. Government Printing Office Style Manual offers one easy style:
-    // "Capitalize all words in titles of publications and documents, except:
-    // a, an, the, at, by, for, in, of, on, to, up, and, as, but, it, or, and
-    // nor."
-    public static List<String> ignoreWordsInTitle_EN = Arrays.asList(new String[] {
-            "a", "an", "and", "but", "nor", "it", "the", "to", "with", "in", "on", "as", "of",
-            "up", "or", "at", "into", "by", "from", "then", "for", "via"
+    public static final List<String> titleIgnoredWords = Arrays.asList(new String[] {
+            "a", "an", "and", "but", "nor", "it", "the", "to", "with", "in", "on", "of",
+            "up", "or", "at", "into", "onto", "by", "from", "then", "for", "via"
     });
+
+    public static final Pattern titleWordSperator = Pattern.compile(".+(\\||-|/).+");
 
 }
