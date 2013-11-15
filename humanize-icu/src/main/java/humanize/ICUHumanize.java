@@ -710,9 +710,7 @@ public final class ICUHumanize
      */
     public static String formatDateTime(final Date value)
     {
-
         return context.get().formatDateTime(value);
-
     }
 
     /**
@@ -729,17 +727,13 @@ public final class ICUHumanize
      */
     public static String formatDateTime(final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDateTime(value);
-
             }
         }, locale);
-
     }
 
     /**

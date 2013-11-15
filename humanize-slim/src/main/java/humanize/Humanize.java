@@ -1073,17 +1073,13 @@ public final class Humanize
      */
     public static String formatDateTime(final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDateTime(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1101,9 +1097,7 @@ public final class Humanize
      */
     public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value)
     {
-
         return context.get().formatDateTime(dateStyle, timeStyle, value);
-
     }
 
     /**
@@ -1123,17 +1117,13 @@ public final class Humanize
      */
     public static String formatDateTime(final int dateStyle, final int timeStyle, final Date value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatDateTime(dateStyle, timeStyle, value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1148,9 +1138,7 @@ public final class Humanize
      */
     public static String formatDecimal(final Number value)
     {
-
         return context.get().formatDecimal(value);
-
     }
 
     /**
@@ -1166,17 +1154,13 @@ public final class Humanize
      */
     public static String formatDecimal(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return formatDecimal(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1209,9 +1193,7 @@ public final class Humanize
      */
     public static String formatPercent(final Number value)
     {
-
         return context.get().getPercentFormat().format(value);
-
     }
 
     /**
@@ -1227,17 +1209,13 @@ public final class Humanize
      */
     public static String formatPercent(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-
                 return formatPercent(value);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1258,7 +1236,6 @@ public final class Humanize
     {
         return withinLocale(new Callable<Boolean>()
         {
-
             @Override
             public Boolean call() throws Exception
             {
@@ -1358,17 +1335,13 @@ public final class Humanize
      */
     public static MessageFormat messageFormat(final String pattern, final Locale locale)
     {
-
         return withinLocale(new Callable<MessageFormat>()
         {
             public MessageFormat call() throws Exception
             {
-
                 return messageFormat(pattern);
-
             }
         }, locale);
-
     }
 
     /**
@@ -1456,17 +1429,13 @@ public final class Humanize
     @Expose
     public static String nanoTime(final Number value, final Locale locale)
     {
-
         return withinLocale(new Callable<String>()
         {
             public String call()
             {
-
                 return prefix(value, 1000, nanoTimePrefixes);
-
             }
         }, locale);
-
     }
 
     /**
