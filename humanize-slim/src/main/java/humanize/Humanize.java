@@ -85,10 +85,8 @@ import com.google.common.collect.ObjectArrays;
  * <p>
  * Facility for adding a "human touch" to data. It is thread-safe and supports
  * per-thread internationalization. Additionally provides a concise facade for
- * access to the Standard i18n Java APIs.
+ * access to Standard i18n Java APIs.
  * </p>
- * 
- * @author mfornos
  * 
  */
 public final class Humanize
@@ -1564,9 +1562,7 @@ public final class Humanize
      */
     public static String naturalTime(Date duration)
     {
-
         return context.get().formatRelativeDate(duration);
-
     }
 
     /**
@@ -1748,7 +1744,6 @@ public final class Humanize
      */
     public static String oxford(final Object[] items, final int limit, final String limitStr)
     {
-
         if (items == null || items.length == 0)
         {
             return "";
@@ -1785,7 +1780,6 @@ public final class Humanize
 
         String pattern = bundle.getString("oxford");
         return format(pattern, commaJoiner.join(Arrays.copyOf(items, limitIndex)), append);
-
     }
 
     /**
@@ -1866,7 +1860,6 @@ public final class Humanize
      */
     public static Pace pace(final Number value, final long interval)
     {
-
         double dval = Math.round(value.doubleValue());
 
         if (dval == 0 || interval == 0)
@@ -1892,7 +1885,6 @@ public final class Humanize
         }
 
         return args;
-
     }
 
     /**
@@ -1962,7 +1954,6 @@ public final class Humanize
      */
     public static String paceFormat(final Number value, final long interval)
     {
-
         ResourceBundle bundle = context.get().getBundle();
 
         String none = bundle.getString("pace.none");
@@ -1970,7 +1961,6 @@ public final class Humanize
         String many = bundle.getString("pace.many");
 
         return paceFormat(value, interval, one, many, none);
-
     }
 
     /**
@@ -1992,7 +1982,6 @@ public final class Humanize
     public static String paceFormat(final Number value, final long interval, final String one, final String many,
             final String none)
     {
-
         Pace args = pace(value, interval);
 
         ResourceBundle bundle = context.get().getBundle();
@@ -2001,7 +1990,6 @@ public final class Humanize
         String timeUnit = bundle.getString(args.getTimeUnit());
 
         return capitalize(pluralize(one, many, none, args.getValue(), accuracy, timeUnit));
-
     }
 
     /**
@@ -2013,9 +2001,7 @@ public final class Humanize
      */
     public static byte[] parseBase64(String base64str)
     {
-
         return DatatypeConverter.parseBase64Binary(base64str);
-
     }
 
     /**
@@ -2027,9 +2013,7 @@ public final class Humanize
      */
     public static Date parseISODate(String dateStr)
     {
-
         return DatatypeConverter.parseDate(dateStr).getTime();
-
     }
 
     /**
@@ -2041,9 +2025,7 @@ public final class Humanize
      */
     public static Date parseISODateTime(String dateStr)
     {
-
         return DatatypeConverter.parseDateTime(dateStr).getTime();
-
     }
 
     /**
@@ -2055,9 +2037,7 @@ public final class Humanize
      */
     public static Date parseISOTime(String timeStr)
     {
-
         return DatatypeConverter.parseTime(timeStr).getTime();
-
     }
 
     /**
@@ -2087,9 +2067,7 @@ public final class Humanize
      */
     public static Date parseSmartDate(String dateStr, String... fmts)
     {
-
         return parseSmartDateWithSeparator(dateStr, "[\\D-_\\s]+", fmts);
-
     }
 
     /**
@@ -2107,10 +2085,9 @@ public final class Humanize
      * @return the converted Date
      * @see #parseSmartDate(String, String...)
      */
-    public static Date parseSmartDateWithSeparator(String dateStr, String separator, String... fmts)
+    public static Date parseSmartDateWithSeparator(final String dateStr, final String separator, final String... fmts)
     {
-
-        dateStr = dateStr.replaceAll(separator, "/");
+        String tmp = dateStr.replaceAll(separator, "/");
 
         for (String fmt : fmts)
         {
@@ -2118,11 +2095,13 @@ public final class Humanize
             {
                 DateFormat df = dateFormat(fmt); // cached
                 df.setLenient(false);
-                return df.parse(dateStr);
+                return df.parse(tmp);
             } catch (ParseException ignored)
             {
+                //
             }
         }
+
         throw new IllegalArgumentException("Unable to parse date '" + dateStr + "'");
     }
 
@@ -2147,18 +2126,14 @@ public final class Humanize
     public static String pluralize(final Locale locale, final String one, final String many, final Number n,
             final Object... exts)
     {
-
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-
                 return pluralize(one, many, n, exts);
-
             }
         }, locale);
-
     }
 
     /**
@@ -2184,18 +2159,14 @@ public final class Humanize
     public static String pluralize(final Locale locale, final String one, final String many, final String none,
             final Number n, final Object... exts)
     {
-
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-
                 return pluralize(one, many, none, n, exts);
-
             }
         }, locale);
-
     }
 
     /**
@@ -2224,11 +2195,9 @@ public final class Humanize
      */
     public static String pluralize(final String one, final String many, final Number n, final Object... exts)
     {
-
         MessageFormat format = pluralizeFormat("{0}", many, one, many);
         Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
         return format.render(params);
-
     }
 
     /**
@@ -2266,11 +2235,9 @@ public final class Humanize
     public static String pluralize(final String one, final String many, final String none, final Number n,
             final Object... exts)
     {
-
         MessageFormat format = pluralizeFormat("{0}", none, one, many);
         Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
         return format.render(params);
-
     }
 
     /**
@@ -2313,7 +2280,6 @@ public final class Humanize
      */
     public static MessageFormat pluralizeFormat(final String template)
     {
-
         String[] tokens = template.split("\\s*\\:{2}\\s*");
 
         if (tokens.length < 4)
@@ -2332,7 +2298,6 @@ public final class Humanize
         }
 
         return pluralizeFormat(tokens[0], Arrays.copyOfRange(tokens, 1, tokens.length));
-
     }
 
     /**
@@ -2348,17 +2313,13 @@ public final class Humanize
      */
     public static MessageFormat pluralizeFormat(final String template, final Locale locale)
     {
-
         return withinLocale(new Callable<MessageFormat>()
         {
             public MessageFormat call() throws Exception
             {
-
                 return pluralizeFormat(template);
-
             };
         }, locale);
-
     }
 
     /**
@@ -2375,17 +2336,18 @@ public final class Humanize
      */
     public static MessageFormat pluralizeFormat(final String pattern, final String... choices)
     {
-
         double[] indexes = new double[choices.length];
+
         for (int i = 0; i < choices.length; i++)
+        {
             indexes[i] = i;
+        }
 
         ChoiceFormat choiceForm = new ChoiceFormat(indexes, choices);
         MessageFormat format = (MessageFormat) messageFormat(pattern).clone();
         format.setFormat(0, choiceForm);
 
         return format;
-
     }
 
     /**
@@ -2398,9 +2360,7 @@ public final class Humanize
      */
     public static PrettyTimeFormat prettyTimeFormat()
     {
-
         return context.get().getPrettyTimeFormat();
-
     }
 
     /**
@@ -2415,17 +2375,13 @@ public final class Humanize
      */
     public static PrettyTimeFormat prettyTimeFormat(final Locale locale)
     {
-
         return withinLocale(new Callable<PrettyTimeFormat>()
         {
             public PrettyTimeFormat call() throws Exception
             {
-
                 return context.get().getPrettyTimeFormat();
-
             }
         }, locale);
-
     }
 
     /**
@@ -2931,6 +2887,7 @@ public final class Humanize
             {
                 sb.append(titleize(word, m.group(1), intCaps));
 
+                // hmmm, okay... a bit upsetted cyclomatic complexity
                 while (m.find())
                 {
                     sb.append(titleize(word, m.group(1), intCaps));
