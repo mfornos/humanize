@@ -138,7 +138,7 @@ public final class Constants
 
     public static final List<String> titleIgnoredWords = Arrays.asList(new String[] {
             "a", "an", "and", "but", "nor", "it", "the", "to", "with", "in", "on", "of",
-            "up", "or", "at", "into", "onto", "by", "from", "then", "for", "via"
+            "up", "or", "at", "into", "onto", "by", "from", "then", "for", "via", "versus"
     });
 
     public static final Pattern titleWordSperator = Pattern.compile(".+(\\||-|/).+");
