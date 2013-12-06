@@ -2,7 +2,7 @@ h1. Humanize for Java !https://secure.travis-ci.org/mfornos/humanize.png?branch=
 
 Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. 
 
-Exists in two flavors: *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
+Provided in two variants: *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
 
 h2. Getting Started
 
@@ -10,7 +10,7 @@ h3. Maven
 
 Current version:
 
-bc.. <humanize.version>1.1.3</humanize.version>
+bc.. <humanize.version>1.1.4</humanize.version>
 
 p. For the *slim flavor* write the following in your _pom_:
 
@@ -34,13 +34,13 @@ h2. Dependencies
 
 h3. Humanize-slim
 
-* guava 14.0.1
-* prettytime 3.0.2.Final
+* guava 15.0
+* prettytime 3.1.0.Final
 
 h3. Humanize-icu
 
 * humanize-slim ${humanize.version}
-* icu4j 51.1
+* icu4j 52.1
 
 _If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the "ICU Data Library Customizer":http://apps.icu-project.org/datacustom/ may be useful._
 
@@ -70,7 +70,72 @@ h2. Documentation
 * "Documentation for humanize-slim":http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
 * "Documentation for humanize-icu":http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
 
-h2. Examples
+h2. Principal Methods
+
+h3. Date&Time
+
+|_. Method |_. Description |_. Output |_. Slim |_. ICU |
+| naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted | ✔ | ✔ |
+| naturalTime | Computes both past and future relative dates. | '2 days from now', '3 decades ago', '3 minutes from now', 'moments ago', etc. | ✔ | ✔ |
+| nanoTime | Formats a number of nanoseconds as the proper ten power unit. | '1.5µs', '10.51ms', '30ns', etc. | ✔ | - |
+| duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.| ✔ | ✔ |
+| smartDateFormat | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' | - | ✔ |
+| prettyTimeFormat | Returns a PrettyTime instance for the current thread. | - | ✔ | - |
+
+h3. Frequencies
+
+|_. Method |_. Description |_. Output |_. Slim |_. ICU |
+| times | Interprets numbers as occurrences. | 'never', 'once', '5 times', etc. | ✔ | - |
+| paceFormat | Matches a pace (value and interval) with a logical time frame. Very useful for slow paces. e.g. heartbeats, ingested calories, hyperglycemic crises. | 'Approximately 7 times per day.' | ✔ | - |
+| oxford | Converts a list of items to a human readable string with an optional limit. | 'Oranges, Pears, Bananas, and 2 others' | ✔ | - |
+
+h3. Numbers
+
+|_. Method |_. Description |_. Output |_. Slim |_. ICU |
+| ordinal | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. | ✔ | ✔ |
+| spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. | ✔ | - |
+| spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. | ✔ | - |
+| spellNumber | Converts the given number to words. | 'twenty-three', 'two thousand eight hundred and forty', 'one million four hundred and twelve thousand six hundred and five', etc.  | - | ✔ |
+
+h3. Units
+
+|_. Method |_. Description |_. Output |_. Slim |_. ICU |
+| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5 MB', '1.18 PB', etc. | ✔ | - |
+| metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  | '100k', '1M', '3.5M', etc.  | ✔ | - |
+| formatCurrency | Smartly formats the given number as a monetary amount. | '£34', '£1,000', '£12.50', etc. | ✔ | ✔ |
+| formatPluralCurrency | Smartly formats the given number as a monetary amount in plural form. | '34 British pounds sterling', '1,500.55 British pounds sterling', '1 euro', etc. | - | ✔ |
+| formatPercent | Formats the given ratio as a percentage. | '500%', '56%', etc.  | ✔ | ✔ |
+
+h3. Text
+
+|_. Method |_. Description |_. Output |_. Slim |_. ICU |
+| pluralize | Applies the proper format for a given plural state. | - | ✔ | - |
+| pluralizeFormat | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormat_ for pluralization using CLDR Plural Rules. | - | ✔ | - |
+| camelize | Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed. | - | ✔ | - |
+| capitalize | Capitalizes a string, smartly. | - | ✔ | - |
+| decamelize | Converts a camel case string into a human-readable name. | - | ✔ | - |
+| titleize | Creates a nice looking title, smartly. | - | ✔ | - |
+| transliterate | Full transliteration support. | - | - | ✔ |
+| simplify | Sort of poor man's transliteration, i.e. normalizes and strips diacritical marks. | - | ✔  | - |
+| slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
+| mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
+| wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
+| messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
+| replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
+
+h2. Supported languages
+
+*humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.
+
+*humanize-icu*: all languages supported by the "ICU APIs":http://icu-project.org/.
+
+h3. Custom languages
+
+If you want to add support for other languages simply put a properties file named *Humanize_{your_locale}.properties* under the classpath: *i18n*.
+
+h2. Code Examples
+
+p. Small set of usage examples. _See @src/test/.../TestHumanize@ for complete examples._
 
 h3. Date&Time
 
@@ -80,6 +145,19 @@ naturalTime(new Date(3155792597470L * 3L), new Date(0)); // == "3 centuries ago"
 naturalTime(new Date(0), new Date(1000 * 60 * 12)); // == "12 minutes from now"
 naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); // == "1 day from now"
 naturalTime(new Date(0), new Date(2629743830L * 3L)); // == "3 months from now"
+
+p. 
+
+h3. Frequencies
+
+bc.. paceFormat(1.75, TimeMillis.HOUR.millis()); // == "Approximately 2 times per hour."
+paceFormat(0, TimeMillis.SECOND.millis()); // == "Never."
+paceFormat(1, TimeMillis.WEEK.millis()); // == "Approximately one time per week."
+
+bc.. times(0); // == "never"
+times(1); // == "once"
+times(2); // == "twice"
+times(3); // == "3 times"
 
 p. 
 
@@ -146,65 +224,6 @@ parseISOTime("15:22:01Z");
 parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 
 p. 
-
-h3. More
-
-p. _See @src/test/.../TestHumanize@ for complete examples._
-
-h2. Principal Methods
-
-h3. Date&Time
-
-|_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted | ✔ | ✔ |
-| naturalTime | Computes both past and future relative dates. | '2 days from now', '3 decades ago', '3 minutes from now', 'moments ago', etc. | ✔ | ✔ |
-| nanoTime | Formats a number of nanoseconds as the proper ten power unit. | '1.5µs', '10.51ms', '30ns', etc. | ✔ | - |
-| duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.| ✔ | ✔ |
-| smartDateFormat | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' | - | ✔ |
-| prettyTimeFormat | Returns a PrettyTime instance for the current thread. | - | ✔ | - |
-
-h3. Numbers
-
-|_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| ordinal | Converts a number to its ordinal as a string. | '1st', '2nd', '3rd', etc. | ✔ | ✔ |
-| spellBigNumber | Converts a big number to a friendly text representation. | '2.3 thousand', '1 million', '-1.55 billion', '3 decillion', '2 googol', etc. | ✔ | - |
-| spellDigit | For decimal digits, returns the number spelled out. | 'one', 'two', 'three', etc. | ✔ | - |
-| spellNumber | Converts the given number to words. | 'twenty-three', 'two thousand eight hundred and forty', 'one million four hundred and twelve thousand six hundred and five', etc.  | - | ✔ |
-
-h3. Units
-
-|_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5 MB', '1.18 PB', etc. | ✔ | - |
-| metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  | '100k', '1M', '3.5M', etc.  | ✔ | - |
-| formatCurrency | Smartly formats the given number as a monetary amount. | '£34', '£1,000', '£12.50', etc. | ✔ | ✔ |
-| formatPluralCurrency | Smartly formats the given number as a monetary amount in plural form. | '34 British pounds sterling', '1,500.55 British pounds sterling', '1 euro', etc. | - | ✔ |
-| formatPercent | Formats the given ratio as a percentage. | '500%', '56%', etc.  | ✔ | ✔ |
-
-h3. Text
-
-|_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| pluralize | Applies the proper format for a given plural state. | - | ✔ | - |
-| pluralizeFormat | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to _messageFormat_ for pluralization using CLDR Plural Rules. | - | ✔ | - |
-| camelize | Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed. | - | ✔ | - |
-| capitalize | Capitalizes a string (first letter uppercase and the rest lowercase). | - | ✔ | - |
-| decamelize | Converts a camel case string into a human-readable name. | - | ✔ | - |
-| titleize | Capitalize all the words, and replace some characters in the string to create a nice looking title. | - | ✔ | - |
-| transliterate | Strips diacritic marks. | - | ✔ | - |
-| slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
-| mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
-| wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
-| messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
-| replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
-
-h2. Supported languages
-
-*humanize-slim*: _naturalTime_ supports over 25 languages, see "prettytime":http://ocpsoft.org/prettytime. Rest of methods have support for english and spanish.
-
-*humanize-icu*: all languages supported by the "ICU APIs":http://icu-project.org/.
-
-h3. Custom languages
-
-If you want to add support for other languages simply put a properties file named *Humanize_{your_locale}.properties* under the classpath: *i18n*.
 
 h2. Extensible Message Formats
 
