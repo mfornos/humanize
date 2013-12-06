@@ -87,7 +87,6 @@ h3. Frequencies
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
 | times | Interprets numbers as occurrences. | 'never', 'once', '5 times', etc. | ✔ | - |
 | paceFormat | Matches a pace (value and interval) with a logical time frame. Very useful for slow paces. e.g. heartbeats, ingested calories, hyperglycemic crises. | 'Approximately 7 times per day.' | ✔ | - |
-| oxford | Converts a list of items to a human readable string with an optional limit. | 'Oranges, Pears, Bananas, and 2 others' | ✔ | - |
 
 h3. Numbers
 
@@ -122,6 +121,7 @@ h3. Text
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
 | messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name. | 'SMILING FACE WITH SMILING EYES' for the corresponding Emoji char | ✔ | ✔ |
+| oxford | Converts a list of items to a human readable string with an optional limit. | 'Oranges, Pears, Bananas, and 2 others' | ✔ | - |
 
 h2. Supported languages
 
