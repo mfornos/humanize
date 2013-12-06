@@ -54,14 +54,14 @@ grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.da
       <section>
 
 <p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
-<p>Exists in two flavors: <strong>humanize-slim</strong> and <strong>humanize-icu</strong>. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
+<p>Provided in two variants: <strong>humanize-slim</strong> and <strong>humanize-icu</strong>. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
 
 <h2>Getting Started</h2>
 
 <h3>Maven</h3>
 
 <p>Current version:</p>
-<pre><code>&lt;humanize.version&gt;1.1.3&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;1.1.4&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -81,13 +81,13 @@ grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.da
 <h3>
 Humanize-slim</h3>
 <ul>
-<li>guava 14.0.1</li>
-<li>prettytime 3.0.2.Final</li>
+<li>guava 15.0</li>
+<li>prettytime 3.1.0.Final</li>
 </ul><h3>
 Humanize-icu</h3>
 <ul>
 <li>humanize-slim  ${humanize.version}</li>
-	<li>icu4j 51.1</li>
+	<li>icu4j 52.1</li>
 </ul>
 <p>
 <em>
@@ -119,71 +119,6 @@ class SomeClass {
 <li><a href="http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html">Documentation for humanize-slim</a></li>
 	<li><a href="http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html">Documentation for humanize-icu</a></li>
 </ul>
-<h2>Examples</h2>
-<h3>Date&amp;Time</h3>
-<pre><code class="java">naturalTime(new Date()); // == "moments ago"
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
-// == "1 day ago"
-naturalTime(new Date(3155792597470L * 3L), new Date(0)); 
-// == "3 centuries ago"
-naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
-// == "12 minutes from now"
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); 
-// == "1 day from now"
-naturalTime(new Date(0), new Date(2629743830L * 3L)); 
-// == "3 months from now"</code></pre>
-<p></p>
-<h3>Text</h3>
-<p><strong>Pluralize</strong></p>
-<pre><code class="java">pluralize("one", "{0}", 1); // == "one"
-pluralize("one", "{0}", 2); // == "2"
-pluralize("one", "{0}", "none", 0); // == "none"
-</code></pre>
-<pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
-pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
-pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
-msg.render(0, "disk");    // == "There are no files on disk."
-msg.render(1, "disk");    // == "There is one file on disk."
-msg.render(1000, "disk"); // == "There are 1,000 files on disk."</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("nothing::one thing::{0} things");
-msg.render(-1); // == "nothing"
-msg.render(0);  // == "nothing"
-msg.render(1);  // == "one thing"
-msg.render(2);  // == "2 things"</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("one thing::{0} things");
-msg.render(-1); // == "-1 things"
-msg.render(0);  // == "0 things"
-msg.render(1);  // == "one thing"
-msg.render(2);  // == "2 things" </code></pre>
-<p><strong>Slugify</strong></p>
-<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); 
-// == "cet-ete-jen-ai-rien-a-coder" </code></pre>
-<p><strong>Interpolation</strong></p>
-<p>Emoji aliases:</p>
-<pre><code class="java">EmojiInterpolator.interpolate(
-        "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
-        "Hi :sparkles:!");
-
-// == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
-<p>Emoji chars:</p>
-<pre><code class="java">EmojiInterpolator.interpolateChars(
-        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
-        "Hi \uE025!"); 
-
-// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
-</code></pre>
-<h3>Parse</h3>
-<strong>Date&amp;Time</strong>
-<pre><code class="java">parseISODateTime("2011-09-14T15:22:01Z");
-parseISOTime("15:22:01Z");
-
-// Smart
-
-parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
-</code></pre>
-<h3>More</h3>
-<p><em>See <code>src/test/.../HumanizeTest</code> for complete examples.</em></p>
 
 <h2>Principal Methods</h2>
 <h3>Date&amp;Time</h3>
@@ -237,7 +172,34 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<td class="tick"> ✔ </td>
 		<td> - </td>
 	</tr>
-</table><h3>Numbers</h3>
+</table>
+
+<h3>Frequencies</h3>
+<table>
+<tr>
+<th>Method </th>
+		<th>Description </th>
+		<th>Output </th>
+		<th>Slim </th>
+		<th>ICU </th>
+	</tr>
+<tr>
+<td> times </td>
+		<td> Interprets numbers as occurrences. </td>
+		<td> ‘never’, ‘once’, ‘5 times’, etc. </td>
+		<td class="tick"> ✔ </td>
+		<td> - </td>
+	</tr>
+<tr>
+<td> paceFormat </td>
+		<td> Matches a pace (value and interval) with a logical time frame. Very useful for slow paces. e.g. heartbeats, ingested calories, hyperglycemic crises. </td>
+		<td> ‘Approximately 7 times per day.’ </td>
+		<td class="tick"> ✔ </td>
+		<td> - </td>
+	</tr>
+</table>
+
+<h3>Numbers</h3>
 <table>
 <tr>
 <th>Method </th>
@@ -350,7 +312,7 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 	</tr>
 <tr>
 <td> capitalize </td>
-		<td> Capitalizes a string (first letter uppercase and the rest lowercase). </td>
+		<td> Capitalizes a string, smartly. </td>
 		<td> – </td>
 		<td class="tick"> ✔ </td>
 		<td> – </td>
@@ -364,17 +326,24 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 	</tr>
 <tr>
 <td> titleize </td>
-		<td> Capitalize all the words, and replace some characters in the string to create a nice looking title. </td>
+		<td> Creates a nice looking title, smartly. </td>
 		<td> – </td>
 		<td class="tick"> ✔ </td>
 		<td> – </td>
 	</tr>
 <tr>
 <td> transliterate </td>
-		<td> Strips diacritic marks. </td>
+		<td>Full transliteration support.</td>
+		<td> – </td>
 		<td> – </td>
 		<td class="tick"> ✔ </td>
+	</tr>
+<tr>
+<td> simplify </td>
+		<td>Sort of poor man’s transliteration, i.e. normalizes and strips diacritical marks.</td>
 		<td> – </td>
+		<td class="tick"> ✔ </td>
+		<td> - </td>
 	</tr>
 <tr>
 <td> slugify </td>
@@ -411,6 +380,13 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 		<td class="tick"> ✔ </td>
 		<td class="tick"> ✔ </td>
 	</tr>
+<tr>
+<td> oxford </td>
+		<td> Converts a list of items to a human readable string with an optional limit. </td>
+		<td> ‘Oranges, Pears, Bananas, and 2 others’ </td>
+		<td class="tick"> ✔ </td>
+		<td> - </td>
+	</tr>
 </table>
 
 <h2>Supported languages</h2>
@@ -420,6 +396,82 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 <p>
 If you want to add support for other languages simply put a properties file named <em>Humanize_{your_locale}.properties</em> under the classpath: <em>i18n</em>.
 </p>
+
+<h2>Code Examples</h2>
+
+<p>Small set of usage examples. <em>See <code>src/test/.../HumanizeTest</code> for complete examples.</em></p>
+
+<h3>Date&amp;Time</h3>
+<pre><code class="java">naturalTime(new Date()); // == "moments ago"
+naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
+// == "1 day ago"
+naturalTime(new Date(3155792597470L * 3L), new Date(0)); 
+// == "3 centuries ago"
+naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
+// == "12 minutes from now"
+naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); 
+// == "1 day from now"
+naturalTime(new Date(0), new Date(2629743830L * 3L)); 
+// == "3 months from now"</code></pre>
+<p></p>
+<h3>Frequencies</h3>
+<pre><code class="java">paceFormat(1.75, TimeMillis.HOUR.millis()); // == "Approximately 2 times per hour."
+paceFormat(0, TimeMillis.SECOND.millis()); // == "Never."
+paceFormat(1, TimeMillis.WEEK.millis()); // == "Approximately one time per week."</code></pre>
+<pre><code class="java">times(0); // == "never"
+times(1); // == "once"
+times(2); // == "twice"
+times(3); // == "3 times"</code></pre>
+<p></p>
+<h3>Text</h3>
+<p><strong>Pluralize</strong></p>
+<pre><code class="java">pluralize("one", "{0}", 1); // == "one"
+pluralize("one", "{0}", 2); // == "2"
+pluralize("one", "{0}", "none", 0); // == "none"
+</code></pre>
+<pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
+pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
+pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
+<pre><code class="java">MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
+msg.render(0, "disk");    // == "There are no files on disk."
+msg.render(1, "disk");    // == "There is one file on disk."
+msg.render(1000, "disk"); // == "There are 1,000 files on disk."</code></pre>
+<pre><code class="java">MessageFormat msg = pluralizeFormat("nothing::one thing::{0} things");
+msg.render(-1); // == "nothing"
+msg.render(0);  // == "nothing"
+msg.render(1);  // == "one thing"
+msg.render(2);  // == "2 things"</code></pre>
+<pre><code class="java">MessageFormat msg = pluralizeFormat("one thing::{0} things");
+msg.render(-1); // == "-1 things"
+msg.render(0);  // == "0 things"
+msg.render(1);  // == "one thing"
+msg.render(2);  // == "2 things" </code></pre>
+<p><strong>Slugify</strong></p>
+<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); 
+// == "cet-ete-jen-ai-rien-a-coder" </code></pre>
+<p><strong>Interpolation</strong></p>
+<p>Emoji aliases:</p>
+<pre><code class="java">EmojiInterpolator.interpolate(
+        "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
+        "Hi :sparkles:!");
+
+// == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
+<p>Emoji chars:</p>
+<pre><code class="java">EmojiInterpolator.interpolateChars(
+        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
+        "Hi \uE025!"); 
+
+// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
+</code></pre>
+<h3>Parse</h3>
+<strong>Date&amp;Time</strong>
+<pre><code class="java">parseISODateTime("2011-09-14T15:22:01Z");
+parseISOTime("15:22:01Z");
+
+// Smart
+
+parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
+</code></pre>
 
 <h2>Extensible Message Formats</h2>
 <p>If you want to plug in your own formats then place a <em>META-INF/services/humanize.spi.FormatProvider</em> file inside your jar. This file must contain a list of the full qualified class names of your <em>FormatProvider</em> implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.</p>

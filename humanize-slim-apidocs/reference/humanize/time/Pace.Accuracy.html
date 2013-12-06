@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  DurationHelper
+  Pace.Accuracy
 
 
 | Humanize for Java - Slim
@@ -171,7 +171,7 @@
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../humanize/time/DurationHelper.html">DurationHelper</a></li>
+          <li class="api apilevel-"><a href="../../humanize/time/DurationHelper.html">DurationHelper</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/Pace.html">Pace</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/PrettyTimeFormat.html">PrettyTimeFormat</a></li>
@@ -181,7 +181,7 @@
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a></li>
+          <li class="selected api apilevel-"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/Pace.TimeMillis.html">Pace.TimeMillis</a></li>
       </ul>
     </li>
@@ -231,25 +231,41 @@
   
   
 
+  
+   
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
 
 <div class="sum-details-links">
 
 
 Summary:
 
-  <a href="#nestedclasses">Nested Classes</a>
+
+
+
+  <a href="#enumconstants">Enums</a>
   
 
 
 
 
 
-
-
-
-
-  &#124; <a href="#pubctors">Ctors</a>
-  
 
 
 
@@ -278,16 +294,20 @@ Summary:
 
 <div id="jd-header">
     public
-     
-     
+    static 
+    final 
     
-    class
-<h1>DurationHelper</h1>
+    enum
+<h1>Pace.Accuracy</h1>
 
 
 
   
-    extends Object<br/>
+  
+  
+
+  
+    extends Enum&lt;E&nbsp;extends&nbsp;Enum&lt;E&gt;&gt;<br/>
   
   
   
@@ -307,7 +327,7 @@ Summary:
 
     <tr>
          	
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -315,7 +335,17 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">humanize.time.DurationHelper</td>
+        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Enum&lt;E&nbsp;extends&nbsp;java.lang.Enum&lt;E&gt;&gt;</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="1" class="jd-inheritance-class-cell">humanize.time.Pace.Accuracy</td>
     </tr>
     
 
@@ -329,11 +359,6 @@ Summary:
 
 <div class="jd-descr">
 
-
-<h2>Class Overview</h2>
-<p>Helper to create Durations outside PrettyTime.
- 
-</p>
 
 
 
@@ -363,20 +388,36 @@ Summary:
 
 
 
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
 
 
-  
+
+
+
+
+
+
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="enumconstants" class="jd-sumtable"><tr><th colspan="12">Enum Values</th></tr>
+
+    
     <tr class="alt-color api apilevel-" >
-      <td class="jd-typecol"><nobr>
-        
-         
-         
-        
-        class</nobr></td>
-      <td class="jd-linkcol"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></td>
-      <td class="jd-descrcol" width="100%">&nbsp;</td>
+        <td class="jd-descrcol"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>&nbsp;</td>
+        <td class="jd-linkcol">APROX&nbsp;</td>
+        <td class="jd-descrcol" width="100%">&nbsp;</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-descrcol"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>&nbsp;</td>
+        <td class="jd-linkcol">LESS_THAN&nbsp;</td>
+        <td class="jd-descrcol" width="100%">&nbsp;</td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-descrcol"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>&nbsp;</td>
+        <td class="jd-linkcol">NONE&nbsp;</td>
+        <td class="jd-descrcol" width="100%">&nbsp;</td>
     </tr>
     
     
@@ -398,40 +439,6 @@ Summary:
 
 
 
-
-
-
-
-
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<table id="pubctors" class="jd-sumtable"><tr><th colspan="12">Public Constructors</th></tr>
-
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            </nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#DurationHelper()">DurationHelper</a></span>()</nobr>
-        
-  </td></tr>
-
-
-
-</table>
-
-
-
-
-
-
 <!-- ========== METHOD SUMMARY =========== -->
 <table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
 
@@ -445,10 +452,10 @@ Summary:
             
             static
             
-            Duration</nobr>
+            <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculateDurantion</a></span>(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.Accuracy.html#valueOf(java.lang.String)">valueOf</a></span>(String name)</nobr>
         
   </td></tr>
 
@@ -458,45 +465,13 @@ Summary:
         <td class="jd-typecol"><nobr>
             
             
-            
+            final
             static
             
-            Duration</nobr>
+            <a href="../../humanize/time/Pace.Accuracy.html">Accuracy[]</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)">calculateDurantion</a></span>(Date ref, Date then, Locale locale)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            Duration</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date)">calculateDurantion</a></span>(Date ref, Date then)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#getDB(java.util.Locale)">getDB</a></span>(Locale locale)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.Accuracy.html#values()">values</a></span>()</nobr>
         
   </td></tr>
 
@@ -514,6 +489,208 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Enum" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.lang.Enum-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  java.lang.Enum
+
+<div id="inherited-methods-java.lang.Enum">
+  <div id="inherited-methods-java.lang.Enum-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.lang.Enum-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">clone</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">compareTo</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">compareTo</span>(E arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">equals</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">finalize</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            Class&lt;E&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getDeclaringClass</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">hashCode</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">name</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">ordinal</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">toString</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            &lt;T&nbsp;extends&nbsp;Enum&lt;T&gt;&gt;
+            T</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">valueOf</span>(Class&lt;T&gt; arg0, String arg1)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -717,6 +894,50 @@ From class
 </td></tr>
 
 
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Comparable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.lang.Comparable-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  java.lang.Comparable
+
+<div id="inherited-methods-java.lang.Comparable">
+  <div id="inherited-methods-java.lang.Comparable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.lang.Comparable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">compareTo</span>(T arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
 </table>
 
 
@@ -737,39 +958,28 @@ From class
 <!-- Enum Values -->
 
 
-<!-- Constants -->
-
-
-<!-- Fields -->
-
-
-<!-- Public ctors -->
-
-
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<h2>Public Constructors</h2>
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Enum Values</h2>
 
 
 
-<A NAME="DurationHelper()"></A>
+
+<A NAME="APROX"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-         
-         
-         
-         
-        
+        static 
+        final 
+        <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>
       </span>
-      <span class="sympad">DurationHelper</span>
-      <span class="normal">()</span>
+        APROX
     </h4>
       <div class="api-level">
-        <div>
+        
 
-</div>
+
         
   
 
@@ -778,10 +988,80 @@ From class
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
+    
     </div>
 </div>
 
 
+
+<A NAME="LESS_THAN"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>
+      </span>
+        LESS_THAN
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="NONE"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>
+      </span>
+        NONE
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+
+<!-- Constants -->
+
+
+<!-- Fields -->
+
+
+<!-- Public ctors -->
 
 
 
@@ -797,7 +1077,7 @@ From class
 
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
+<A NAME="valueOf(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -807,10 +1087,10 @@ From class
          
          
          
-        Duration
+        <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a>
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</span>
+      <span class="sympad">valueOf</span>
+      <span class="normal">(String name)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -828,82 +1108,20 @@ From class
 </div>
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)"></A>
+<A NAME="values()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
         static 
+        final 
          
          
-         
-        Duration
+        <a href="../../humanize/time/Pace.Accuracy.html">Accuracy[]</a>
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, Locale locale)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="calculateDurantion(java.util.Date, java.util.Date)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        Duration
-      </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getDB(java.util.Locale)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a>
-      </span>
-      <span class="sympad">getDB</span>
-      <span class="normal">(Locale locale)</span>
+      <span class="sympad">values</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>

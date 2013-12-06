@@ -552,6 +552,42 @@
 <exception name="ParseException" type="java.text.ParseException">
 </exception>
 </method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
+</parameter>
+</method>
+<method name="pluralize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
+</parameter>
+</method>
 <method name="replaceSupplementary"
  return="java.lang.String"
  abstract="false"
@@ -623,6 +659,34 @@
 <parameter name="value" type="java.lang.Number">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="transliterate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="transliterate"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="id" type="java.lang.String">
 </parameter>
 </method>
 </class>

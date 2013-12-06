@@ -29,10 +29,13 @@ var DATA = [
       { id:27, label:"humanize.time", link:"humanize/time/package-summary.html", type:"package" },
       { id:28, label:"humanize.time.DurationHelper", link:"humanize/time/DurationHelper.html", type:"class" },
       { id:29, label:"humanize.time.DurationHelper.DurationDB", link:"humanize/time/DurationHelper.DurationDB.html", type:"class" },
-      { id:30, label:"humanize.time.PrettyTimeFormat", link:"humanize/time/PrettyTimeFormat.html", type:"class" },
-      { id:31, label:"humanize.util", link:"humanize/util/package-summary.html", type:"package" },
-      { id:32, label:"humanize.util.Constants", link:"humanize/util/Constants.html", type:"class" },
-      { id:33, label:"humanize.util.Constants.TimeStyle", link:"humanize/util/Constants.TimeStyle.html", type:"class" },
-      { id:34, label:"humanize.util.UTF8Control", link:"humanize/util/UTF8Control.html", type:"class" }
+      { id:30, label:"humanize.time.Pace", link:"humanize/time/Pace.html", type:"class" },
+      { id:31, label:"humanize.time.Pace.Accuracy", link:"humanize/time/Pace.Accuracy.html", type:"class" },
+      { id:32, label:"humanize.time.Pace.TimeMillis", link:"humanize/time/Pace.TimeMillis.html", type:"class" },
+      { id:33, label:"humanize.time.PrettyTimeFormat", link:"humanize/time/PrettyTimeFormat.html", type:"class" },
+      { id:34, label:"humanize.util", link:"humanize/util/package-summary.html", type:"package" },
+      { id:35, label:"humanize.util.Constants", link:"humanize/util/Constants.html", type:"class" },
+      { id:36, label:"humanize.util.Constants.TimeStyle", link:"humanize/util/Constants.TimeStyle.html", type:"class" },
+      { id:37, label:"humanize.util.UTF8Control", link:"humanize/util/UTF8Control.html", type:"class" }
 
     ];

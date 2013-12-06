@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  DurationHelper
+  Pace
 
 
 | Humanize for Java - Slim
@@ -171,9 +171,9 @@
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../humanize/time/DurationHelper.html">DurationHelper</a></li>
+          <li class="api apilevel-"><a href="../../humanize/time/DurationHelper.html">DurationHelper</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></li>
-          <li class="api apilevel-"><a href="../../humanize/time/Pace.html">Pace</a></li>
+          <li class="selected api apilevel-"><a href="../../humanize/time/Pace.html">Pace</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/PrettyTimeFormat.html">PrettyTimeFormat</a></li>
       </ul>
     </li>
@@ -246,6 +246,9 @@ Summary:
 
 
 
+  &#124; <a href="#lfields">Fields</a>
+  
+
 
 
   &#124; <a href="#pubctors">Ctors</a>
@@ -282,7 +285,7 @@ Summary:
      
     
     class
-<h1>DurationHelper</h1>
+<h1>Pace</h1>
 
 
 
@@ -315,7 +318,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">humanize.time.DurationHelper</td>
+        <td colspan="1" class="jd-inheritance-class-cell">humanize.time.Pace</td>
     </tr>
     
 
@@ -331,7 +334,8 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Helper to create Durations outside PrettyTime.
+<p>Holds the properties required to produce human friendly textual
+ representations of pace quantities.
  
 </p>
 
@@ -374,8 +378,20 @@ Summary:
          
          
         
-        class</nobr></td>
-      <td class="jd-linkcol"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></td>
+        enum</nobr></td>
+      <td class="jd-linkcol"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a></td>
+      <td class="jd-descrcol" width="100%">&nbsp;</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+      <td class="jd-typecol"><nobr>
+        
+         
+         
+        
+        enum</nobr></td>
+      <td class="jd-linkcol"><a href="../../humanize/time/Pace.TimeMillis.html">Pace.TimeMillis</a></td>
       <td class="jd-descrcol" width="100%">&nbsp;</td>
     </tr>
     
@@ -396,6 +412,26 @@ Summary:
 
 
 
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          <a href="../../humanize/time/Pace.html">Pace</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../humanize/time/Pace.html#EMPTY">EMPTY</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
 
 
 
@@ -419,7 +455,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#DurationHelper()">DurationHelper</a></span>()</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.html#Pace(long, humanize.time.Pace.Accuracy, humanize.time.Pace.TimeMillis)">Pace</a></span>(long value, <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a> accuracy, <a href="../../humanize/time/Pace.TimeMillis.html">Pace.TimeMillis</a> timeUnit)</nobr>
         
   </td></tr>
 
@@ -443,12 +479,12 @@ Summary:
             
             
             
-            static
             
-            Duration</nobr>
+            
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculateDurantion</a></span>(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.html#getAccuracy()">getAccuracy</a></span>()</nobr>
         
   </td></tr>
 
@@ -459,12 +495,12 @@ Summary:
             
             
             
-            static
             
-            Duration</nobr>
+            
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)">calculateDurantion</a></span>(Date ref, Date then, Locale locale)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.html#getTimeUnit()">getTimeUnit</a></span>()</nobr>
         
   </td></tr>
 
@@ -475,12 +511,12 @@ Summary:
             
             
             
-            static
             
-            Duration</nobr>
+            
+            long</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date)">calculateDurantion</a></span>(Date ref, Date then)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.html#getValue()">getValue</a></span>()</nobr>
         
   </td></tr>
 
@@ -491,12 +527,12 @@ Summary:
             
             
             
-            static
             
-            <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></nobr>
+            
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#getDB(java.util.Locale)">getDB</a></span>(Locale locale)</nobr>
+        <span class="sympad"><a href="../../humanize/time/Pace.html#toString()">toString</a></span>()</nobr>
         
   </td></tr>
 
@@ -743,6 +779,43 @@ From class
 <!-- Fields -->
 
 
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
+
+
+
+
+<A NAME="EMPTY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        <a href="../../humanize/time/Pace.html">Pace</a>
+      </span>
+        EMPTY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+
 <!-- Public ctors -->
 
 
@@ -751,7 +824,7 @@ From class
 
 
 
-<A NAME="DurationHelper()"></A>
+<A NAME="Pace(long, humanize.time.Pace.Accuracy, humanize.time.Pace.TimeMillis)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -763,8 +836,8 @@ From class
          
         
       </span>
-      <span class="sympad">DurationHelper</span>
-      <span class="normal">()</span>
+      <span class="sympad">Pace</span>
+      <span class="normal">(long value, <a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a> accuracy, <a href="../../humanize/time/Pace.TimeMillis.html">Pace.TimeMillis</a> timeUnit)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -797,20 +870,20 @@ From class
 
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
+<A NAME="getAccuracy()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        Duration
+         
+        String
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</span>
+      <span class="sympad">getAccuracy</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -828,20 +901,20 @@ From class
 </div>
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)"></A>
+<A NAME="getTimeUnit()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        Duration
+         
+        String
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, Locale locale)</span>
+      <span class="sympad">getTimeUnit</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -859,20 +932,20 @@ From class
 </div>
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date)"></A>
+<A NAME="getValue()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        Duration
+         
+        long
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then)</span>
+      <span class="sympad">getValue</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -890,20 +963,20 @@ From class
 </div>
 
 
-<A NAME="getDB(java.util.Locale)"></A>
+<A NAME="toString()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a>
+         
+        String
       </span>
-      <span class="sympad">getDB</span>
-      <span class="normal">(Locale locale)</span>
+      <span class="sympad">toString</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>

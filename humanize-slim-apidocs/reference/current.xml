@@ -65,6 +65,38 @@
 <parameter name="capitalizeFirstChar" type="boolean">
 </parameter>
 </method>
+<method name="camelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="capitalizeFirstChar" type="boolean">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="camelize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
 <method name="capitalize"
  return="java.lang.String"
  abstract="false"
@@ -75,7 +107,22 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="word" type="java.lang.String">
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="capitalize"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
 </parameter>
 </method>
 <method name="dateFormat"
@@ -220,6 +267,59 @@
 <parameter name="style" type="humanize.util.Constants.TimeStyle">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="fixLength"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="charsNum" type="int">
+</parameter>
+<parameter name="paddingChar" type="char">
+</parameter>
+</method>
+<method name="fixLength"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="charsNum" type="int">
+</parameter>
+<parameter name="paddingChar" type="char">
+</parameter>
+<parameter name="left" type="boolean">
+</parameter>
+</method>
+<method name="format"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="pattern" type="java.lang.String">
+</parameter>
+<parameter name="args" type="java.lang.Object...">
 </parameter>
 </method>
 <method name="format"
@@ -475,6 +575,38 @@
 <parameter name="value" type="java.lang.Number">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="lossyEquals"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="target" type="java.lang.String">
+</parameter>
+</method>
+<method name="lossyEquals"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="source" type="java.lang.String">
+</parameter>
+<parameter name="target" type="java.lang.String">
 </parameter>
 </method>
 <method name="mask"
@@ -737,6 +869,206 @@
 <parameter name="locale" type="java.util.Locale">
 </parameter>
 </method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.util.Collection&lt;?&gt;">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.util.Collection&lt;?&gt;">
+</parameter>
+<parameter name="limit" type="int">
+</parameter>
+<parameter name="limitStr" type="java.lang.String">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.util.Collection&lt;?&gt;">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.lang.Object[]">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.lang.Object[]">
+</parameter>
+<parameter name="limit" type="int">
+</parameter>
+<parameter name="limitStr" type="java.lang.String">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.lang.Object[]">
+</parameter>
+<parameter name="limit" type="int">
+</parameter>
+<parameter name="limitStr" type="java.lang.String">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="oxford"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.lang.Object[]">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="pace"
+ return="humanize.time.Pace"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="interval" type="long">
+</parameter>
+</method>
+<method name="paceFormat"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="interval" type="long">
+</parameter>
+</method>
+<method name="paceFormat"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="interval" type="long">
+</parameter>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="none" type="java.lang.String">
+</parameter>
+</method>
+<method name="paceFormat"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="interval" type="long">
+</parameter>
+</method>
+<method name="paceFormat"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.Number">
+</parameter>
+<parameter name="interval" type="long">
+</parameter>
+<parameter name="one" type="java.lang.String">
+</parameter>
+<parameter name="many" type="java.lang.String">
+</parameter>
+<parameter name="none" type="java.lang.String">
+</parameter>
+</method>
 <method name="parseBase64"
  return="byte[]"
  abstract="false"
@@ -985,6 +1317,34 @@
 <parameter name="value" type="java.lang.String">
 </parameter>
 </method>
+<method name="roundToSignificantFigures"
+ return="java.lang.Number"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="num" type="java.lang.Number">
+</parameter>
+<parameter name="precision" type="int">
+</parameter>
+</method>
+<method name="simplify"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
 <method name="slugify"
  return="java.lang.String"
  abstract="false"
@@ -1054,6 +1414,34 @@
 <parameter name="locale" type="java.util.Locale">
 </parameter>
 </method>
+<method name="times"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="num" type="java.lang.Number">
+</parameter>
+</method>
+<method name="times"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="num" type="java.lang.Number">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
 <method name="titleize"
  return="java.lang.String"
  abstract="false"
@@ -1067,7 +1455,7 @@
 <parameter name="text" type="java.lang.String">
 </parameter>
 </method>
-<method name="transliterate"
+<method name="titleize"
  return="java.lang.String"
  abstract="false"
  native="false"
@@ -1078,6 +1466,8 @@
  visibility="public"
 >
 <parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="intCaps" type="java.lang.String[]">
 </parameter>
 </method>
 <method name="underscore"
@@ -2118,6 +2508,47 @@
  visibility="public"
 >
 </method>
+<method name="getStringByIndex"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="cacheName" type="java.lang.String">
+</parameter>
+<parameter name="index" type="int">
+</parameter>
+</method>
+<method name="getStringList"
+ return="java.util.Collection&lt;java.lang.String&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="cacheName" type="java.lang.String">
+</parameter>
+</method>
+<method name="getStrings"
+ return="java.lang.String[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<parameter name="cacheName" type="java.lang.String">
+</parameter>
+</method>
 <method name="ordinalSuffix"
  return="java.lang.String"
  abstract="false"
@@ -3121,6 +3552,160 @@
 </parameter>
 </method>
 </class>
+<class name="Pace"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Pace"
+ type="humanize.time.Pace"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="long">
+</parameter>
+<parameter name="accuracy" type="humanize.time.Pace.Accuracy">
+</parameter>
+<parameter name="timeUnit" type="humanize.time.Pace.TimeMillis">
+</parameter>
+</constructor>
+<method name="getAccuracy"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTimeUnit"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getValue"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="EMPTY"
+ type="humanize.time.Pace"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="Pace.Accuracy"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="humanize.time.Pace.Accuracy"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="humanize.time.Pace.Accuracy[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Pace.TimeMillis"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="key"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="millis"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="valueOf"
+ return="humanize.time.Pace.TimeMillis"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="humanize.time.Pace.TimeMillis[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
 <class name="PrettyTimeFormat"
  extends="java.text.Format"
  abstract="false"
@@ -3539,6 +4124,16 @@
  visibility="public"
 >
 </field>
+<field name="commaJoiner"
+ type="com.google.common.base.Joiner"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="metricPrefixes"
  type="java.util.Map"
  transient="false"
@@ -3551,6 +4146,26 @@
 </field>
 <field name="nanoTimePrefixes"
  type="java.util.Map"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="titleIgnoredWords"
+ type="java.util.List"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="titleWordSperator"
+ type="java.util.regex.Pattern"
  transient="false"
  volatile="false"
  static="true"
@@ -3579,6 +4194,8 @@
  visibility="public"
 >
 <parameter name="defaultContext" type="humanize.spi.context.DefaultContext">
+</parameter>
+<parameter name="neg" type="boolean">
 </parameter>
 <parameter name="h" type="int">
 </parameter>

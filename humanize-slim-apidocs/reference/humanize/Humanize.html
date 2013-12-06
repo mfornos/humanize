@@ -319,8 +319,10 @@ Summary:
 <p><p>
  Facility for adding a "human touch" to data. It is thread-safe and supports
  per-thread internationalization. Additionally provides a concise facade for
- access to the Standard i18n Java APIs.
- </p></p>
+ access to Standard i18n Java APIs.
+ </p>
+ 
+</p>
 
 
 
@@ -429,6 +431,25 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#camelize(java.lang.String, java.util.Locale)">camelize</a></span>(String text, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as <code><a href="../humanize/Humanize.html#camelize(java.lang.String)">camelize(String)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../humanize/Humanize.html#camelize(java.lang.String, boolean)">camelize</a></span>(String text, boolean capitalizeFirstChar)</nobr>
         
         <div class="jd-descrdiv"><p>
@@ -438,7 +459,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -457,6 +478,25 @@ Summary:
 
 
 	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#camelize(java.lang.String, boolean, java.util.Locale)">camelize</a></span>(String text, boolean capitalizeFirstChar, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as <code><a href="../humanize/Humanize.html#camelize(java.lang.String, boolean)">camelize(String, boolean)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -467,16 +507,35 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#capitalize(java.lang.String)">capitalize</a></span>(String word)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#capitalize(java.lang.String, java.util.Locale)">capitalize</a></span>(String text, Locale locale)</nobr>
         
         <div class="jd-descrdiv"><p>
- Makes the first letter uppercase and the rest lowercase.</div>
+ Same as <code><a href="../humanize/Humanize.html#capitalize(java.lang.String)">capitalize(String)</a></code> for the specified locale.</div>
   
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#capitalize(java.lang.String)">capitalize</a></span>(String text)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Capitalizes the given text smartly.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -495,7 +554,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -509,6 +568,25 @@ Summary:
         
         <div class="jd-descrdiv"><p>
  Same as <code><a href="../humanize/Humanize.html#dateFormat(java.lang.String)">dateFormat(String)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#decamelize(java.lang.String, java.lang.String)">decamelize</a></span>(String words, String replacement)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Converts a camel case string into a human-readable name.</div>
   
   </td></tr>
 
@@ -542,13 +620,13 @@ Summary:
             
             static
             
-            String</nobr>
+            DecimalFormat</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#decamelize(java.lang.String, java.lang.String)">decamelize</a></span>(String words, String replacement)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#decimalFormat(java.lang.String)">decimalFormat</a></span>(String pattern)</nobr>
         
         <div class="jd-descrdiv"><p>
- Converts a camel case string into a human-readable name.</div>
+ Returns a DecimalFormat instance for the current thread.</div>
   
   </td></tr>
 
@@ -580,25 +658,6 @@ Summary:
             
             static
             
-            DecimalFormat</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#decimalFormat(java.lang.String)">decimalFormat</a></span>(String pattern)</nobr>
-        
-        <div class="jd-descrdiv"><p>
- Returns a DecimalFormat instance for the current thread.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -606,25 +665,6 @@ Summary:
         
         <div class="jd-descrdiv"><p>
  Formats a number of seconds as hours, minutes and seconds.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#duration(java.lang.Number, java.util.Locale)">duration</a></span>(Number seconds, Locale locale)</nobr>
-        
-        <div class="jd-descrdiv"><p>
- Same as <code><a href="../humanize/Humanize.html#duration(java.lang.Number)">duration(Number)</a></code> for the specified locale.</div>
   
   </td></tr>
 
@@ -659,10 +699,86 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#duration(java.lang.Number, java.util.Locale)">duration</a></span>(Number seconds, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as <code><a href="../humanize/Humanize.html#duration(java.lang.Number)">duration(Number)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../humanize/Humanize.html#duration(java.lang.Number)">duration</a></span>(Number seconds)</nobr>
         
         <div class="jd-descrdiv"><p>
  Formats a number of seconds as hours, minutes and seconds.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#fixLength(java.lang.String, int, char, boolean)">fixLength</a></span>(String text, int charsNum, char paddingChar, boolean left)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Pads or truncates a string to a specified length.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#fixLength(java.lang.String, int, char)">fixLength</a></span>(String text, int charsNum, char paddingChar)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Pads or truncates a string to a specified length.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#format(java.util.Locale, java.lang.String, java.lang.Object...)">format</a></span>(Locale locale, String pattern, Object... args)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as #format(String, Object...) for the specified locale.</div>
   
   </td></tr>
 
@@ -681,8 +797,9 @@ Summary:
         <span class="sympad"><a href="../humanize/Humanize.html#format(java.lang.String, java.lang.Object...)">format</a></span>(String pattern, Object... args)</nobr>
         
         <div class="jd-descrdiv"><p>
- Gets a DecimalFormat instance for the current thread with the given
- pattern and uses it to format the given arguments.</div>
+ Gets an ExtendedMessageFormat instance for the current thread with the
+ given pattern and uses it to format a message with the specified
+ arguments.</div>
   
   </td></tr>
 
@@ -774,25 +891,6 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#formatDate(int, java.util.Date, java.util.Locale)">formatDate</a></span>(int style, Date value, Locale locale)</nobr>
-        
-        <div class="jd-descrdiv"><p>
- Same as <code><a href="../humanize/Humanize.html#formatDate(int, java.util.Date)">formatDate(int, Date)</a></code> for the specified locale.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../humanize/Humanize.html#formatDate(java.util.Date)">formatDate</a></span>(Date value)</nobr>
         
         <div class="jd-descrdiv"><p>
@@ -802,7 +900,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -821,7 +919,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -835,6 +933,25 @@ Summary:
         
         <div class="jd-descrdiv"><p>
  Same as <code><a href="../humanize/Humanize.html#formatDate(java.util.Date, java.lang.String)">formatDate(Date, String)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#formatDate(int, java.util.Date, java.util.Locale)">formatDate</a></span>(int style, Date value, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as <code><a href="../humanize/Humanize.html#formatDate(int, java.util.Date)">formatDate(int, Date)</a></code> for the specified locale.</div>
   
   </td></tr>
 
@@ -1000,6 +1117,44 @@ Summary:
             
             static
             
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#lossyEquals(java.util.Locale, java.lang.String, java.lang.String)">lossyEquals</a></span>(Locale locale, String source, String target)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Same as <code><a href="../humanize/Humanize.html#lossyEquals(java.lang.String, java.lang.String)">lossyEquals(String, String)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#lossyEquals(java.lang.String, java.lang.String)">lossyEquals</a></span>(String source, String target)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Locale-sensitive string comparison for primary differences.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1041,10 +1196,10 @@ Summary:
             <a href="../humanize/spi/MessageFormat.html">MessageFormat</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#messageFormat(java.lang.String)">messageFormat</a></span>(String pattern)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#messageFormat(java.lang.String, java.util.Locale)">messageFormat</a></span>(String pattern, Locale locale)</nobr>
         
         <div class="jd-descrdiv"><p>
- Returns a MessageFormat instance for the current thread.</div>
+ Same as <code><a href="../humanize/Humanize.html#messageFormat(java.lang.String)">messageFormat(String)</a></code> for the specified locale.</div>
   
   </td></tr>
 
@@ -1060,10 +1215,10 @@ Summary:
             <a href="../humanize/spi/MessageFormat.html">MessageFormat</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#messageFormat(java.lang.String, java.util.Locale)">messageFormat</a></span>(String pattern, Locale locale)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#messageFormat(java.lang.String)">messageFormat</a></span>(String pattern)</nobr>
         
         <div class="jd-descrdiv"><p>
- Same as <code><a href="../humanize/Humanize.html#messageFormat(java.lang.String)">messageFormat(String)</a></code> for the specified locale.</div>
+ Returns a MessageFormat instance for the current thread.</div>
   
   </td></tr>
 
@@ -1247,9 +1402,9 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime</a></span>(Date reference, Date duration)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date)">naturalTime</a></span>(Date duration)</nobr>
         
-        <div class="jd-descrdiv">Computes both past and future relative dates.</div>
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime(Date, Date)</a></code> with current date as reference.</div>
   
   </td></tr>
 
@@ -1265,9 +1420,9 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Locale)">naturalTime</a></span>(Date duration, Locale locale)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime</a></span>(Date reference, Date duration)</nobr>
         
-        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date)">naturalTime(Date)</a></code> for the specified locale.</div>
+        <div class="jd-descrdiv">Computes both past and future relative dates.</div>
   
   </td></tr>
 
@@ -1283,9 +1438,9 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date)">naturalTime</a></span>(Date duration)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Locale)">naturalTime</a></span>(Date duration, Locale locale)</nobr>
         
-        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime(Date, Date)</a></code> with current date as reference.</div>
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date)">naturalTime(Date)</a></code> for the specified locale.</div>
   
   </td></tr>
 
@@ -1322,6 +1477,229 @@ Summary:
         <span class="sympad"><a href="../humanize/Humanize.html#ordinal(java.lang.Number, java.util.Locale)">ordinal</a></span>(Number value, Locale locale)</nobr>
         
         <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#ordinal(java.lang.Number)">ordinal(Number)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.lang.Object[], int, java.lang.String, java.util.Locale)">oxford</a></span>(Object[] items, int limit, String limitStr, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[], int, java.lang.String)">oxford(Object[], int, String)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.lang.Object[])">oxford</a></span>(Object[] items)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Converts a list of items to a human readable string.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.util.Collection<?>, int, java.lang.String)">oxford</a></span>(Collection&lt;?&gt; items, int limit, String limitStr)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Converts a list of items to a human readable string with an optional
+ limit.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.util.Collection<?>, java.util.Locale)">oxford</a></span>(Collection&lt;?&gt; items, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[])">oxford(Object[])</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.lang.Object[], java.util.Locale)">oxford</a></span>(Object[] items, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[])">oxford(Object[])</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.util.Collection<?>)">oxford</a></span>(Collection&lt;?&gt; items)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Converts a list of items to a human readable string.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#oxford(java.lang.Object[], int, java.lang.String)">oxford</a></span>(Object[] items, int limit, String limitStr)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Converts a list of items to a human readable string with an optional
+ limit.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            <a href="../humanize/time/Pace.html">Pace</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#pace(java.lang.Number, long)">pace</a></span>(Number value, long interval)</nobr>
+        
+        <div class="jd-descrdiv">Matches a pace (value and interval) with a logical time frame.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)">paceFormat</a></span>(Number value, long interval, String one, String many, String none)</nobr>
+        
+        <div class="jd-descrdiv">Matches a pace (value and interval) with a logical time frame.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long)">paceFormat</a></span>(Number value, long interval)</nobr>
+        
+        <div class="jd-descrdiv">Matches a pace (value and interval) with a logical time frame.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#paceFormat(java.util.Locale, java.lang.Number, long)">paceFormat</a></span>(Locale locale, Number value, long interval)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long)">paceFormat(Number, long)</a></code> for a target locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#paceFormat(java.util.Locale, java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)">paceFormat</a></span>(Locale locale, Number value, long interval, String one, String many, String none)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)">paceFormat(Number, long, String, String, String)</a></code> for a
+ target locale.</div>
   
   </td></tr>
 
@@ -1639,6 +2017,44 @@ Summary:
             
             static
             
+            Number</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#roundToSignificantFigures(java.lang.Number, int)">roundToSignificantFigures</a></span>(Number num, int precision)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Rounds a number to significant figures.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#simplify(java.lang.String)">simplify</a></span>(String text)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ Sort of poor man's transliteration, i.e.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1699,10 +2115,10 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit</a></span>(Number value)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#spellDigit(java.lang.Number, java.util.Locale)">spellDigit</a></span>(Number value, Locale locale)</nobr>
         
         <div class="jd-descrdiv"><p>
- For decimal digits [0-9], returns the number spelled out.</div>
+ Same as <code><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit(Number)</a></code> for the specified locale.</div>
   
   </td></tr>
 
@@ -1718,10 +2134,46 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#spellDigit(java.lang.Number, java.util.Locale)">spellDigit</a></span>(Number value, Locale locale)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit</a></span>(Number value)</nobr>
         
         <div class="jd-descrdiv"><p>
- Same as <code><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit(Number)</a></code> for the specified locale.</div>
+ For decimal digits [0-9], returns the number spelled out.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#times(java.lang.Number, java.util.Locale)">times</a></span>(Number num, Locale locale)</nobr>
+        
+        <div class="jd-descrdiv">Same as <code><a href="../humanize/Humanize.html#times(java.lang.Number)">times(Number)</a></code> for the specified locale.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#times(java.lang.Number)">times</a></span>(Number num)</nobr>
+        
+        <div class="jd-descrdiv">Interprets numbers as occurrences.</div>
   
   </td></tr>
 
@@ -1740,8 +2192,7 @@ Summary:
         <span class="sympad"><a href="../humanize/Humanize.html#titleize(java.lang.String)">titleize</a></span>(String text)</nobr>
         
         <div class="jd-descrdiv"><p>
- Capitalize all the words, and replace some characters in the string to
- create a nice looking title.</div>
+ Converts the given text to title case smartly.</div>
   
   </td></tr>
 
@@ -1757,10 +2208,10 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../humanize/Humanize.html#transliterate(java.lang.String)">transliterate</a></span>(String text)</nobr>
+        <span class="sympad"><a href="../humanize/Humanize.html#titleize(java.lang.String, java.lang.String[])">titleize</a></span>(String text, String[] intCaps)</nobr>
         
         <div class="jd-descrdiv"><p>
- Strips diacritic marks.</div>
+ Converts the given text to title case smartly.</div>
   
   </td></tr>
 
@@ -2203,6 +2654,57 @@ From class
 </div>
 
 
+<A NAME="camelize(java.lang.String, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">camelize</span>
+      <span class="normal">(String text, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#camelize(java.lang.String)">camelize(String)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>String to be camelized</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>Camelized string
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="camelize(java.lang.String, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2302,6 +2804,108 @@ From class
 </div>
 
 
+<A NAME="camelize(java.lang.String, boolean, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">camelize</span>
+      <span class="normal">(String text, boolean capitalizeFirstChar, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#camelize(java.lang.String, boolean)">camelize(String, boolean)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>String to be camelized</td>
+        </tr>
+        <tr>
+          <th>capitalizeFirstChar</td>
+          <td>true makes the first letter uppercase</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>Camelized string
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="capitalize(java.lang.String, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">capitalize</span>
+      <span class="normal">(String text, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#capitalize(java.lang.String)">capitalize(String)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>String to be capitalized</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>capitalized string
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="capitalize(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2315,7 +2919,7 @@ From class
         String
       </span>
       <span class="sympad">capitalize</span>
-      <span class="normal">(String word)</span>
+      <span class="normal">(String text)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2328,13 +2932,13 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p><p>
- Makes the first letter uppercase and the rest lowercase.
+ Capitalizes the given text smartly.
  </p></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>word</td>
+          <th>text</td>
           <td>String to be capitalized</td>
         </tr>
       </table>
@@ -2699,54 +3303,6 @@ From class
 </div>
 
 
-<A NAME="decamelize(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">decamelize</span>
-      <span class="normal">(String words)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Same as <code><a href="../humanize/Humanize.html#decamelize(java.lang.String)">decamelize(String)</a></code> defaulting to SPACE for
- replacement
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>words</td>
-          <td>String to be converted</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>words converted to human-readable name
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="decamelize(java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2825,7 +3381,7 @@ From class
 </div>
 
 
-<A NAME="decimalFormat(java.lang.String, java.util.Locale)"></A>
+<A NAME="decamelize(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2835,10 +3391,10 @@ From class
          
          
          
-        DecimalFormat
+        String
       </span>
-      <span class="sympad">decimalFormat</span>
-      <span class="normal">(String pattern, Locale locale)</span>
+      <span class="sympad">decamelize</span>
+      <span class="normal">(String words)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2851,25 +3407,21 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p><p>
- Same as <code><a href="../humanize/Humanize.html#decimalFormat(java.lang.String)">decimalFormat(String)</a></code> for the specified locale.
+ Same as <code><a href="../humanize/Humanize.html#decamelize(java.lang.String)">decamelize(String)</a></code> defaulting to SPACE for
+ replacement
  </p></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>pattern</td>
-          <td>Format pattern that follows the conventions of
-            java.text.DecimalFormat DecimalFormat</td>
-        </tr>
-        <tr>
-          <th>locale</td>
-          <td>Target locale</td>
+          <th>words</td>
+          <td>String to be converted</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a DecimalFormat instance for the current thread
+      <ul class="nolist"><li>words converted to human-readable name
 </li></ul>
   </div>
 
@@ -2911,6 +3463,58 @@ From class
           <th>pattern</td>
           <td>Format pattern that follows the conventions of
             java.text.DecimalFormat DecimalFormat</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a DecimalFormat instance for the current thread
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="decimalFormat(java.lang.String, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        DecimalFormat
+      </span>
+      <span class="sympad">decimalFormat</span>
+      <span class="normal">(String pattern, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#decimalFormat(java.lang.String)">decimalFormat(String)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>pattern</td>
+          <td>Format pattern that follows the conventions of
+            java.text.DecimalFormat DecimalFormat</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
         </tr>
       </table>
   </div>
@@ -2975,57 +3579,6 @@ From class
 </div>
 
 
-<A NAME="duration(java.lang.Number, java.util.Locale)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">duration</span>
-      <span class="normal">(Number seconds, Locale locale)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Same as <code><a href="../humanize/Humanize.html#duration(java.lang.Number)">duration(Number)</a></code> for the specified locale.
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>seconds</td>
-          <td>Number of seconds</td>
-        </tr>
-        <tr>
-          <th>locale</td>
-          <td>Target locale</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a String with the formatted time
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="duration(java.lang.Number, humanize.util.Constants.TimeStyle, java.util.Locale)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3064,6 +3617,57 @@ From class
         <tr>
           <th>style</td>
           <td>Time style</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a String with the formatted time
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="duration(java.lang.Number, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">duration</span>
+      <span class="normal">(Number seconds, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#duration(java.lang.Number)">duration(Number)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>seconds</td>
+          <td>Number of seconds</td>
         </tr>
         <tr>
           <th>locale</td>
@@ -3129,6 +3733,176 @@ From class
 </div>
 
 
+<A NAME="fixLength(java.lang.String, int, char, boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">fixLength</span>
+      <span class="normal">(String text, int charsNum, char paddingChar, boolean left)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Pads or truncates a string to a specified length.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>String to be fixed</td>
+        </tr>
+        <tr>
+          <th>charsNum</td>
+          <td>The fixed length in number of chars</td>
+        </tr>
+        <tr>
+          <th>paddingChar</td>
+          <td>The padding character</td>
+        </tr>
+        <tr>
+          <th>left</td>
+          <td>true for left padding</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A fixed length string
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="fixLength(java.lang.String, int, char)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">fixLength</span>
+      <span class="normal">(String text, int charsNum, char paddingChar)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Pads or truncates a string to a specified length.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>String to be fixed</td>
+        </tr>
+        <tr>
+          <th>charsNum</td>
+          <td>The fixed length in number of chars</td>
+        </tr>
+        <tr>
+          <th>paddingChar</td>
+          <td>The padding character</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A fixed length string
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="format(java.util.Locale, java.lang.String, java.lang.Object...)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">format</span>
+      <span class="normal">(Locale locale, String pattern, Object... args)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as #format(String, Object...) for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locale</td>
+          <td>The target locale</td>
+        </tr>
+        <tr>
+          <th>pattern</td>
+          <td>Format pattern that follows the conventions of
+            <code><a href="../humanize/text/ExtendedMessageFormat.html">MessageFormat</a></code></td>
+        </tr>
+        <tr>
+          <th>args</td>
+          <td>Arguments</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The formatted String
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="format(java.lang.String, java.lang.Object...)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3155,8 +3929,9 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p><p>
- Gets a DecimalFormat instance for the current thread with the given
- pattern and uses it to format the given arguments.
+ Gets an ExtendedMessageFormat instance for the current thread with the
+ given pattern and uses it to format a message with the specified
+ arguments.
  </p></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -3164,7 +3939,7 @@ From class
         <tr>
           <th>pattern</td>
           <td>Format pattern that follows the conventions of
-            java.text.MessageFormat MessageFormat</td>
+            <code><a href="../humanize/text/ExtendedMessageFormat.html">MessageFormat</a></code></td>
         </tr>
         <tr>
           <th>args</td>
@@ -3408,61 +4183,6 @@ From class
 </div>
 
 
-<A NAME="formatDate(int, java.util.Date, java.util.Locale)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">formatDate</span>
-      <span class="normal">(int style, Date value, Locale locale)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Same as <code><a href="../humanize/Humanize.html#formatDate(int, java.util.Date)">formatDate(int, Date)</a></code> for the specified locale.
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>style</td>
-          <td>DateFormat style</td>
-        </tr>
-        <tr>
-          <th>value</td>
-          <td>Date to be formatted</td>
-        </tr>
-        <tr>
-          <th>locale</td>
-          <td>Target locale</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>String representation of the date
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="formatDate(java.util.Date)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3614,6 +4334,61 @@ From class
       <h5 class="jd-tagtitle">See Also</h5>
       <ul class="nolist"><li><code><a href="../humanize/Humanize.html#dateFormat(java.lang.String)">dateFormat(String)</a></code></li>
       </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="formatDate(int, java.util.Date, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">formatDate</span>
+      <span class="normal">(int style, Date value, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#formatDate(int, java.util.Date)">formatDate(int, Date)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>style</td>
+          <td>DateFormat style</td>
+        </tr>
+        <tr>
+          <th>value</td>
+          <td>Date to be formatted</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>String representation of the date
+</li></ul>
   </div>
 
     </div>
@@ -4048,6 +4823,121 @@ From class
 </div>
 
 
+<A NAME="lossyEquals(java.util.Locale, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">lossyEquals</span>
+      <span class="normal">(Locale locale, String source, String target)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#lossyEquals(java.lang.String, java.lang.String)">lossyEquals(String, String)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locale</td>
+          <td>The target locale</td>
+        </tr>
+        <tr>
+          <th>source</td>
+          <td>The source string to be compared</td>
+        </tr>
+        <tr>
+          <th>target</td>
+          <td>The target string to be compared</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the two strings are equals according to primary
+         differences only, false otherwise
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="lossyEquals(java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">lossyEquals</span>
+      <span class="normal">(String source, String target)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Locale-sensitive string comparison for primary differences.
+ </p>
+ 
+ <pre>
+ <code>
+ loosyEquals("Aáà-aa", "aaaaa") // == true 
+ loosyEquals("abc", "cba") // == false
+ </code>
+ </pre></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>source</td>
+          <td>The source string to be compared</td>
+        </tr>
+        <tr>
+          <th>target</td>
+          <td>The target string to be compared</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the two strings are equals according to primary
+         differences only, false otherwise
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="mask(java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -4150,54 +5040,6 @@ From class
 </div>
 
 
-<A NAME="messageFormat(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../humanize/spi/MessageFormat.html">MessageFormat</a>
-      </span>
-      <span class="sympad">messageFormat</span>
-      <span class="normal">(String pattern)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Returns a MessageFormat instance for the current thread.
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>pattern</td>
-          <td>Format pattern that follows the conventions of
-            java.text.MessageFormat MessageFormat</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a MessageFormat instance for the current thread
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="messageFormat(java.lang.String, java.util.Locale)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -4237,6 +5079,54 @@ From class
         <tr>
           <th>locale</td>
           <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a MessageFormat instance for the current thread
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="messageFormat(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../humanize/spi/MessageFormat.html">MessageFormat</a>
+      </span>
+      <span class="sympad">messageFormat</span>
+      <span class="normal">(String pattern)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Returns a MessageFormat instance for the current thread.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>pattern</td>
+          <td>Format pattern that follows the conventions of
+            java.text.MessageFormat MessageFormat</td>
         </tr>
       </table>
   </div>
@@ -4678,6 +5568,42 @@ From class
 </div>
 
 
+<A NAME="naturalTime(java.util.Date)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">naturalTime</span>
+      <span class="normal">(Date duration)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime(Date, Date)</a></code> with current date as reference.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>String representing the relative date
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="naturalTime(java.util.Date, java.util.Date)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -4745,42 +5671,6 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date)">naturalTime(Date)</a></code> for the specified locale.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>String representing the relative date
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="naturalTime(java.util.Date)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">naturalTime</span>
-      <span class="normal">(Date duration)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#naturalTime(java.util.Date, java.util.Date)">naturalTime(Date, Date)</a></code> with current date as reference.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>String representing the relative date
@@ -4860,6 +5750,678 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>String representing the number as ordinal
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.lang.Object[], int, java.lang.String, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Object[] items, int limit, String limitStr, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[], int, java.lang.String)">oxford(Object[], int, String)</a></code> for the specified locale.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items array</td>
+        </tr>
+        <tr>
+          <th>limit</td>
+          <td>The number of items to print. -1 for unbounded.</td>
+        </tr>
+        <tr>
+          <th>limitStr</td>
+          <td>The string to be appended after extra items. Null or "" for
+            default.</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.lang.Object[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Object[] items)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Converts a list of items to a human readable string.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items array</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.util.Collection<?>, int, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Collection&lt;?&gt; items, int limit, String limitStr)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Converts a list of items to a human readable string with an optional
+ limit.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items collection</td>
+        </tr>
+        <tr>
+          <th>limit</td>
+          <td>The number of items to print. -1 for unbounded.</td>
+        </tr>
+        <tr>
+          <th>limitStr</td>
+          <td>The string to be appended after extra items. Null or "" for
+            default.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.util.Collection<?>, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Collection&lt;?&gt; items, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[])">oxford(Object[])</a></code> for the specified locale.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items collection</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.lang.Object[], java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Object[] items, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#oxford(java.lang.Object[])">oxford(Object[])</a></code> for the specified locale.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items array</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.util.Collection<?>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Collection&lt;?&gt; items)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Converts a list of items to a human readable string.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items collection</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="oxford(java.lang.Object[], int, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">oxford</span>
+      <span class="normal">(Object[] items, int limit, String limitStr)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Converts a list of items to a human readable string with an optional
+ limit.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>items</td>
+          <td>The items array</td>
+        </tr>
+        <tr>
+          <th>limit</td>
+          <td>The number of items to print. -1 for unbounded.</td>
+        </tr>
+        <tr>
+          <th>limitStr</td>
+          <td>The string to be appended after extra items. Null or "" for
+            default.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>human readable representation of a bounded list of items
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="pace(java.lang.Number, long)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../humanize/time/Pace.html">Pace</a>
+      </span>
+      <span class="sympad">pace</span>
+      <span class="normal">(Number value, long interval)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Matches a pace (value and interval) with a logical time frame. Very
+ useful for slow paces.
+ 
+ <p>
+ Examples:
+ </p>
+ 
+ <pre>
+ <code>
+   // 3 occurrences within a 3000ms interval
+   pace(3, 3000); // => ~1/sec.
+   
+   // 200 occurrences within a 70000ms interval
+   pace(200, 70000); // => ~3/sec.
+   
+   // 10 occurrences within a 70000ms interval
+   pace(10, 70000); // => ~9/min.
+   
+   // 14 occurrences within a 31557600000ms interval (a year)
+   pace(14, 31557600000L); // => ~1/month
+   
+   // 25 occurrences within a 31557600000ms interval
+   pace(25, 31557600000L); // => ~2/month
+   
+   // 9 occurrences within a 31557600000ms interval
+   pace(9, 31557600000L); // => >1/month (less than one per month)
+ </code>
+ </pre></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>The number of occurrences within the specified interval</td>
+        </tr>
+        <tr>
+          <th>interval</td>
+          <td>The interval in milliseconds</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a Pace instance with data for a given value and interval
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="paceFormat(java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">paceFormat</span>
+      <span class="normal">(Number value, long interval, String one, String many, String none)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Matches a pace (value and interval) with a logical time frame. Very
+ useful for slow paces.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>The number of occurrences within the specified interval</td>
+        </tr>
+        <tr>
+          <th>interval</td>
+          <td>The interval in milliseconds</td>
+        </tr>
+        <tr>
+          <th>one</td>
+          <td>The message format for one time occurrences</td>
+        </tr>
+        <tr>
+          <th>many</td>
+          <td>The message format for multiple times occurrences</td>
+        </tr>
+        <tr>
+          <th>none</td>
+          <td>The message format for no occurrence</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an human readable textual representation of the pace
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="paceFormat(java.lang.Number, long)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">paceFormat</span>
+      <span class="normal">(Number value, long interval)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Matches a pace (value and interval) with a logical time frame. Very
+ useful for slow paces. e.g. heartbeats, ingested calories, hyperglycemic
+ crises.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>The number of occurrences within the specified interval</td>
+        </tr>
+        <tr>
+          <th>interval</td>
+          <td>The interval in milliseconds</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an human readable textual representation of the pace
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="paceFormat(java.util.Locale, java.lang.Number, long)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">paceFormat</span>
+      <span class="normal">(Locale locale, Number value, long interval)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long)">paceFormat(Number, long)</a></code> for a target locale.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locale</td>
+          <td>The target locale</td>
+        </tr>
+        <tr>
+          <th>value</td>
+          <td>The number of occurrences within the specified interval</td>
+        </tr>
+        <tr>
+          <th>interval</td>
+          <td>The interval in milliseconds</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an human readable textual representation of the pace
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="paceFormat(java.util.Locale, java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">paceFormat</span>
+      <span class="normal">(Locale locale, Number value, long interval, String one, String many, String none)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#paceFormat(java.lang.Number, long, java.lang.String, java.lang.String, java.lang.String)">paceFormat(Number, long, String, String, String)</a></code> for a
+ target locale.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locale</td>
+          <td>The target locale</td>
+        </tr>
+        <tr>
+          <th>value</td>
+          <td>The number of occurrences within the specified interval</td>
+        </tr>
+        <tr>
+          <th>interval</td>
+          <td>The interval in milliseconds</td>
+        </tr>
+        <tr>
+          <th>one</td>
+          <td>The message format for one time occurrences</td>
+        </tr>
+        <tr>
+          <th>many</td>
+          <td>The message format for multiple times occurrences</td>
+        </tr>
+        <tr>
+          <th>none</td>
+          <td>The message format for no occurrence</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an human readable textual representation of the pace
 </li></ul>
   </div>
 
@@ -5083,9 +6645,10 @@ From class
  
  String dates[] = new String[] { &quot;1.2.12&quot;, &quot;01.02.2012&quot;, &quot;2012.02.01&quot;, &quot;01-02-12&quot;, &quot;1 2 2012&quot; };
  
- for (String ds : dates) {
- 	Date date = Humanize.parseSmartDate(ds, &quot;dd/MM/yy&quot;, &quot;yyyy/MM/dd&quot;, &quot;dd/MM/yyyy&quot;);
- 	Assert.assertEquals(date, target);
+ for (String ds : dates)
+ {
+     Date date = Humanize.parseSmartDate(ds, &quot;dd/MM/yy&quot;, &quot;yyyy/MM/dd&quot;, &quot;dd/MM/yyyy&quot;);
+     Assert.assertEquals(date, target);
  }
  </pre></p></div>
   <div class="jd-tagdata">
@@ -5768,6 +7331,120 @@ From class
 </div>
 
 
+<A NAME="roundToSignificantFigures(java.lang.Number, int)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Number
+      </span>
+      <span class="sympad">roundToSignificantFigures</span>
+      <span class="normal">(Number num, int precision)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Rounds a number to significant figures.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>num</td>
+          <td>The number to be rounded</td>
+        </tr>
+        <tr>
+          <th>precision</td>
+          <td>The number of significant digits</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The number rounded to significant figures
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="simplify(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">simplify</span>
+      <span class="normal">(String text)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Sort of poor man's transliteration, i.e. normalizes and strips
+ diacritical marks.
+ </p>
+ 
+ <table border="0" cellspacing="0" cellpadding="3" width="100%">
+ <tr>
+ <th class="colFirst">Input</th>
+ <th class="colLast">Output</th>
+ </tr>
+ <tr>
+ <td>"J'étudie le français"</td>
+ <td>"J'etudie le francais"</td>
+ </tr>
+ <tr>
+ <td>"Lo siento, no hablo español."</td>
+ <td>"Lo siento, no hablo espanol."</td>
+ </tr>
+ </table></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>text</td>
+          <td>The text to be simplified.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>simplified text.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="slugify(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -5929,6 +7606,57 @@ From class
 </div>
 
 
+<A NAME="spellDigit(java.lang.Number, java.util.Locale)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">spellDigit</span>
+      <span class="normal">(Number value, Locale locale)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Same as <code><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit(Number)</a></code> for the specified locale.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Decimal digit</td>
+        </tr>
+        <tr>
+          <th>locale</td>
+          <td>Target locale</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>String representing the number spelled out
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="spellDigit(java.lang.Number)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -5996,7 +7724,7 @@ From class
 </div>
 
 
-<A NAME="spellDigit(java.lang.Number, java.util.Locale)"></A>
+<A NAME="times(java.lang.Number, java.util.Locale)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -6008,8 +7736,8 @@ From class
          
         String
       </span>
-      <span class="sympad">spellDigit</span>
-      <span class="normal">(Number value, Locale locale)</span>
+      <span class="sympad">times</span>
+      <span class="normal">(Number num, Locale locale)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -6021,15 +7749,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Same as <code><a href="../humanize/Humanize.html#spellDigit(java.lang.Number)">spellDigit(Number)</a></code> for the specified locale.
- </p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Same as <code><a href="../humanize/Humanize.html#times(java.lang.Number)">times(Number)</a></code> for the specified locale.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>value</td>
-          <td>Decimal digit</td>
+          <th>num</td>
+          <td>The number of occurrences</td>
         </tr>
         <tr>
           <th>locale</td>
@@ -6039,7 +7765,52 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>String representing the number spelled out
+      <ul class="nolist"><li>textual representation of the number as occurrences
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="times(java.lang.Number)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">times</span>
+      <span class="normal">(Number num)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Interprets numbers as occurrences.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>num</td>
+          <td>The number of occurrences</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>textual representation of the number as occurrences
 </li></ul>
   </div>
 
@@ -6073,24 +7844,51 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p><p>
- Capitalize all the words, and replace some characters in the string to
- create a nice looking title.
+ Converts the given text to title case smartly.
  </p>
  
- <table border="0" cellspacing="0" cellpadding="3" width="100%">
- <tr>
- <th class="colFirst">Input</th>
- <th class="colLast">Output</th>
- </tr>
- <tr>
- <td>"the_jackie_gleason show"</td>
- <td>"The Jackie Gleason Show"</td>
- </tr>
- <tr>
- <td>"first annual report (CD) 2001"</td>
- <td>"First Annual Report (CD) 2001"</td>
- </tr>
- </table></p></div>
+ Known limitations:
+ <ul>
+ <li>Phrasal verb detection</li>
+ </ul>
+ 
+ Applies Quick Guide to Capitalization in English at SAP.
+ 
+ <h3>Capitalize</h3>
+ <ul>
+ <li>Nouns</li>
+ <li>Verbs (including <i>is</i> and other forms of <i>be</i>)</li>
+ <li>Participles</li>
+ <li>Adverbs (including <i>than</i> and <i>when</i>)</li>
+ <li>Adjectives (including <i>this</i>, <i>that</i>, and <i>each</i>)</li>
+ <li>Pronouns (including <i>its</i>)</li>
+ <li>Subordinating conjunctions (<i>if</i>, <i>because</i>, <i>as</i>,
+ <i>that</i>)</li>
+ <li>Prepositions and conjunctions with five or more letters
+ (<i>between</i>, <i>without</i>, <i>during, about</i>,<i> because,
+ through</i>)</li>
+ <li>First and last words, no matter what part of speech they are</li>
+ <li>Prepositions that are part of a verb phrase (<i>Logging On</i>,
+ <i>Setting Up</i>)</li>
+ <li>Both elements of hyphenated words (<i>How-To,</i>
+ <i>Country-Specific</i>)</li>
+ <li>Words and phrases in parentheses as you would capitalize them if they
+ did not appear in parentheses</li>
+ <li>Any words, phrases, fragments, or sentences after a colon or
+ semicolon</li>
+ </ul>
+ <h3>Do Not Capitalize</h3>
+ <ul>
+ <li>Coordinating conjunctions (<i>and</i>, <i>but</i>, <i>or</i>,
+ <i>nor</i>, <i>for</i>)</li>
+ <li>Prepositions of four or fewer letters (<i>with</i>, <i>to</i>,
+ <i>for</i>, <i>at</i>, and so on)</li>
+ <li>Articles (<i>a</i>, <i>an</i>, <i>the, some</i>) unless the article
+ is the first or last word in the title</li>
+ <li>The word<i> to</i> in an infinitive phrase</li>
+ <li>Case-specific product names, words, or phrases (<i>mySAP.com</i>,
+ <i>README </i>file, <i>e-Business</i>, and so on)</li>
+ </ul></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -6102,7 +7900,7 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>Nice looking title
+      <ul class="nolist"><li>a nice styled title
 </li></ul>
   </div>
 
@@ -6110,7 +7908,7 @@ From class
 </div>
 
 
-<A NAME="transliterate(java.lang.String)"></A>
+<A NAME="titleize(java.lang.String, java.lang.String[])"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -6122,8 +7920,8 @@ From class
          
         String
       </span>
-      <span class="sympad">transliterate</span>
-      <span class="normal">(String text)</span>
+      <span class="sympad">titleize</span>
+      <span class="normal">(String text, String[] intCaps)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -6136,35 +7934,24 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p><p>
- Strips diacritic marks.
- </p>
- 
- <table border="0" cellspacing="0" cellpadding="3" width="100%">
- <tr>
- <th class="colFirst">Input</th>
- <th class="colLast">Output</th>
- </tr>
- <tr>
- <td>"J'étudie le français"</td>
- <td>"J'etudie le francais"</td>
- </tr>
- <tr>
- <td>"Lo siento, no hablo español."</td>
- <td>"Lo siento, no hablo espanol."</td>
- </tr>
- </table></p></div>
+ Converts the given text to title case smartly.
+ </p></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>text</td>
-          <td>The text to be transliterated.</td>
+          <td>Text to be converted</td>
+        </tr>
+        <tr>
+          <th>intCaps</td>
+          <td>An internal capitalized word list</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>String without diacritic marks.
+      <ul class="nolist"><li>a nice styled title
 </li></ul>
   </div>
 
