@@ -32,6 +32,7 @@ public class ConfigLoader
         Properties properties = new Properties(DEFAULTS);
 
         URL url = locateConfig(path);
+        
         if (url != null)
         {
             try
@@ -85,19 +86,23 @@ public class ConfigLoader
     {
 
         URL url = null;
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        if (contextClassLoader != null)
+
+        try
         {
-            url = contextClassLoader.getResource(path);
-        }
-        if (url == null)
+            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+            if (contextClassLoader != null)
+            {
+                url = contextClassLoader.getResource(path);
+            }
+            if (url == null)
+            {
+                url = ConfigLoader.class.getClassLoader().getResource(path);
+            }
+        } catch (Exception e)
         {
-            url = ConfigLoader.class.getClassLoader().getResource(path);
+            // assume not found
         }
-        if (url == null)
-        {
-            url = ClassLoader.getSystemClassLoader().getResource(path);
-        }
+
         return url;
 
     }
