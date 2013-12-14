@@ -32,7 +32,7 @@ public class ConfigLoader
         Properties properties = new Properties(DEFAULTS);
 
         URL url = locateConfig(path);
-        
+
         if (url != null)
         {
             try
@@ -67,18 +67,22 @@ public class ConfigLoader
 
     private static URL asFile(final String path)
     {
+        URL url = null;
 
         File file = new File(path);
+
         if (file.exists())
         {
             try
             {
-                return file.toURI().toURL();
+                url = file.toURI().toURL();
             } catch (MalformedURLException e)
             {
+                //
             }
         }
-        return null;
+
+        return url;
 
     }
 
@@ -110,13 +114,17 @@ public class ConfigLoader
     private static URL asURL(final String path)
     {
 
+        URL url = null;
+
         try
         {
-            return new URL(path);
+            url = new URL(path);
         } catch (MalformedURLException e)
         {
+            //
         }
-        return null;
+
+        return url;
 
     }
 

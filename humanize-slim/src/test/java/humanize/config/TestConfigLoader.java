@@ -64,18 +64,11 @@ public class TestConfigLoader
 
     }
 
-    @Test
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void unparseableSpecTest()
     {
 
-        try
-        {
-            CacheBuilderSpec.parse("bla blablaba !");
-            Assert.fail("Exception not thrown");
-        } catch (IllegalArgumentException e)
-        {
-
-        }
+        CacheBuilderSpec.parse("bla blablaba !");
 
     }
 
