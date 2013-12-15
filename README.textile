@@ -12,7 +12,7 @@ Current version:
 
 bc.. <humanize.version>1.1.5</humanize.version>
 
-p. For the *slim flavor* write the following in your _pom_:
+p. For the *slim* variant write the following in your _pom_:
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -20,7 +20,7 @@ bc.. <dependency>
   <version>${humanize.version}</version>
 </dependency>
 
-p. For the *full-fledged ICU* distribution:
+p. For the full-fledged *ICU* distribution:
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
