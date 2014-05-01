@@ -1441,32 +1441,32 @@ public final class Humanize
     /**
      * Same as {@link #naturalDay(int, Date)} with DateFormat.SHORT style.
      * 
-     * @param Date
+     * @param then
      *            The date
      * @return String with 'today', 'tomorrow' or 'yesterday' compared to
      *         current day. Otherwise, returns a string formatted according to a
      *         locale sensitive DateFormat.
      */
-    public static String naturalDay(Date value)
+    public static String naturalDay(Date then)
     {
-        return naturalDay(DateFormat.SHORT, value);
+        return naturalDay(DateFormat.SHORT, then);
     }
 
     /**
      * Same as {@link #naturalDay(Date)} with the given locale.
      * 
-     * @param Date
+     * @param then
      *            The date
-     * @param Locale
+     * @param locale
      *            Target locale
      * @return String with 'today', 'tomorrow' or 'yesterday' compared to
      *         current day. Otherwise, returns a string formatted according to a
      *         locale sensitive DateFormat.
      */
     @Expose
-    public static String naturalDay(Date value, Locale locale)
+    public static String naturalDay(Date then, Locale locale)
     {
-        return naturalDay(DateFormat.SHORT, value, locale);
+        return naturalDay(DateFormat.SHORT, then, locale);
     }
 
     /**
@@ -1476,16 +1476,16 @@ public final class Humanize
      * 
      * @param style
      *            The style of the Date
-     * @param Date
+     * @param then
      *            The date (GMT)
      * @return String with 'today', 'tomorrow' or 'yesterday' compared to
      *         current day. Otherwise, returns a string formatted according to a
      *         locale sensitive DateFormat.
      */
-    public static String naturalDay(int style, Date value)
+    public static String naturalDay(int style, Date then)
     {
         Date today = new Date();
-        long delta = value.getTime() - today.getTime();
+        long delta = then.getTime() - today.getTime();
         long days = delta / ND_FACTOR;
 
         if (days == 0)
@@ -1495,7 +1495,7 @@ public final class Humanize
         else if (days == -1)
             return context.get().getMessage("yesterday");
 
-        return formatDate(style, value);
+        return formatDate(style, then);
     }
 
     /**
@@ -1503,7 +1503,7 @@ public final class Humanize
      * 
      * @param style
      *            The style of the Date
-     * @param Date
+     * @param then
      *            The date (GMT)
      * @param locale
      *            Target locale
@@ -1511,13 +1511,13 @@ public final class Humanize
      *         current day. Otherwise, returns a string formatted according to a
      *         locale sensitive DateFormat.
      */
-    public static String naturalDay(final int style, final Date value, final Locale locale)
+    public static String naturalDay(final int style, final Date then, final Locale locale)
     {
         return withinLocale(new Callable<String>()
         {
             public String call() throws Exception
             {
-                return naturalDay(style, value);
+                return naturalDay(style, then);
             }
         }, locale);
     }
@@ -1525,13 +1525,13 @@ public final class Humanize
     /**
      * Same as {@link #naturalTime(Date, Date)} with current date as reference.
      * 
-     * @param Date
+     * @param duration
      *            The duration
      * @return String representing the relative date
      */
     public static String naturalTime(Date duration)
     {
-        return context.get().formatRelativeDate(duration);
+        return naturalTime(new Date(), duration);
     }
 
     /**
@@ -1542,9 +1542,9 @@ public final class Humanize
      * E.g. 'one day ago', 'one day from now', '10 years ago', '3 minutes from
      * now', 'right now' and so on.
      * 
-     * @param Date
+     * @param reference
      *            The reference
-     * @param Date
+     * @param duration
      *            The duration
      * @return String representing the relative date
      */
@@ -1554,13 +1554,51 @@ public final class Humanize
     }
 
     /**
+     * Computes both past and future relative dates with arbitrary precision.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precision to retain in milliseconds
+     * @return String representing the relative date
+     */
+    public static String naturalTime(Date reference, Date duration, long precision)
+    {
+        return context.get().formatRelativeDate(reference, duration, precision);
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, Date, int)} for the specified locale.
+     * 
+     * @param reference
+     *            The reference
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precesion to retain in milliseconds
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date reference, final Date duration, final long precision, final Locale locale)
+    {
+        return withinLocale(new Callable<String>()
+        {
+            public String call()
+            {
+                return naturalTime(reference, duration, precision);
+            }
+        }, locale);
+    }
+
+    /**
      * Same as {@link #naturalTime(Date, Date)} for the specified locale.
      * 
-     * @param Date
+     * @param reference
      *            The reference
-     * @param Date
+     * @param duration
      *            The duration
-     * @param Locale
+     * @param locale
      *            The locale
      * @return String representing the relative date
      */
@@ -1576,11 +1614,42 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #naturalTime(Date, Date, int)} with current date as
+     * reference.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precision to retain in milliseconds
+     * @return String representing the relative date
+     */
+    public static String naturalTime(Date duration, int precision)
+    {
+        return naturalTime(new Date(), duration, precision);
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, int)} for the specified locale.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precesion to retain in milliseconds
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date duration, final int precision, final Locale locale)
+    {
+        return naturalTime(new Date(), duration, precision, locale);
+    }
+
+    /**
      * Same as {@link #naturalTime(Date)} for the specified locale.
      * 
-     * @param Date
+     * @param duration
      *            The duration
-     * @param Locale
+     * @param locale
      *            The locale
      * @return String representing the relative date
      */
@@ -1597,7 +1666,7 @@ public final class Humanize
      * 
      * E.g. 1 becomes '1st', 2 becomes '2nd', 3 becomes '3rd', etc.
      * 
-     * @param Number
+     * @param value
      *            The number to convert
      * @return String representing the number as ordinal
      */
@@ -1615,9 +1684,9 @@ public final class Humanize
     /**
      * Same as {@link #ordinal(Number)} for the specified locale.
      * 
-     * @param Number
+     * @param value
      *            The number to convert
-     * @param Locale
+     * @param locale
      *            The locale
      * @return String representing the number as ordinal
      */

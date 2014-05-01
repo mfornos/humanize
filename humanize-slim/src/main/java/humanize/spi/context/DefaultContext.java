@@ -122,15 +122,15 @@ public class DefaultContext implements Context, StandardContext
     }
 
     @Override
-    public String formatRelativeDate(Date duration)
-    {
-        return getPrettyTimeFormat().format(duration);
-    }
-
-    @Override
     public String formatRelativeDate(Date reference, Date duration)
     {
         return getPrettyTimeFormat().format(reference, duration);
+    }
+
+    @Override
+    public String formatRelativeDate(Date reference, Date duration, long precision)
+    {
+        return getPrettyTimeFormat().format(reference, duration, precision);
     }
 
     @Override

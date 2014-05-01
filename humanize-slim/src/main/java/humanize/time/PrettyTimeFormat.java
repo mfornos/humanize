@@ -17,6 +17,10 @@ import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.TimeFormat;
 import org.ocpsoft.prettytime.TimeUnit;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+
 /**
  * {@link Format} implementation for {@link PrettyTime}.
  * 
@@ -63,49 +67,28 @@ public class PrettyTimeFormat extends Format implements FormatProvider
 
     public PrettyTimeFormat()
     {
-
         this(Locale.getDefault());
-
     }
 
     public PrettyTimeFormat(Locale locale)
     {
-
         this.prettyTime = new PrettyTime(locale);
         this.locale = locale;
-
     }
 
     public Duration approximateDuration(Date then)
     {
-
         return prettyTime.approximateDuration(then);
     }
 
     public List<Duration> calculatePreciseDuration(Date then)
     {
-
         return prettyTime.calculatePreciseDuration(then);
     }
 
     public List<TimeUnit> clearUnits()
     {
-
         return prettyTime.clearUnits();
-    }
-
-    /**
-     * Convenience format method.
-     * 
-     * @param then
-     *            The future date.
-     * @return a relative format date as text representation
-     */
-    public String format(Date then)
-    {
-
-        return prettyTime.format(DurationHelper.calculateDurantion(new Date(), then, prettyTime.getUnits()));
-
     }
 
     /**
@@ -119,9 +102,26 @@ public class PrettyTimeFormat extends Format implements FormatProvider
      */
     public String format(Date ref, Date then)
     {
+        return prettyTime.format(DurationHelper.calculateDuration(ref, then, prettyTime.getUnits()));
+    }
 
-        return prettyTime.format(DurationHelper.calculateDurantion(ref, then, prettyTime.getUnits()));
-
+    /**
+     * Convenience format method for precise durations.
+     * 
+     * @param ref
+     *            The date of reference.
+     * @param then
+     *            The future date.
+     * @param precision
+     *            The precision to retain in milliseconds.
+     * @return a relative format date as text representation or an empty string
+     *         if no durations are retained
+     */
+    public String format(Date ref, Date then, long precision)
+    {
+        List<Duration> durations = DurationHelper.calculatePreciseDuration(ref, then, prettyTime.getUnits());
+        List<Duration> retained = retainPrecision(durations, precision);
+        return retained.isEmpty() ? "" : prettyTime.format(retained);
     }
 
     public String format(Duration duration)
@@ -140,7 +140,6 @@ public class PrettyTimeFormat extends Format implements FormatProvider
     @SuppressWarnings("unchecked")
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos)
     {
-
         if (Duration.class.isAssignableFrom(obj.getClass()))
         {
             return toAppendTo.append(prettyTime.format((Duration) obj));
@@ -158,41 +157,33 @@ public class PrettyTimeFormat extends Format implements FormatProvider
 
         throw new IllegalArgumentException(String.format("Class %s is not suitable for PrettyTimeFormat",
                 obj.getClass()));
-
     }
 
     public String formatUnrounded(Date then)
     {
-
         return prettyTime.formatUnrounded(then);
     }
 
     public String formatUnrounded(Duration duration)
     {
-
         return prettyTime.formatUnrounded(duration);
     }
 
     @Override
     public FormatFactory getFactory()
     {
-
         return factory();
-
     }
 
     public TimeFormat getFormat(TimeUnit unit)
     {
-
         return prettyTime.getFormat(unit);
     }
 
     @Override
     public String getFormatName()
     {
-
         return "prettytime";
-
     }
 
     /**
@@ -202,37 +193,41 @@ public class PrettyTimeFormat extends Format implements FormatProvider
      */
     public PrettyTime getPrettyTime()
     {
-
         return prettyTime;
-
     }
 
     public List<TimeUnit> getUnits()
     {
-
         return prettyTime.getUnits();
     }
 
     @Override
     public Object parseObject(String source, ParsePosition pos)
     {
-
         throw new UnsupportedOperationException();
-
     }
 
     public PrettyTime registerUnit(TimeUnit unit, TimeFormat format)
     {
-
         return prettyTime.registerUnit(unit, format);
     }
 
     private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
     {
-
         ois.defaultReadObject();
         this.prettyTime = new PrettyTime(locale);
+    }
 
+    private List<Duration> retainPrecision(final List<Duration> durations, final long precision)
+    {
+        return ImmutableList.copyOf(Iterables.filter(durations, new Predicate<Duration>()
+        {
+            @Override
+            public boolean apply(Duration it)
+            {
+                return it.getUnit().getMillisPerUnit() >= precision;
+            }
+        }));
     }
 
 }

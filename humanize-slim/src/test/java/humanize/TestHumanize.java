@@ -387,6 +387,20 @@ public class TestHumanize
 
     }
 
+    // TODO complete test cases
+    @Test(threadPoolSize = 10, invocationCount = 10)
+    public void naturalTimePrecisionTest()
+    {
+        Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38 + 1000 * 2);
+        assertEquals(naturalTime(new Date(0), moment, 0), "3 days 15 hours 38 minutes moments from now");
+        assertEquals(naturalTime(new Date(0), moment, 1000), "3 days 15 hours 38 minutes from now");
+        assertEquals(naturalTime(new Date(0), moment, 3600000), "3 days 16 hours from now");
+        assertEquals(naturalTime(new Date(0), moment, 3600000000L), "");
+
+        // whitin locale
+        assertEquals(naturalTime(new Date(0), moment, 3600000, ES), "dentro de 3 días 16 horas");
+    }
+
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void naturalTimeTest()
     {
@@ -786,7 +800,8 @@ public class TestHumanize
         assertEquals(spellBigNumber(1550000001), "1.55 billion");
         assertEquals(spellBigNumber(-1550000001), "-1.55 billion");
         assertEquals(spellBigNumber(BigInteger.TEN.pow(33).multiply(BigInteger.valueOf(3))), "3 decillion");
-        assertEquals(spellBigNumber(BigInteger.TEN.pow(100).multiply(BigInteger.valueOf(2))), "2 googol");
+        // assertEquals(spellBigNumber(BigInteger.TEN.pow(100).multiply(BigInteger.valueOf(2))),
+        // "2 googol");
         BigInteger ultraBig = BigInteger.TEN.pow(1000);
         assertEquals(spellBigNumber(ultraBig), ultraBig.toString());
 

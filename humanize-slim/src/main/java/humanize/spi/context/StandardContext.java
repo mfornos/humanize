@@ -11,9 +11,9 @@ import java.util.Date;
 public interface StandardContext
 {
 
-    String formatRelativeDate(Date duration);
-
     String formatRelativeDate(Date reference, Date duration);
+
+    String formatRelativeDate(Date reference, Date duration, long precision);
 
     DecimalFormat getCurrencyFormat();
 

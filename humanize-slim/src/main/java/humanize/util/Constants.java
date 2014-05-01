@@ -97,7 +97,7 @@ public final class Constants
         bigDecExponents.put(BigDecimal.TEN.pow(33), "decillion");
         bigDecExponents.put(BigDecimal.TEN.pow(36), "undecillion");
         bigDecExponents.put(BigDecimal.TEN.pow(39), "duodecillion");
-        bigDecExponents.put(BigDecimal.TEN.pow(100), "googol");
+        // bigDecExponents.put(BigDecimal.TEN.pow(100), "googol");
     }
 
     public static final Map<Long, String> binPrefixes = new LinkedHashMap<Long, String>();
