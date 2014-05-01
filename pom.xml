@@ -136,6 +136,7 @@
   	<module>humanize-joda</module>
   	<module>humanize-taglib</module>
   	<module>humanize-jsf</module>
+  	<module>humanize-emoji</module>
   </modules>
   
 </project>

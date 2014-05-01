@@ -192,25 +192,7 @@ msg.render(2);  // == "2 things"
 
 p. *Slugify*
 
-bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder" 
-
-p. *Interpolation*
-
-p. Emoji aliases:
-
-bc.. EmojiInterpolator.interpolateAlias(
-        "<img src=\"imgs/{0}.png\" title=\"{0}\" />;", 
-        "Hi :sparkles:!"); 
-
-// == "Hi <img src=\"imgs/sparkles.png\" title=\"sparkles\" />!"
-
-p. Emoji chars:
-
-bc.. EmojiInterpolator.interpolateChars(
-        "<img src=\"imgs/{0}.png\" />;", 
-        "Hi \uE025!"); 
-
-// == "Hi <img src=\"imgs/uE025.png\" />!"
+bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder"
 
 h3. Parse
 
@@ -369,6 +351,27 @@ bc.. <html xmlns="http://www.w3.org/1999/xhtml"
 
 p. 
 * See @humanize-jsf/src/integration/webapp@ for a complete example.
+
+h3. Humanize Emoji
+
+p. *Interpolation*
+
+p. Emoji aliases:
+
+bc.. EmojiInterpolator.interpolateAlias(
+        "<img src=\"imgs/{0}.png\" title=\"{0}\" />;", 
+        "Hi :sparkles:!"); 
+
+// == "Hi <img src=\"imgs/sparkles.png\" title=\"sparkles\" />!"
+
+p. Emoji chars:
+
+bc.. EmojiInterpolator.interpolateChars(
+        "<img src=\"imgs/{0}.png\" />;", 
+        "Hi \uE025!"); 
+
+// == "Hi <img src=\"imgs/uE025.png\" />!"
+
 
 h2. Integrations
 

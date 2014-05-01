@@ -1,4 +1,4 @@
-package humanize.text;
+package humanize.emoji;
 
 import static humanize.text.util.InterpolationHelper.interpolate;
 import humanize.spi.MessageFormat;
