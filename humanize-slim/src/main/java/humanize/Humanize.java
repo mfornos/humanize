@@ -1554,6 +1554,28 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #naturalTime(Date, Date)} for the specified locale.
+     * 
+     * @param reference
+     *            The reference
+     * @param duration
+     *            The duration
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date reference, final Date duration, final Locale locale)
+    {
+        return withinLocale(new Callable<String>()
+        {
+            public String call()
+            {
+                return naturalTime(reference, duration);
+            }
+        }, locale);
+    }
+
+    /**
      * Computes both past and future relative dates with arbitrary precision.
      * 
      * @param duration
@@ -1580,7 +1602,8 @@ public final class Humanize
      *            The locale
      * @return String representing the relative date
      */
-    public static String naturalTime(final Date reference, final Date duration, final long precision, final Locale locale)
+    public static String naturalTime(final Date reference, final Date duration, final long precision,
+            final Locale locale)
     {
         return withinLocale(new Callable<String>()
         {
@@ -1589,59 +1612,6 @@ public final class Humanize
                 return naturalTime(reference, duration, precision);
             }
         }, locale);
-    }
-
-    /**
-     * Same as {@link #naturalTime(Date, Date)} for the specified locale.
-     * 
-     * @param reference
-     *            The reference
-     * @param duration
-     *            The duration
-     * @param locale
-     *            The locale
-     * @return String representing the relative date
-     */
-    public static String naturalTime(final Date reference, final Date duration, final Locale locale)
-    {
-        return withinLocale(new Callable<String>()
-        {
-            public String call()
-            {
-                return naturalTime(reference, duration);
-            }
-        }, locale);
-    }
-
-    /**
-     * Same as {@link #naturalTime(Date, Date, int)} with current date as
-     * reference.
-     * 
-     * @param duration
-     *            The duration
-     * @param precision
-     *            The precision to retain in milliseconds
-     * @return String representing the relative date
-     */
-    public static String naturalTime(Date duration, int precision)
-    {
-        return naturalTime(new Date(), duration, precision);
-    }
-
-    /**
-     * Same as {@link #naturalTime(Date, int)} for the specified locale.
-     * 
-     * @param duration
-     *            The duration
-     * @param precision
-     *            The precesion to retain in milliseconds
-     * @param locale
-     *            The locale
-     * @return String representing the relative date
-     */
-    public static String naturalTime(final Date duration, final int precision, final Locale locale)
-    {
-        return naturalTime(new Date(), duration, precision, locale);
     }
 
     /**
@@ -1657,6 +1627,37 @@ public final class Humanize
     public static String naturalTime(final Date duration, final Locale locale)
     {
         return naturalTime(new Date(), duration, locale);
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, Date, int)} with current date as
+     * reference.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precision to retain in milliseconds
+     * @return String representing the relative date
+     */
+    public static String naturalTime(Date duration, long precision)
+    {
+        return naturalTime(new Date(), duration, precision);
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, int)} for the specified locale.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precesion to retain in milliseconds
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date duration, final long precision, final Locale locale)
+    {
+        return naturalTime(new Date(), duration, precision, locale);
     }
 
     /**
