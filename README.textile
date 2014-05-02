@@ -76,7 +76,7 @@ h3. Date&Time
 
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
 | naturalDay | For dates that are the current day or within one day, return 'today','tomorrow' or 'yesterday', as appropriate. | 'today', 'tomorrow', 'yesterday' or the date formatted | ✔ | ✔ |
-| naturalTime | Computes both past and future relative dates with optional precision. | '2 days from now', '3 decades ago', '3 minutes from now', 'moments ago', etc. | ✔ | ✔ |
+| naturalTime | Computes both past and future relative dates with optional precision. | '2 days from now', '3 decades ago', '3 days 16 hours from now', '3 minutes from now', '3 days 15 hours 38 minutes ago', 'moments ago', etc. | ✔ | ✔ |
 | nanoTime | Formats a number of nanoseconds as the proper ten power unit. | '1.5µs', '10.51ms', '30ns', etc. | ✔ | - |
 | duration | Formats a number of seconds as hours, minutes and seconds. | '1 sec.', '1:02:10', etc.| ✔ | ✔ |
 | smartDateFormat | Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. | skeleton 'MMMd' produces '11 Dec.' | - | ✔ |
