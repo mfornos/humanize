@@ -63,7 +63,7 @@ public class TestICUHumanize
         assertEquals(formatCurrency(10000.55 + df), "£10,00" + df + ".55");
 
         assertEquals(formatCurrency(100, ES), "100 €");
-        assertEquals(formatCurrency(1000.55, ES), "1 000,55 €");
+        assertEquals(formatCurrency(1000.55, ES), "1.000,55 €");
 
     }
 
@@ -109,7 +109,7 @@ public class TestICUHumanize
         int df = rand.nextInt(9);
         assertEquals(formatDecimal(1000 + df), "1,00" + df);
         assertEquals(formatDecimal(10000.55 + df), "10,00" + df + ".55");
-        assertEquals(formatDecimal(1000 + df, ES), "1 00" + df);
+        assertEquals(formatDecimal(1000 + df, ES), "1.00" + df);
 
     }
 
@@ -129,7 +129,7 @@ public class TestICUHumanize
         assertEquals(formatPercent(0.5, ES), "50%");
         assertEquals(formatPercent(1.5, ES), "150%");
         assertEquals(formatPercent(0.564, ES), "56%");
-        assertEquals(formatPercent(1000.564, ES), "100 056%");
+        assertEquals(formatPercent(1000.564, ES), "100.056%");
 
     }
 
@@ -144,7 +144,7 @@ public class TestICUHumanize
 
         assertEquals(formatPluralCurrency(1, ES), "1 euro");
         assertEquals(formatPluralCurrency(100, ES), "100 euros");
-        assertEquals(formatPluralCurrency(1000.55, ES), "1 000,55 euros");
+        assertEquals(formatPluralCurrency(1000.55, ES), "1.000,55 euros");
 
     }
 
@@ -275,7 +275,7 @@ public class TestICUHumanize
 
         f = messageFormatInstance("Hay {0, plural, one{un fichero}other{{0} ficheros}} en {1}.", ES);
 
-        assertEquals(f.render(1000 + df, "disco"), "Hay 1 00" + df + " ficheros en disco.");
+        assertEquals(f.render(1000 + df, "disco"), "Hay 1.00" + df + " ficheros en disco.");
         assertEquals(f.render(1, "disco"), "Hay un fichero en disco.");
 
     }
