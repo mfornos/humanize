@@ -61,7 +61,7 @@ grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.da
 <h3>Maven</h3>
 
 <p>Current version:</p>
-<pre><code>&lt;humanize.version&gt;1.1.4&lt;/humanize.version&gt;</code></pre>
+<pre><code>&lt;humanize.version&gt;1.2.0&lt;/humanize.version&gt;</code></pre>
 <p>For the <strong>slim flavor</strong> write the following in your <em>pom</em>:</p>
 <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
@@ -81,13 +81,13 @@ grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.da
 <h3>
 Humanize-slim</h3>
 <ul>
-<li>guava 15.0</li>
-<li>prettytime 3.1.0.Final</li>
+<li>guava 17.0</li>
+<li>prettytime 3.2.5.Final</li>
 </ul><h3>
 Humanize-icu</h3>
 <ul>
 <li>humanize-slim  ${humanize.version}</li>
-	<li>icu4j 52.1</li>
+	<li>icu4j 53.1</li>
 </ul>
 <p>
 <em>
@@ -139,8 +139,8 @@ class SomeClass {
 	</tr>
 <tr>
 <td> naturalTime </td>
-		<td> Computes both past and future relative dates. </td>
-		<td> ‘2 days from now’, ‘3 decades ago’, ‘3 minutes from now’, ‘moments ago’, etc. </td>
+		<td> Computes both past and future relative dates with optional precision. </td>
+		<td> ‘2 days from now’, ‘3 decades ago’, ‘3 days 16 hours from now’, ‘3 minutes from now’, ‘3 days 15 hours 38 minutes ago’, ‘moments ago’, etc. </td>
 		<td class="tick"> ✔ </td>
 		<td class="tick"> ✔ </td>
 	</tr>
@@ -413,6 +413,12 @@ naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1));
 // == "1 day from now"
 naturalTime(new Date(0), new Date(2629743830L * 3L)); 
 // == "3 months from now"</code></pre>
+
+<p>Specifying precision</p>
+
+<pre><code class="java">Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38 + 1000 * 2);
+naturalTime(new Date(0), moment, TimeMillis.HOUR) // == "3 days 16 hours from now"
+naturalTime(moment, new Date(0), TimeMillis.SECOND) // == "3 days 15 hours 38 minutes ago"</code></pre>
 <p></p>
 <h3>Frequencies</h3>
 <pre><code class="java">paceFormat(1.75, TimeMillis.HOUR.millis()); // == "Approximately 2 times per hour."
@@ -449,20 +455,6 @@ msg.render(2);  // == "2 things" </code></pre>
 <p><strong>Slugify</strong></p>
 <pre><code class="java">slugify("Cet été, j’en ai rien à coder"); 
 // == "cet-ete-jen-ai-rien-a-coder" </code></pre>
-<p><strong>Interpolation</strong></p>
-<p>Emoji aliases:</p>
-<pre><code class="java">EmojiInterpolator.interpolate(
-        "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
-        "Hi :sparkles:!");
-
-// == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
-<p>Emoji chars:</p>
-<pre><code class="java">EmojiInterpolator.interpolateChars(
-        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
-        "Hi \uE025!"); 
-
-// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
-</code></pre>
 <h3>Parse</h3>
 <strong>Date&amp;Time</strong>
 <pre><code class="java">parseISODateTime("2011-09-14T15:22:01Z");
@@ -523,7 +515,7 @@ Use it
 // == "Hello from measures at 150 mph"</code></pre>
 
 <p>
-* <em>This will be replaced by Units of Measurement API when it is available in Maven central repo.</em>
+* This will be replaced by the new Units of Measurement API: <strong>JSR 363</strong>. See <a href="http://unitsofmeasurement.github.io/">Units of Measurement site</a> for more information.
 </p>
 
 <h3>Joda Time</h3>
@@ -596,6 +588,22 @@ Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateT
 <ul>
 	<li>See <code>humanize-jsf/src/integration/webapp</code> for a complete example.</li>
 </ul>
+
+<h3>Humanize Emoji</h3>
+<p><strong>Interpolation</strong></p>
+<p>Emoji aliases:</p>
+<pre><code class="java">EmojiInterpolator.interpolate(
+        "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
+        "Hi :sparkles:!");
+
+// == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
+<p>Emoji chars:</p>
+<pre><code class="java">EmojiInterpolator.interpolateChars(
+        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
+        "Hi \uE025!"); 
+
+// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
+</code></pre>
 
 <h2>Integrations</h2>
 <h3>Handlebars Helper</h3>
