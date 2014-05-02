@@ -387,7 +387,6 @@ public class TestHumanize
 
     }
 
-    // TODO complete test cases
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void naturalTimePrecisionTest()
     {
@@ -396,9 +395,18 @@ public class TestHumanize
         assertEquals(naturalTime(new Date(0), moment, 1000), "3 days 15 hours 38 minutes from now");
         assertEquals(naturalTime(new Date(0), moment, 3600000), "3 days 16 hours from now");
         assertEquals(naturalTime(new Date(0), moment, 3600000000L), "");
+        assertEquals(naturalTime(new Date(0), moment, TimeMillis.HOUR), "3 days 16 hours from now");
+        assertEquals(naturalTime(new Date(0), moment, TimeMillis.DAY), "4 days from now");
+        assertEquals(naturalTime(new Date(0), moment, TimeMillis.WEEK), "");
+
+        assertEquals(naturalTime(moment, new Date(0), 3600000), "3 days 16 hours ago");
+        assertEquals(naturalTime(moment, new Date(0), TimeMillis.SECOND), "3 days 15 hours 38 minutes ago");
+        assertEquals(naturalTime(moment, new Date(0), TimeMillis.DAY), "4 days ago");
 
         // whitin locale
         assertEquals(naturalTime(new Date(0), moment, 3600000, ES), "dentro de 3 días 16 horas");
+        assertEquals(naturalTime(new Date(0), moment, TimeMillis.DAY, ES), "dentro de 4 días");
+        assertEquals(naturalTime(moment, new Date(0), TimeMillis.SECOND, ES), "hace 3 días 15 horas 38 minutos");
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)

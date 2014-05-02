@@ -1590,7 +1590,7 @@ public final class Humanize
     }
 
     /**
-     * Same as {@link #naturalTime(Date, Date, int)} for the specified locale.
+     * Same as {@link #naturalTime(Date, Date, long)} for the specified locale.
      * 
      * @param reference
      *            The reference
@@ -1615,6 +1615,39 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #naturalTime(Date, Date, long)}.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precision to retain in milliseconds
+     * @return String representing the relative date
+     */
+    public static String naturalTime(Date reference, Date duration, TimeMillis precision)
+    {
+        return naturalTime(reference, duration, precision.millis());
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, Date, long, Locale)}.
+     * 
+     * @param reference
+     *            The reference
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precesion to retain in milliseconds
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date reference, final Date duration, final TimeMillis precision,
+            final Locale locale)
+    {
+        return naturalTime(reference, duration, precision.millis(), locale);
+    }
+
+    /**
      * Same as {@link #naturalTime(Date)} for the specified locale.
      * 
      * @param duration
@@ -1630,7 +1663,7 @@ public final class Humanize
     }
 
     /**
-     * Same as {@link #naturalTime(Date, Date, int)} with current date as
+     * Same as {@link #naturalTime(Date, Date, long)} with current date as
      * reference.
      * 
      * @param duration
@@ -1645,7 +1678,7 @@ public final class Humanize
     }
 
     /**
-     * Same as {@link #naturalTime(Date, int)} for the specified locale.
+     * Same as {@link #naturalTime(Date, long)} for the specified locale.
      * 
      * @param duration
      *            The duration
@@ -1658,6 +1691,36 @@ public final class Humanize
     public static String naturalTime(final Date duration, final long precision, final Locale locale)
     {
         return naturalTime(new Date(), duration, precision, locale);
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, long)}.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precision to retain in milliseconds
+     * @return String representing the relative date
+     */
+    public static String naturalTime(Date duration, TimeMillis precision)
+    {
+        return naturalTime(duration, precision.millis());
+    }
+
+    /**
+     * Same as {@link #naturalTime(Date, long, Locale)}.
+     * 
+     * @param duration
+     *            The duration
+     * @param precision
+     *            The precesion to retain in milliseconds
+     * @param locale
+     *            The locale
+     * @return String representing the relative date
+     */
+    public static String naturalTime(final Date duration, final TimeMillis precision, final Locale locale)
+    {
+        return naturalTime(duration, precision.millis(), locale);
     }
 
     /**
