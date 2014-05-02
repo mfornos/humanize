@@ -731,7 +731,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="value" type="java.util.Date">
+<parameter name="then" type="java.util.Date">
 </parameter>
 </method>
 <method name="naturalDay"
@@ -744,7 +744,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="value" type="java.util.Date">
+<parameter name="then" type="java.util.Date">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
 </parameter>
@@ -761,7 +761,7 @@
 >
 <parameter name="style" type="int">
 </parameter>
-<parameter name="value" type="java.util.Date">
+<parameter name="then" type="java.util.Date">
 </parameter>
 </method>
 <method name="naturalDay"
@@ -776,7 +776,7 @@
 >
 <parameter name="style" type="int">
 </parameter>
-<parameter name="value" type="java.util.Date">
+<parameter name="then" type="java.util.Date">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
 </parameter>
@@ -836,7 +836,143 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="reference" type="java.util.Date">
+</parameter>
 <parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="humanize.time.TimeMillis">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reference" type="java.util.Date">
+</parameter>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="humanize.time.TimeMillis">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
+</parameter>
+<parameter name="locale" type="java.util.Locale">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="humanize.time.TimeMillis">
+</parameter>
+</method>
+<method name="naturalTime"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="humanize.time.TimeMillis">
 </parameter>
 <parameter name="locale" type="java.util.Locale">
 </parameter>
@@ -2326,6 +2462,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="reference" type="java.util.Date">
+</parameter>
 <parameter name="duration" type="java.util.Date">
 </parameter>
 </method>
@@ -2342,6 +2480,8 @@
 <parameter name="reference" type="java.util.Date">
 </parameter>
 <parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
 </parameter>
 </method>
 <method name="getBundle"
@@ -2636,6 +2776,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="reference" type="java.util.Date">
+</parameter>
 <parameter name="duration" type="java.util.Date">
 </parameter>
 </method>
@@ -2652,6 +2794,8 @@
 <parameter name="reference" type="java.util.Date">
 </parameter>
 <parameter name="duration" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
 </parameter>
 </method>
 <method name="getCurrencyFormat"
@@ -2802,65 +2946,6 @@
 </package>
 <package name="humanize.text"
 >
-<class name="EmojiInterpolator"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="interpolateAlias"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="pattern" type="java.lang.String">
-</parameter>
-<parameter name="text" type="java.lang.String">
-</parameter>
-</method>
-<method name="interpolateChars"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="pattern" type="java.lang.String">
-</parameter>
-<parameter name="text" type="java.lang.String">
-</parameter>
-</method>
-<field name="EMOJI_ALIAS"
- type="java.util.regex.Pattern"
- transient="false"
- volatile="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="EMOJI_UCHARS"
- type="java.util.regex.Pattern"
- transient="false"
- volatile="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-</class>
 <class name="ExtendedMessageFormat"
  extends="java.text.MessageFormat"
  abstract="false"
@@ -3420,22 +3505,7 @@
  visibility="public"
 >
 </constructor>
-<method name="calculateDurantion"
- return="org.ocpsoft.prettytime.Duration"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ref" type="java.util.Date">
-</parameter>
-<parameter name="then" type="java.util.Date">
-</parameter>
-</method>
-<method name="calculateDurantion"
+<method name="calculateDuration"
  return="org.ocpsoft.prettytime.Duration"
  abstract="false"
  native="false"
@@ -3452,8 +3522,23 @@
 <parameter name="timeUnits" type="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;">
 </parameter>
 </method>
-<method name="calculateDurantion"
+<method name="calculateDuration"
  return="org.ocpsoft.prettytime.Duration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="difference" type="long">
+</parameter>
+<parameter name="timeUnits" type="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;">
+</parameter>
+</method>
+<method name="calculatePreciseDuration"
+ return="java.util.List&lt;org.ocpsoft.prettytime.Duration&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3466,89 +3551,7 @@
 </parameter>
 <parameter name="then" type="java.util.Date">
 </parameter>
-<parameter name="locale" type="java.util.Locale">
-</parameter>
-</method>
-<method name="getDB"
- return="humanize.time.DurationHelper.DurationDB"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="locale" type="java.util.Locale">
-</parameter>
-</method>
-</class>
-<class name="DurationHelper.DurationDB"
- extends="java.lang.Object"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="DurationHelper.DurationDB"
- type="humanize.time.DurationHelper.DurationDB"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="locale" type="java.util.Locale">
-</parameter>
-</constructor>
-<method name="addUnit"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="unit" type="org.ocpsoft.prettytime.impl.ResourcesTimeUnit">
-</parameter>
-</method>
-<method name="clearUnits"
- return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getUnits"
- return="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="registerUnit"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="unit" type="org.ocpsoft.prettytime.TimeUnit">
-</parameter>
-<parameter name="format" type="org.ocpsoft.prettytime.TimeFormat">
+<parameter name="units" type="java.util.List&lt;org.ocpsoft.prettytime.TimeUnit&gt;">
 </parameter>
 </method>
 </class>
@@ -3571,7 +3574,7 @@
 </parameter>
 <parameter name="accuracy" type="humanize.time.Pace.Accuracy">
 </parameter>
-<parameter name="timeUnit" type="humanize.time.Pace.TimeMillis">
+<parameter name="timeUnit" type="humanize.time.TimeMillis">
 </parameter>
 </constructor>
 <method name="getAccuracy"
@@ -3641,61 +3644,6 @@
 </method>
 <method name="values"
  return="humanize.time.Pace.Accuracy[]"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</class>
-<class name="Pace.TimeMillis"
- extends="java.lang.Enum"
- abstract="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="key"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="millis"
- return="long"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="valueOf"
- return="humanize.time.Pace.TimeMillis"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="name" type="java.lang.String">
-</parameter>
-</method>
-<method name="values"
- return="humanize.time.Pace.TimeMillis[]"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3792,6 +3740,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="ref" type="java.util.Date">
+</parameter>
 <parameter name="then" type="java.util.Date">
 </parameter>
 </method>
@@ -3808,6 +3758,8 @@
 <parameter name="ref" type="java.util.Date">
 </parameter>
 <parameter name="then" type="java.util.Date">
+</parameter>
+<parameter name="precision" type="long">
 </parameter>
 </method>
 <method name="format"
@@ -3989,6 +3941,61 @@
 </parameter>
 <parameter name="format" type="org.ocpsoft.prettytime.TimeFormat">
 </parameter>
+</method>
+</class>
+<class name="TimeMillis"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="key"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="millis"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="valueOf"
+ return="humanize.time.TimeMillis"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="humanize.time.TimeMillis[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
 </method>
 </class>
 </package>

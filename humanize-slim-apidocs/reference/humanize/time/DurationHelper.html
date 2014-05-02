@@ -172,7 +172,6 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="selected api apilevel-"><a href="../../humanize/time/DurationHelper.html">DurationHelper</a></li>
-          <li class="api apilevel-"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/Pace.html">Pace</a></li>
           <li class="api apilevel-"><a href="../../humanize/time/PrettyTimeFormat.html">PrettyTimeFormat</a></li>
       </ul>
@@ -182,7 +181,7 @@
     <li><h2>Enums</h2>
       <ul>
           <li class="api apilevel-"><a href="../../humanize/time/Pace.Accuracy.html">Pace.Accuracy</a></li>
-          <li class="api apilevel-"><a href="../../humanize/time/Pace.TimeMillis.html">Pace.TimeMillis</a></li>
+          <li class="api apilevel-"><a href="../../humanize/time/TimeMillis.html">TimeMillis</a></li>
       </ul>
     </li>
               
@@ -237,8 +236,6 @@
 
 Summary:
 
-  <a href="#nestedclasses">Nested Classes</a>
-  
 
 
 
@@ -247,8 +244,7 @@ Summary:
 
 
 
-
-  &#124; <a href="#pubctors">Ctors</a>
+  <a href="#pubctors">Ctors</a>
   
 
 
@@ -287,7 +283,7 @@ Summary:
 
 
   
-    extends Object<br/>
+    extends <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a><br/>
   
   
   
@@ -307,7 +303,7 @@ Summary:
 
     <tr>
          	
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a></td>
     </tr>
     
 
@@ -360,26 +356,6 @@ Summary:
 
 
 <h2>Summary</h2>
-
-
-
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
-
-
-  
-    <tr class="alt-color api apilevel-" >
-      <td class="jd-typecol"><nobr>
-        
-         
-         
-        
-        class</nobr></td>
-      <td class="jd-linkcol"><a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></td>
-      <td class="jd-descrcol" width="100%">&nbsp;</td>
-    </tr>
-    
-    
 
 
 
@@ -448,7 +424,7 @@ Summary:
             Duration</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculateDurantion</a></span>(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</nobr>
+        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDuration(long, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculateDuration</a></span>(long difference, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; timeUnits)</nobr>
         
   </td></tr>
 
@@ -464,7 +440,7 @@ Summary:
             Duration</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)">calculateDurantion</a></span>(Date ref, Date then, Locale locale)</nobr>
+        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDuration(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculateDuration</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> ref, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> then, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; timeUnits)</nobr>
         
   </td></tr>
 
@@ -477,26 +453,10 @@ Summary:
             
             static
             
-            Duration</nobr>
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Duration&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculateDurantion(java.util.Date, java.util.Date)">calculateDurantion</a></span>(Date ref, Date then)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#getDB(java.util.Locale)">getDB</a></span>(Locale locale)</nobr>
+        <span class="sympad"><a href="../../humanize/time/DurationHelper.html#calculatePreciseDuration(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)">calculatePreciseDuration</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> ref, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> then, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; units)</nobr>
         
   </td></tr>
 
@@ -524,7 +484,7 @@ Summary:
           class="jd-expando-trigger-img" /></a>
 From class
 
-  java.lang.Object
+  <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a>
 
 <div id="inherited-methods-java.lang.Object">
   <div id="inherited-methods-java.lang.Object-list"
@@ -543,7 +503,7 @@ From class
             
             
             
-            Object</nobr>
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">clone</span>()</nobr>
@@ -562,7 +522,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">equals</span>(Object arg0)</nobr>
+        <span class="sympad">equals</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
         
   </td></tr>
 
@@ -591,7 +551,7 @@ From class
             final
             
             
-            Class&lt;?&gt;</nobr>
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getClass</span>()</nobr>
@@ -655,7 +615,7 @@ From class
             
             
             
-            String</nobr>
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">toString</span>()</nobr>
@@ -797,7 +757,7 @@ From class
 
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
+<A NAME="calculateDuration(long, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -809,8 +769,8 @@ From class
          
         Duration
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, List&lt;TimeUnit&gt; timeUnits)</span>
+      <span class="sympad">calculateDuration</span>
+      <span class="normal">(long difference, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; timeUnits)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -828,7 +788,7 @@ From class
 </div>
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date, java.util.Locale)"></A>
+<A NAME="calculateDuration(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -840,8 +800,8 @@ From class
          
         Duration
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then, Locale locale)</span>
+      <span class="sympad">calculateDuration</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> ref, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> then, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; timeUnits)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -859,7 +819,7 @@ From class
 </div>
 
 
-<A NAME="calculateDurantion(java.util.Date, java.util.Date)"></A>
+<A NAME="calculatePreciseDuration(java.util.Date, java.util.Date, java.util.List<org.ocpsoft.prettytime.TimeUnit>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -869,41 +829,10 @@ From class
          
          
          
-        Duration
+        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Duration&gt;
       </span>
-      <span class="sympad">calculateDurantion</span>
-      <span class="normal">(Date ref, Date then)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getDB(java.util.Locale)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../humanize/time/DurationHelper.DurationDB.html">DurationHelper.DurationDB</a>
-      </span>
-      <span class="sympad">getDB</span>
-      <span class="normal">(Locale locale)</span>
+      <span class="sympad">calculatePreciseDuration</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> ref, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Date.html">Date</a> then, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;TimeUnit&gt; units)</span>
     </h4>
       <div class="api-level">
         <div>
