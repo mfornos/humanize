@@ -264,7 +264,8 @@ p. ... and format some messages
 bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"
 
-p. * _This will be replaced by Units of Measurement API when it is available in Maven central repo._ 
+p. * This will be replaced by the new Units of Measurement API: __JSR 363__
+p. See "Units of Measurement site":http://unitsofmeasurement.github.io/ for more information
 
 h3. Joda Time
 
