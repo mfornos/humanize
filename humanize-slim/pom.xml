@@ -13,8 +13,8 @@
   <packaging>jar</packaging>
   
   <properties>
-    <guava.version>16.0.1</guava.version>
-    <prettytime.version>3.2.4.Final</prettytime.version>
+    <guava.version>17.0</guava.version>
+    <prettytime.version>3.2.5.Final</prettytime.version>
   </properties>
   
   <dependencies>
