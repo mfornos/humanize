@@ -84,7 +84,7 @@ public class TestExtendedMessageFormat
     {
 
         MessageFormat extformat = new MessageFormat("{0, humanize, binaryPrefix}");
-        Assert.assertEquals(extformat.render(10000), "9.8 kB");
+        Assert.assertEquals(extformat.render(10000), "9.8 KB");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
