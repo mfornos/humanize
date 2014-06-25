@@ -99,7 +99,7 @@ h3. Numbers
 h3. Units
 
 |_. Method |_. Description |_. Output |_. Slim |_. ICU |
-| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 kB', '5 MB', '1.18 PB', etc. | ✔ | - |
+| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | '2 bytes', '1.5 KB', '5 MB', '1.18 PB', etc. | ✔ | - |
 | metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  | '100k', '1M', '3.5M', etc.  | ✔ | - |
 | formatCurrency | Smartly formats the given number as a monetary amount. | '£34', '£1,000', '£12.50', etc. | ✔ | ✔ |
 | formatPluralCurrency | Smartly formats the given number as a monetary amount in plural form. | '34 British pounds sterling', '1,500.55 British pounds sterling', '1 euro', etc. | - | ✔ |
