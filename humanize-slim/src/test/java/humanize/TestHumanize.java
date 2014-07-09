@@ -75,9 +75,9 @@ public class TestHumanize
         assertEquals(binaryPrefix(0), "0 bytes");
         assertEquals(binaryPrefix(1), "1 bytes");
         assertEquals(binaryPrefix(101), "101 bytes");
-        assertEquals(binaryPrefix(1025), "1 kB");
-        assertEquals(binaryPrefix(1024), "1 kB");
-        assertEquals(binaryPrefix(1536), "1.5 kB");
+        assertEquals(binaryPrefix(1025), "1 KB");
+        assertEquals(binaryPrefix(1024), "1 KB");
+        assertEquals(binaryPrefix(1536), "1.5 KB");
         assertEquals(binaryPrefix(1048576 * 5), "5 MB");
         assertEquals(binaryPrefix(1073741824L * 2), "2 GB");
         assertEquals(binaryPrefix(1099511627776L * 3), "3 TB");

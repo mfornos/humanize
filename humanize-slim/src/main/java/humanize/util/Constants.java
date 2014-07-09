@@ -108,7 +108,7 @@ public final class Constants
         binPrefixes.put(1099511627776L, "#.## TB");
         binPrefixes.put(1073741824L, "#.## GB");
         binPrefixes.put(1048576L, "#.## MB");
-        binPrefixes.put(1024L, "#.# kB");
+        binPrefixes.put(1024L, "#.# KB");
         binPrefixes.put(0L, "# bytes");
     }
 

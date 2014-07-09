@@ -119,7 +119,7 @@ public final class Humanize
      * </tr>
      * <tr>
      * <td>1536</td>
-     * <td>"1.5 kB"</td>
+     * <td>"1.5 KB"</td>
      * </tr>
      * <tr>
      * <td>5242880</td>
