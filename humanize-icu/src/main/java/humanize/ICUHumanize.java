@@ -42,9 +42,11 @@ import com.google.common.collect.ObjectArrays;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
+import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.text.Transliterator;
+import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 
 /**
  * <p>
@@ -67,6 +69,81 @@ public final class ICUHumanize
             return (DefaultICUContext) contextFactory.createContext();
         };
     };
+
+    /**
+     * <p>
+     * Same as {@link #compactDecimal(Number, CompactStyle) compactDecimal} but
+     * defaults to SHORT compact style.
+     * </p>
+     * 
+     * @param value
+     *            The number to be abbreviated
+     * @return a compact textual representation of the given value
+     */
+    public static String compactDecimal(final Number value)
+    {
+        NumberFormat fmt = context.get().getCompactDecimalFormat();
+        return fmt.format(value);
+    }
+
+    /**
+     * Produces abbreviated numbers. For example, '1.2B' instead of
+     * '1,200,000,000'. The format will be appropriate for the given language,
+     * such as '2,4 Millionen' for German.
+     * 
+     * @param value
+     *            The number to be abbreviated
+     * @param style
+     *            The compaction style
+     * @return a compact textual representation of the given value
+     */
+    public static String compactDecimal(final Number value, final CompactStyle style)
+    {
+        NumberFormat fmt = context.get().getCompactDecimalFormat(style);
+        return fmt.format(value);
+    }
+
+    /**
+     * <p>
+     * Same as {@link #compactDecimal(Number, CompactStyle) compactDecimal} for
+     * the specified locale.
+     * </p>
+     * 
+     * @param value
+     *            The number to be abbreviated
+     * @param style
+     *            The compaction style
+     * @param locale
+     *            The locale
+     * @return a compact textual representation of the given value
+     */
+    public static String compactDecimal(final Number value, final CompactStyle style, final Locale locale)
+    {
+        return withinLocale(new Callable<String>()
+        {
+            public String call() throws Exception
+            {
+                return compactDecimal(value, style);
+            }
+        }, locale);
+    }
+
+    /**
+     * <p>
+     * Same as {@link #compactDecimal(Number) compactDecimal} for the specified
+     * locale.
+     * </p>
+     * 
+     * @param value
+     *            The number to be abbreviated
+     * @param locale
+     *            The locale
+     * @return a compact textual representation of the given value
+     */
+    public static String compactDecimal(final Number value, final Locale locale)
+    {
+        return compactDecimal(value, CompactStyle.SHORT, locale);
+    }
 
     /**
      * <p>

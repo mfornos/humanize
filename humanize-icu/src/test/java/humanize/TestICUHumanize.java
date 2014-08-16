@@ -1,5 +1,6 @@
 package humanize;
 
+import static humanize.ICUHumanize.compactDecimal;
 import static humanize.ICUHumanize.dateFormatInstance;
 import static humanize.ICUHumanize.decimalFormatInstance;
 import static humanize.ICUHumanize.duration;
@@ -35,6 +36,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
+
 public class TestICUHumanize
 {
 
@@ -43,6 +46,59 @@ public class TestICUHumanize
     private Random rand;
 
     private Locale defaultLocale;
+
+    @Test(threadPoolSize = 10, invocationCount = 10)
+    public void compactDecimalLocaleTest()
+    {
+        Locale DE = Locale.GERMAN;
+
+        assertEquals(compactDecimal(-10, ES), "-10");
+        assertEquals(compactDecimal(-10000001, ES), "-10M");
+
+        assertEquals(compactDecimal(-10, DE), "-10");
+        assertEquals(compactDecimal(-10000001, DE), "-10 Mio");
+
+        assertEquals(compactDecimal(10, ES), "10");
+        assertEquals(compactDecimal(100000, ES), "100K");
+        assertEquals(compactDecimal(100000000, ES), "100M");
+        assertEquals(compactDecimal(2394000, ES), "2,4M");
+
+        assertEquals(compactDecimal(10, DE), "10");
+        assertEquals(compactDecimal(100000, DE), "100 Tsd");
+        assertEquals(compactDecimal(100000000, DE), "100 Mio");
+        assertEquals(compactDecimal(2394000, DE), "2,4 Mio");
+
+        assertEquals(compactDecimal(10, CompactStyle.LONG, ES), "10");
+        assertEquals(compactDecimal(100000, CompactStyle.LONG, ES), "100 mil");
+        assertEquals(compactDecimal(1000000, CompactStyle.LONG, ES), "1 millón");
+        assertEquals(compactDecimal(100000000, CompactStyle.LONG, ES), "100 millones");
+        assertEquals(compactDecimal(2394000, CompactStyle.LONG, ES), "2,4 millones");
+
+        assertEquals(compactDecimal(10, CompactStyle.LONG, DE), "10");
+        assertEquals(compactDecimal(100000, CompactStyle.LONG, DE), "100 Tausend");
+        assertEquals(compactDecimal(1000000, CompactStyle.LONG, DE), "1 Million");
+        assertEquals(compactDecimal(100000000, CompactStyle.LONG, DE), "100 Millionen");
+        assertEquals(compactDecimal(2394000, CompactStyle.LONG, DE), "2,4 Millionen");
+    }
+
+    @Test
+    public void compactDecimalTest()
+    {
+
+        assertEquals(compactDecimal(-10), "-10");
+        assertEquals(compactDecimal(-10000001), "-10M");
+
+        assertEquals(compactDecimal(10), "10");
+        assertEquals(compactDecimal(100000), "100K");
+        assertEquals(compactDecimal(100000000), "100M");
+        assertEquals(compactDecimal(2394000), "2.4M");
+
+        assertEquals(compactDecimal(10, CompactStyle.LONG), "10");
+        assertEquals(compactDecimal(100000, CompactStyle.LONG), "100 thousand");
+        assertEquals(compactDecimal(100000000, CompactStyle.LONG), "100 million");
+        assertEquals(compactDecimal(2394000, CompactStyle.LONG), "2.4 million");
+
+    }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void durationTest()

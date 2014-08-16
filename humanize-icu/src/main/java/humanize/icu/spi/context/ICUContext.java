@@ -2,6 +2,7 @@ package humanize.icu.spi.context;
 
 import humanize.icu.spi.MessageFormat;
 
+import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.DurationFormat;
@@ -12,6 +13,10 @@ public interface ICUContext
 {
 
     String getBestPattern(String skeleton);
+
+    NumberFormat getCompactDecimalFormat();
+    
+    NumberFormat getCompactDecimalFormat(CompactStyle style);
 
     DecimalFormat getCurrencyFormat();
 

@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
+import com.ibm.icu.text.CompactDecimalFormat;
+import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DateTimePatternGenerator;
 import com.ibm.icu.text.DecimalFormat;
@@ -34,6 +36,8 @@ public class DefaultICUContext implements Context, ICUContext
     private static final String CURRENCY = "icu.currency";
 
     private static final String DECIMAL = "icu.decimal";
+
+    private static final String COMPACT_DECIMAL = "icu.compact.decimal";
 
     private static final String NUMBER = "icu.number";
 
@@ -143,9 +147,28 @@ public class DefaultICUContext implements Context, ICUContext
     @Override
     public ResourceBundle getBundle()
     {
+        throw new UnsupportedOperationException("Please, use humanize-slim to get the bundle.");
+    }
 
-        throw new UnsupportedOperationException("Use humanize-slim instead.");
+    @Override
+    public NumberFormat getCompactDecimalFormat()
+    {
+        return getCompactDecimalFormat(CompactStyle.SHORT);
+    }
 
+    @Override
+    public NumberFormat getCompactDecimalFormat(final CompactStyle style)
+    {
+        String compactDecKey = COMPACT_DECIMAL + style.name();
+
+        return sharedCache.getFormat(compactDecKey, locale, new Callable<NumberFormat>()
+        {
+            @Override
+            public NumberFormat call() throws Exception
+            {
+                return CompactDecimalFormat.getInstance(locale, style);
+            }
+        });
     }
 
     @Override
