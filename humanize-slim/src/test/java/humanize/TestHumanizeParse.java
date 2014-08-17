@@ -29,7 +29,7 @@ public class TestHumanizeParse
     public void parseDate()
     {
 
-        Date target = newDate(2011, 8, 14, 15, 22, 1);
+        Date target = newDate(2011, 9, 14, 15, 22, 1);
 
         Date date = Humanize.parseISODateTime("2011-09-14T15:22:01Z");
         Assert.assertEquals(date, target);
