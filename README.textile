@@ -2,7 +2,27 @@ h1. Humanize for Java !https://secure.travis-ci.org/mfornos/humanize.png?branch=
 
 Humanize is a Java facility for adding a "human touch" to data. It is thread-safe and supports per-thread internationalization. 
 
-Provided in two variants: *humanize-slim* and *humanize-icu*. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs.
+<hr/>
+
+The main modules are provided in two complementary variants: 
+
+*humanize-slim*
+
+Lightweight distribution that only depends on Guava and standard Java APIs.
+
+*humanize-icu*
+
+Provides a concise facade for access to the "International Components for Unicode":http://icu-project.org/ (ICU) Java APIs. Includes the slim distribution.
+
+<hr/>
+
+*Extensions*
+
+* "Unified Emoji":https://github.com/mfornos/humanize/tree/master/humanize-emoji
+* "Joda Time":https://github.com/mfornos/humanize/tree/master/humanize-joda
+* "UCUM":https://github.com/mfornos/humanize/tree/master/humanize-ucum
+* "JSF":https://github.com/mfornos/humanize/tree/master/humanize-jsf
+* "Taglib":https://github.com/mfornos/humanize/tree/master/humanize-taglib
 
 h2. Getting Started
 
@@ -248,137 +268,7 @@ p. The value must follow the CacheBuilderSpec syntax. The string syntax is a ser
 * softValues: sets CacheBuilder.softValues().
 * weakValues: sets CacheBuilder.weakValues().
 
-Durations are represented by an integer, followed by one of "d", "h", "m", or "s", representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.) 
-
-h2. Extensions
-
-h3. The Unified Code for Units of Measure (UCUM)
-
-Humanize provides a module called *humanize-ucum* that adds JSR-275* support.
-
-Usage:
-
-Declare the Maven dependency
-
-bc.. <dependency>
-  <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize-ucum</artifactId>
-  <version>${humanize.version}</version>
-</dependency>
-
-p. ... and format some messages
-
-bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
-// == "Hello from measures at 150 mph"
-
-p. * This will be replaced by the new Units of Measurement API: __JSR 363__. See "Units of Measurement site":http://unitsofmeasurement.github.io/ for more information
-
-h3. Joda Time
-
-p. Humanize provides a module called *humanize-joda* that adds support for Joda time formats.
-
-Usage:
-
-Declare the Maven dependency
-
-bc.. <dependency>
-  <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize-joda</artifactId>
-  <version>${humanize.version}</version>
-</dependency>
-
-p. ... and format some messages
-
-bc.. Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
-// == "hello 1/1/70!!"
-
-mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
-mf.render(new Period(0, 100000));
-// == "hello 1 Minute und 40 Sekunden!!"
-    
-Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
-// == "hello 1970W014T010000+0100!!"
-
-p. Note that it supports almost any Joda format as subformat. See FormatNames for details.
-
-h3. Taglib
-
-p. Humanize Tag library.
-
-Usage:
-
-Declare the Maven dependency
-
-bc.. <dependency>
-  <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize-taglib</artifactId>
-  <version>${humanize.version}</version>
-</dependency>
-
-p. Use it in a page
-
-bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
-
-<hmnz:metricPrefix value="100000000" />
-<hmnz:pluralize value="0" one="something" many="{0} things" none="nothing" />
-<hmnz:pluralizeMessage value="0" template="nothing::something::{0} things" />
-
-p. 
-* "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
-* See @humanize-taglib/src/integration/webapp@ for a complete example.
-
-h3. Java Server Faces
-
-p. Humanize JSF.
-
-Usage:
-
-Declare the Maven dependency
-
-bc.. <dependency>
-  <groupId>com.github.mfornos</groupId>
-  <artifactId>humanize-jsf</artifactId>
-  <version>${humanize.version}</version>
-</dependency>
-
-p. Use it in a page
-
-bc.. <html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:hmnz="http://mfornos.github.com/jsf/humanize">
-
-<h:outputText value="100000000" converter="humanize.MetricPrefix" />
-<h:outputText value="nothing::something::{0} things">
-  <hmnz:pluralize value="0" />
-</h:outputText>
-<h:outputFormat value="hi {0,humanize,binary.prefix}!">
-  <f:param value="#{10}" />
-</h:outputFormat>
-
-p. 
-* See @humanize-jsf/src/integration/webapp@ for a complete example.
-
-h3. Humanize Emoji
-
-p. *Interpolation*
-
-p. Emoji aliases:
-
-bc.. EmojiInterpolator.interpolateAlias(
-        "<img src=\"imgs/{0}.png\" title=\"{0}\" />;", 
-        "Hi :sparkles:!"); 
-
-// == "Hi <img src=\"imgs/sparkles.png\" title=\"sparkles\" />!"
-
-p. Emoji chars:
-
-bc.. EmojiInterpolator.interpolateChars(
-        "<img src=\"imgs/{0}.png\" />;", 
-        "Hi \uE025!"); 
-
-// == "Hi <img src=\"imgs/uE025.png\" />!"
-
+Durations are represented by an integer, followed by one of "d", "h", "m", or "s", representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)
 
 h2. Integrations
 

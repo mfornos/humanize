@@ -1,0 +1,27 @@
+h1. Joda Time
+
+p. Humanize provides a module called *humanize-joda* that adds support for Joda time formats.
+
+h2. Usage
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-joda</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. ... and format some messages
+
+bc.. Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
+// == "hello 1/1/70!!"
+
+mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
+mf.render(new Period(0, 100000));
+// == "hello 1 Minute und 40 Sekunden!!"
+    
+Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
+// == "hello 1970W014T010000+0100!!"
+
+p. Note that it supports almost any Joda format as subformat. See FormatNames for details.

@@ -1,0 +1,24 @@
+h1. Humanize Tag library
+
+h2. Usage
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-taglib</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. Use it in a page
+
+bc.. <%@ taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %>
+
+<hmnz:metricPrefix value="100000000" />
+<hmnz:pluralize value="0" one="something" many="{0} things" none="nothing" />
+<hmnz:pluralizeMessage value="0" template="nothing::something::{0} things" />
+
+h2. References
+
+* "TLD documentation":http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html
+* See @humanize-taglib/src/integration/webapp@ for a complete example.

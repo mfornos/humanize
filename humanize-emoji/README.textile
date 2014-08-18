@@ -1,0 +1,21 @@
+h1. Unified Emoji for Java
+
+h2. Features
+
+* Search by code points, raw characters and annotations
+* Unified Emoji character database
+* UTF-16 encoding support
+* Vendor codes mapping (DoCoMo, KDDI, SoftBank)
+
+h2. Usage
+
+Declare the Maven dependency
+
+bc.. <dependency>
+  <groupId>com.github.mfornos</groupId>
+  <artifactId>humanize-emoji</artifactId>
+  <version>${humanize.version}</version>
+</dependency>
+
+p. 
+[TBD]
