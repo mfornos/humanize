@@ -34,5 +34,4 @@ public class InterpolationHelper
         return interpolate(text, Constants.NOT_IN_BMP, replacer);
 
     }
-
 }

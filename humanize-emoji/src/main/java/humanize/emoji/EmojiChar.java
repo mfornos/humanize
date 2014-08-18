@@ -73,6 +73,9 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
                 && Objects.equal(code, other.code);
     }
 
+    /**
+     * @return a list of strings with the annotations for this character
+     */
     public Collection<String> getAnnotations()
     {
         return Collections.unmodifiableCollection(annotations);
@@ -98,11 +101,22 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
         return defaultStyle;
     }
 
+    /**
+     * Finds a mapping for a given vendor.
+     * 
+     * @param vendor
+     *            the vendor
+     * @return a string array with the hex code and the raw character itself, or
+     *         null if not found
+     */
     public String[] getMapping(Vendor vendor)
     {
         return mappings.get(vendor);
     }
 
+    /**
+     * @return the map of vendor mappings
+     */
     public Map<Vendor, String[]> getMappings()
     {
         return Collections.unmodifiableMap(mappings);
@@ -159,11 +173,25 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
         return version;
     }
 
+    /**
+     * Checks if a given annotation is present.
+     * 
+     * @param annotation
+     *            the annotation to check
+     * @return true if the annotation is present, false otherwise
+     */
     public boolean hasAnnotation(String annotation)
     {
         return this.annotations.contains(annotation);
     }
 
+    /**
+     * Checks if all the annotations are present.
+     * 
+     * @param annotations
+     *            the annotations to check
+     * @return true if all the annotations are present, false otherwise
+     */
     public boolean hasAnnotations(Collection<String> annotations)
     {
         return this.annotations.containsAll(annotations);
@@ -175,11 +203,25 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
         return Objects.hashCode(ordering, code);
     }
 
+    /**
+     * Checks if has a mapping for the specified vendor.
+     * 
+     * @param vendor
+     *            the vendor
+     * @return true if has a mapping for the given vendor, false otherwise
+     */
     public boolean hasMapping(Vendor vendor)
     {
         return mappings.containsKey(vendor);
     }
 
+    /**
+     * Gets the raw character value of this emoji character for a given vendor.
+     * 
+     * @param vendor
+     *            the vendor
+     * @return the raw character for the vendor specified, null if not found
+     */
     public String mapTo(Vendor vendor)
     {
         String[] m = getMapping(vendor);

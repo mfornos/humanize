@@ -27,7 +27,7 @@ import com.google.common.io.CharStreams;
 import com.google.common.io.LineProcessor;
 
 /**
- * Unified emoji for Java.
+ * Unified Emoji for Java.
  * 
  * @see Unicode Emoji (working draft)
  *      http://www.unicode.org/reports/tr51/tr51-1d.html
@@ -123,11 +123,13 @@ public final class Emoji
     }
 
     /**
-     * TODO [TBD]
+     * Finds an emoji character by vendor code point.
      * 
      * @param vendor
+     *            the vendor
      * @param point
-     * @return
+     *            the raw character for the code point in the vendor space
+     * @return the corresponding emoji character or null if not found
      */
     public static EmojiChar findByVendorCodePoint(Vendor vendor, String point)
     {

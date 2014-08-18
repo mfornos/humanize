@@ -1561,9 +1561,9 @@ public final class ICUHumanize
     {
         return InterpolationHelper.replaceSupplementary(value, new Replacer()
         {
-            public String replace(String in)
+            public String replace(Object... ctx)
             {
-                return UCharacter.getName(in, ", ");
+                return UCharacter.getName((String) ctx[0], ", ");
             }
         });
     }
