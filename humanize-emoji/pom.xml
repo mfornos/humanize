@@ -8,6 +8,7 @@
   <artifactId>humanize-emoji</artifactId>
   <name>Humanize for Java - Emoji</name>
   <description>Emoji support</description>
+  
   <dependencies>
     <dependency>
       <groupId>com.github.mfornos</groupId>
@@ -15,4 +16,5 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+  
 </project>

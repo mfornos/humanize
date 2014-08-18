@@ -23,9 +23,12 @@ import java.util.regex.Pattern;
  * 
  * </pre>
  * 
- * @author mfornos
+ * This class is *deprecated* in favor of {@link Emoji}
+ * 
+ * @see Emoji
  * 
  */
+@Deprecated
 public final class EmojiInterpolator
 {
 
@@ -198,7 +201,7 @@ public final class EmojiInterpolator
 
     private EmojiInterpolator()
     {
-
+        //
     }
 
 }
