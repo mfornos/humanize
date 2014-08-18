@@ -1,10 +1,11 @@
 package humanize.emoji;
 
+import humanize.emoji.EmojiChar.Vendor;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,10 @@ import java.util.regex.Pattern;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.io.CharStreams;
+import com.google.common.io.LineProcessor;
 
 /**
  * Unified emoji for Java.
@@ -29,218 +34,16 @@ import com.google.common.base.Strings;
  */
 public final class Emoji
 {
-    /**
-     * Represents an emoji character in accordance with Unicode emoji data
-     * files.
-     * 
-     */
-    public static final class EmojiChar implements Comparable<EmojiChar>, Serializable
-    {
 
-        private static final long serialVersionUID = 697634381168152779L;
-
-        private final int ordering;
-        private final String code;
-        private final String defaultStyle;
-        private final String sources;
-        private final String name;
-        private final String version;
-        private final String raw;
-        private final Collection<String> annotations;
-
-        public EmojiChar(String code, String defaultStyle,
-                int ordering, Collection<String> annotations,
-                String sources, String version,
-                String raw, String name)
-        {
-            this.code = code;
-            this.defaultStyle = defaultStyle;
-            this.ordering = ordering;
-            this.annotations = annotations;
-            this.sources = sources;
-            this.name = name;
-            this.version = version;
-            this.raw = raw;
-        }
-
-        @Override
-        public int compareTo(EmojiChar o)
-        {
-            Integer siz = annotations.size();
-            int r = siz.compareTo(o.annotations.size());
-
-            if (r == 0)
-            {
-                r = Integer.valueOf(ordering).compareTo(o.ordering);
-            }
-
-            return r;
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-
-            EmojiChar other = (EmojiChar) obj;
-            return Objects.equal(ordering, other.ordering)
-                    && Objects.equal(code, other.code);
-        }
-
-        public Collection<String> getAnnotations()
-        {
-            return annotations;
-        }
-
-        /**
-         * @return the Unicode code point
-         */
-        public String getCode()
-        {
-            return code;
-        }
-
-        /**
-         * The proposed default presentation style for each character. Separate
-         * rows show the presentation with and without variation selectors,
-         * where applicable. Flags are shown with images.
-         * 
-         * @return the default presentation style for this character
-         */
-        public String getDefaultStyle()
-        {
-            return defaultStyle;
-        }
-
-        /**
-         * @return the name of this character
-         */
-        public String getName()
-        {
-            return name;
-        }
-
-        /**
-         * Draft ordering of emoji characters that groups like characters
-         * together. Unlike the labels or annotations, each character only
-         * occurs once.
-         * 
-         * @return the unique ordering identifier of this character
-         */
-        public Integer getOrdering()
-        {
-            return ordering;
-        }
-
-        /**
-         * @return a raw string representation
-         */
-        public String getRaw()
-        {
-            return raw;
-        }
-
-        /**
-         * A view of when different emoji were added to Unicode, and the
-         * sources. The sources indicate where a Unicode character corresponds
-         * to a character in the source. In many cases, the character had
-         * already been encoded well before the source was considered for other
-         * characters.
-         * 
-         * @return the concatenated source letter codes
-         * @see EmojiSource
-         */
-        public String getSources()
-        {
-            return sources;
-        }
-
-        /**
-         * A view of when different emoji were added to Unicode, by Unicode
-         * version.
-         * 
-         * @return the version of this character
-         */
-        public String getVersion()
-        {
-            return version;
-        }
-
-        public boolean hasAnnotation(String annotation)
-        {
-            return this.annotations.contains(annotation);
-        }
-
-        public boolean hasAnnotations(Collection<String> annotations)
-        {
-            return this.annotations.containsAll(annotations);
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return Objects.hashCode(ordering, code);
-        }
-
-        @Override
-        public String toString()
-        {
-            return Objects.toStringHelper(this)
-                    .add("code", code)
-                    .add("defaultStyle", defaultStyle)
-                    .add("ordering", ordering)
-                    .add("annotations", annotations)
-                    .add("sources", sources)
-                    .add("name", name)
-                    .add("version", version)
-                    .add("raw", raw)
-                    .toString();
-        }
-
-    }
-
-    public enum EmojiSource
-    {
-        J("JCarrier", "Japanese telephone carriers"),
-        A("ARIB", ""),
-        Z("ZDings", "Zapf Dingbats"),
-        W("WDings", "Wingdings and Webdings"),
-        X("Others", "");
-
-        private String name;
-        private String desc;
-
-        private EmojiSource(String name, String desc)
-        {
-            this.name = name;
-            this.desc = desc;
-        }
-
-        public String getDesc()
-        {
-            return desc;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-    }
-
-    private static class LazyHolder
-    {
-        private static final Emoji INSTANCE = new Emoji();
-    }
-
-    private static final String DB_FILE = "/db/emoji-data.txt";
     private static final Charset UTF8 = Charset.forName("UTF8");
 
+    private static final String DB_EMOJI_DATA = "/db/emoji-data.txt";
+    private static final String DB_EMOJI_SOURCES = "/db/emoji-sources.txt";
+
     private static final List<EmojiChar> EMOJI_CHARS = new ArrayList<EmojiChar>();
-    private static final Map<String, Integer> RAW_INDEX = new HashMap<String, Integer>();
-    private static final Map<String, Collection<Integer>> ANNOTATIONS_INDEX = new HashMap<String, Collection<Integer>>();
+    private static final Map<String, EmojiChar> RAW_INDEX = new HashMap<String, EmojiChar>();
+    private static final Map<VendorKey, EmojiChar> VENDORS_INDEX = new HashMap<VendorKey, EmojiChar>();
+    private static final Multimap<String, EmojiChar> ANNOTATIONS_INDEX = ArrayListMultimap.create();
 
     /**
      * Transforms a list of Unicode code points, as hex strings, into a proper
@@ -320,6 +123,19 @@ public final class Emoji
     }
 
     /**
+     * TODO [TBD]
+     * 
+     * @param vendor
+     * @param point
+     * @return
+     */
+    public static EmojiChar findByVendorCodePoint(Vendor vendor, String point)
+    {
+        Emoji emoji = Emoji.getInstance();
+        return emoji._findByVendorCodePoint(vendor, point);
+    }
+
+    /**
      * Finds a single emoji character for the given annotations.
      * 
      * @param annotations
@@ -340,7 +156,7 @@ public final class Emoji
     {
         try
         {
-            loadDatabase();
+            loadData();
         } catch (IOException e)
         {
             throw new RuntimeException(e);
@@ -354,45 +170,26 @@ public final class Emoji
 
         for (String annotation : parts)
         {
-            if (ANNOTATIONS_INDEX.containsKey(annotation))
-            {
-                Collection<Integer> pointers = ANNOTATIONS_INDEX.get(annotation);
-                for (Integer ordering : pointers)
-                {
-                    EmojiChar ec = EMOJI_CHARS.get(ordering);
-                    if (ec.hasAnnotations(parts))
-                    {
-                        found.add(ec);
-                    }
-                }
-            }
+            collectAnnotations(found, parts, annotation);
         }
 
-        // Needed for template signatures
-        List<EmojiChar> retList;
-        if (found.isEmpty())
-        {
-            retList = Collections.emptyList();
-        }
-        else
-        {
-            retList = asSortedList(found);
-        }
-
-        return retList;
+        return found.isEmpty() ?
+                Collections.<EmojiChar> emptyList() : asSortedList(found);
     }
 
     private EmojiChar _findByCodePoint(String code)
     {
-        Integer ordering = RAW_INDEX.get(code);
-        EmojiChar emojiChar = ordering == null ? null : EMOJI_CHARS.get(ordering);
+        return RAW_INDEX.get(code);
+    }
 
-        return emojiChar;
+    private EmojiChar _findByVendorCodePoint(Vendor vendor, String code)
+    {
+        return VENDORS_INDEX.get(new VendorKey(vendor, code));
     }
 
     private EmojiChar _singleByAnnotations(String annotations)
     {
-        List<EmojiChar> found = findByAnnotations(annotations);
+        List<EmojiChar> found = _findByAnnotations(annotations);
         return found.isEmpty() ? null : found.iterator().next();
     }
 
@@ -401,6 +198,91 @@ public final class Emoji
         List<T> list = new ArrayList<T>(c);
         Collections.sort(list);
         return list;
+    }
+
+    private void collectAnnotations(Collection<EmojiChar> found,
+            Collection<String> parts,
+            String annotation)
+    {
+        if (!ANNOTATIONS_INDEX.containsKey(annotation))
+            return;
+
+        Collection<EmojiChar> echars = ANNOTATIONS_INDEX.get(annotation);
+        for (EmojiChar echar : echars)
+        {
+            if (echar.hasAnnotations(parts))
+            {
+                found.add(echar);
+            }
+        }
+    }
+
+    private StreamLineProcessor emojiDataProcessor()
+    {
+        return new StreamLineProcessor()
+        {
+            @Override
+            protected void consumeLine(String line)
+            {
+                String[] row = line.split(";");
+                String code = extractCode(trim(row[0]));
+                String defaultStyle = trim(row[1]);
+                int ordering = Integer.parseInt(trim(row[2]));
+                List<String> annotations = extractList(trim(row[3]));
+                String[] rest = parseRemaining(trim(row[4]));
+                String sources = rest[0];
+                String version = rest[1];
+                String raw = rest[2];
+                String name = rest[3];
+
+                EmojiChar ec = new EmojiChar(code, defaultStyle,
+                        ordering, annotations, sources,
+                        version, raw, name);
+
+                EMOJI_CHARS.add(ec);
+
+                index(ec);
+            }
+        };
+    }
+
+    private StreamLineProcessor emojiSourcesProcessor()
+    {
+        return new StreamLineProcessor()
+        {
+            @Override
+            protected void consumeLine(String line)
+            {
+                String[] row = line.split(";");
+                String unified = trim(row[0]);
+                String unicode = codePointsToString(unified.split(" "));
+                EmojiChar echar = _findByCodePoint(unicode);
+                if (echar != null)
+                {
+                    map(echar, Vendor.DOCOMO, row, 1);
+                    map(echar, Vendor.KDDI, row, 2);
+                    map(echar, Vendor.SOFT_BANK, row, 3);
+                }
+            }
+
+            private void map(EmojiChar echar, Vendor vendor, String[] row, int index)
+            {
+                if (row.length <= index)
+                {
+                    return;
+                }
+
+                String code = trim(row[index]);
+
+                if (!Strings.isNullOrEmpty(code))
+                {
+                    String raw = codePointToString(code);
+                    echar.map(vendor, code, raw);
+
+                    VENDORS_INDEX.put(new VendorKey(vendor, raw), echar);
+                }
+            }
+        };
     }
 
     private String extractCode(String str)
@@ -421,72 +303,33 @@ public final class Emoji
         return clean;
     }
 
-    private void index(EmojiChar ec)
+    private void index(EmojiChar echar)
     {
-        int ordering = ec.getOrdering();
-
         // Index by code points (raw characters)
-        RAW_INDEX.put(ec.getRaw(), ordering);
+        RAW_INDEX.put(echar.getRaw(), echar);
 
         // Index by annotations
-        for (String annotation : ec.getAnnotations())
+        for (String annotation : echar.getAnnotations())
         {
-            Collection<Integer> pointers;
-            if (ANNOTATIONS_INDEX.containsKey(annotation))
-            {
-                pointers = ANNOTATIONS_INDEX.get(annotation);
-            } else
-            {
-                pointers = new HashSet<Integer>();
-                ANNOTATIONS_INDEX.put(annotation, pointers);
-            }
-            pointers.add(ordering);
+            ANNOTATIONS_INDEX.put(annotation, echar);
         }
     }
 
-    private void loadDatabase() throws IOException
+    private void load(String path, LineProcessor<Void> processor) throws IOException
     {
-        InputStream resource = Emoji.class.getResourceAsStream(DB_FILE);
-        Preconditions.checkNotNull(resource, "%s not found in the classpath!", DB_FILE);
-        loadDatabase(resource);
-    }
-
-    private void loadDatabase(InputStream in) throws IOException
-    {
+        InputStream in = Emoji.class.getResourceAsStream(path);
+        Preconditions.checkNotNull(in, "%s not found in the classpath!", path);
 
         InputStreamReader isr = new InputStreamReader(in, UTF8);
         BufferedReader br = new BufferedReader(isr);
 
-        for (String line; (line = br.readLine()) != null;)
-        {
-            if (line.indexOf('#') == 0)
-            {
-                continue;
-            }
+        CharStreams.readLines(br, processor);
+    }
 
-            String[] row = line.split(";");
-            String code = extractCode(trim(row[0]));
-            String defaultStyle = trim(row[1]);
-            int ordering = Integer.parseInt(trim(row[2]));
-            List<String> annotations = extractList(trim(row[3]));
-            String[] rest = parseRemaining(trim(row[4]));
-            String sources = rest[0];
-            String version = rest[1];
-            String raw = rest[2];
-            String name = rest[3];
-
-            EmojiChar ec = new EmojiChar(code, defaultStyle,
-                    ordering, annotations, sources,
-                    version, raw, name);
-
-            EMOJI_CHARS.add(ec);
-
-            index(ec);
-
-        }
-
-        br.close();
-
+    private void loadData() throws IOException
+    {
+        load(DB_EMOJI_DATA, emojiDataProcessor());
+        load(DB_EMOJI_SOURCES, emojiSourcesProcessor());
     }
 
     private String[] parseRemaining(String in)
@@ -519,6 +362,69 @@ public final class Emoji
 
     private String trim(String str)
     {
+        if (Strings.isNullOrEmpty(str))
+            return str;
+
         return str.replaceAll("\\s+", " ").trim();
+    }
+
+    private static class LazyHolder
+    {
+        private static final Emoji INSTANCE = new Emoji();
+    }
+
+    private abstract class StreamLineProcessor implements LineProcessor<Void>
+    {
+
+        @Override
+        public Void getResult()
+        {
+            return null;
+        }
+
+        public boolean processLine(String line) throws IOException
+        {
+            if (Strings.isNullOrEmpty(line) || line.indexOf('#') == 0)
+            {
+                return true;
+            }
+
+            consumeLine(line);
+
+            return true;
+        }
+
+        abstract protected void consumeLine(String line);;
+    }
+
+    private final class VendorKey
+    {
+        private final Vendor vendor;
+        private final String code;
+
+        public VendorKey(Vendor vendor, String code)
+        {
+            this.vendor = vendor;
+            this.code = code;
+        }
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+
+            VendorKey other = (VendorKey) obj;
+            return Objects.equal(vendor, other.vendor)
+                    && Objects.equal(code, other.code);
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return Objects.hashCode(vendor, code);
+        }
     }
 }

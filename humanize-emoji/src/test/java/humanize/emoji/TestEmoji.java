@@ -4,7 +4,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.fail;
-import humanize.emoji.Emoji.EmojiChar;
+
+import humanize.emoji.EmojiChar.Vendor;
 
 import java.util.Collection;
 
@@ -53,7 +54,7 @@ public class TestEmoji
     }
 
     @Test
-    public void testCodePointConversion()
+    public void testCodePointToRaw()
     {
         assertEquals(Emoji.codePointToString("2639"), SIMPLE_CP, "Simple face");
         assertEquals(Emoji.codePointToString("1F536"), UTF16_CP, "Orange diamond");
@@ -71,6 +72,21 @@ public class TestEmoji
         {
             //
         }
+    }
+
+    @Test
+    public void testVendorCodePoint()
+    {
+        String tradeMark = "™";
+
+        EmojiChar echar = Emoji.findByVendorCodePoint(Vendor.DOCOMO, "\uF9D7");
+        assertEquals(echar.getRaw(), tradeMark, "DoCoMo");
+
+        echar = Emoji.findByVendorCodePoint(Vendor.SOFT_BANK, "\uFBD7");
+        assertEquals(echar.getRaw(), tradeMark, "Soft Bank");
+
+        echar = Emoji.findByVendorCodePoint(Vendor.SOFT_BANK, "\uAAAB");
+        assertNull(echar, "Not found");
     }
 
     @Test

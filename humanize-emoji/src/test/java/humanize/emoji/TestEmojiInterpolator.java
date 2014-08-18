@@ -1,6 +1,5 @@
 package humanize.emoji;
 
-import humanize.emoji.EmojiInterpolator;
 import humanize.text.util.InterpolationHelper;
 
 import org.testng.Assert;
