@@ -6,6 +6,7 @@ h2. Features
 * Unified Emoji character database
 * UTF-16 encoding support
 * Vendor codes mapping (DoCoMo, KDDI, SoftBank)
+* Sexy and easy text interpolation of emoji code points and aliases.
 
 h2. Usage
 
