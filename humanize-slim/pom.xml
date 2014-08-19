@@ -15,6 +15,7 @@
   <properties>
     <guava.version>17.0</guava.version>
     <prettytime.version>3.2.5.Final</prettytime.version>
+    <unidecode.version>0.0.7</unidecode.version>
   </properties>
   
   <dependencies>
@@ -28,5 +29,10 @@
       <artifactId>prettytime</artifactId>
       <version>${prettytime.version}</version>
     </dependency>
+    <dependency>
+		    <groupId>me.xuender</groupId>
+		    <artifactId>unidecode</artifactId>
+		    <version>${unidecode.version}</version>
+		</dependency>
   </dependencies>
 </project>
