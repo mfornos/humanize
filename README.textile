@@ -57,6 +57,7 @@ h3. Humanize-slim
 
 * guava 17.0
 * prettytime 3.2.5.Final
+* unidecode 0.0.7
 
 h3. Humanize-icu
 
