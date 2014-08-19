@@ -7,7 +7,7 @@
   </parent>
   <artifactId>humanize-emoji</artifactId>
   <name>Humanize for Java - Emoji</name>
-  <description>Emoji support</description>
+  <description>Unified Emoji for Java</description>
   
   <dependencies>
     <dependency>
