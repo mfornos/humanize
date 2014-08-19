@@ -1,0 +1,3 @@
+[submodule "humanize-emoji/assets/emoji-pngs"]
+	path = humanize-emoji/assets/emoji-pngs
+	url = git://github.com/stv0g/unicode-emoji.git
