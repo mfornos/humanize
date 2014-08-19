@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 /**
  * Represents an emoji character in accordance with Unicode emoji data files.
@@ -35,6 +36,8 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
             String sources, String version,
             String raw, String name)
     {
+        Preconditions.checkNotNull(code, "Code must not be null");
+
         this.code = code;
         this.defaultStyle = defaultStyle;
         this.ordering = ordering;

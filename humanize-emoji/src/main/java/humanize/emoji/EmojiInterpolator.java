@@ -7,6 +7,8 @@ import humanize.text.util.UnicodeInterpolator;
 
 import java.util.regex.Pattern;
 
+import com.google.common.base.Strings;
+
 /**
  * <p>
  * Sexy and easy text interpolation of Unicode emoji code points and aliases.
@@ -63,7 +65,7 @@ public final class EmojiInterpolator
         {
             // TODO better by de facto standard aliases?
             EmojiChar echar = Emoji.singleByAnnotations(alias);
-            String code = echar == null ? alias : echar.getCode();
+            String code = echar == null ? alias : echar.getCode().toLowerCase();
 
             return msgFormat.render(code, alias);
         }
@@ -81,7 +83,7 @@ public final class EmojiInterpolator
         @Override
         public String replace(String in)
         {
-            return msgFormat.render(in);
+            return msgFormat.render(Strings.nullToEmpty(in).toLowerCase());
         }
     }
 

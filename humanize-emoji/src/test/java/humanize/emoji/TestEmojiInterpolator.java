@@ -27,7 +27,7 @@ public class TestEmojiInterpolator
 
         Assert.assertEquals(
                 replaced,
-                "Lorem ipsum <img src=\"imgs/2728.png\" title=\"sparkles\" /> dolorem<img src=\"imgs/2B50.png\" title=\"star\" /> and dolorem sit amet");
+                "Lorem ipsum <img src=\"imgs/2728.png\" title=\"sparkles\" /> dolorem<img src=\"imgs/2b50.png\" title=\"star\" /> and dolorem sit amet");
 
     }
 
