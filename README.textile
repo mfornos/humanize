@@ -138,7 +138,8 @@ h3. Text
 | titleize | Creates a nice looking title, smartly. | - | ✔ | - |
 | transliterate | Full transliteration support. | - | - | ✔ |
 | simplify | Sort of poor man's transliteration, i.e. normalizes and strips diacritical marks. | - | ✔  | - |
-| slugify | Transforms a text into a representation suitable to be used in an URL. | - | ✔ | - |
+| unidecode | Just enough transliteration, unicode to ascii. | - | ✔  | - |
+| slugify | Transforms a text into a representation suitable to be used in an URL (unicode friendly). | - | ✔ | - |
 | mask | Formats the given text with the mask specified. | for '12345G' with mask '__ ___/_' produces '12 345/G' | ✔ | - |
 | wordWrap | Truncate a string to the closest word boundary after a number of characters. | - | ✔ | - |
 | messageFormat | Returns an ICU or extended MessageFormat instance for the current thread. | - | ✔ | ✔ |
