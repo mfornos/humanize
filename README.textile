@@ -195,14 +195,15 @@ h3. Text
 
 p. *Pluralize*
 
-bc.. PluralizeParams p = PluralizeParams
-                .begin("one")
-                .none("none")
-                .many("{0}");
+bc.. pluralize("one", "{0}", "none", 1);  // == "one"
+pluralize("one", "{0}", "none", 2);  // == "2"
+pluralize("one", "{0}", "none", 0);  // == "none"
 
-pluralize(1, p); // == "one"
-pluralize(2, p); // == "2"
-pluralize(0, p); // == "none"
+bc.. pluralize("one {1}.", "{0} {1}s.", "no {1}.", 1, "disk");  // == "one disk."
+pluralize("one {1}.", "{0} {1}s.", "no {1}.", 2, "disk");  // == "2 disks."
+pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk");  // == "no disk."
+
+p. *Parameterized Pluralize*
 
 bc.. PluralizeParams p = PluralizeParams
                 .begin("one {1}.")
@@ -213,6 +214,8 @@ bc.. PluralizeParams p = PluralizeParams
 pluralize(1, p); // == "one disk."
 pluralize(2, p); // == "2 disks."
 pluralize(0, p); // == "no disk."
+
+p. *Pluralize MessageFormat*
 
 bc.. MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
 msg.render(0, "disk");    // == "There are no files on disk."

@@ -2292,6 +2292,33 @@ public final class Humanize
     }
 
     /**
+     * Signature for the main use case of
+     * {@link #pluralize(Number, PluralizeParams)}.
+     * 
+     * @param one
+     *            Format for a single element
+     * @param many
+     *            Format for many elements
+     * @param none
+     *            Format for no element
+     * @param number
+     *            The number that triggers the plural state
+     * @param Optional
+     *            extension objects to be passed to the formatter
+     * @return formatted text according the right plural state
+     */
+    public static String pluralize(final String one, final String many,
+            final String none, final Number number, final Object... exts)
+    {
+        PluralizeParams p = PluralizeParams
+                .begin(one)
+                .many(many)
+                .none(none)
+                .exts(exts);
+        return pluralize(number, p);
+    }
+
+    /**
      * <p>
      * Constructs a message with pluralization logic from the given template.
      * </p>

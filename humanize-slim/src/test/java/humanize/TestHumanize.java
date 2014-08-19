@@ -711,10 +711,21 @@ public class TestHumanize
         assertEquals(pluralize(2, p), "2");
     }
 
+    @Test
+    public void pluralizeSimpleTest()
+    {
+        assertEquals(pluralize("one", "{0}", "none", 1), "one");
+        assertEquals(pluralize("one", "{0}", "none", 2), "2");
+        assertEquals(pluralize("one", "{0}", "none", 0), "none");
+
+        assertEquals(pluralize("one {1}.", "{0} {1}s.", "no {1}.", 1, "disk"), "one disk.");
+        assertEquals(pluralize("one {1}.", "{0} {1}s.", "no {1}.", 2, "disk"), "2 disks.");
+        assertEquals(pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"), "no disk.");
+    }
+
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void pluralizeTest()
     {
-
         int df = rand.nextInt(9);
 
         String none = "There are no files on {1}.";
