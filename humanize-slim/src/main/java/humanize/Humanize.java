@@ -2315,6 +2315,7 @@ public final class Humanize
                 .many(many)
                 .none(none)
                 .exts(exts);
+        
         return pluralize(number, p);
     }
 
@@ -2539,19 +2540,6 @@ public final class Humanize
     {
         String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
         return COMB_DIACRITICAL.matcher(normalized).replaceAll("");
-    }
-
-    /**
-     * Simple, just enough, unicode to ascii transliteration.
-     * 
-     * @param text
-     *            The text to be decoded
-     * @return unidecoded text
-     */
-    @Expose
-    public static String unidecode(final String text)
-    {
-        return Unidecode.decode(text);
     }
 
     /**
@@ -2846,6 +2834,19 @@ public final class Humanize
     public static String underscore(final String text)
     {
         return text.replaceAll("\\s+", "_");
+    }
+
+    /**
+     * Simple, just enough, unicode to ascii transliteration.
+     * 
+     * @param text
+     *            The text to be decoded
+     * @return unidecoded text
+     */
+    @Expose
+    public static String unidecode(final String text)
+    {
+        return Unidecode.decode(text);
     }
 
     /**
