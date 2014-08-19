@@ -221,7 +221,7 @@ msg.render(2);  // == "2 things"
 
 p. *Slugify*
 
-bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-jen-ai-rien-a-coder"
+bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-j-en-ai-rien-a-coder"
 
 h3. Parse
 
