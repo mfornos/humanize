@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  */
 public final class EmojiInterpolator
 {
-    
+
     private static final Pattern EMOJI_ALIAS = Pattern.compile(":([\\w\\s-]+):");
 
     public static String interpolateAlias(String pattern, String text)
@@ -59,10 +59,9 @@ public final class EmojiInterpolator
         }
 
         @Override
-        public String replace(Object... ctx)
+        public String replace(String alias)
         {
-            String alias = (String) ctx[0];
-            // TODO better by real alias?
+            // TODO better by de facto standard aliases?
             EmojiChar echar = Emoji.singleByAnnotations(alias);
             String code = echar == null ? alias : echar.getCode();
 
@@ -80,9 +79,9 @@ public final class EmojiInterpolator
         }
 
         @Override
-        public String replace(Object... ctx)
+        public String replace(String in)
         {
-            return msgFormat.render(ctx);
+            return msgFormat.render(in);
         }
     }
 

@@ -40,13 +40,13 @@ import java.util.concurrent.Callable;
 
 import com.google.common.collect.ObjectArrays;
 import com.ibm.icu.lang.UCharacter;
+import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.text.Transliterator;
-import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 
 /**
  * <p>
@@ -1561,9 +1561,9 @@ public final class ICUHumanize
     {
         return InterpolationHelper.replaceSupplementary(value, new Replacer()
         {
-            public String replace(Object... ctx)
+            public String replace(String in)
             {
-                return UCharacter.getName((String) ctx[0], ", ");
+                return UCharacter.getName(in, ", ");
             }
         });
     }

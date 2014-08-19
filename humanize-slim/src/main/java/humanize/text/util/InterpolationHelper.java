@@ -30,8 +30,6 @@ public class InterpolationHelper
 
     public static String replaceSupplementary(String text, Replacer replacer)
     {
-
         return interpolate(text, Constants.NOT_IN_BMP, replacer);
-
     }
 }

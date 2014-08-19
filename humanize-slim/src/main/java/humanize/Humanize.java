@@ -2501,10 +2501,9 @@ public final class Humanize
     {
         return InterpolationHelper.replaceSupplementary(value, new Replacer()
         {
-            public String replace(Object... ctx)
+            public String replace(String in)
             {
                 StringBuilder uc = new StringBuilder();
-                String in = (String) ctx[0];
 
                 for (char c : in.toCharArray())
                 {

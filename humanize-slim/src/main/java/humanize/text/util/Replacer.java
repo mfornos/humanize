@@ -1,5 +1,6 @@
 package humanize.text.util;
 
+
 /**
  * Interface for text interpolation.
  * 
@@ -7,6 +8,6 @@ package humanize.text.util;
 public interface Replacer
 {
 
-    String replace(Object... ctx);
+    String replace(String replacement);
 
 }
