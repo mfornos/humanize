@@ -32,6 +32,7 @@ import static humanize.Humanize.spellDigit;
 import static humanize.Humanize.times;
 import static humanize.Humanize.titleize;
 import static humanize.Humanize.underscore;
+import static humanize.Humanize.unidecode;
 import static humanize.Humanize.unmask;
 import static humanize.Humanize.wordWrap;
 import static org.testng.Assert.assertEquals;
@@ -44,6 +45,8 @@ import humanize.time.Pace;
 import humanize.time.PrettyTimeFormat;
 import humanize.time.TimeMillis;
 import humanize.util.Constants.TimeStyle;
+import humanize.util.Parameters.PluralizeParams;
+import humanize.util.Parameters.SlugifyParams;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -681,24 +684,31 @@ public class TestHumanize
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void pluralizeNoExtTest()
     {
-
         int df = rand.nextInt(9);
 
         String none = "There are no files.";
         String one = "There is one file.";
         String many = "There are {0} files.";
 
-        assertEquals(pluralize(one, many, 2 + df), "There are " + (2 + df) + " files.");
-        assertEquals(pluralize(one, many, 1), "There is one file.");
-        assertEquals(pluralize(one, many, 0), "There are 0 files.");
-        assertEquals(pluralize(one, many, none, 2 + df), "There are " + (2 + df) + " files.");
-        assertEquals(pluralize(one, many, none, 0), "There are no files.");
-        assertEquals(pluralize(one, many, none, 1), "There is one file.");
+        PluralizeParams p = PluralizeParams
+                .begin(one)
+                .many(many);
 
-        assertEquals(pluralize("one", "{0}", "none", 1), "one");
-        assertEquals(pluralize("one", "{0}", "none", 0), "none");
-        assertEquals(pluralize("one", "{0}", "none", 2), "2");
+        assertEquals(pluralize(2 + df, p), "There are " + (2 + df) + " files.");
+        assertEquals(pluralize(1, p), "There is one file.");
+        assertEquals(pluralize(0, p), "There are 0 files.");
 
+        p.none(none);
+
+        assertEquals(pluralize(2 + df, p), "There are " + (2 + df) + " files.");
+        assertEquals(pluralize(0, p), "There are no files.");
+        assertEquals(pluralize(1, p), "There is one file.");
+
+        p.one("one").many("{0}").none("none");
+
+        assertEquals(pluralize(1, p), "one");
+        assertEquals(pluralize(0, p), "none");
+        assertEquals(pluralize(2, p), "2");
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
@@ -711,12 +721,20 @@ public class TestHumanize
         String one = "There is one file on {1}.";
         String many = "There are {0} files on {1}.";
 
-        assertEquals(pluralize(one, many, 2 + df, "disk"), "There are " + (2 + df) + " files on disk.");
-        assertEquals(pluralize(one, many, 1, "disk"), "There is one file on disk.");
-        assertEquals(pluralize(one, many, 0, "disk"), "There are 0 files on disk.");
-        assertEquals(pluralize(one, many, none, 2 + df, "disk"), "There are " + (2 + df) + " files on disk.");
-        assertEquals(pluralize(one, many, none, 0, "disk"), "There are no files on disk.");
-        assertEquals(pluralize(one, many, none, 1, "disk"), "There is one file on disk.");
+        PluralizeParams p = PluralizeParams
+                .begin(one)
+                .many(many)
+                .exts("disk");
+
+        assertEquals(pluralize(2 + df, p), "There are " + (2 + df) + " files on disk.");
+        assertEquals(pluralize(1, p), "There is one file on disk.");
+        assertEquals(pluralize(0, p), "There are 0 files on disk.");
+
+        p.none(none);
+
+        assertEquals(pluralize(2 + df, p), "There are " + (2 + df) + " files on disk.");
+        assertEquals(pluralize(0, p), "There are no files on disk.");
+        assertEquals(pluralize(1, p), "There is one file on disk.");
 
     }
 
@@ -781,6 +799,7 @@ public class TestHumanize
         assertEquals(simplify("J'étudie le français"), "J'etudie le francais");
         assertEquals(simplify("Lo siento, no hablo español."), "Lo siento, no hablo espanol.");
         assertEquals(simplify("ïúàôéÏÚÀÔÉĆężĶŠűa͠a̸"), "iuaoeIUAOECezKSuaa");
+
         // Really does not transliterate at all...
         assertNotEquals(simplify("キャンパス"), "kyanpasu");
     }
@@ -788,12 +807,27 @@ public class TestHumanize
     @Test
     public void slugifyTest()
     {
-
-        assertEquals(slugify("J'étudie le français"), "jetudie-le-francais");
-        assertEquals(slugify("Cet été, j’en ai rien à coder"), "cet-ete-jen-ai-rien-a-coder");
-        assertEquals(slugify("Lo siento, no hablo español."), "lo-siento-no-hablo-espanol");
+        assertEquals(slugify("J'étudie le français"), "j-etudie-le-francais");
+        assertEquals(slugify("Cet été, j’en ai rien à coder"), "cet-ete-j-en-ai-rien-a-coder");
+        assertEquals(slugify("Lo siento, no hablo español."), "lo-siento-no-hablo-espanol-");
         assertEquals(slugify("ïúàôéÏÚÀÔÉĆ-ężĶ- ..Šűa͠    	a̸"), "iuaoeiuaoec-ezk-sua-a");
+        assertEquals(slugify("a;b--;;;-c,d_e\n\r"), "a-b-c-d-e");
+        assertEquals(slugify("Draft_23__12  "), "draft-23-12");
+        assertEquals(slugify("Draft\\23|1/2"), "draft-23-1-2");
+        assertEquals(slugify("\nsome@mail.com\n"), "some-mail-com");
+        assertEquals(slugify("Дraft №2.txt"), "draft-2-txt");
+        assertEquals(slugify("Я ♥ борщ^abc^ o+a%30t"), "ia-borshch-abc-o-a-30t");
 
+        SlugifyParams p = SlugifyParams
+                .begin()
+                .separator("_");
+
+        assertEquals(slugify("J'étudie le français", p), "j_etudie_le_francais");
+        assertEquals(slugify("a;b--;;;-c,d_e\n\r", p), "a_b_c_d_e");
+
+        p.separator(".").toLowerCase(false);
+
+        assertEquals(slugify("Draft_23__12  ", p), "Draft.23.12");
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
@@ -887,6 +921,16 @@ public class TestHumanize
         assertEquals(underscore(""), "");
         assertEquals(underscore("one_two__three"), "one_two__three");
 
+    }
+
+    @Test
+    public void unidecodeTest()
+    {
+        assertEquals(unidecode("J'étudie le français"), "J'etudie le francais");
+        assertEquals(unidecode("Lo siento, no hablo español."), "Lo siento, no hablo espanol.");
+        assertEquals(unidecode("ïúàôéÏÚÀÔÉĆężĶŠűa͠a̸"), "iuaoeIUAOECezKSuaa");
+        assertEquals(unidecode("キャンパス"), "kiyanpasu");
+        assertEquals(unidecode("一条会走路的鱼"), "Yi Tiao Hui Zou Lu De Yu");
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)

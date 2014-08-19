@@ -24,11 +24,13 @@
  */
 package humanize;
 
+import static humanize.util.Constants.COMB_DIACRITICAL;
 import static humanize.util.Constants.EMPTY;
 import static humanize.util.Constants.HYPEN_SPACE;
 import static humanize.util.Constants.ND_FACTOR;
 import static humanize.util.Constants.ONLY_SLUG_CHARS;
 import static humanize.util.Constants.ORDINAL_FMT;
+import static humanize.util.Constants.PUNCTUATION;
 import static humanize.util.Constants.SPACE;
 import static humanize.util.Constants.SPLIT_CAMEL;
 import static humanize.util.Constants.THOUSAND;
@@ -52,6 +54,8 @@ import humanize.time.Pace.Accuracy;
 import humanize.time.PrettyTimeFormat;
 import humanize.time.TimeMillis;
 import humanize.util.Constants.TimeStyle;
+import humanize.util.Parameters.PluralizeParams;
+import humanize.util.Parameters.SlugifyParams;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -75,6 +79,8 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 
 import javax.xml.bind.DatatypeConverter;
+
+import me.xuender.unidecode.Unidecode;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
@@ -2091,7 +2097,13 @@ public final class Humanize
         String accuracy = bundle.getString(args.getAccuracy());
         String timeUnit = bundle.getString(args.getTimeUnit());
 
-        return capitalize(pluralize(one, many, none, args.getValue(), accuracy, timeUnit));
+        PluralizeParams p = PluralizeParams
+                .begin(one)
+                .many(many)
+                .none(none)
+                .exts(accuracy, timeUnit);
+
+        return capitalize(pluralize(args.getValue(), p));
     }
 
     /**
@@ -2209,97 +2221,26 @@ public final class Humanize
 
     /**
      * <p>
-     * Same as {@link #pluralize(String, String, Number, Object...)} for the
-     * target locale.
+     * Same as {@link #pluralize(Number, PluralizeParams)} for the target
+     * locale.
      * </p>
      * 
      * @param locale
      *            Target locale
-     * @param one
-     *            Format for single element
-     * @param many
-     *            Format for many elements
-     * @param n
+     * @param number
      *            The number that triggers the plural state
-     * @param exts
-     *            Extended parameters for the specified formats
      * @return formatted text according the right plural state
      */
-    public static String pluralize(final Locale locale, final String one, final String many, final Number n,
-            final Object... exts)
+    public static String pluralize(final Locale locale, final Number number, final PluralizeParams params)
     {
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-                return pluralize(one, many, n, exts);
+                return pluralize(number, params);
             }
         }, locale);
-    }
-
-    /**
-     * <p>
-     * Same as {@link #pluralize(String, String, String, Number, Object...)} for
-     * the target locale.
-     * </p>
-     * 
-     * @param locale
-     *            Target locale
-     * @param one
-     *            Format for single element
-     * @param many
-     *            Format for many elements
-     * @param none
-     *            Format for no element
-     * @param n
-     *            The number that triggers the plural state
-     * @param exts
-     *            Extended parameters for the specified formats
-     * @return formatted text according the right plural state
-     */
-    public static String pluralize(final Locale locale, final String one, final String many, final String none,
-            final Number n, final Object... exts)
-    {
-        return withinLocale(new Callable<String>()
-        {
-            @Override
-            public String call() throws Exception
-            {
-                return pluralize(one, many, none, n, exts);
-            }
-        }, locale);
-    }
-
-    /**
-     * <p>
-     * Applies the proper format for a given plural state.
-     * </p>
-     * 
-     * Example:
-     * 
-     * <pre>
-     * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, 1, &quot;disk&quot;);
-     * // == There is one file on disk.
-     * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, 2, &quot;disk&quot;);
-     * // == There are 2 files on disk.
-     * </pre>
-     * 
-     * @param one
-     *            Format for single element
-     * @param many
-     *            Format for many elements
-     * @param n
-     *            The number that triggers the plural state
-     * @param exts
-     *            Extended parameters for the specified formats
-     * @return formatted text according the right plural state
-     */
-    public static String pluralize(final String one, final String many, final Number n, final Object... exts)
-    {
-        MessageFormat format = pluralizeFormat("{0}", many, one, many);
-        Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
-        return format.render(params);
     }
 
     /**
@@ -2309,37 +2250,45 @@ public final class Humanize
      * Example:
      * 
      * <pre>
-     * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 1, &quot;disk&quot;);
+     * PluralizeParams p = PluralizeParams
+     *         .begin(&quot;There is one file on {1}.&quot;)
+     *         .many(&quot;There are {0} files on {1}.&quot;)
+     *         .none(&quot;There are no files on {1}.&quot;)
+     *         .exts(&quot;disk&quot;);
+     * 
+     * pluralize(1, p);
      * // == There is one file on disk.
-     * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 2, &quot;disk&quot;);
+     * pluralize(2, p);
      * // == There are 2 files on disk.
-     * pluralize(&quot;There is one file on {1}.&quot;, &quot;There are {0} files on {1}.&quot;, &quot;There are no files on {1}.&quot;, 0, &quot;disk&quot;);
+     * pluralize(0, p);
      * // == There are no files on disk.
      * 
-     * pluralize(&quot;one&quot;, &quot;{0}&quot;, &quot;none&quot;, 1);
+     * // ---
+     * 
+     * PluralizeParams p = PluralizeParams
+     *         .begin(&quot;one&quot;)
+     *         .many(&quot;{0}&quot;)
+     *         .none(&quot;none&quot;);
+     * 
+     * pluralize(1, p);
      * // = &quot;one&quot;
-     * pluralize(&quot;one&quot;, &quot;{0}&quot;, &quot;none&quot;, 2);
+     * pluralize(2, p);
      * // = &quot;2&quot;
      * </pre>
      * 
-     * @param one
-     *            Format for single element
-     * @param many
-     *            Format for many elements
-     * @param none
-     *            Format for no element
-     * @param n
+     * @param number
      *            The number that triggers the plural state
-     * @param exts
-     *            Extended parameters for the specified formats
      * @return formatted text according the right plural state
      */
-    public static String pluralize(final String one, final String many, final String none, final Number n,
-            final Object... exts)
+    public static String pluralize(final Number number, final PluralizeParams p)
     {
-        MessageFormat format = pluralizeFormat("{0}", none, one, many);
-        Object[] params = exts == null ? new Object[] { n } : ObjectArrays.concat(n, exts);
-        return format.render(params);
+        Preconditions.checkNotNull(p.many, "Please, specify a format for many elements");
+        Preconditions.checkNotNull(p.one, "Please, specify a format for a single element");
+
+        String none = p.none == null ? p.many : p.none;
+        MessageFormat format = pluralizeFormat("{0}", none, p.one, p.many);
+        Object[] fp = p.exts == null ? new Object[] { number } : ObjectArrays.concat(number, p.exts);
+        return format.render(fp);
     }
 
     /**
@@ -2562,7 +2511,31 @@ public final class Humanize
     public static String simplify(final String text)
     {
         String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
-        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        return COMB_DIACRITICAL.matcher(normalized).replaceAll("");
+    }
+
+    /**
+     * Simple, just enough, unicode to ascii transliteration.
+     * 
+     * @param text
+     *            The text to be decoded
+     * @return unidecoded text
+     */
+    @Expose
+    public static String unidecode(final String text)
+    {
+        return Unidecode.decode(text);
+    }
+
+    /**
+     * @param text
+     *            The text to be slugified
+     * @return a slugified representation of text specified
+     */
+    @Expose
+    public static String slugify(final String text)
+    {
+        return slugify(text, SlugifyParams.begin());
     }
 
     /**
@@ -2577,26 +2550,33 @@ public final class Humanize
      * </tr>
      * <tr>
      * <td>"J'étudie le français"</td>
-     * <td>"jetudie-le-francais"</td>
+     * <td>"j-etudie-le-francais"</td>
      * </tr>
      * <tr>
-     * <td>"Lo siento, no hablo español."</td>
+     * <td>"Lo siento, no hablo español"</td>
      * <td>"lo-siento-no-hablo-espanol"</td>
+     * </tr>
+     * <tr>
+     * <td>"\nsome@mail.com\n"</td>
+     * <td>"some-mail-com"</td>
      * </tr>
      * </table>
      * 
      * @param text
      *            The text to be slugified
-     * @return Slugified String
+     * @param params
+     *            The slugify parameterization object
+     * @return a slugified representation of text specified
      */
-    @Expose
-    public static String slugify(final String text)
+    public static String slugify(final String text, final SlugifyParams params)
     {
-        String result = simplify(text);
+        String result = unidecode(text);
+        result = PUNCTUATION.matcher(result).replaceAll("-");
         result = ONLY_SLUG_CHARS.matcher(result).replaceAll("");
         result = CharMatcher.WHITESPACE.trimFrom(result);
-        result = HYPEN_SPACE.matcher(result).replaceAll("-");
-        return result.toLowerCase();
+        result = HYPEN_SPACE.matcher(result).replaceAll(params.separator);
+        result = CharMatcher.INVISIBLE.removeFrom(result);
+        return params.isToLowerCase ? result.toLowerCase() : result;
     }
 
     /**

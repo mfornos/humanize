@@ -2,6 +2,7 @@ package humanize.taglibs;
 
 import static humanize.taglibs.util.Convert.asNumber;
 import humanize.Humanize;
+import humanize.util.Parameters.PluralizeParams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,39 +81,37 @@ public class PluralizeTag extends HumanizeSupport
 
     protected void clean()
     {
-
         this.value = null;
         this.none = null;
         this.one = null;
         this.many = null;
         this.num = null;
-
     }
 
     @Override
     protected boolean isContextRemoveNeeded()
     {
-
         return value == null;
-
     }
 
     @Override
     protected String render() throws JspException
     {
-
-        return isEmpty(none) ? Humanize.pluralize(one, many, num, argsArray) : Humanize.pluralize(one, many, none, num,
-                argsArray);
-
+        return Humanize.pluralize(num, asParams());
     }
 
     @Override
     protected String render(Locale locale) throws JspException
     {
+        return Humanize.pluralize(locale, num, asParams());
+    }
 
-        return isEmpty(none) ? Humanize.pluralize(locale, one, many, num, argsArray) : Humanize.pluralize(locale, one,
-                many, none, num, argsArray);
-
+    private PluralizeParams asParams()
+    {
+        return PluralizeParams.begin(one)
+                .many(many)
+                .none(none)
+                .exts(argsArray);
     }
 
 }

@@ -65,6 +65,12 @@ public final class Constants
 
     public static final Pattern ONLY_SLUG_CHARS = Pattern.compile("[^-\\w\\s]");
 
+    public static final String DEFAULT_SLUG_SEPARATOR = "-";
+
+    public static final Pattern PUNCTUATION = Pattern.compile("\\p{Punct}+");
+
+    public static final Pattern COMB_DIACRITICAL = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+
     public static final Pattern HYPEN_SPACE = Pattern.compile("[-\\s]+");
 
     // See http://en.wikipedia.org/wiki/UTF-16
