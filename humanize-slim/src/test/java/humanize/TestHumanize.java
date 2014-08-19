@@ -817,6 +817,7 @@ public class TestHumanize
         assertEquals(slugify("\nsome@mail.com\n"), "some-mail-com");
         assertEquals(slugify("Дraft №2.txt"), "draft-2-txt");
         assertEquals(slugify("Я ♥ борщ^abc^ o+a%30t"), "ia-borshch-abc-o-a-30t");
+        assertEquals(slugify("\nキャンパス//.Я_♥@борщ\n^abc"), "kiyanpasu-ia-borshch-abc");
 
         SlugifyParams p = SlugifyParams
                 .begin()

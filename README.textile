@@ -222,6 +222,7 @@ msg.render(2);  // == "2 things"
 p. *Slugify*
 
 bc.. slugify("Cet été, j’en ai rien à coder"); // == "cet-ete-j-en-ai-rien-a-coder"
+slugify("\nキャンパス//.Я_♥@борщ\n^abc"); // == "kiyanpasu-ia-borshch-abc"
 
 h3. Parse
 
