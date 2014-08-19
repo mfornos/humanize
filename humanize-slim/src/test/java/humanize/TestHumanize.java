@@ -894,7 +894,6 @@ public class TestHumanize
     @Test
     public void titleizeTest()
     {
-
         String[] caps = new String[] { "InDesign", "README", "CD", "LP" };
 
         assertEquals(titleize("songs of faith and devotion"), "Songs of Faith and Devotion");
@@ -909,7 +908,6 @@ public class TestHumanize
         assertEquals(titleize("OK title/title-title/title"), "Ok Title/Title-Title/Title");
         assertEquals(titleize("the_jackie_gleason/improVed show"), "The Jackie Gleason/Improved Show");
         assertEquals(titleize("- this seems a test 1234"), "- This Seems a Test 1234");
-
     }
 
     @Test
@@ -936,7 +934,6 @@ public class TestHumanize
     @Test(threadPoolSize = 10, invocationCount = 10)
     public void wordWrapTest()
     {
-
         int df = rand.nextInt(9);
 
         String phrase = "Lorem ipsum dolorem si amet, lorem ipsum. Dolorem sic et nunc." + df;
@@ -946,7 +943,6 @@ public class TestHumanize
         assertEquals(wordWrap(phrase, phrase.length() * 2), phrase);
         assertEquals(wordWrap(phrase, 0), "Lorem");
         assertEquals(wordWrap(phrase, -2), phrase);
-
     }
 
     @BeforeClass
