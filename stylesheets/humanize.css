@@ -17,11 +17,11 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title,
 pre .tex .special {
-  color: #cb4b16;
+  color: #3caeca;
 }
 
 pre code {
-  color: #657B83;
+  color: #FFF;
 }
 
 pre code .constant {

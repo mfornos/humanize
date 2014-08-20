@@ -1,636 +1,115 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Humanize for Java</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/png" />
-    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/humanize.css">
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-37625449-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-    <script src="javascripts/scale.fix.js"></script>
-    <script src="javascripts/highlight.pack.js"></script>
-    <script>
-      hljs.tabReplace = '    ';
-      hljs.initHighlightingOnLoad();
-    </script>
-    <script>
-	/* grunticon Stylesheet Loader | https://github.com/filamentgroup/grunticon | (c) 2012 Scott Jehl, Filament Group, Inc. | MIT license. */
-window.grunticon=function(e,t){if(!e||e.length!==3)return;var n=window,r=!!n.document.createElementNS&&!!n.document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect,i=function(t){var i=n.document.createElement("link"),s=n.document.getElementsByTagName("script")[0];i.rel="stylesheet",i.href=e[t&&r?0:t?1:2],s.parentNode.insertBefore(i,s)},s=new n.Image;s.onerror=function(){i(!1)},s.onload=function(){i(s.width===1&&s.height===1)},s.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="};
-grunticon( [ "stylesheets/icons/icons.data.svg.css", "stylesheets/icons/icons.data.png.css", "stylesheets/icons/icons.fallback.css" ] );
-    </script>
-	<noscript><link href="stylesheets/icons/icons.fallback.css" rel="stylesheet"></noscript>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-  	<header>
-  	  <div class="wrapper">
-      <div class="title-icon iconhumanize"></div>
-      <div class="title">
-        <h1>Humanize</h1>
-        <p>Java facility for adding a “human touch” to data.</p>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="chrome=1">
+      <title>Humanize for Java</title>
+      <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+      <link rel="stylesheet" href="stylesheets/styles.css">
+      <link rel="stylesheet" href="stylesheets/humanize.css">
+      <script type="text/javascript">
+         var _gaq = _gaq || [];
+         _gaq.push(['_setAccount', 'UA-37625449-1']);
+         _gaq.push(['_trackPageview']);
+         
+         (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+         
+      </script>
+      <script src="javascripts/scale.fix.js"></script>
+      <script src="javascripts/highlight.pack.js"></script>
+      <script>
+         hljs.tabReplace = '    ';
+         hljs.initHighlightingOnLoad();
+      </script>
+      <noscript>
+         <link href="stylesheets/icons/icons.fallback.css" rel="stylesheet">
+      </noscript>
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+      <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+   </head>
+   <body class="hero">
+      <header>
+         <div class="wrapper">
+            <div class="title">
+               <h1>Humanize</h1>
+               <p>Java facility for adding a “human touch” to data</p>
+            </div>
+         </div>
+         <a href="https://github.com/mfornos/humanize"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      </header>
+      <div class="wrapper">
+         <p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
+         <p style="margin-bottom: 2.5em;">
+            The main modules are provided in two complementary variants:
+         </p>
+         <section>
+            <h3 class="left"><a href="https://github.com/mfornos/humanize"><i class="icon-arrow-right"></i> Humanize Slim</a></h3>
+            <p class="right">
+               Lightweight distribution that only depends on Guava and standard Java APIs.
+            </p>
+         </section>
+         <section>
+            <h3 class="left"><a href="https://github.com/mfornos/humanize"><i class="icon-arrow-right"></i> Humanize ICU</a></h3>
+            <p class="right">
+               Provides a concise facade for access to the International Components for Unicode (ICU) Java APIs. Includes the slim distribution.
+            </p>
+         </section>
       </div>
+      <hr/>
+      <div class="wrapper">
+         <section>
+            <h3 class="left thick">Extensions</h3>
+            <ul class="right">
+               <li><a href="https://github.com/mfornos/humanize/tree/master/humanize-emoji">Unified Emoji</a></li>
+               <li><a href="https://github.com/mfornos/humanize/tree/master/humanize-joda">Joda Time</a></li>
+               <li><a href="https://github.com/mfornos/humanize/tree/master/humanize-ucum">UCUM</a></li>
+               <li><a href="https://github.com/mfornos/humanize/tree/master/humanize-jsf">JSF</a></li>
+               <li><a href="https://github.com/mfornos/humanize/tree/master/humanize-taglib">Taglib</a></li>
+            </ul>
+         </section>
       </div>
-      <a href="https://github.com/mfornos/humanize"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-    </header>
-    <div class="wrapper">
-      <section>
-
-<p>Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.</p>
-<p>Provided in two variants: <strong>humanize-slim</strong> and <strong>humanize-icu</strong>. Humanize-slim only depends on guava and standard Java APIs while humanize-icu provides a concise facade for access to the <a href="http://icu-project.org/">International Components for Unicode</a> (ICU) Java APIs.</p>
-
-<h2>Getting Started</h2>
-
-<h3>Maven</h3>
-
-<p>Current version:</p>
-<pre><code>&lt;humanize.version&gt;1.2.1&lt;/humanize.version&gt;</code></pre>
-<p>For the <strong>slim</strong> variant write the following in your <em>pom</em>:</p>
-<pre><code class="xml">&lt;dependency&gt;
+      <hr/>
+      <div class="wrapper">
+         <section>
+            <h3 class="left thick">Maven Central</h3>
+            <div class="right">
+               <pre><code>&lt;humanize.version&gt;1.2.1&lt;/humanize.version&gt;</code></pre>
+            </div>
+         </section>
+         <section>
+            <h4 class="left">Slim</h4>
+            <div class="right">
+               <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
   &lt;artifactId&gt;humanize-slim&lt;/artifactId&gt;
   &lt;version&gt;${humanize.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-<p>For the full-fledged <strong>ICU</strong> distribution:</p>
-<pre><code class="xml">&lt;dependency&gt;
+            </div>
+         </section>
+         <section>
+            <h4 class="left">ICU</h4>
+            <div class="right">
+               <pre><code class="xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
   &lt;artifactId&gt;humanize-icu&lt;/artifactId&gt;
   &lt;version&gt;${humanize.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-<p></p>
-
-
-<h2>Dependencies</h2>
-<h3>
-Humanize-slim</h3>
-<ul>
-<li>guava 17.0</li>
-<li>prettytime 3.2.5.Final</li>
-</ul><h3>
-Humanize-icu</h3>
-<ul>
-<li>humanize-slim  ${humanize.version}</li>
-	<li>icu4j 53.1</li>
-</ul>
-<p>
-<em>
-If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the <a href="http://apps.icu-project.org/datacustom/">ICU Data Library Customizer</a> may be useful.
-</em></p>
-<h2>Usage</h2>
-
-<p>Humanize usage is quite simple.</p>
-
-<ol>
-<li>Import the static methods of the Humanize class that you want to call.</li>
-<li>Invoke these methods.</li>
-</ol>
-
-<pre><code class="java">import static humanize.Humanize.binaryPrefix;
- 
-class SomeClass {
-
-  void doSomething() {
-  
-    String size = binaryPrefix(1325899906842624L); // 1.18 PB
-    
-  }
-  
-}</code></pre>
-<p></p>
-<h2>Documentation</h2>
-<ul>
-<li><a href="http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html">Documentation for humanize-slim</a></li>
-	<li><a href="http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html">Documentation for humanize-icu</a></li>
-</ul>
-
-<h2>Principal Methods</h2>
-<h3>Date&amp;Time</h3>
-<table>
-<tr>
-<th>Method </th>
-		<th>Description </th>
-		<th>Output </th>
-		<th>Slim </th>
-		<th>ICU </th>
-	</tr>
-<tr>
-<td> naturalDay </td>
-		<td> For dates that are the current day or within one day, return ‘today’,‘tomorrow’ or ‘yesterday’, as appropriate. </td>
-		<td> ‘today’, ‘tomorrow’, ‘yesterday’ or the date formatted </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> naturalTime </td>
-		<td> Computes both past and future relative dates with optional precision. </td>
-		<td> ‘2 days from now’, ‘3 decades ago’, ‘3 days 16 hours from now’, ‘3 minutes from now’, ‘3 days 15 hours 38 minutes ago’, ‘moments ago’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> nanoTime </td>
-		<td> Formats a number of nanoseconds as the proper ten power unit. </td>
-		<td> ‘1.5µs’, ‘10.51ms’, ‘30ns’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-<tr>
-<td> duration </td>
-		<td> Formats a number of seconds as hours, minutes and seconds. </td>
-		<td> ‘1 sec.’, ‘1:02:10’, etc.</td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> smartDateFormat </td>
-		<td> Guesses the best locale-dependent pattern to format the date/time fields that the skeleton specifies. </td>
-		<td> skeleton ‘MMMd’ produces ‘11 Dec.’ </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> prettyTimeFormat </td>
-		<td> Returns a PrettyTime instance for the current thread. </td>
-		<td> - </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-</table>
-
-<h3>Frequencies</h3>
-<table>
-<tr>
-<th>Method </th>
-		<th>Description </th>
-		<th>Output </th>
-		<th>Slim </th>
-		<th>ICU </th>
-	</tr>
-<tr>
-<td> times </td>
-		<td> Interprets numbers as occurrences. </td>
-		<td> ‘never’, ‘once’, ‘5 times’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-<tr>
-<td> paceFormat </td>
-		<td> Matches a pace (value and interval) with a logical time frame. Very useful for slow paces. e.g. heartbeats, ingested calories, hyperglycemic crises. </td>
-		<td> ‘Approximately 7 times per day.’ </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-</table>
-
-<h3>Numbers</h3>
-<table>
-<tr>
-<th>Method </th>
-		<th>Description </th>
-		<th>Output </th>
-		<th>Slim </th>
-		<th>ICU </th>
-	</tr>
-<tr>
-<td> ordinal </td>
-		<td> Converts a number to its ordinal as a string. </td>
-		<td> ‘1st’, ‘2nd’, ‘3rd’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> spellBigNumber </td>
-		<td> Converts a big number to a friendly text representation. </td>
-		<td> ‘2.3 thousand’, ‘1 million’, ‘-1.55 billion’, ‘3 decillion’, ‘2 googol’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> spellDigit </td>
-		<td> For decimal digits, returns the number spelled out. </td>
-		<td> ‘one’, ‘two’, ‘three’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> spellNumber </td>
-		<td> Converts the given number to words. </td>
-		<td> ‘twenty-three’, ‘two thousand eight hundred and forty’, ‘one million four hundred and twelve thousand six hundred and five’, etc.  </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-</table><h3>Units</h3>
-<table>
-<tr>
-<th>Method </th>
-		<th>Description </th>
-		<th>Output </th>
-		<th>Slim </th>
-		<th>ICU </th>
-	</tr>
-<tr>
-<td> binaryPrefix </td>
-		<td> Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. </td>
-		<td> ‘2 bytes’, ‘1.5 kB’, ‘5 MB’, ‘1.18 PB’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> metricPrefix </td>
-		<td> Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.  </td>
-		<td> ‘100k’, ‘1M’, ‘3.5M’, etc.  </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> formatCurrency </td>
-		<td> Smartly formats the given number as a monetary amount. </td>
-		<td> ‘£34’, ‘£1,000’, ‘£12.50’, etc. </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> formatPluralCurrency </td>
-		<td> Smartly formats the given number as a monetary amount in plural form. </td>
-		<td> ‘34 British pounds sterling’, ‘1,500.55 British pounds sterling’, ‘1 euro’, etc. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> formatPercent </td>
-		<td> Formats the given ratio as a percentage. </td>
-		<td> ‘500%’, ‘56%’, etc.  </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-</table><h3>Text</h3>
-<table>
-<tr>
-<th>Method </th>
-		<th>Description </th>
-		<th>Output </th>
-		<th>Slim </th>
-		<th>ICU </th>
-	</tr>
-<tr>
-	<td>pluralize</td>
-	<td>Applies the proper format for a given plural state.</td>
-	<td> - </td>
-	<td class="tick"> ✔ </td>
-	<td> - </td>
-</tr>
-<tr>
-<td> pluralizeFormat </td>
-		<td> Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to <em>messageFormatInstance</em> for pluralization using CLDR Plural Rules. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> camelize </td>
-		<td> Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.  </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> capitalize </td>
-		<td> Capitalizes a string, smartly. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> decamelize </td>
-		<td> Converts a camel case string into a human-readable name. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> titleize </td>
-		<td> Creates a nice looking title, smartly. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> transliterate </td>
-		<td>Full transliteration support.</td>
-		<td> – </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> simplify </td>
-		<td>Sort of poor man’s transliteration, i.e. normalizes and strips diacritical marks.</td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-<tr>
-<td> slugify </td>
-		<td> Transforms a text into a representation suitable to be used in an URL. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> mask </td>
-		<td> Formats the given text with the mask specified. </td>
-		<td> for ‘12345G’ with mask ‘__ ___/_’ produces ‘12 345/G’ </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> wordWrap </td>
-		<td> Truncate a string to the closest word boundary after a number of characters. </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-		<td> – </td>
-	</tr>
-<tr>
-<td> messageFormatInstance </td>
-		<td> Returns an ICU based MessageFormat instance for the current thread. </td>
-		<td> – </td>
-		<td> – </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> replaceSupplementary </td>
-		<td> Replaces characters outside the Basic Multilingual Plane with their name. </td>
-		<td> ‘SMILING FACE WITH SMILING EYES’ for the corresponding Emoji char </td>
-		<td class="tick"> ✔ </td>
-		<td class="tick"> ✔ </td>
-	</tr>
-<tr>
-<td> oxford </td>
-		<td> Converts a list of items to a human readable string with an optional limit. </td>
-		<td> ‘Oranges, Pears, Bananas, and 2 others’ </td>
-		<td class="tick"> ✔ </td>
-		<td> - </td>
-	</tr>
-</table>
-
-<h2>Supported languages</h2>
-<p><strong>humanize-slim</strong>: <em>naturalTime</em> supports over 25 languages, see <a href="http://ocpsoft.org/prettytime">prettytime</a>. Rest of methods have support for english and spanish.</p>
-<p><strong>humanize-icu</strong>: all languages supported by the <a href="http://icu-project.org/">ICU APIs</a>.</p>
-<h3>Custom languages</h3>
-<p>
-If you want to add support for other languages simply put a properties file named <em>Humanize_{your_locale}.properties</em> under the classpath: <em>i18n</em>.
-</p>
-
-<h2>Code Examples</h2>
-
-<p>Small set of usage examples. <em>See <code>src/test/.../HumanizeTest</code> for complete examples.</em></p>
-
-<h3>Date&amp;Time</h3>
-<pre><code class="java">naturalTime(new Date()); // == "moments ago"
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
-// == "1 day ago"
-naturalTime(new Date(3155792597470L * 3L), new Date(0)); 
-// == "3 centuries ago"
-naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
-// == "12 minutes from now"
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); 
-// == "1 day from now"
-naturalTime(new Date(0), new Date(2629743830L * 3L)); 
-// == "3 months from now"</code></pre>
-
-<p>Specifying precision</p>
-
-<pre><code class="java">Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38 + 1000 * 2);
-naturalTime(new Date(0), moment, TimeMillis.HOUR) // == "3 days 16 hours from now"
-naturalTime(moment, new Date(0), TimeMillis.SECOND) // == "3 days 15 hours 38 minutes ago"</code></pre>
-<p></p>
-<h3>Frequencies</h3>
-<pre><code class="java">paceFormat(1.75, TimeMillis.HOUR.millis()); // == "Approximately 2 times per hour."
-paceFormat(0, TimeMillis.SECOND.millis()); // == "Never."
-paceFormat(1, TimeMillis.WEEK.millis()); // == "Approximately one time per week."</code></pre>
-<pre><code class="java">times(0); // == "never"
-times(1); // == "once"
-times(2); // == "twice"
-times(3); // == "3 times"</code></pre>
-<p></p>
-<h3>Text</h3>
-<p><strong>Pluralize</strong></p>
-<pre><code class="java">pluralize("one", "{0}", 1); // == "one"
-pluralize("one", "{0}", 2); // == "2"
-pluralize("one", "{0}", "none", 0); // == "none"
-</code></pre>
-<pre><code class="java">pluralize("one {1}.", "{0} {1}s.", 1, "disk"); // == "one disk."
-pluralize("one {1}.", "{0} {1}s.", 2, "disk"); // == "2 disks."
-pluralize("one {1}.", "{0} {1}s.", "no {1}.", 0, "disk"); // == "no disk."</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
-msg.render(0, "disk");    // == "There are no files on disk."
-msg.render(1, "disk");    // == "There is one file on disk."
-msg.render(1000, "disk"); // == "There are 1,000 files on disk."</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("nothing::one thing::{0} things");
-msg.render(-1); // == "nothing"
-msg.render(0);  // == "nothing"
-msg.render(1);  // == "one thing"
-msg.render(2);  // == "2 things"</code></pre>
-<pre><code class="java">MessageFormat msg = pluralizeFormat("one thing::{0} things");
-msg.render(-1); // == "-1 things"
-msg.render(0);  // == "0 things"
-msg.render(1);  // == "one thing"
-msg.render(2);  // == "2 things" </code></pre>
-<p><strong>Slugify</strong></p>
-<pre><code class="java">slugify("Cet été, j’en ai rien à coder"); 
-// == "cet-ete-jen-ai-rien-a-coder" </code></pre>
-<h3>Parse</h3>
-<strong>Date&amp;Time</strong>
-<pre><code class="java">parseISODateTime("2011-09-14T15:22:01Z");
-parseISOTime("15:22:01Z");
-
-// Smart
-
-parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
-</code></pre>
-
-<h2>Extensible Message Formats</h2>
-<p>If you want to plug in your own formats then place a <em>META-INF/services/humanize.spi.FormatProvider</em> file inside your jar. This file must contain a list of the full qualified class names of your <em>FormatProvider</em> implementations, separated by carriage return. Also, you can register manually your format factories on the message formatter.</p>
-
-<h3>Built-in Humanize Extended Formats</h3>
-<p>
-Create a file <em>META-INF/services/humanize.spi.FormatProvider</em> with the following content:
-</p>
-<pre><code class="java">humanize.text.HumanizeFormatProvider
-humanize.text.MaskFormat</code></pre>
-<p>
-Use it
-</p>
-<pre><code class="java">Humanize.format("{0,humanize,ordinal} greetings", 1); 
-// == "1st greetings"</code></pre>
-
-
-<h2>Cache configuration</h2>
-<p>By default the caches are configured to expire after 1 hour past the last access. If you want to change this behavior you need to provide a <code>humanize.properties</code> file, or specify the location of a properties file using the <code>humanize.config</code> system property, with a CacheBuilderSpec string configuration like this:</p>
-<pre><code>cache.builder.spec:expireAfterAccess=15m</code></pre>
-<p>The value must follow the CacheBuilderSpec syntax. The string syntax is a series of comma-separated keys or key-value pairs, each corresponding to a CacheBuilder method.</p>
-<ul>
-<li>concurrencyLevel=[integer]: sets CacheBuilder.concurrencyLevel.</li>
-	<li>initialCapacity=[integer]: sets CacheBuilder.initialCapacity.</li>
-	<li>maximumSize=[long]: sets CacheBuilder.maximumSize.</li>
-	<li>maximumWeight=[long]: sets CacheBuilder.maximumWeight.</li>
-	<li>expireAfterAccess=[duration]: sets CacheBuilder.expireAfterAccess(long, java.util.concurrent.TimeUnit).</li>
-	<li>expireAfterWrite=[duration]: sets CacheBuilder.expireAfterWrite(long, java.util.concurrent.TimeUnit).</li>
-	<li>refreshAfterWrite=[duration]: sets CacheBuilder.refreshAfterWrite(long, java.util.concurrent.TimeUnit).</li>
-	<li>weakKeys: sets CacheBuilder.weakKeys().</li>
-	<li>softValues: sets CacheBuilder.softValues().</li>
-	<li>weakValues: sets CacheBuilder.weakValues().</li>
-</ul><p>Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)</p>
-
-<h2>Extensions</h2>
-<h3>The Unified Code for Units of Measure (UCUM)</h3>
-<p>Humanize provides a module called <strong>humanize-ucum</strong> that adds JSR-275* support.</p>
-<p>Usage:</p>
-<p>Declare the Maven dependency</p>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
-  &lt;artifactId&gt;humanize-ucum&lt;/artifactId&gt;
-  &lt;version&gt;${humanize.version}&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-
-<p>... and format some messages</p>
-<pre><code class="java">Humanize.format("Hello from measures at {0, measure}", 
-                 Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
-// == "Hello from measures at 150 mph"</code></pre>
-
-<p>
-* This will be replaced by the new Units of Measurement API: <strong>JSR 363</strong>. See <a href="http://unitsofmeasurement.github.io/">Units of Measurement site</a> for more information.
-</p>
-
-<h3>Joda Time</h3>
-<p>Humanize provides a module called <strong>humanize-joda</strong> that adds support for Joda time formats.</p>
-<p>Usage:</p>
-<p>Declare the Maven dependency</p>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
-  &lt;artifactId&gt;humanize-joda&lt;/artifactId&gt;
-  &lt;version&gt;${humanize.version}&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-<p>… and format some messages</p>
-<pre><code class="java">Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
-// == "hello 1/1/70!!"
-
-mf = Humanize.messageFormatInstance("hello {0, joda.period}!!", Locale.GERMAN);
-mf.render(new Period(0, 100000));
-// == "hello 1 Minute und 40 Sekunden!!"
-    
-Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
-// == "hello 1970W014T010000+0100!!"</code></pre>
-<p>Note that it supports almost any Joda format as subformat. See FormatNames for details.</p>
-
-<h3>Taglib</h3>
-<p>Humanize Tag library.</p>
-<p>Usage:</p>
-<p>Declare the Maven dependency</p>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
-  &lt;artifactId&gt;humanize-taglib&lt;/artifactId&gt;
-  &lt;version&gt;${humanize.version}&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-<p>Use it in a page</p>
-<pre><code class="xml">&lt;%@taglib prefix="hmnz" uri="http://mfornos.github.com/humanize/taglib" %&gt;
-
-&lt;hmnz:metricPrefix value="100000000" /&gt;
-&lt;hmnz:pluralize value="0" 
-  one="something" many="{0} things" none="nothing" /&gt;
-&lt;hmnz:pluralizeMessage value="0" 
-  template="nothing::something::{0} things" /&gt;</code></pre>
-<p></p>
-<ul>
-<li><a href="http://mfornos.github.com/humanize/humanize-taglib-tlddoc/index.html">TLD documentation</a></li>
-	<li>See <code>humanize-taglib/src/integration/webapp</code> for a complete example.</li>
-</ul>
-
-<h3>Java Server Faces</h3>
-<p>Humanize JSF.</p>
-<p>Usage:</p>
-<p>Declare the Maven dependency</p>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.github.mfornos&lt;/groupId&gt;
-  &lt;artifactId&gt;humanize-jsf&lt;/artifactId&gt;
-  &lt;version&gt;${humanize.version}&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-<p>Use it in a page</p>
-<pre><code class="xml">&lt;html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:hmnz="http://mfornos.github.com/jsf/humanize"&gt;
-
-&lt;h:outputText value="100000000" converter="humanize.MetricPrefix" /&gt;
-&lt;h:outputText value="nothing::something::{0} things"&gt;
-  &lt;hmnz:pluralize value="0" /&gt;
-&lt;/h:outputText&gt;
-&lt;h:outputFormat value="hi {0,humanize,binary.prefix}!"&gt;
-  &lt;f:param value="#{10}" /&gt;
-&lt;/h:outputFormat&gt;</code></pre>
-<p></p>
-<ul>
-	<li>See <code>humanize-jsf/src/integration/webapp</code> for a complete example.</li>
-</ul>
-
-<h3>Humanize Emoji</h3>
-<p><strong>Interpolation</strong></p>
-<p>Emoji aliases:</p>
-<pre><code class="java">EmojiInterpolator.interpolate(
-        "&lt;img src=\"imgs/{0}.png\" title=\"{0}\" /&gt;;", 
-        "Hi :sparkles:!");
-
-// == "Hi &lt;img src=\"imgs/sparkles.png\" title=\"sparkles\" /&gt;!"</code></pre>
-<p>Emoji chars:</p>
-<pre><code class="java">EmojiInterpolator.interpolateChars(
-        "&lt;img src=\"imgs/{0}.png\" /&gt;;", 
-        "Hi \uE025!"); 
-
-// == "Hi &lt;img src=\"imgs/uE025.png\" /&gt;!"
-</code></pre>
-
-<h2>Integrations</h2>
-<h3>Handlebars Helper</h3>
-<p>
-Humanize is integrated in the awesome <a href="https://github.com/jknack/handlebars.java">Handlebars.java</a> project.
-</p>
-
-<h2>Epilog</h2>
-
-<div style="display: block; overflow: hidden; margin-bottom: 10px;">
-  <span style="float:left;"><i class="icon-coffee"></i> Have fun and stay fresh!</span>
-  <span style="float:right; margin-right:10px;">
-    <a href="http://travis-ci.org/mfornos/humanize">
-       <img src="https://secure.travis-ci.org/mfornos/humanize.png?branch=master" alt="build status" />
-    </a>
-  </span>
-</div>
-      </section>
-    </div>
-    <footer>
-      <div class="wrapper">
-      <p>Project maintained by <a href="https://github.com/mfornos">mfornos</a></p>
-      <p>Hosted on GitHub Pages.</p>
-      <p>Color scheme Solarized by <a href="http://ethanschoonover.com/solarized">Ethan Schoonover</a></p>
+            </div>
+         </section>
       </div>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-    
-  </body>
+      <footer>
+         <div class="wrapper">
+            <p><i class="icon-coffee"></i> Have fun and stay fresh!</span></p>
+            <p>Project maintained by <a href="https://github.com/mfornos">mfornos</a></p>
+         </div>
+      </footer>
+      <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+   </body>
 </html>

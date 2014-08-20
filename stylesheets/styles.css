@@ -1,11 +1,23 @@
 html {
-  background: #FDF6E3;
+  background: #05101b;
+  color: #fafafa;
 }
 
 body {
   padding: 0;
   margin: 0;
-  font: normal 100% sans-serif;
+  font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.6;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 100%;
 }
 
 ::selection {
@@ -19,14 +31,9 @@ header, section, footer {
   overflow: hidden;
 }
 
-em {
-  font-weight: lighter;
-  font-size: 0.95em;
-}
-
 header .title {
   float: left;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 header .title-icon {
@@ -37,18 +44,28 @@ header .title-icon {
 }
 
 .wrapper {
-  width: 735px;
+  max-width: 735px;
   margin: 0 auto;
-
+  padding: 15px 0;
+  position: relative;
+  line-height: 1.4;
+  width: 75%;
 }
 
 a {
-  color: #B58900;
+  color: #49afcd;
+  text-decoration: none;
+  line-height: inherit;
+  -webkit-transition: color .4s ease-in;
+  -moz-transition: color .4s ease-in;
+  -ms-transition: color .4s ease-in;
+  -o-transition: color .4s ease-in;
+  transition: color .4s ease-in;
   text-decoration: underline;
 }
 
 a:hover {
-  background-color: #EEE8D5;
+  color: #1b5262;
 }
 
 p {
@@ -56,17 +73,13 @@ p {
   padding: 0;
 }
 
-strong {
-  color: #657B83;
-  font-weight: 700;
-}
-
 header {
-  background-color: #93A1A1;
-  color: #586E75;
+  color: #49afcd;
   position: relative;
   padding: 30px 20px 15px 20px;
   margin-bottom: 25px;
+  border-bottom: 1px solid #999;
+  background-color: rgba(5,10,0,.4);
 }
 header h1 {
   margin: 0;
@@ -77,36 +90,76 @@ header h1 {
   letter-spacing: 3px;
   font-size: 3em;
   text-transform: uppercase;
-  text-shadow: #595959 1px 1px 2px;
-}
-section {
-  padding: 15px 20px;
-  color: #678;
-  font-weight: lighter;
-  position: relative;
-  line-height: 1.4;
+  font-weight: 400;
+  text-shadow: #000 1px 1px 2px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #B58900;
   padding: 0;
-  margin: 40px 0 10px 0;
-  font-weight: lighter;
   text-transform: capitalize;
 }
 
 h2 {
-  margin: 40px 0 20px 0;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #93A1A1;
+  margin: 10px 0 20px 0;
+  color: #DFDFDF;
+}
+
+h3 {
+  color: #DFDFDF;
+  margin: 0;
+}
+
+h3.thick {
+  border-bottom: 4px solid #DDD;
+  padding-bottom: 4px;
+  display: inline-block;
+}
+
+h3 > a {
+  line-height: 2.5em;
+  text-decoration: none;
+  border: 1px solid #888;
+  padding: 10px 10px;
+  border-radius: 3px;
+  -webkit-transition: background-color .4s ease-in,
+  border .4s ease;
+  -moz-transition: background-color .4s ease-in,
+  border .4s ease;
+  -ms-transition: background-color .4s ease-in,
+  border .4s ease;
+  -o-transition: background-color .4s ease-in,
+  border .4s ease;
+  transition: background-color .4s ease-in,
+  border .4s ease;
+}
+
+h3 > a:hover {
+  background-color: #49afcd;
+  border-color: #49afcd;
 }
 
 p, ul, ol, table, pre, dl {
   margin: 0 0 20px;
 }
 
+ul li {
+  padding-bottom: 1.2em;
+}
+
 h1, h2, h3 {
   line-height: 1.1;
+}
+
+section {
+  clear:both; overflow:hidden; margin-bottom: 1.5em;
+}
+
+section .left {
+  float:left;
+}
+
+section .right {
+  float:right; width: 70%; clear:right;
 }
 
 h1 {
@@ -128,13 +181,14 @@ img {
 
 code, pre {
   font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
-  color: #678;
+  color: #fff;
 }
 
 pre {
   padding: 10px 3px 10px 10px;
-  background: #EEE8D5;
-  color: #f8f8f2;
+  background: #021321;
+  background-color: rgba(5, 16, 27, .8);
+  color: #fff;
   white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -176,18 +230,18 @@ td.tick {
 
 hr {
   border: 0;
-  background: #aaa;
+  background: #999;
   height: 1px;
-  margin: 0 0 20px;
+  margin-bottom: 1.5em;
 }
 
 footer {
   margin-top: 50px;
+  margin-bottom: 20px;
   padding: 20px 0 0;
   color: #93A1A1;
   overflow: hidden;
-  font-weight: lighter;
-  background-color: #EEE8D5;
+  background-color: #05101b;
 }
 
 footer p {
@@ -198,3 +252,37 @@ footer p + p {
   float: right;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li:before
+{
+  content: '\2b81';
+  margin: 0 1em 0 0;
+}
+
+.hero {
+  background-image: url("../images/cover.jpg");
+  background-color: #05101b;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 810px) {
+  section .left {
+    float:none;
+    clear: both;
+  }
+
+  section .right {
+    float:none; 
+    width: 100%;
+    margin-top: 1em;
+    clear:both;
+  }
+  .wrapper {
+    width: 95%;
+  }
+}
