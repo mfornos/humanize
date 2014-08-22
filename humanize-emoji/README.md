@@ -29,6 +29,14 @@ Easy Emoji handling for the JVM. :green_heart:
  
 ### Emoji Succinct API
 
+**Configuration**
+
+Before calling image replacement methods, please, configure the EmojiApi object.
+
+```java
+EmojiApi.configure().assetsURL("http://localhost/img/");
+```
+
 **Image replacement**
 
 ```java
@@ -219,15 +227,6 @@ EmojiApi.byUnicode("\uD83D\uDD36");
 
 ```java
 EmojiApi.byHexCode("1f536");
-```
-
-
-**Configuration**
-
-Before calling image replacement methods, please, configure the EmojiApi object.
-
-```java
-EmojiApi.configure().assetsURL("http://localhost/img/");
 ```
 
 
