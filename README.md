@@ -120,12 +120,34 @@ Principal Methods
 
 ### Units
 
-| Method         | Description                                                       | Output                                                                                                                            | Slim | ICU |
-|----------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------|-----|
-| binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | ‘2 bytes’, ‘1.5 KB’, ‘5 MB’, ‘1.18 PB’, etc. | ✔ | - |
-| metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix. | ‘100k’, ‘1M’, ‘3.5M’, etc. | ✔ | - |
-| formatCurrency | Smartly formats the given number as a monetary amount. | ‘£34’, ‘£1,000’, ‘£12.50’, etc. | ✔ | ✔ |
-| formatPluralCurrency | Smartly formats the given
+| Method               | Description                                                                                                         | Output                                                                           | Slim | ICU |
+|----------------------|---------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------|-----|
+| binaryPrefix         | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | ‘2 bytes’, ‘1.5 KB’, ‘5 MB’, ‘1.18 PB’, etc.                                     | ✔    | -   |
+| metricPrefix         | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix.                    | ‘100k’, ‘1M’, ‘3.5M’, etc.                                                       | ✔    | -   |
+| formatCurrency       | Smartly formats the given number as a monetary amount.                                                              | ‘£34’, ‘£1,000’, ‘£12.50’, etc.                                                  | ✔    | ✔   |
+| formatPluralCurrency | Smartly formats the given number as a monetary amount in plural form.                                               | ‘34 British pounds sterling’, ‘1,500.55 British pounds sterling’, ‘1 euro’, etc. | -    | ✔   |
+| formatPercent        | Formats the given ratio as a percentage.                                                                            | ‘500%’, ‘56%’, etc.                                                              | ✔    | ✔   |
+
+### Text
+
+| Method               | Description                                                                                                                                     | Output                                                            | Slim | ICU |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|------|-----|
+| pluralize            | Applies the proper format for a given plural state.                                                                                             | -                                                                 | ✔    | -   |
+| pluralizeFormat      | Constructs a message with pluralization logic by the means of ChoiceFormat. Refer to *messageFormat* for pluralization using CLDR Plural Rules. | -                                                                 | ✔    | -   |
+| camelize             | Makes a phrase camel case. Spaces, hyphens, underscores and dots will be removed.                                                               | -                                                                 | ✔    | -   |
+| capitalize           | Capitalizes a string, smartly.                                                                                                                  | -                                                                 | ✔    | -   |
+| decamelize           | Converts a camel case string into a human-readable name.                                                                                        | -                                                                 | ✔    | -   |
+| titleize             | Creates a nice looking title, smartly.                                                                                                          | -                                                                 | ✔    | -   |
+| transliterate        | Full transliteration support.                                                                                                                   | -                                                                 | -    | ✔   |
+| simplify             | Sort of poor man’s transliteration, i.e. normalizes and strips diacritical marks.                                                               | -                                                                 | ✔    | -   |
+| unidecode            | Just enough transliteration, unicode to ascii.                                                                                                  | -                                                                 | ✔    | -   |
+| slugify              | Transforms a text into a representation suitable to be used in an URL (unicode friendly).                                                       | -                                                                 | ✔    | -   |
+| mask                 | Formats the given text with the mask specified.                                                                                                 | for ‘12345G’ with mask ‘** */*’ produces ‘12 345/G’               | ✔    | -   |
+| wordWrap             | Truncate a string to the closest word boundary after a number of characters.                                                                    | -                                                                 | ✔    | -   |
+| messageFormat        | Returns an ICU or extended MessageFormat instance for the current thread.                                                                       | -                                                                 | ✔    | ✔   |
+| replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name.                                                                       | ‘SMILING FACE WITH SMILING EYES’ for the corresponding Emoji char | ✔    | ✔   |
+| oxford               | Converts a list of items to a human readable string with an optional limit.                                                                     | ‘Oranges, Pears, Bananas, and 2 others’                           | ✔    | -   |
+
 
 * * * *
 
