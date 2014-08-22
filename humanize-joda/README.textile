@@ -1,10 +1,12 @@
 h1. Joda Time
 
-p. Humanize provides a module called *humanize-joda* that adds support for Joda time formats.
+p. Adds support for Joda time formats to Humanize MessageFormat.
 
-h2. Usage
+h2. Dependency
 
-Declare the Maven dependency
+*Maven* 
+
+!https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-joda/badge.svg!:https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-joda
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -12,7 +14,12 @@ bc.. <dependency>
   <version>${humanize.version}</version>
 </dependency>
 
-p. ... and format some messages
+h2. Usage
+
+p. You can use the pattern { _ArgumentIndex_, _JodaTimeFormat_ [, _Variant_] } inside
+a message format string to render or parse Joda time objects.
+
+See the following code examples:
 
 bc.. Humanize.format("hello {0, joda.time}!!", new DateTime(0)); 
 // == "hello 1/1/70!!"
@@ -24,4 +31,14 @@ mf.render(new Period(0, 100000));
 Humanize.format("hello {0, joda.iso.time, basic.week.date.time.no}!!", new DateTime(0));
 // == "hello 1970W014T010000+0100!!"
 
-p. Note that it supports almost any Joda format as subformat. See FormatNames for details.
+p. Note that it supports almost any Joda time format as format variant.
+
+h3. Format Names
+
+|_. Name |_. Variant |_. Class |
+| joda.time | full.date.time, long.date.time, medium.date.time, short.date.time, full.date, long.date, medium.date, short.date, full.time, medium.time, short.time | DateTime |
+| joda.iso.time | basic.date, basic.date.time, basic.date.time.no, basic.ordinal.date, basic.ordinal.date.time, basic.ordinal.date.time.no, basic.time, basic.time.no, basic.week.date, basic.week.date.time, basic.week.date.time.no, date.hour, date.hour.minute, date.hour.minute.second, date.hour.minute.second.fraction, date.hour.minute.second.millis, date.time, date.time.no, default, hour, hour.minute, hour.minute.second, hour.minute.second.fraction, hour.minute.second.millis, ordinal.date, ordinal.date.time, ordinal.date.time.no, time, time.no, weekyear, weekyear.week, weekyear.week.day, year, year.month, year.month.day | DateTime |
+| joda.period | - | Period |
+| joda.iso.period | alternate.extended, alternate.extended.with.weeks | Period |
+
+

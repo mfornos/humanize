@@ -1,8 +1,8 @@
 h1. Humanize JSF
 
-h2. Usage
+h2. Dependency
 
-Declare the Maven dependency
+*Maven*
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -10,7 +10,9 @@ bc.. <dependency>
   <version>${humanize.version}</version>
 </dependency>
 
-p. Use it in a page
+h2. Usage
+
+p. In a page:
 
 bc.. <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://java.sun.com/jsf/core"

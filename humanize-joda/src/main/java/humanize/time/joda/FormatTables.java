@@ -14,7 +14,7 @@ import org.joda.time.format.ISOPeriodFormat;
 import org.joda.time.format.PeriodFormat;
 
 /**
- *
+ * Table to find Joda time format variants by name.
  */
 public final class FormatTables implements FormatNames
 {
@@ -30,14 +30,11 @@ public final class FormatTables implements FormatNames
      */
     public static Map<String, Format> get(String name)
     {
-
         return instance().methods.get(name);
-
     }
 
     public static synchronized FormatTables instance()
     {
-
         return instance == null ? new FormatTables() : instance;
     }
 
@@ -45,14 +42,11 @@ public final class FormatTables implements FormatNames
 
     private FormatTables()
     {
-
         initialize();
-
     }
 
     private void initialize()
     {
-
         Map<String, Format> jtm = new HashMap<String, Format>();
 
         JodaDateTimeFormat shortDate = newDateTimeFormat("shortDate");
@@ -128,12 +122,10 @@ public final class FormatTables implements FormatNames
         ipm.put(ISO_PERIOD_ALTERNATE_EXTENDED_WITH_WEEKS, newISOPeriodFormat("alternateExtendedWithWeeks"));
 
         methods.put(FORMAT_JODA_ISO_PERIOD, ipm);
-
     }
 
     private JodaDateTimeFormat newDateTimeFormat(Class<?> clazz, String name)
     {
-
         try
         {
             return new JodaDateTimeFormat(clazz.getMethod(name));
@@ -146,28 +138,21 @@ public final class FormatTables implements FormatNames
 
     private JodaDateTimeFormat newDateTimeFormat(String name)
     {
-
         return newDateTimeFormat(DateTimeFormat.class, name);
-
     }
 
     private JodaDateTimeFormat newISODateTimeFormat(String name)
     {
-
         return newDateTimeFormat(ISODateTimeFormat.class, name);
-
     }
 
     private JodaPeriodFormat newISOPeriodFormat(String name)
     {
-
         return newPeriodFormat(ISOPeriodFormat.class, name);
-
     }
 
     private JodaPeriodFormat newPeriodFormat(Class<?> clazz, String name, Class<?>... args)
     {
-
         try
         {
             return new JodaPeriodFormat(clazz.getMethod(name, args));
@@ -175,14 +160,11 @@ public final class FormatTables implements FormatNames
         {
             throw new RuntimeException(e);
         }
-
     }
 
     private JodaPeriodFormat newPeriodFormat(String name, Class<?>... args)
     {
-
         return newPeriodFormat(PeriodFormat.class, name, args);
-
     }
 
 }

@@ -24,11 +24,43 @@ import org.joda.time.format.PeriodFormatter;
 public class JodaTimeFormatProvider implements FormatProvider
 {
 
-    public interface ConfigurableFormat
+    /**
+     * Creates a factory for the specified format.
+     * 
+     * @return FormatFactory instance
+     */
+    public static FormatFactory factory()
     {
 
-        Format withLocale(Locale locale);
+        return new FormatFactory()
+        {
+            @Override
+            public Format getFormat(String name, String args, Locale locale)
+            {
+                Map<String, Format> mt = FormatTables.get(name);
+                Format m = mt.get((args == null || args.length() < 1) ? FormatNames.DEFAULT : args);
+                return ((ConfigurableFormat) m).withLocale(locale);
+            }
+        };
 
+    }
+
+    @Override
+    public FormatFactory getFactory()
+    {
+        return factory();
+    }
+
+    @Override
+    public String getFormatName()
+    {
+        return String.format("%s|%s|%s|%s", FormatNames.FORMAT_JODA_TIME, FormatNames.FORMAT_JODA_PERIOD,
+                FormatNames.FORMAT_JODA_ISO_TIME, FormatNames.FORMAT_JODA_ISO_PERIOD);
+    }
+
+    public interface ConfigurableFormat
+    {
+        Format withLocale(Locale locale);
     }
 
     /**
@@ -55,7 +87,6 @@ public class JodaTimeFormatProvider implements FormatProvider
 
         public T get()
         {
-
             if (format == null)
             {
                 synchronized (method)
@@ -71,13 +102,11 @@ public class JodaTimeFormatProvider implements FormatProvider
             }
 
             return format;
-
         }
 
         @Override
         public Object parseObject(String source, ParsePosition pos)
         {
-
             try
             {
                 int begin = pos.getIndex();
@@ -95,9 +124,7 @@ public class JodaTimeFormatProvider implements FormatProvider
         @SuppressWarnings("unchecked")
         protected T invoke() throws IllegalAccessException, InvocationTargetException
         {
-
             return (T) method.invoke(null);
-
         }
 
         abstract protected Object parse(String text) throws ParseException;
@@ -115,32 +142,24 @@ public class JodaTimeFormatProvider implements FormatProvider
 
         public JodaDateTimeFormat(Method method)
         {
-
             super(method);
-
         }
 
         @Override
         public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos)
         {
-
             return appendTo.append(((DateTime) param).toString(get()));
-
         }
 
         public Object parse(String source) throws ParseException
         {
-
             return format.parseDateTime(source);
-
         }
 
         public Format withLocale(Locale locale)
         {
-
             format = get().withLocale(locale);
             return this;
-
         }
 
     }
@@ -158,82 +177,32 @@ public class JodaTimeFormatProvider implements FormatProvider
 
         public JodaPeriodFormat(Method method)
         {
-
             super(method);
-
         }
 
         @Override
         public StringBuffer format(Object param, StringBuffer appendTo, FieldPosition pos)
         {
-
             return appendTo.append(((Period) param).toString(get()));
-
         }
 
         public Object parse(String source) throws ParseException
         {
-
             return format.parsePeriod(source);
-
         }
 
         public Format withLocale(Locale locale)
         {
-
             this.locale = locale;
             this.format = get();
             return this;
-
         }
 
         @Override
         protected PeriodFormatter invoke() throws IllegalAccessException, InvocationTargetException
         {
-
             return (PeriodFormatter) method.invoke(null, locale);
-
         }
-
-    }
-
-    /**
-     * Creates a factory for the specified format.
-     * 
-     * @return FormatFactory instance
-     */
-    public static FormatFactory factory()
-    {
-
-        return new FormatFactory()
-        {
-            @Override
-            public Format getFormat(String name, String args, Locale locale)
-            {
-
-                Map<String, Format> mt = FormatTables.get(name);
-                Format m = mt.get((args == null || args.length() < 1) ? FormatNames.DEFAULT : args);
-                return ((ConfigurableFormat) m).withLocale(locale);
-
-            }
-        };
-
-    }
-
-    @Override
-    public FormatFactory getFactory()
-    {
-
-        return factory();
-
-    }
-
-    @Override
-    public String getFormatName()
-    {
-
-        return String.format("%s|%s|%s|%s", FormatNames.FORMAT_JODA_TIME, FormatNames.FORMAT_JODA_PERIOD,
-                FormatNames.FORMAT_JODA_ISO_TIME, FormatNames.FORMAT_JODA_ISO_PERIOD);
 
     }
 

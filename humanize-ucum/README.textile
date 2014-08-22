@@ -2,9 +2,9 @@ h1. The Unified Code for Units of Measure (UCUM)
 
 Adds *JSR-275*[1] support.
 
-h2. Usage
+h2. Dependency
 
-Declare the Maven dependency
+*Maven*
 
 bc.. <dependency>
   <groupId>com.github.mfornos</groupId>
@@ -12,7 +12,9 @@ bc.. <dependency>
   <version>${humanize.version}</version>
 </dependency>
 
-p. ... and format some messages
+h2. Usage
+
+p. Format some messages
 
 bc.. Humanize.format("Hello from measures at {0, measure}", Measure.valueOf(150, NonSI.MILES_PER_HOUR)); 
 // == "Hello from measures at 150 mph"

@@ -20,10 +20,8 @@ public class TestHumanizeMessage
     @Test(expectedExceptions = ClassCastException.class)
     public void boxing()
     {
-
         Humanize.format("hello {0, joda.period}!!", "badguy");
         Assert.fail();
-
     }
 
     @Test(threadPoolSize = 10, invocationCount = 10)
@@ -67,18 +65,14 @@ public class TestHumanizeMessage
     @BeforeClass
     void setUp()
     {
-
         this.defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
-
     }
 
     @AfterClass
     void tearDown()
     {
-
         Locale.setDefault(defaultLocale);
-
     }
 
 }
