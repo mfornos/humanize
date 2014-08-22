@@ -87,14 +87,6 @@ class SomeClass {
 
 * * * *
 
-Documentation
--------------
-
--   [Documentation for humanize-slim][]
--   [Documentation for humanize-icu][]
-
-* * * *
-
 Principal Methods
 -----------------
 
@@ -135,8 +127,17 @@ Principal Methods
 | formatCurrency | Smartly formats the given number as a monetary amount. | ‘£34’, ‘£1,000’, ‘£12.50’, etc. | ✔ | ✔ |
 | formatPluralCurrency | Smartly formats the given
 
-  [Documentation for humanize-slim]: http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
-  [Documentation for humanize-icu]: http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
+* * * *
+
+Documentation
+-------------
+
+-   [Javadoc humanize-slim][]
+-   [Javadoc humanize-icu][]
+
+  [Javadoc humanize-slim]: http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
+  [Javadoc humanize-icu]: http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
+
 
 * * * *
 
