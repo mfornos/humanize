@@ -132,6 +132,8 @@ Principal Methods
   [Documentation for humanize-slim]: http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
   [Documentation for humanize-icu]: http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
 
+* * * *
+
 Dependencies
 ------------
 
@@ -158,7 +160,9 @@ If you need customize the data included by default in the ICU distribution (all 
 
   [ICU Data Library Customizer]: http://apps.icu-project.org/datacustom/
   [Using ProGuard with Guava]: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
-  
+
+* * * *
+
 Supported languages
 -------------------
 
@@ -172,6 +176,8 @@ If you want to add support for other languages simply put a properties file name
 
   [prettytime]: http://ocpsoft.org/prettytime
   [ICU APIs]: http://icu-project.org/
+
+* * * *
 
 Code Examples
 -------------
@@ -321,6 +327,7 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 -  [TestHumanize](https://github.com/mfornos/humanize/blob/master/humanize-slim/src/test/java/humanize/TestHumanize.java)
 -  [TestICUHumanize](https://github.com/mfornos/humanize/blob/master/humanize-icu/src/test/java/humanize/TestICUHumanize.java)
 
+* * * *
 
 Extensible Message Formats
 --------------------------
@@ -373,6 +380,8 @@ Integrations
 ### Handlebars Helper
 
 Humanize is integrated in the awesome [Handlebars.java][] project.
+
+* * * *
 
 Epilog
 ------
