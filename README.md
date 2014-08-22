@@ -171,7 +171,8 @@ Specifying precision
 
 ```java
 // Fixed date for demonstration
-Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38 + 1000 * 2);
+Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38
+                       + 1000 * 2);
 
 naturalTime(new Date(0), moment, TimeMillis.HOUR) 
 // => "3 days 16 hours from now"
@@ -234,7 +235,8 @@ pluralize(0, p); // => "no disk."
 **Pluralize MessageFormat**
 
 ```java
-MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file::are {2} files");
+MessageFormat msg = pluralizeFormat("There {0} on {1}.::are no files::is one file"
+                                     + "::are {2} files");
 
 msg.render(0, "disk");    // => "There are no files on disk."
 msg.render(1, "disk");    // => "There is one file on disk."
