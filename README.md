@@ -13,15 +13,14 @@ Lightweight distribution that only depends on Guava and standard Java APIs.
 
 Provides a concise facade for access to the [International Components for Unicode][] (ICU) Java APIs. Includes the slim distribution.
 
-### Extensions
+Extensions
+----------
 
 -   [Unified Emoji][] — Easy Emoji handling for the JVM
 -   [Joda time][] — Joda time message format extensions
 -   [UCUM][] — Unified Units of Measurement
 -   [JSF][] — Java Server Faces converters
 -   [Taglib][] — JSP tag library
-
-* * * *
 
   [International Components for Unicode]: http://icu-project.org/
   [Unified Emoji]: https://github.com/mfornos/humanize/tree/master/humanize-emoji
@@ -61,8 +60,6 @@ For the full-fledged **ICU** distribution:
 </dependency>
 ```
 
-* * * *
-
 Usage
 -----
 
@@ -84,8 +81,6 @@ class SomeClass {
   
 }
 ```
-
-* * * *
 
 Principal Methods
 -----------------
@@ -148,9 +143,6 @@ Principal Methods
 | replaceSupplementary | Replaces characters outside the Basic Multilingual Plane with their name.                                                                       | ‘SMILING FACE WITH SMILING EYES’ for the corresponding Emoji char | ✔    | ✔   |
 | oxford               | Converts a list of items to a human readable string with an optional limit.                                                                     | ‘Oranges, Pears, Bananas, and 2 others’                           | ✔    | -   |
 
-
-* * * *
-
 Documentation
 -------------
 
@@ -159,8 +151,6 @@ Documentation
 
   [Javadoc humanize-slim]: http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
   [Javadoc humanize-icu]: http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
-
-* * * *
 
 Code Examples
 -------------
@@ -312,8 +302,6 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 -  [TestHumanize](https://github.com/mfornos/humanize/blob/master/humanize-slim/src/test/java/humanize/TestHumanize.java)
 -  [TestICUHumanize](https://github.com/mfornos/humanize/blob/master/humanize-icu/src/test/java/humanize/TestICUHumanize.java)
 
-* * * *
-
 Dependencies
 ------------
 
@@ -341,8 +329,6 @@ If you need customize the data included by default in the ICU distribution (all 
   [ICU Data Library Customizer]: http://apps.icu-project.org/datacustom/
   [Using ProGuard with Guava]: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
 
-* * * *
-
 Supported languages
 -------------------
 
@@ -356,8 +342,6 @@ If you want to add support for other languages simply put a properties file name
 
   [prettytime]: http://ocpsoft.org/prettytime
   [ICU APIs]: http://icu-project.org/
-
-* * * *
 
 Extensible Message Formats
 --------------------------
@@ -379,8 +363,6 @@ Now you can use it
 Humanize.format("{0,humanize,ordinal} greetings", 1); 
 // => "1st greetings"
 ```
-
-* * * *
 
 Cache configuration
 -------------------
@@ -406,8 +388,6 @@ The value must follow the CacheBuilderSpec syntax. The string syntax is a series
 
 Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)
 
-* * * *
-
 Integrations
 ------------
 
@@ -415,12 +395,11 @@ Integrations
 
 Humanize is integrated in the awesome [Handlebars.java][] project.
 
-* * * *
+  [Handlebars.java]: https://github.com/jknack/handlebars.java
 
-Epilog
-------
+* * * *
 
 Have fun and stay fresh!
 
-  [Handlebars.java]: https://github.com/jknack/handlebars.java
+EOF
 
