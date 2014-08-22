@@ -29,14 +29,6 @@ Easy Emoji handling for the JVM. :green_heart:
  
 ### Emoji Succinct API
 
-**Configuration**
-
-Before calling image replacement methods, please, configure the EmojiApi object.
-
-```java
-EmojiApi.configure().assetsURL("http://localhost/img/");
-```
-
 **Image replacement**
 
 ```java
@@ -47,6 +39,14 @@ EmojiApi.replaceUnicodeWithImages("I ❤ Emoji")
 ```java
 EmojiApi.imageTagByUnicode("❤");
 // == <img class="emoji" src="http://localhost/img/2764.png" alt="heavy black heart" />
+```
+
+**Configuration**
+
+Before calling image replacement methods, please, configure the EmojiApi object.
+
+```java
+EmojiApi.configure().assetsURL("http://localhost/img/");
 ```
 
 **Search**
