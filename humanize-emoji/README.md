@@ -51,9 +51,13 @@ EmojiApi.configure().assetsURL("http://localhost/img/");
 
 **Search**
 
+You can search Emoji characters by name, tags, hex string and raw Unicode.
+
 ```java
 EmojiApi.byName("green heart");
 ```
+
+Returns an EmojiChar object with the following structure:
 
 ```json
 {
@@ -85,6 +89,8 @@ EmojiApi.byName("green heart");
 ```java
 EmojiApi.search("cat", "smile");
 ```
+
+Returns a list of EmojiChar objects:
 
 ```json
 [
