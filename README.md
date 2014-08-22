@@ -1,4 +1,4 @@
-Humanize for Java ![Build Status][]:http://travis-ci.org/mfornos/humanize
+Humanize for Java [![Build Status](http://img.shields.io/travis/mfornos/humanize.svg)](https://travis-ci.org/travis-ci/travis-web)
 =========================================================================
 
 Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.
@@ -13,8 +13,6 @@ Lightweight distribution that only depends on Guava and standard Java APIs.
 
 Provides a concise facade for access to the [International Components for Unicode][] (ICU) Java APIs. Includes the slim distribution.
 
-* * * *
-
 ### Extensions
 
 -   [Unified Emoji][]
@@ -25,7 +23,6 @@ Provides a concise facade for access to the [International Components for Unicod
 
 * * * *
 
-  [Build Status]: http://img.shields.io/travis/mfornos/humanize.svg "Build Status"
   [International Components for Unicode]: http://icu-project.org/
   [Unified Emoji]: https://github.com/mfornos/humanize/tree/master/humanize-emoji
   [Joda Time]: https://github.com/mfornos/humanize/tree/master/humanize-joda
@@ -36,7 +33,7 @@ Provides a concise facade for access to the [International Components for Unicod
 Getting Started
 ---------------
 
-### Maven ![Maven badge][]:https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize
+### Maven [![Maven Badge](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize)
 
 Current version:
 
@@ -63,9 +60,6 @@ For the full-fledged **ICU** distribution:
   <version>${humanize.version}</version>
 </dependency>
 ```
-
-  [Maven badge]: https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize/badge.svg
-
 
 Usage
 -----
@@ -128,7 +122,8 @@ Principal Methods
 
 ### Units
 
-|*. Method |*. Description |*. Output |*. Slim |\_. ICU |
+| Method         | Description                                                       | Output                                                                                                                            | Slim | ICU |
+|----------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------|-----|
 | binaryPrefix | Converts a given number to a string preceded by the corresponding binary International System of Units (SI) prefix. | ‘2 bytes’, ‘1.5 KB’, ‘5 MB’, ‘1.18 PB’, etc. | ✔ | - |
 | metricPrefix | Converts a given number to a string preceded by the corresponding decimal multiplicative prefix. | ‘100k’, ‘1M’, ‘3.5M’, etc. | ✔ | - |
 | formatCurrency | Smartly formats the given number as a monetary amount. | ‘£34’, ‘£1,000’, ‘£12.50’, etc. | ✔ | ✔ |
@@ -154,16 +149,22 @@ Dependencies
 ### Package size concerns
 
 **ICU**
+
 If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the [ICU Data Library Customizer][] may be useful.
 
+**ProGuard**
+
+[Using ProGuard with Guava][].
+
   [ICU Data Library Customizer]: http://apps.icu-project.org/datacustom/
+  [Using ProGuard with Guava]: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
   
 Supported languages
 -------------------
 
-**humanize-slim**: *naturalTime* supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
+`humanize-slim` *naturalTime* supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
 
-**humanize-icu**: all languages supported by the [ICU APIs][].
+`humanize-icu` all languages supported by the [ICU APIs][].
 
 ### Custom languages
 
