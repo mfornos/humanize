@@ -13,9 +13,7 @@ Easy Emoji handling for the JVM. :green_heart:
 
 ## Dependency
 
-**Maven**
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-emoji/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-emoji)
+### Maven [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-emoji/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mfornos/humanize-emoji)
 
 ```xml
 <dependency>
