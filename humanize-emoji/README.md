@@ -33,12 +33,10 @@ Easy Emoji handling for the JVM. :green_heart:
 
 ```java
 EmojiApi.replaceUnicodeWithImages("I ❤ Emoji")
-// == "I <img class="emoji" src="http://localhost/img/2764.png" alt="heavy black heart" /> Emoji"
-```
+// => "I <img class="emoji" src="http://localhost/img/2764.png" alt="heavy black heart" /> Emoji"
 
-```java
 EmojiApi.imageTagByUnicode("❤");
-// == <img class="emoji" src="http://localhost/img/2764.png" alt="heavy black heart" />
+// => <img class="emoji" src="http://localhost/img/2764.png" alt="heavy black heart" />
 ```
 
 **Configuration**

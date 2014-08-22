@@ -15,11 +15,11 @@ Provides a concise facade for access to the [International Components for Unicod
 
 ### Extensions
 
--   [Unified Emoji][]
--   [Joda Time][]
--   [UCUM][]
--   [JSF][]
--   [Taglib][]
+-   [Unified Emoji][] Easy Emoji handling for the JVM
+-   [Joda time][] Joda time message format extensions
+-   [UCUM][] Unified Units of Measurement
+-   [JSF][] Java Server Faces converters
+-   [Taglib][] JSP tag library
 
 * * * *
 
