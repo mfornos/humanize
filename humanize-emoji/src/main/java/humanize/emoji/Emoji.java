@@ -41,6 +41,7 @@ public final class Emoji
     private static final String DB_EMOJI_SOURCES = "/db/emoji-sources.txt";
 
     private static final List<EmojiChar> EMOJI_CHARS = new ArrayList<EmojiChar>();
+    private static final Map<String, EmojiChar> HEX_INDEX = new HashMap<String, EmojiChar>();
     private static final Map<String, EmojiChar> RAW_INDEX = new HashMap<String, EmojiChar>();
     private static final Map<VendorKey, EmojiChar> VENDORS_INDEX = new HashMap<VendorKey, EmojiChar>();
     private static final Multimap<String, EmojiChar> ANNOTATIONS_INDEX = ArrayListMultimap.create();
@@ -123,6 +124,18 @@ public final class Emoji
     }
 
     /**
+     * Finds an emoji character by hexadecimal code.
+     * 
+     * @param hex
+     *            the hexadecimal code
+     * @return the corresponding emoji character or null if not found
+     */
+    public static EmojiChar findByHexCode(String hex)
+    {
+        return getInstance()._findByHexCode(hex.toUpperCase());
+    }
+
+    /**
      * Finds an emoji character by vendor code point.
      * 
      * @param vendor
@@ -182,6 +195,11 @@ public final class Emoji
     private EmojiChar _findByCodePoint(String code)
     {
         return RAW_INDEX.get(code);
+    }
+
+    private EmojiChar _findByHexCode(String hex)
+    {
+        return HEX_INDEX.get(hex);
     }
 
     private EmojiChar _findByVendorCodePoint(Vendor vendor, String code)
@@ -309,6 +327,9 @@ public final class Emoji
     {
         // Index by code points (raw characters)
         RAW_INDEX.put(echar.getRaw(), echar);
+
+        // Index by hex code
+        HEX_INDEX.put(echar.getCode(), echar);
 
         // Index by annotations
         for (String annotation : echar.getAnnotations())
