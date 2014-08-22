@@ -166,14 +166,8 @@ naturalTime(new Date());
 naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
 // => "1 day ago"
 
-naturalTime(new Date(3155792597470L * 3L), new Date(0)); 
-// => "3 centuries ago"
-
 naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
 // => "12 minutes from now"
-
-naturalTime(new Date(0), new Date(1000 * 60 * 60 * 24 * 1)); 
-// => "1 day from now"
 
 naturalTime(new Date(0), new Date(2629743830L * 3L)); 
 // => "3 months from now"
