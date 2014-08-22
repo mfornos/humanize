@@ -286,10 +286,9 @@ slugify("\nキャンパス//.Я_♥@борщ\n^abc");
 
 ```java
 parseISODateTime("2011-09-14T15:22:01Z");
-parseISOTime("15:22:01Z");
-```
 
-```java
+parseISOTime("15:22:01Z");
+
 parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 ```
 
