@@ -179,8 +179,6 @@ naturalTime(new Date(0), new Date(2629743830L * 3L));
 // => "3 months from now"
 ```
 
-Specifying precision
-
 ```java
 // Fixed date for demonstration
 Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38
@@ -290,8 +288,6 @@ slugify("\nキャンパス//.Я_♥@борщ\n^abc");
 parseISODateTime("2011-09-14T15:22:01Z");
 parseISOTime("15:22:01Z");
 ```
-
-Smart
 
 ```java
 parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
