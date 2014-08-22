@@ -78,7 +78,7 @@ EmojiApi.byName("green heart");
 EmojiApi.search("cat", "smile");
 ```
 
-```
+```json
 [
    {
       "ordering":245,
