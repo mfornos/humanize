@@ -1,4 +1,4 @@
-Humanize for Java [![Build Status](http://img.shields.io/travis/mfornos/humanize.svg)](https://travis-ci.org/travis-ci/travis-web)
+Humanize for Java [![Build Status](http://img.shields.io/travis/mfornos/humanize.svg)](https://travis-ci.org/mfornos/humanize)
 =========================================================================
 
 Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.
