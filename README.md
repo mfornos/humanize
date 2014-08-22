@@ -138,52 +138,6 @@ Documentation
   [Javadoc humanize-slim]: http://mfornos.github.com/humanize/humanize-slim-apidocs/index.html
   [Javadoc humanize-icu]: http://mfornos.github.com/humanize/humanize-icu-apidocs/index.html
 
-
-* * * *
-
-Dependencies
-------------
-
-### Humanize-slim
-
--   guava 17.0
--   prettytime 3.2.5.Final
--   unidecode 0.0.7
-
-### Humanize-icu
-
--   humanize-slim ${humanize.version}
--   icu4j 53.1
-
-### Package size concerns
-
-**ICU**
-
-If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the [ICU Data Library Customizer][] may be useful.
-
-**ProGuard**
-
-[Using ProGuard with Guava][].
-
-  [ICU Data Library Customizer]: http://apps.icu-project.org/datacustom/
-  [Using ProGuard with Guava]: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
-
-* * * *
-
-Supported languages
--------------------
-
-`humanize-slim` naturalTime supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
-
-`humanize-icu` all languages supported by the [ICU APIs][].
-
-### Custom languages
-
-If you want to add support for other languages simply put a properties file named `Humanize\_{your\_locale}.properties` under the classpath `i18n`.
-
-  [prettytime]: http://ocpsoft.org/prettytime
-  [ICU APIs]: http://icu-project.org/
-
 * * * *
 
 Code Examples
@@ -333,6 +287,51 @@ parseSmartDate("1.2.12", "dd/MM/yy", "yyyy/MM/dd", "dd/MM/yyyy");
 
 -  [TestHumanize](https://github.com/mfornos/humanize/blob/master/humanize-slim/src/test/java/humanize/TestHumanize.java)
 -  [TestICUHumanize](https://github.com/mfornos/humanize/blob/master/humanize-icu/src/test/java/humanize/TestICUHumanize.java)
+
+* * * *
+
+Dependencies
+------------
+
+### Humanize-slim
+
+-   guava 17.0
+-   prettytime 3.2.5.Final
+-   unidecode 0.0.7
+
+### Humanize-icu
+
+-   humanize-slim ${humanize.version}
+-   icu4j 53.1
+
+### Package size concerns
+
+**ICU**
+
+If you need customize the data included by default in the ICU distribution (all features and languages ~7.1MB), the [ICU Data Library Customizer][] may be useful.
+
+**ProGuard**
+
+[Using ProGuard with Guava][].
+
+  [ICU Data Library Customizer]: http://apps.icu-project.org/datacustom/
+  [Using ProGuard with Guava]: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
+
+* * * *
+
+Supported languages
+-------------------
+
+`humanize-slim` naturalTime supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
+
+`humanize-icu` all languages supported by the [ICU APIs][].
+
+### Custom languages
+
+If you want to add support for other languages simply put a properties file named `Humanize\_{your\_locale}.properties` under the classpath `i18n`.
+
+  [prettytime]: http://ocpsoft.org/prettytime
+  [ICU APIs]: http://icu-project.org/
 
 * * * *
 
