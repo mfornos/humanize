@@ -61,6 +61,8 @@ For the full-fledged **ICU** distribution:
 </dependency>
 ```
 
+* * * *
+
 Usage
 -----
 
@@ -83,11 +85,15 @@ class SomeClass {
 }
 ```
 
+* * * *
+
 Documentation
 -------------
 
 -   [Documentation for humanize-slim][]
 -   [Documentation for humanize-icu][]
+
+* * * *
 
 Principal Methods
 -----------------
@@ -166,13 +172,13 @@ If you need customize the data included by default in the ICU distribution (all 
 Supported languages
 -------------------
 
-`humanize-slim` *naturalTime* supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
+`humanize-slim` naturalTime supports over 25 languages, see [prettytime][]. Rest of methods have support for english and spanish.
 
 `humanize-icu` all languages supported by the [ICU APIs][].
 
 ### Custom languages
 
-If you want to add support for other languages simply put a properties file named **Humanize\_{your\_locale}.properties** under the classpath: **i18n**.
+If you want to add support for other languages simply put a properties file named `Humanize\_{your\_locale}.properties` under the classpath `i18n`.
 
   [prettytime]: http://ocpsoft.org/prettytime
   [ICU APIs]: http://icu-project.org/
@@ -350,6 +356,8 @@ Humanize.format("{0,humanize,ordinal} greetings", 1);
 // => "1st greetings"
 ```
 
+* * * *
+
 Cache configuration
 -------------------
 
@@ -373,6 +381,8 @@ The value must follow the CacheBuilderSpec syntax. The string syntax is a series
 -   weakValues: sets CacheBuilder.weakValues().
 
 Durations are represented by an integer, followed by one of “d”, “h”, “m”, or “s”, representing days, hours, minutes, or seconds respectively. (There is currently no syntax to request expiration in milliseconds, microseconds, or nanoseconds.)
+
+* * * *
 
 Integrations
 ------------
