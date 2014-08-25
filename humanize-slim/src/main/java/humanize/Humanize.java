@@ -54,6 +54,7 @@ import humanize.time.Pace.Accuracy;
 import humanize.time.PrettyTimeFormat;
 import humanize.time.TimeMillis;
 import humanize.util.Constants.TimeStyle;
+import humanize.util.Parameters.PaceParameters;
 import humanize.util.Parameters.PluralizeParams;
 import humanize.util.Parameters.SlugifyParams;
 
@@ -1996,6 +1997,20 @@ public final class Humanize
     }
 
     /**
+     * Same as {@link #pace(Number, long)}.
+     * 
+     * @param value
+     *            The number of occurrences within the specified interval
+     * @param interval
+     *            Time millis interval
+     * @return a Pace instance with data for a given value and interval
+     */
+    public static Pace pace(final Number value, final TimeMillis interval)
+    {
+        return pace(value, interval.millis());
+    }
+
+    /**
      * Same as {@link #paceFormat(Number, long)} for a target locale.
      * 
      * @param locale
@@ -2026,25 +2041,18 @@ public final class Humanize
      *            The target locale
      * @param value
      *            The number of occurrences within the specified interval
-     * @param interval
-     *            The interval in milliseconds
-     * @param one
-     *            The message format for one time occurrences
-     * @param many
-     *            The message format for multiple times occurrences
-     * @param none
-     *            The message format for no occurrence
+     * @param params
+     *            The pace format parameterezation
      * @return an human readable textual representation of the pace
      */
-    public static String paceFormat(final Locale locale, final Number value, final long interval, final String one,
-            final String many, final String none)
+    public static String paceFormat(final Locale locale, final Number value, final PaceParameters params)
     {
         return withinLocale(new Callable<String>()
         {
             @Override
             public String call() throws Exception
             {
-                return paceFormat(value, interval, one, many, none);
+                return paceFormat(value, params);
             }
         }, locale);
     }
@@ -2062,13 +2070,14 @@ public final class Humanize
      */
     public static String paceFormat(final Number value, final long interval)
     {
-        ResourceBundle bundle = context.get().getBundle();
+        ResourceBundle b = context.get().getBundle();
 
-        String none = bundle.getString("pace.none");
-        String one = bundle.getString("pace.one");
-        String many = bundle.getString("pace.many");
+        PaceParameters params = PaceParameters.begin(b.getString("pace.one"))
+                .none(b.getString("pace.none"))
+                .many(b.getString("pace.many"))
+                .interval(interval);
 
-        return paceFormat(value, interval, one, many, none);
+        return paceFormat(value, params);
     }
 
     /**
@@ -2077,33 +2086,38 @@ public final class Humanize
      * 
      * @param value
      *            The number of occurrences within the specified interval
-     * @param interval
-     *            The interval in milliseconds
-     * @param one
-     *            The message format for one time occurrences
-     * @param many
-     *            The message format for multiple times occurrences
-     * @param none
-     *            The message format for no occurrence
+     * @param params
+     *            The pace format parameterization
      * @return an human readable textual representation of the pace
      */
-    public static String paceFormat(final Number value, final long interval, final String one, final String many,
-            final String none)
+    public static String paceFormat(final Number value, final PaceParameters params)
     {
-        Pace args = pace(value, interval);
+        params.checkArguments();
+
+        Pace args = pace(value, params.interval);
 
         ResourceBundle bundle = context.get().getBundle();
 
         String accuracy = bundle.getString(args.getAccuracy());
         String timeUnit = bundle.getString(args.getTimeUnit());
 
-        PluralizeParams p = PluralizeParams
-                .begin(one)
-                .many(many)
-                .none(none)
-                .exts(accuracy, timeUnit);
+        params.exts(accuracy, timeUnit);
 
-        return capitalize(pluralize(args.getValue(), p));
+        return capitalize(pluralize(args.getValue(), params.plural));
+    }
+
+    /**
+     * Same as {@link #paceFormat(Number, long)}
+     * 
+     * @param value
+     *            The number of occurrences within the specified interval
+     * @param interval
+     *            The interval in milliseconds
+     * @return an human readable textual representation of the pace
+     */
+    public static String paceFormat(final Number value, final TimeMillis interval)
+    {
+        return paceFormat(value, interval.millis());
     }
 
     /**
@@ -2315,7 +2329,7 @@ public final class Humanize
                 .many(many)
                 .none(none)
                 .exts(exts);
-        
+
         return pluralize(number, p);
     }
 

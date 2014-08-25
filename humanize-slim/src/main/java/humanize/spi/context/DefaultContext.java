@@ -286,7 +286,7 @@ public class DefaultContext implements Context, StandardContext
             @Override
             public PrettyTimeFormat call() throws Exception
             {
-                return PrettyTimeFormat.getInstance(locale);
+                return new PrettyTimeFormat(locale);
             }
         });
     }

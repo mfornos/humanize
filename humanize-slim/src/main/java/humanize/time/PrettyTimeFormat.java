@@ -38,26 +38,10 @@ public class PrettyTimeFormat extends Format implements FormatProvider
             @Override
             public Format getFormat(String name, String args, Locale locale)
             {
-
                 // TODO support unrounded in args?
                 return new PrettyTimeFormat(locale);
-
             }
         };
-
-    }
-
-    public static PrettyTimeFormat getInstance()
-    {
-
-        return getInstance(Locale.getDefault());
-
-    }
-
-    public static PrettyTimeFormat getInstance(Locale locale)
-    {
-
-        return new PrettyTimeFormat(locale);
 
     }
 
@@ -126,13 +110,11 @@ public class PrettyTimeFormat extends Format implements FormatProvider
 
     public String format(Duration duration)
     {
-
         return prettyTime.format(duration);
     }
 
     public String format(List<Duration> durations)
     {
-
         return prettyTime.format(durations);
     }
 
@@ -153,6 +135,11 @@ public class PrettyTimeFormat extends Format implements FormatProvider
         if (List.class.isAssignableFrom(obj.getClass()))
         {
             return toAppendTo.append(prettyTime.format((List<Duration>) obj));
+        }
+
+        if (Number.class.isAssignableFrom(obj.getClass()))
+        {
+            return toAppendTo.append(prettyTime.format(new Date(((Number) obj).longValue())));
         }
 
         throw new IllegalArgumentException(String.format("Class %s is not suitable for PrettyTimeFormat",

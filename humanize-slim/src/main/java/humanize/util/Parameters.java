@@ -1,6 +1,9 @@
 package humanize.util;
 
 import static humanize.util.Constants.DEFAULT_SLUG_SEPARATOR;
+import humanize.time.TimeMillis;
+
+import com.google.common.base.Preconditions;
 
 /**
  * Parameterization classes collection.
@@ -12,6 +15,90 @@ public final class Parameters
     private Parameters()
     {
         //
+    }
+
+    /**
+     * Pace format parameters.
+     * 
+     */
+    public final static class PaceParameters
+    {
+        /**
+         * Builder method.
+         * 
+         * @param one
+         *            Format for a single element
+         * @return a new pace parameters instance
+         */
+        public static PaceParameters begin(String one)
+        {
+            PaceParameters p = new PaceParameters();
+            return p.one(one);
+        }
+
+        /**
+         * Pluralization formats
+         */
+        public PluralizeParams plural;
+
+        /**
+         * The interval of the pace in milliseconds.
+         * 
+         * @see TimeMillis
+         */
+        public long interval;
+
+        private PaceParameters()
+        {
+            //
+        }
+
+        public void checkArguments()
+        {
+            Preconditions.checkArgument(plural != null, "Plural parameters are required");
+        }
+
+        public PaceParameters exts(Object... exts)
+        {
+            this.plural.exts(exts);
+            return this;
+        }
+
+        public PaceParameters interval(long interval)
+        {
+            this.interval = interval;
+            return this;
+        }
+
+        public PaceParameters interval(TimeMillis interval)
+        {
+            this.interval = interval.millis();
+            return this;
+        }
+
+        public PaceParameters many(String many)
+        {
+            this.plural.many(many);
+            return this;
+        }
+
+        public PaceParameters none(String none)
+        {
+            this.plural.none(none);
+            return this;
+        }
+
+        public PaceParameters one(String one)
+        {
+            this.plural = PluralizeParams.begin(one);
+            return this;
+        }
+
+        public PaceParameters plural(PluralizeParams plural)
+        {
+            this.plural = plural;
+            return this;
+        }
     }
 
     /**

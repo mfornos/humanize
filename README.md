@@ -40,7 +40,7 @@ Current version:
 <humanize.version>1.2.1</humanize.version>
 ```
 
-For the **slim** variant write the following in your *pom*:
+Slim distribution:
 
 ```xml
 <dependency>
@@ -50,7 +50,7 @@ For the **slim** variant write the following in your *pom*:
 </dependency>
 ```
 
-For the full-fledged **ICU** distribution:
+Full-fledged ICU distribution:
 
 ```xml
 <dependency>
