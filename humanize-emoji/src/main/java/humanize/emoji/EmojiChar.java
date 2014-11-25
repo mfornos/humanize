@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
@@ -234,7 +235,7 @@ public final class EmojiChar implements Comparable<EmojiChar>, Serializable
     @Override
     public String toString()
     {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("code", code)
                 .add("mappings", mappings)
                 .add("defaultStyle", defaultStyle)

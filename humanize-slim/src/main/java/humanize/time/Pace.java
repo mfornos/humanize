@@ -1,6 +1,6 @@
 package humanize.time;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 /**
  * Holds the properties required to produce human friendly textual
@@ -45,7 +45,7 @@ public class Pace
 
     public String toString()
     {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("value", value)
                 .add("accuracy", accuracy)
                 .add("timeUnit", timeUnit)

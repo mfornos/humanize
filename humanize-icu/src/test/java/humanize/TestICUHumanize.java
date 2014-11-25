@@ -64,7 +64,7 @@ public class TestICUHumanize
         assertEquals(compactDecimal(2394000, ES), "2,4M");
 
         assertEquals(compactDecimal(10, DE), "10");
-        assertEquals(compactDecimal(100000, DE), "100 Tsd");
+        assertEquals(compactDecimal(100000, DE), "100 Tsd.");
         assertEquals(compactDecimal(100000000, DE), "100 Mio");
         assertEquals(compactDecimal(2394000, DE), "2,4 Mio");
 
@@ -133,7 +133,7 @@ public class TestICUHumanize
         assertEquals(formatDate(DateFormat.MEDIUM, date), String.format("%d Dec 2015", day));
         assertEquals(formatDate(date), String.format("%02d/12/2015", day));
 
-        assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%d/12/2015", day));
+        assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%d de dic. de 2015", day));
         assertEquals(formatDate(date, ES), String.format("%d/12/15", day));
 
         assertEquals(formatDate(date, "dd/MM/yy"), String.format("%02d/12/15", day));
@@ -149,11 +149,11 @@ public class TestICUHumanize
         Date date = newTestDate(day, 11, 2015, 22, 10, 0);
 
         assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date),
-                String.format("%d Dec 2015 22:10:00", day));
-        assertEquals(formatDateTime(date), String.format("%02d/12/2015 22:10", day));
+                String.format("%d Dec 2015, 22:10:00", day));
+        assertEquals(formatDateTime(date), String.format("%02d/12/2015, 22:10", day));
 
         assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date, ES),
-                String.format("%d/12/2015 22:10:00", day));
+                String.format("%d de dic. de 2015 22:10:00", day));
         assertEquals(formatDateTime(date, ES), String.format("%d/12/15 22:10", day));
 
     }
@@ -180,12 +180,12 @@ public class TestICUHumanize
         assertEquals(formatPercent(0.564), "56%");
         assertEquals(formatPercent(1000.564), "100,056%");
 
-        assertEquals(formatPercent(0, ES), "0%");
-        assertEquals(formatPercent(-1, ES), "-100%");
-        assertEquals(formatPercent(0.5, ES), "50%");
-        assertEquals(formatPercent(1.5, ES), "150%");
-        assertEquals(formatPercent(0.564, ES), "56%");
-        assertEquals(formatPercent(1000.564, ES), "100.056%");
+        assertEquals(formatPercent(0, ES), "0 %");
+        assertEquals(formatPercent(-1, ES), "-100 %");
+        assertEquals(formatPercent(0.5, ES), "50 %");
+        assertEquals(formatPercent(1.5, ES), "150 %");
+        assertEquals(formatPercent(0.564, ES), "56 %");
+        assertEquals(formatPercent(1000.564, ES), "100.056 %");
 
     }
 
@@ -194,9 +194,9 @@ public class TestICUHumanize
     {
 
         int df = rand.nextInt(9);
-        assertEquals(formatPluralCurrency(34), "34 British pounds");
-        assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds");
-        assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds");
+        assertEquals(formatPluralCurrency(34), "34 British pounds sterling");
+        assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds sterling");
+        assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds sterling");
 
         assertEquals(formatPluralCurrency(1, ES), "1 euro");
         assertEquals(formatPluralCurrency(100, ES), "100 euros");

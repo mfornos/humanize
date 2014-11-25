@@ -296,14 +296,14 @@ Dependencies
 
 ### Humanize-slim
 
--   guava 17.0
+-   guava 18.0
 -   prettytime 3.2.5.Final
 -   unidecode 0.0.7
 
 ### Humanize-icu
 
 -   humanize-slim ${humanize.version}
--   icu4j 53.1
+-   icu4j 54.1
 
 ### Package size concerns
 

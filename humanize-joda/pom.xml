@@ -12,7 +12,7 @@
   <description>Humanize Joda time support</description>
   
   <properties>
-    <joda-time.version>2.3</joda-time.version>
+    <joda-time.version>2.5</joda-time.version>
   </properties>
   
   <dependencies>
