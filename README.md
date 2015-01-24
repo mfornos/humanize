@@ -37,7 +37,7 @@ Getting Started
 Current version:
 
 ```xml
-<humanize.version>1.2.1</humanize.version>
+<humanize.version>1.2.2</humanize.version>
 ```
 
 Slim distribution:
