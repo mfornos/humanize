@@ -16,13 +16,37 @@ import com.google.common.base.Strings;
  */
 public final class EmojiApi
 {
+    private static class LazyHolder
+    {
+        private static final EmojiApi INSTANCE = new EmojiApi();
+    }
+
     private static final String DEFAULT_IMG_FMT = "<img class=\"emoji\" src=\"%s/{0}.%s\" alt=\"{1}\" />";
     private static final String DEFAULT_EXT = "png";
+
     private static final Joiner SPACE_JOINER = Joiner.on(' ');
 
     /**
+     * Finds an Emoji character by its hexadecimal code.
+     * 
+     * @param hex
+     *            The hexadecimal code. E.g.: "1f536"
+     * @return an instance of EmojiChar for the given hex code, or null if not
+     *         found
+     * @see Emoji#findByHexCode(String)
+     */
+    public static EmojiChar byHexCode(String hex)
+    {
+        return Emoji.findByHexCode(hex);
+    }
+
+    /**
+     * Finds an Emoji character by its name.
+     * 
      * @param name
-     * @return
+     *            The Emoji character name
+     * @return an instance of EmojiChar for the given name, or null if not found
+     * @see Emoji#singleByAnnotations(String)
      */
     public static EmojiChar byName(String name)
     {
@@ -30,7 +54,24 @@ public final class EmojiApi
     }
 
     /**
-     * @return
+     * Finds an Emoji character by its code point.
+     * 
+     * @param codePoint
+     *            The Unicode code point. E.g.: "\uD83D\uDD36"
+     * @return an instance of EmojiChar for the given code point, or null if not
+     *         found
+     * @see Emoji#findByCodePoint(String)
+     */
+    public static EmojiChar byUnicode(String codePoint)
+    {
+        return Emoji.findByCodePoint(codePoint);
+    }
+
+    /**
+     * Returns the underlying EmojiApi instance. Intended to chain
+     * configurations.
+     * 
+     * @return the underlying EmojiApi instance
      */
     public static EmojiApi configure()
     {
@@ -38,8 +79,12 @@ public final class EmojiApi
     }
 
     /**
+     * Interpolates a code point to build an image tag representation suitable
+     * to be included in an hypertext document.
+     * 
      * @param codePoint
-     * @return
+     *            The Unicode code point
+     * @return an interpolated image tag for the given code point
      */
     public static String imageTagByUnicode(String codePoint)
     {
@@ -47,8 +92,13 @@ public final class EmojiApi
     }
 
     /**
+     * Replaces all Emoji characters by its HTML image tag, in the text
+     * provided.
+     * 
      * @param text
-     * @return
+     *            The text to be interpolated
+     * @return the text with all the Emoji characters replaced by its HTML image
+     *         tag
      */
     public static String replaceUnicodeWithImages(String text)
     {
@@ -56,8 +106,11 @@ public final class EmojiApi
     }
 
     /**
+     * Finds matching Emoji character by its annotated metadata.
+     * 
      * @param annotations
-     * @return
+     *            The annotation tags to be matched
+     * @return A list containing the instances of the marching characters
      */
     public static List<EmojiChar> search(String... annotations)
     {
@@ -72,7 +125,9 @@ public final class EmojiApi
     private String tagFormat;
 
     private UnicodeInterpolator interpolator;
+
     private String imageExt;
+
     private String assetsURL;
 
     private EmojiApi()
@@ -82,8 +137,12 @@ public final class EmojiApi
     }
 
     /**
+     * Configures the URL for image tag interpolation methods.
+     * 
      * @param assetsURL
-     * @return
+     *            The base url to be used in the image tag. E.g.
+     *            "https://127.0.0.1/img"
+     * @return the underlying EmojiApi instance for further chainning
      */
     public EmojiApi assetsURL(String assetsURL)
     {
@@ -92,8 +151,12 @@ public final class EmojiApi
     }
 
     /**
+     * Configures the URL for image tag interpolation methods.
+     * 
      * @param assetsURL
-     * @return
+     *            The base url to be used in the image tag. E.g.
+     *            "https://127.0.0.1/img"
+     * @return the underlying EmojiApi instance for further chainning
      */
     public EmojiApi assetsURL(URL assetsURL)
     {
@@ -101,8 +164,12 @@ public final class EmojiApi
     }
 
     /**
+     * Configures the format to be used in the image interpolation methods.
+     * 
      * @param format
-     * @return
+     *            The format to be used while building the image tag. Defaults:
+     *            "&lt;img class=\"emoji\" src=\"%s/{0}.%s\" alt=\"{1}\" /&gt;"
+     * @return the underlying EmojiApi instance for further chainning
      */
     public EmojiApi format(String format)
     {
@@ -111,7 +178,9 @@ public final class EmojiApi
     }
 
     /**
-     * @return
+     * Gets the configured assets URL to build image tags.
+     * 
+     * @return the current assets URL for image tags
      */
     public String getAssetsURL()
     {
@@ -119,7 +188,9 @@ public final class EmojiApi
     }
 
     /**
-     * @return
+     * Gets the configured format to build image tags.
+     * 
+     * @return the current format for image tags
      */
     public String getFormat()
     {
@@ -127,7 +198,9 @@ public final class EmojiApi
     }
 
     /**
-     * @return
+     * Gets the configured image extension to build image tags.
+     * 
+     * @return the current image extension
      */
     public String getImageExtension()
     {
@@ -135,8 +208,11 @@ public final class EmojiApi
     }
 
     /**
+     * Configures the extension for image interpolation methods.
+     * 
      * @param imageExt
-     * @return
+     *            The image extension. Defaults: "png"
+     * @return the underlying EmojiApi instance for further chainning
      */
     public EmojiApi imageExtension(String imageExt)
     {
@@ -190,29 +266,6 @@ public final class EmojiApi
     {
         this.interpolator = null;
         return this;
-    }
-
-    private static class LazyHolder
-    {
-        private static final EmojiApi INSTANCE = new EmojiApi();
-    }
-
-    /**
-     * @param codePoint
-     * @return
-     */
-    public static EmojiChar byUnicode(String codePoint)
-    {
-        return Emoji.findByCodePoint(codePoint);
-    }
-    
-    /**
-     * @param hex
-     * @return
-     */
-    public static EmojiChar byHexCode(String hex)
-    {
-        return Emoji.findByHexCode(hex);
     }
 
 }

@@ -27,6 +27,8 @@ Easy Emoji handling for the JVM. :green_heart:
  
 ### Emoji Succinct API
 
+Common use cases are provided by the EmojiApi class.
+
 **Image replacement**
 
 ```java
@@ -234,5 +236,5 @@ EmojiApi.byHexCode("1f536");
 
 ### Advanced
 
-[TBD]
+For advanced use cases not covered by the EmojiApi facade, please, refer to Emoji and EmojiInterpolator class implementations and its respective unit tests.
 
