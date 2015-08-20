@@ -5,19 +5,19 @@
     <groupId>com.github.mfornos</groupId>
     <version>1.2.3-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>humanize-slim</artifactId>
-  
+
   <name>Humanize for Java - Slim</name>
   <description>Lightweight Humanize core</description>
   <packaging>jar</packaging>
-  
+
   <properties>
     <guava.version>18.0</guava.version>
-    <prettytime.version>3.2.5.Final</prettytime.version>
+    <prettytime.version>4.0.0.Final</prettytime.version>
     <unidecode.version>0.0.7</unidecode.version>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -30,9 +30,9 @@
       <version>${prettytime.version}</version>
     </dependency>
     <dependency>
-		    <groupId>me.xuender</groupId>
-		    <artifactId>unidecode</artifactId>
-		    <version>${unidecode.version}</version>
-		</dependency>
+      <groupId>me.xuender</groupId>
+      <artifactId>unidecode</artifactId>
+      <version>${unidecode.version}</version>
+    </dependency>
   </dependencies>
 </project>

@@ -449,7 +449,7 @@ public class TestHumanize
         assertEquals(naturalTime(new Date(3155792597470L * 3L), new Date(0)), "3 centuries ago");
 
         // within locale
-        assertEquals(naturalTime(new Date(0), new Date(1), ES), "en un instante");
+        assertEquals(naturalTime(new Date(0), new Date(1), ES), "hace un instante");
         assertEquals(naturalTime(new Date(1), new Date(0), ES), "hace instantes");
         assertEquals(naturalTime(new Date(0), new Date(1000 * 60 * 12), ES), "dentro de 12 minutos");
         assertEquals(naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0), ES), "hace 1 día");
@@ -780,7 +780,7 @@ public class TestHumanize
 
         // within locale
         prettyTime = prettyTimeFormat(ES);
-        assertEquals(prettyTime.format(new Date(0), new Date(1)), "en un instante");
+        assertEquals(prettyTime.format(new Date(0), new Date(1)), "hace un instante");
 
     }
 

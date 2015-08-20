@@ -53,20 +53,20 @@ public class TestICUHumanize
         Locale DE = Locale.GERMAN;
 
         assertEquals(compactDecimal(-10, ES), "-10");
-        assertEquals(compactDecimal(-10000001, ES), "-10M");
+        assertEquals(compactDecimal(-10000001, ES), "-10 M");
 
         assertEquals(compactDecimal(-10, DE), "-10");
-        assertEquals(compactDecimal(-10000001, DE), "-10 Mio");
+        assertEquals(compactDecimal(-10000001, DE), "-10 Mio.");
 
         assertEquals(compactDecimal(10, ES), "10");
-        assertEquals(compactDecimal(100000, ES), "100K");
-        assertEquals(compactDecimal(100000000, ES), "100M");
-        assertEquals(compactDecimal(2394000, ES), "2,4M");
+        assertEquals(compactDecimal(100000, ES), "100 K");
+        assertEquals(compactDecimal(100000000, ES), "100 M");
+        assertEquals(compactDecimal(2394000, ES), "2,4 M");
 
         assertEquals(compactDecimal(10, DE), "10");
         assertEquals(compactDecimal(100000, DE), "100 Tsd.");
-        assertEquals(compactDecimal(100000000, DE), "100 Mio");
-        assertEquals(compactDecimal(2394000, DE), "2,4 Mio");
+        assertEquals(compactDecimal(100000000, DE), "100 Mio.");
+        assertEquals(compactDecimal(2394000, DE), "2,4 Mio.");
 
         assertEquals(compactDecimal(10, CompactStyle.LONG, ES), "10");
         assertEquals(compactDecimal(100000, CompactStyle.LONG, ES), "100 mil");
@@ -133,7 +133,7 @@ public class TestICUHumanize
         assertEquals(formatDate(DateFormat.MEDIUM, date), String.format("%d Dec 2015", day));
         assertEquals(formatDate(date), String.format("%02d/12/2015", day));
 
-        assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%d de dic. de 2015", day));
+        assertEquals(formatDate(DateFormat.MEDIUM, date, ES), String.format("%d dic. 2015", day));
         assertEquals(formatDate(date, ES), String.format("%d/12/15", day));
 
         assertEquals(formatDate(date, "dd/MM/yy"), String.format("%02d/12/15", day));
@@ -153,7 +153,7 @@ public class TestICUHumanize
         assertEquals(formatDateTime(date), String.format("%02d/12/2015, 22:10", day));
 
         assertEquals(formatDateTime(DateFormat.MEDIUM, DateFormat.MEDIUM, date, ES),
-                String.format("%d de dic. de 2015 22:10:00", day));
+                String.format("%d dic. 2015 22:10:00", day));
         assertEquals(formatDateTime(date, ES), String.format("%d/12/15 22:10", day));
 
     }
@@ -194,9 +194,9 @@ public class TestICUHumanize
     {
 
         int df = rand.nextInt(9);
-        assertEquals(formatPluralCurrency(34), "34 British pounds sterling");
-        assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds sterling");
-        assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds sterling");
+        assertEquals(formatPluralCurrency(34), "34 British pounds");
+        assertEquals(formatPluralCurrency(1000 + df), "1,00" + df + " British pounds");
+        assertEquals(formatPluralCurrency(10000.55 + df), "10,00" + df + ".55 British pounds");
 
         assertEquals(formatPluralCurrency(1, ES), "1 euro");
         assertEquals(formatPluralCurrency(100, ES), "100 euros");
@@ -380,7 +380,7 @@ public class TestICUHumanize
         Date date = newTestDate(day, 11, 2015);
 
         assertEquals(smartDateFormat(date, "MMMd"), day + " Dec");
-        assertEquals(smartDateFormat(date, "MMMd", ES), day + " de dic.");
+        assertEquals(smartDateFormat(date, "MMMd", ES), day + " dic.");
 
     }
 

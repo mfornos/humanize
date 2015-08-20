@@ -5,17 +5,17 @@
     <groupId>com.github.mfornos</groupId>
     <version>1.2.3-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>humanize-icu</artifactId>
-  
+
   <name>Humanize for Java - ICU</name>
   <description>International Components for Unicode support</description>
   <packaging>jar</packaging>
-  
+
   <properties>
-    <icu.version>54.1.1</icu.version>
+    <icu.version>55.1</icu.version>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.ibm.icu</groupId>
