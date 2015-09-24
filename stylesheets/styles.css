@@ -56,12 +56,20 @@ a {
   color: #49afcd;
   text-decoration: none;
   line-height: inherit;
-  -webkit-transition: color .4s ease-in;
-  -moz-transition: color .4s ease-in;
-  -ms-transition: color .4s ease-in;
-  -o-transition: color .4s ease-in;
-  transition: color .4s ease-in;
+  -webkit-transition: color .15s ease-in;
+  -moz-transition: color .15s ease-in;
+  -ms-transition: color .15s ease-in;
+  -o-transition: color .15s ease-in;
+  transition: color .15s ease-in;
   text-decoration: underline;
+}
+
+a:hover {
+  color: #FFFFFF;
+}
+
+h3 > a:hover {
+  color: #49afcd;
 }
 
 p {
@@ -117,16 +125,16 @@ h3 > a {
   border: 2px solid #888;
   padding: 15px 15px;
   border-radius: 3px;
-  -webkit-transition: background-color .2s ease-in,
-  border .2s ease;
-  -moz-transition: background-color .2s ease-in,
-  border .2s ease;
-  -ms-transition: background-color .2s ease-in,
-  border .2s ease;
-  -o-transition: background-color .2s ease-in,
-  border .2s ease;
-  transition: background-color .2s ease-in,
-  border .2s ease;
+  -webkit-transition: background-color .15s ease-in,
+  border .15s ease;
+  -moz-transition: background-color .15s ease-in,
+  border .15s ease;
+  -ms-transition: background-color .15s ease-in,
+  border .15s ease;
+  -o-transition: background-color .15s ease-in,
+  border .15s ease;
+  transition: background-color .15s ease-in,
+  border .15s ease;
 }
 
 h3 > a:hover {
