@@ -64,10 +64,6 @@ a {
   text-decoration: underline;
 }
 
-a:hover {
-  color: #1b5262;
-}
-
 p {
   margin: 0 0 20px;
   padding: 0;
@@ -116,25 +112,25 @@ h3.thick {
 }
 
 h3 > a {
-  line-height: 2.5em;
+  line-height: 3em;
   text-decoration: none;
-  border: 1px solid #888;
-  padding: 10px 10px;
+  border: 2px solid #888;
+  padding: 15px 15px;
   border-radius: 3px;
-  -webkit-transition: background-color .4s ease-in,
-  border .4s ease;
-  -moz-transition: background-color .4s ease-in,
-  border .4s ease;
-  -ms-transition: background-color .4s ease-in,
-  border .4s ease;
-  -o-transition: background-color .4s ease-in,
-  border .4s ease;
-  transition: background-color .4s ease-in,
-  border .4s ease;
+  -webkit-transition: background-color .2s ease-in,
+  border .2s ease;
+  -moz-transition: background-color .2s ease-in,
+  border .2s ease;
+  -ms-transition: background-color .2s ease-in,
+  border .2s ease;
+  -o-transition: background-color .2s ease-in,
+  border .2s ease;
+  transition: background-color .2s ease-in,
+  border .2s ease;
 }
 
 h3 > a:hover {
-  background-color: #49afcd;
+  background-color: rgba(73, 175, 205, 0.1);
   border-color: #49afcd;
 }
 
@@ -277,7 +273,7 @@ ul li:before
   }
 
   section .right {
-    float:none; 
+    float:none;
     width: 100%;
     margin-top: 1em;
     clear:both;
