@@ -2,3 +2,18 @@ language: java
 jdk:
   - openjdk6
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "EZcRb+f9HEF7xnzDcx7Mdk1L2xEVTvcr0KL0ZOgKL/+MVrKWrDceodHJKH9++9F296IXYVcx/UiMBIrozcj37BgA+DMAw1chIUjRZDw+1QM/5Jy7acL/o+RNHkGCXMW3Tsy/de96ePG7xZLNLchuXEN3DEZvTj6j8Ufdf8meQOE="
+
+addons:
+  coverity_scan:
+    project:
+      name: "mfornos/humanize"
+      description: "Build submitted via Travis CI"
+    notification_email: marc.fornos@gmail.com
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: master
