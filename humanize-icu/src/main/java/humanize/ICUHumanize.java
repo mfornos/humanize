@@ -1563,7 +1563,7 @@ public final class ICUHumanize
         {
             public String replace(String in)
             {
-                return UCharacter.getName(Strings.nullToEmpty(in), ", ");
+                return Strings.nullToEmpty(UCharacter.getName(in, ", "));
             }
         });
     }

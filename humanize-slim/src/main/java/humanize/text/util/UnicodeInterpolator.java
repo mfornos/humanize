@@ -3,6 +3,7 @@ package humanize.text.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Range;
 import com.google.common.escape.UnicodeEscaper;
 
@@ -34,7 +35,7 @@ public class UnicodeInterpolator extends UnicodeEscaper
         {
             if (range.contains(codePoint))
             {
-                return replacer.replace(Integer.toHexString(codePoint)).toCharArray();
+                return Strings.nullToEmpty(replacer.replace(Integer.toHexString(codePoint))).toCharArray();
             }
         }
 
