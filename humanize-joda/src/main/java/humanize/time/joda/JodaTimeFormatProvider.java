@@ -17,6 +17,8 @@ import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.PeriodFormatter;
 
+import com.google.common.base.Preconditions;
+
 /**
  * {@link FormatProvider} for Joda time.
  * 
@@ -38,7 +40,12 @@ public class JodaTimeFormatProvider implements FormatProvider
             public Format getFormat(String name, String args, Locale locale)
             {
                 Map<String, Format> mt = FormatTables.get(name);
+                Preconditions.checkArgument(mt != null, "There's no format instance for [%s]", name);
+
                 Format m = mt.get((args == null || args.length() < 1) ? FormatNames.DEFAULT : args);
+                Preconditions.checkArgument(m != null, "There's no signature in [%s] for the given args [%s]", name,
+                        args);
+
                 return ((ConfigurableFormat) m).withLocale(locale);
             }
         };
@@ -54,7 +61,7 @@ public class JodaTimeFormatProvider implements FormatProvider
     @Override
     public String getFormatName()
     {
-        return String.format("%s|%s|%s|%s", FormatNames.FORMAT_JODA_TIME, FormatNames.FORMAT_JODA_PERIOD,
+        return String.format("%s|%s|%s", FormatNames.FORMAT_JODA_TIME,
                 FormatNames.FORMAT_JODA_ISO_TIME, FormatNames.FORMAT_JODA_ISO_PERIOD);
     }
 
@@ -85,19 +92,16 @@ public class JodaTimeFormatProvider implements FormatProvider
 
         }
 
-        public T get()
+        public synchronized T get()
         {
             if (format == null)
             {
-                synchronized (method)
+                try
                 {
-                    try
-                    {
-                        format = invoke();
-                    } catch (Exception e)
-                    {
-                        throw new RuntimeException(e);
-                    }
+                    format = invoke();
+                } catch (Exception e)
+                {
+                    throw new RuntimeException(e);
                 }
             }
 
@@ -191,7 +195,7 @@ public class JodaTimeFormatProvider implements FormatProvider
             return format.parsePeriod(source);
         }
 
-        public Format withLocale(Locale locale)
+        public synchronized Format withLocale(Locale locale)
         {
             this.locale = locale;
             this.format = get();

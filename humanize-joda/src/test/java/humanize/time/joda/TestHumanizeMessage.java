@@ -6,7 +6,6 @@ import humanize.spi.MessageFormat;
 import java.util.Locale;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,10 +16,10 @@ public class TestHumanizeMessage
 
     private Locale defaultLocale;
 
-    @Test(expectedExceptions = ClassCastException.class)
-    public void boxing()
+    @Test(expectedExceptions = java.lang.IllegalArgumentException.class)
+    public void invalidFormat()
     {
-        Humanize.format("hello {0, joda.period}!!", "badguy");
+        Humanize.format("hello {0, joda.whatever}!!", "badguy");
         Assert.fail();
     }
 
@@ -44,21 +43,6 @@ public class TestHumanizeMessage
                 "hello 1970-W01-4!!");
         Assert.assertEquals(Humanize.format("hello {0, joda.iso.time, year.month.day}!!", zero),
                 "hello 1970-01-01!!");
-
-    }
-
-    @Test(threadPoolSize = 10, invocationCount = 10)
-    public void period()
-    {
-
-        Assert.assertEquals(Humanize.format("hello {0, joda.period}!!", new Period(0, 100000)),
-                "hello 1 minute and 40 seconds!!");
-
-        MessageFormat mf = Humanize.messageFormat("hello {0, joda.period}!!", Locale.FRENCH);
-        Assert.assertEquals(mf.render(new Period(0, 100000)), "hello 1 minute et 40 secondes!!");
-
-        mf = Humanize.messageFormat("hello {0, joda.period}!!", Locale.GERMAN);
-        Assert.assertEquals(mf.render(new Period(0, 100000)), "hello 1 Minute und 40 Sekunden!!");
 
     }
 

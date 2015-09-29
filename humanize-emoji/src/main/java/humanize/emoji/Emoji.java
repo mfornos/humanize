@@ -420,7 +420,7 @@ public final class Emoji
         abstract protected void consumeLine(String line);;
     }
 
-    private final class VendorKey
+    private static class VendorKey
     {
         private final Vendor vendor;
         private final String code;

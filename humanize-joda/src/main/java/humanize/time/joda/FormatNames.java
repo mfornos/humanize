@@ -63,7 +63,6 @@ public interface FormatNames
     static final String FORMAT_JODA_ISO_TIME = "joda.iso.time";
     static final String FORMAT_JODA_TIME = "joda.time";
     static final String FORMAT_JODA_ISO_PERIOD = "joda.iso.period";
-    static final String FORMAT_JODA_PERIOD = "joda.period";
 
     static final String DEFAULT = "default";
 

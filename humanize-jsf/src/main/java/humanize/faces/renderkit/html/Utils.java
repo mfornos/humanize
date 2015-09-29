@@ -426,7 +426,7 @@ public final class Utils
             }
             else if (value instanceof Double)
             {
-                return ((Number) value).doubleValue() == Double.MIN_VALUE;
+                return Double.compare(((Number) value).doubleValue(), Double.MIN_VALUE) == 0;
             }
             else if (value instanceof Long)
             {
@@ -438,7 +438,7 @@ public final class Utils
             }
             else if (value instanceof Float)
             {
-                return ((Number) value).floatValue() == Float.MIN_VALUE;
+                return Float.compare(((Number) value).floatValue(), Float.MIN_VALUE) == 0;
             }
             else if (value instanceof Short)
             {

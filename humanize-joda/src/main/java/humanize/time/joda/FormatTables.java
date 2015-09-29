@@ -5,13 +5,11 @@ import humanize.time.joda.JodaTimeFormatProvider.JodaPeriodFormat;
 
 import java.text.Format;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.ISODateTimeFormat;
 import org.joda.time.format.ISOPeriodFormat;
-import org.joda.time.format.PeriodFormat;
 
 /**
  * Table to find Joda time format variants by name.
@@ -35,7 +33,10 @@ public final class FormatTables implements FormatNames
 
     public static synchronized FormatTables instance()
     {
-        return instance == null ? new FormatTables() : instance;
+        if (instance == null) {
+            instance = new FormatTables();
+        }
+        return instance;
     }
 
     private final Map<String, Map<String, Format>> methods = new HashMap<String, Map<String, Format>>();
@@ -107,12 +108,6 @@ public final class FormatTables implements FormatNames
 
         methods.put(FORMAT_JODA_ISO_TIME, itm);
 
-        Map<String, Format> jpm = new HashMap<String, Format>();
-
-        jpm.put(DEFAULT, newPeriodFormat("wordBased", Locale.class));
-
-        methods.put(FORMAT_JODA_PERIOD, jpm);
-
         Map<String, Format> ipm = new HashMap<String, Format>();
 
         ipm.put(DEFAULT, newISOPeriodFormat("standard"));
@@ -160,11 +155,6 @@ public final class FormatTables implements FormatNames
         {
             throw new RuntimeException(e);
         }
-    }
-
-    private JodaPeriodFormat newPeriodFormat(String name, Class<?>... args)
-    {
-        return newPeriodFormat(PeriodFormat.class, name, args);
     }
 
 }
