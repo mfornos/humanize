@@ -73,6 +73,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
@@ -2962,12 +2963,12 @@ public final class Humanize
             return value.toString();
         }
 
-        for (Long num : prefixes.keySet())
+        for (Entry<Long, String> entry : prefixes.entrySet())
         {
-            if (num <= v)
+            if (entry.getKey() <= v)
             {
-                df.applyPattern(prefixes.get(num));
-                return stripZeros(df, df.format((v >= min) ? v / (float) num : v));
+                df.applyPattern(entry.getValue());
+                return stripZeros(df, df.format((v >= min) ? v / (float) entry.getKey() : v));
             }
         }
 

@@ -5,6 +5,8 @@ import humanize.util.Constants;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Strings;
+
 /**
  * Helper for text interpolation.
  * 
@@ -20,7 +22,8 @@ public class InterpolationHelper
 
         while (matcher.find())
         {
-            matcher.appendReplacement(sb, replacer.replace(matcher.group(1)));
+            String replacement = replacer.replace(matcher.group(1));
+            matcher.appendReplacement(sb, Strings.nullToEmpty(replacement));
         }
 
         matcher.appendTail(sb);

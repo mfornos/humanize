@@ -181,7 +181,7 @@ public final class Emoji
     private List<EmojiChar> _findByAnnotations(String annotations)
     {
         Collection<EmojiChar> found = new HashSet<EmojiChar>();
-        Collection<String> parts = Arrays.asList(annotations.split("\\s+"));
+        Collection<String> parts = Arrays.asList(Strings.nullToEmpty(annotations).split("\\s+"));
 
         for (String annotation : parts)
         {

@@ -445,7 +445,7 @@ public class ExtendedMessageFormat extends MessageFormat
         if (registry != null)
         {
             String name = desc;
-            String args = null;
+            String args = "";
             int i = desc.indexOf(START_FMT);
             if (i > 0)
             {

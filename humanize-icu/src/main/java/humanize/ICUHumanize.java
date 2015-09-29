@@ -37,6 +37,7 @@ import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ObjectArrays;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
@@ -1562,7 +1563,7 @@ public final class ICUHumanize
         {
             public String replace(String in)
             {
-                return UCharacter.getName(in, ", ");
+                return UCharacter.getName(Strings.nullToEmpty(in), ", ");
             }
         });
     }

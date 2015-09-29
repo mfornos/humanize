@@ -79,7 +79,7 @@ public final class EmojiInterpolator
         {
             // TODO better by 'de facto' standard aliases for compatibility?
             EmojiChar echar = Emoji.singleByAnnotations(alias);
-            String code = echar == null ? alias : echar.getCode().toLowerCase();
+            String code = echar == null ? Strings.nullToEmpty(alias) : echar.getCode().toLowerCase();
 
             return msgFormat.render(code, alias);
         }
@@ -95,7 +95,8 @@ public final class EmojiInterpolator
         @Override
         public String replace(String code)
         {
-            EmojiChar echar = Emoji.findByHexCode(code);
+            EmojiChar echar = Emoji.findByHexCode(Strings.nullToEmpty(code));
+            Preconditions.checkArgument(echar != null, "Code point not found [%s]", code);
             return msgFormat.render(code, echar.getName());
         }
     }

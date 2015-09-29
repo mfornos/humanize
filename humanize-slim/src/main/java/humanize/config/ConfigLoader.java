@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
 
+import com.google.common.base.Preconditions;
+
 public class ConfigLoader
 {
 
@@ -100,7 +102,9 @@ public class ConfigLoader
             }
             if (url == null)
             {
-                url = ConfigLoader.class.getClassLoader().getResource(path);
+                ClassLoader classLoader = ConfigLoader.class.getClassLoader();
+                Preconditions.checkNotNull(classLoader, "Class Loader Not Found! :(");
+                url = classLoader.getResource(path);
             }
         } catch (Exception e)
         {
