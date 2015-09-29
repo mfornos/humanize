@@ -1,4 +1,4 @@
-Humanize for Java [![Build Status](http://img.shields.io/travis/mfornos/humanize.svg)](https://travis-ci.org/mfornos/humanize)
+Humanize for Java [![Build Status](http://img.shields.io/travis/mfornos/humanize.svg)](https://travis-ci.org/mfornos/humanize) [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/6467.svg)](https://scan.coverity.com/projects/mfornos-humanize)
 =========================================================================
 
 Humanize is a Java facility for adding a “human touch” to data. It is thread-safe and supports per-thread internationalization.
@@ -70,15 +70,15 @@ Using Humanize is quite simple.
 
 ```java
 import static humanize.Humanize.binaryPrefix;
- 
+
 class SomeClass {
 
   void doSomething() {
-  
+
     String size = binaryPrefix(1325899906842624L); // 1.18 PB
-    
+
   }
-  
+
 }
 ```
 
@@ -160,16 +160,16 @@ Small set of code examples.
 ### Date&Time
 
 ```java
-naturalTime(new Date()); 
+naturalTime(new Date());
 // => "moments ago"
 
-naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0)); 
+naturalTime(new Date(1000 * 60 * 60 * 24 * 1), new Date(0));
 // => "1 day ago"
 
-naturalTime(new Date(0), new Date(1000 * 60 * 12)); 
+naturalTime(new Date(0), new Date(1000 * 60 * 12));
 // => "12 minutes from now"
 
-naturalTime(new Date(0), new Date(2629743830L * 3L)); 
+naturalTime(new Date(0), new Date(2629743830L * 3L));
 // => "3 months from now"
 ```
 
@@ -178,24 +178,24 @@ naturalTime(new Date(0), new Date(2629743830L * 3L));
 Date moment = new Date(1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 60 * 15 + 1000 * 60 * 38
                        + 1000 * 2);
 
-naturalTime(new Date(0), moment, TimeMillis.HOUR) 
+naturalTime(new Date(0), moment, TimeMillis.HOUR)
 // => "3 days 16 hours from now"
 
 naturalTime(moment, new Date(0), TimeMillis.SECOND)
 // => "3 days 15 hours 38 minutes ago"
 ```
- 
+
 
 ### Frequencies
 
 ```java
-paceFormat(1.75, TimeMillis.HOUR.millis()); 
+paceFormat(1.75, TimeMillis.HOUR.millis());
 // => "Approximately 2 times per hour."
 
-paceFormat(0, TimeMillis.SECOND.millis()); 
+paceFormat(0, TimeMillis.SECOND.millis());
 // => "Never."
 
-paceFormat(1, TimeMillis.WEEK.millis()); 
+paceFormat(1, TimeMillis.WEEK.millis());
 // => "Approximately one time per week."
 ```
 
@@ -267,10 +267,10 @@ msg.render(2);  // => "2 things"
 **Slugify**
 
 ```java
-slugify("Cet été, j’en ai rien à coder"); 
+slugify("Cet été, j’en ai rien à coder");
 // => "cet-ete-j-en-ai-rien-a-coder"
 
-slugify("\nキャンパス//.Я_♥@борщ\n^abc"); 
+slugify("\nキャンパス//.Я_♥@борщ\n^abc");
 // => "kiyanpasu-ia-borshch-abc"
 ```
 
@@ -349,7 +349,7 @@ humanize.text.MaskFormat
 Now you can use it
 
 ```java
-Humanize.format("{0,humanize,ordinal} greetings", 1); 
+Humanize.format("{0,humanize,ordinal} greetings", 1);
 // => "1st greetings"
 ```
 
