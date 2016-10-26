@@ -758,7 +758,7 @@ public final class Humanize
         int s = seconds.intValue();
         boolean neg = s < 0;
         s = Math.abs(s);
-        return style.format(context.get(), neg, (s / 3600) % 60, (s / 60) % 60, s % 60);
+        return style.format(context.get(), neg, s / 3600, (s / 60) % 60, s % 60);
     }
 
     /**

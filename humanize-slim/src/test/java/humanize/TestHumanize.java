@@ -184,6 +184,7 @@ public class TestHumanize
         assertEquals(duration(125, TimeStyle.FRENCH_DECIMAL), "2m 5s");
         assertEquals(duration(2015, TimeStyle.FRENCH_DECIMAL), "33m 35s");
 
+        assertEquals(duration(432061, TimeStyle.FRENCH_DECIMAL), "120h 1m 1s");
     }
 
     @Test
@@ -209,6 +210,7 @@ public class TestHumanize
         assertEquals(duration(125), "0:02:05");
         assertEquals(duration(2015), "0:33:35");
 
+        assertEquals(duration(432061), "120:01:01");
     }
 
     @Test
