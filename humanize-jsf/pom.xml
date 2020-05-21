@@ -21,7 +21,7 @@
     <jstl.version>1.1.2</jstl.version>
     <jetty.version>8.1.7.v20120910</jetty.version>
     <jsp-api.version>2.2</jsp-api.version>
-    <htmlunit.version>2.11</htmlunit.version>
+    <htmlunit.version>2.37.0</htmlunit.version>
   </properties>
   
   <dependencies>
